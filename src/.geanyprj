@@ -1,0 +1,7 @@
+[project]
+name=invoiceapp
+description=
+base_path=./
+run_cmd=
+regenerate=true
+type=Python

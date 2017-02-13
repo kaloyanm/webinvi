@@ -1,0 +1,28 @@
+{% extends 'invoices/invoice_list.html' %}
+
+{% block submenu %}
+<div class="row">
+    <div class="col-sm-12">
+        <span class="pull-right">
+            <a href="{% url 'list' %}" class="btn btn-default btn-sm" role="button">Изход</a>
+        </span>
+    </div>
+</div>
+{% endblock %}
+
+{% block subcontent %}
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="well">
+        <form class="form-horizontal" method="POST" action="">
+            {% csrf_token %}
+            <h5 class="text-center">Сигурни ли сте че искате да изтриете тази фактура ?</h5>
+            <p class="text-center">
+                <button type="submit" class="btn btn-danger btn-sm" role="button">Потвърждавам</button>
+            </p>
+        </form>
+        </div>
+    </div>
+{% endblock %}

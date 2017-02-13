@@ -1,0 +1,315 @@
+{% extends "invoices/invoice_list.html" %}
+{% load static %}
+
+{% block html_attr %}ng-app="invoiceApp"{% endblock %}
+
+{% block submenu %}
+{% endblock %}
+
+{% block subcontent %}
+<style type="text/css">
+input[type=text],  input[type=number],  select {
+    width: 100%;
+    border-top: 0px;
+    border-left: 0px solid lightgrey;
+    border-right: 0px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; /* future proofing */
+    -khtml-border-radius: 5px;
+}
+.inv_item_label {
+    background-color:lightgrey;
+    font-weight: normal;
+    font-size: 10pt;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+.inv_head_size {
+    margin-bottom: 25px;
+    padding-top: 15px;
+    border: 1px solid lightgrey;
+}
+.inv_row {
+    margin-bottom: 25px;
+}
+.inv_item_row {
+    margin-bottom: 2px;
+}
+.inv_table {
+    margin-top: 5px;
+    font-size: 10pt;
+    border-spacing: 2px;
+    border-collapse: separate;
+}
+.inv_table th {
+    background-color: lightgrey;
+}
+.inv_line_h {
+    line-height: 0.5;
+}
+.inv_btn_sm {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+<!-- .inv_cut_left {
+    margin-left: 0px;
+    padding-left: 0px;
+} -->
+</style>
+<form class="form-horizontal" method="POST" action="">
+{% csrf_token %}
+{% for field,errors in form.errors.items %}
+    {% for error in errors %}
+    <div class="row alert alert-warning" role="alert">{{field}}: {{error}}</div>
+    {% endfor %}
+{% endfor %}
+<div class="row inv_head_size img-rounded inv_line_h">
+    <div class="col-sm-6">
+        <h1 >{% if invoice_type == 'proforma' %}Проформа{%else%}Фактура{%endif%} <small>оригинал</small></h1>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Номер:</label>
+            <div class="col-sm-7">
+            {% if invoice_type == 'invoice' %}{{form.invoice_no}}{% else %}{{form.proforma_no}}{% endif %}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Дата на издаване:</label>
+            <div class="col-sm-7">
+            {{form.receiver_eik}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Данъчно събитие:</label>
+            <div class="col-sm-7">
+            {{form.receiver_dds}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row inv_line_h">
+    <div class="col-sm-6">
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Получател:</label>
+            <div class="col-sm-7">
+            {{form.receiver_name}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">БУЛСТАТ:</label>
+            <div class="col-sm-7">
+            {{form.receiver_eik}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Ин по ДДС:</label>
+            <div class="col-sm-7">
+            {{form.receiver_dds}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Град:</label>
+            <div class="col-sm-7">
+            {{form.receiver_city}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Адрес:</label>
+            <div class="col-sm-7">
+            {{form.receiver_address}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">МОЛ:</label>
+            <div class="col-sm-7">
+            {{form.receiver_mol}}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Доставчик:</label>
+            <div class="col-sm-7">
+            {{form.provider_name}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">БУЛСТАТ:</label>
+            <div class="col-sm-7">
+            {{form.provider_eik}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Ин по ДДС:</label>
+            <div class="col-sm-7">
+            {{form.provider_dds}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Град:</label>
+            <div class="col-sm-7">
+            {{form.provider_city}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Адрес:</label>
+            <div class="col-sm-7">
+            {{form.provider_address}}
+            </div>
+        </div>
+        <div class="form-group ">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">МОЛ:</label>
+            <div class="col-sm-7">
+            {{form.provider_mol}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row inv_line_h" ng-controller="InvoiceItemsController">
+    <div class="col-sm-12">
+    <table class="table inv_table">
+        <thead>
+            <tr>
+                <td>&nbsp;</td>
+                <th width="">Продукт/Услуга</th>
+                <th width="13%">Кол.</th>
+                <th width="13%">Мярка</th>
+                <th width="13%">Ед. Цена</th>
+                <th width="13%">Отстъпка</th>
+                <th width="13%">Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td scope="row">
+                    <a type="button" class="btn btn-default btn-xs inv_btn_sm" ng-click="remove($index)">-</a>
+                </td>
+                <td><input type="text" name="invoice_details[name]" value="{$item.name$}" /></td>
+                <td><input type="text" name="invoice_details[quantity]" value="{$item.quantity$}" /></td>
+                <td><input type="text" name="invoice_details[measure]" value="{$item.measure$}" /></td>
+                <td><input type="text" name="invoice_details[unit_price]" value="{$item.unit_price$}" /></td>
+                <td><input type="text" name="invoice_details[discount]" value="{$item.discount$}" /></td>
+                <td><input type="text" name="invoice_details[total]" value="{$item.total$}" /></td>
+            </tr>
+            <tr>
+                <td scope="row">
+                    <a type="button" class="btn btn-info btn-xs inv_btn_sm" ng-click="add()">+</a>
+                </td>
+                <td colspan="6"></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+<div class="row inv_line_h inv_row">
+    <div class="col-sm-6">
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Вид плащане:</label>
+            <div class="col-sm-7">
+            {{form.payment_type}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">IBAN:</label>
+            <div class="col-sm-7">
+            {{form.payment_iban}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">SWIFT:</label>
+            <div class="col-sm-7">
+            {{form.payment_swift}}
+            </div>
+        </div>
+        <div class="form-group ">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Банка:</label>
+            <div class="col-sm-7">
+            {{form.payment_bank}}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Данъчна основа:</label>
+            <div class="col-sm-7">
+            <input type="text" />
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">ДДС:</label>
+            <div class="col-sm-7">
+            {{form.payment_iban}}
+            </div>
+        </div>
+        <div class="form-group inv_item_row">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1"><b>Сума за плащане:</b></label>
+            <div class="col-sm-7">
+            {{form.payment_swift}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Словом:</label>
+            <div class="col-sm-7">
+            {{form.payment_bank}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row inv_line_h">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Получил:</label>
+            <div class="col-sm-7">
+            {{form.accepted_by}}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Съставил:</label>
+            <div class="col-sm-7">
+            {{form.created_by}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row inv_line_h">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label style="text-align:left;" class="col-sm-5 control-label img-rounded inv_item_label" for="exampleInputEmail1">Бележка:</label>
+        </div>
+    </div>
+</div>
+<div class="row inv_line_h">
+    <div class="col-sm-12">
+        {{form.note}}
+    </div>
+</div>
+<div class="row inv_line_h" style="margin-top: 15px;">
+    <div class="col-sm-6 col-sm-offset-6">
+        <span class="pull-right">
+            {% if object.pk %}
+            <a href="{% url 'delete' object.pk %}" class="btn btn-danger btn-sm" role="button">Изтриване</a>
+            {% endif%}
+            <button type="submit" href="{% url 'list' %}" class="btn btn-success btn-sm" role="button">Запазване</button>
+        </span>
+    </div>
+</div>
+
+</form>
+{% autoescape off %}
+<script type="text/javascript">
+window.invoice_details = {{invoice_details_json}};
+</script>
+<script src="{% static 'angular/angular.min.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+{% endautoescape %}
+{% endblock %}
+
+{% block footer_head %}{% endblock %}

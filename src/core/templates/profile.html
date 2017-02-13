@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class='col-sm-6' style="border-right: 1px dashed grey;">
+        <form method="POST" action="">
+        {% csrf_token %}
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Фирмена регистрация</a>
+        </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">&nbsp;</div>
+        </div>
+    
+        {% include "layout_form_vertical.html" with form=form %}
+        <button type="submit" class="btn btn-success btn-sm" role="button">Запазване</button>
+      </form>
+    </div>
+    <div class="col-sm-5 col-sm-offset-1 text-center"></div>
+</div>
+{% endblock %}

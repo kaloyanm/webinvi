@@ -1,0 +1,13 @@
+Django==1.9.7
+django-bower
+django-crispy-forms
+django-debug-toolbar
+django-extensions
+django-material
+pdfminer3k
+ply
+py
+pytest
+six
+sqlparse
+uWSGI

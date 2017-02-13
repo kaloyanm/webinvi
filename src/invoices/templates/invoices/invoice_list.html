@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load inv_utils %}
+{% block content %}
+
+{% block submenu %}
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <span class="pull-right">
+            Добави фактура:
+            <a href="{% url 'create' %}" class="btn btn-primary btn-sm" role="button">+ Данъчна</a>
+            <a href="{% url 'create-proforma' 'proforma' %}" class="btn btn-primary btn-sm" role="button">+ Проформа</a>
+        </span>
+    </div>
+</div>
+{% endblock %}
+<div class="row">&nbsp;</div>
+{% block subcontent %}
+<div class="row grey">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Клиент</th>
+                    <th>Тип</th>
+                    <th>Издадена на</th>
+                    <th>Номер</th>
+                    <th>Сума</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inv in invoices_list %}
+                <tr>
+                    <td scope="row">Djangsters UG</td>
+                    <td>{% if inv.invoice_type == 'invoice' %}Фактура{% else %}Проформа{% endif%}</td>
+                    <td><a href="{% url 'update' inv.pk %}">{{inv.released_at}}</a></td>
+                    <td>{% if inv.invoice_type == 'invoice' %}{{inv.invoice_no|nopad}}{% else %}{{inv.proforma_no|nopad}}{% endif%}</td>
+                    <td>{{inv.total}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock%}
+{% endblock %}

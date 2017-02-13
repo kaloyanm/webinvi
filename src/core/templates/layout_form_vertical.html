@@ -1,0 +1,8 @@
+{% load app_forms %}
+
+{% for field in form %}
+<div class="form-group {% if field.errors %}has-error{% endif %}">
+  <label for="{field.id_for_label}">{{field.label}}</label>
+  {{field|add_class:'form-control input-sm'}}
+</div>
+{% endfor %}

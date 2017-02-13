@@ -1,0 +1,50 @@
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="{% url 'home' %}">eDocPrint</a>
+</div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="#">Относно</a>
+        </li>
+        {% if user.is_active %}
+        <li>
+            <a href="{% url 'list' %}">Фактури</a>
+        </li>
+        {% endif %}
+        <li>
+            <a href="{% url 'contact' %}">За контакт</a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+        {% if user.is_active %}
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Настройки <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"></a></li>
+            <li><a href="{% url 'settings-company' %}">За фирмата</a></li>
+            <li><a href="{% url 'password' %}">Смяна на паролата</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Dropbox</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Експорт</a></li>
+          </ul>
+        </li>
+        <li>
+            <a href="{% url 'logout' %}">Изход</a>
+        </li>
+        {% else %}
+        <li>
+            <a href="{% url 'login' %}">Вход</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+<!-- /.navbar-collapse -->
