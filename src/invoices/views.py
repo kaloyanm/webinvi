@@ -2,15 +2,16 @@
 # from django.shortcuts import render
 import json
 
-from django.views import generic
-from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.forms.models import model_to_dict
+from django.http import HttpResponseRedirect
+from django.views import generic
 
-from .forms import InvoiceForm, InvoiceDetailForm
+from core.mixins import AppLoginRequiredMixin
+
+from .forms import InvoiceDetailForm, InvoiceForm
 from .models import Invoice, InvoiceItem
 from .templatetags.inv_utils import nopad
-from core.mixins import AppLoginRequiredMixin
 
 
 def get_invoice_details(request):
@@ -142,4 +143,3 @@ class DeleteInvoice(AppLoginRequiredMixin, generic.edit.DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('list')
-

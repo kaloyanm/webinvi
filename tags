@@ -16,58 +16,60 @@
 0007_auto_20160919_2031.py	src/invoices/migrations/0007_auto_20160919_2031.py	1;"	kind:file	line:1
 0008_auto_20161123_1819.py	src/invoices/migrations/0008_auto_20161123_1819.py	1;"	kind:file	line:1
 0009_remove_invoice_profile.py	src/invoices/migrations/0009_remove_invoice_profile.py	1;"	kind:file	line:1
-ALLOWED_HOSTS	src/invoiceapp/settings.py	/^ALLOWED_HOSTS = []$/;"	kind:variable	line:28
-AUTH_PASSWORD_VALIDATORS	src/invoiceapp/settings.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:117
+ALLOWED_HOSTS	src/config/settings.py	/^ALLOWED_HOSTS = ['*']$/;"	kind:variable	line:28
+AUTH_PASSWORD_VALIDATORS	src/config/settings.py	/^AUTH_PASSWORD_VALIDATORS = [$/;"	kind:variable	line:120
 AppConfig	src/core/apps.py	/^from django.apps import AppConfig$/;"	kind:namespace	line:1
 AppConfig	src/invoices/apps.py	/^from django.apps import AppConfig$/;"	kind:namespace	line:1
 AppLoginRequiredMixin	src/core/mixins.py	/^class AppLoginRequiredMixin(LoginRequiredMixin):$/;"	kind:class	line:5
-AppLoginRequiredMixin	src/invoices/views.py	/^from core.mixins import AppLoginRequiredMixin$/;"	kind:namespace	line:13
-AuthenticationForm	src/core/views.py	/^from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm$/;"	kind:namespace	line:3
-BASE_DIR	src/invoiceapp/settings.py	/^BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))$/;"	kind:variable	line:16
-BOWER_COMPONENTS_ROOT	src/invoiceapp/settings.py	/^BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'bower_install')$/;"	kind:variable	line:94
-BOWER_INSTALLED_APPS	src/invoiceapp/settings.py	/^BOWER_INSTALLED_APPS = ($/;"	kind:variable	line:95
-CRISPY_TEMPLATE_PACK	src/invoiceapp/settings.py	/^CRISPY_TEMPLATE_PACK = 'bootstrap3'$/;"	kind:variable	line:101
+AppLoginRequiredMixin	src/invoices/views.py	/^from core.mixins import AppLoginRequiredMixin$/;"	kind:namespace	line:10
+AuthenticationForm	src/core/views.py	/^from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,$/;"	kind:namespace	line:2
+BASE_DIR	src/config/settings.py	/^BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))$/;"	kind:variable	line:16
+BASICAUTH_PASSWORD	src/config/settings.py	/^BASICAUTH_PASSWORD = os.environ.get('BASICAUTH_PASSWORD', 'demo')$/;"	kind:variable	line:161
+BASICAUTH_USERNAME	src/config/settings.py	/^BASICAUTH_USERNAME = os.environ.get('BASICAUTH_USERNAME', 'demo')$/;"	kind:variable	line:160
+BASIC_AUTH	src/config/settings.py	/^BASIC_AUTH = os.environ.get('BASIC_AUTH', False)$/;"	kind:variable	line:159
+BOWER_COMPONENTS_ROOT	src/config/settings.py	/^BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'bower_install')$/;"	kind:variable	line:97
+BOWER_INSTALLED_APPS	src/config/settings.py	/^BOWER_INSTALLED_APPS = ($/;"	kind:variable	line:98
+BasicAuthMiddleware	src/core/middleware.py	/^class BasicAuthMiddleware(object):$/;"	kind:class	line:5
+COMPRESS_ENABLED	src/config/settings.py	/^COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', True)$/;"	kind:variable	line:157
+CRISPY_TEMPLATE_PACK	src/config/settings.py	/^CRISPY_TEMPLATE_PACK = 'bootstrap3'$/;"	kind:variable	line:104
 CompanySettingsForm	src/core/forms.py	/^class CompanySettingsForm(forms.ModelForm):$/;"	kind:class	line:6
-CompanySettingsForm	src/core/views.py	/^from core.forms import CompanySettingsForm$/;"	kind:namespace	line:8
+CompanySettingsForm	src/core/views.py	/^from core.forms import CompanySettingsForm$/;"	kind:namespace	line:10
 CompanySettingsView	src/core/urls.py	/^from core.views import logout_view, CompanySettingsView, PasswordChangeView$/;"	kind:namespace	line:3
-CompanySettingsView	src/core/views.py	/^class CompanySettingsView(generic.FormView):$/;"	kind:class	line:43
-ContactView	src/core/urls.py	/^from core.views import ContactView, HomeView, LoginView, RegistrationView$/;"	kind:namespace	line:2
-ContactView	src/core/views.py	/^class ContactView(generic.TemplateView):$/;"	kind:class	line:16
+CompanySettingsView	src/core/views.py	/^class CompanySettingsView(generic.FormView):$/;"	kind:class	line:57
 CoreConfig	src/core/apps.py	/^class CoreConfig(AppConfig):$/;"	kind:class	line:4
 CreateInvoice	src/invoices/urls.py	/^from invoices.views import ListInvoice, CreateInvoice, UpdateInvoice$/;"	kind:namespace	line:2
-CreateInvoice	src/invoices/views.py	/^class CreateInvoice(AppLoginRequiredMixin, generic.CreateView):$/;"	kind:class	line:48
-DATABASES	src/invoiceapp/settings.py	/^DATABASES = {$/;"	kind:variable	line:106
-DEBUG	src/invoiceapp/settings.py	/^DEBUG = True$/;"	kind:variable	line:26
+CreateInvoice	src/invoices/views.py	/^class CreateInvoice(AppLoginRequiredMixin, generic.CreateView):$/;"	kind:class	line:49
+DATABASES	src/config/settings.py	/^DATABASES = {$/;"	kind:variable	line:109
+DEBUG	src/config/settings.py	/^DEBUG = os.environ.get('DEBUG', True)$/;"	kind:variable	line:26
 DeleteInvoice	src/invoices/urls.py	/^from invoices.views import DeleteInvoice$/;"	kind:namespace	line:3
-DeleteInvoice	src/invoices/views.py	/^class DeleteInvoice(AppLoginRequiredMixin, generic.edit.DeleteView):$/;"	kind:class	line:140
-HomeView	src/core/urls.py	/^from core.views import ContactView, HomeView, LoginView, RegistrationView$/;"	kind:namespace	line:2
-HomeView	src/core/views.py	/^class HomeView(generic.TemplateView):$/;"	kind:class	line:20
-HttpResponseRedirect	src/core/views.py	/^from django.http import HttpResponseRedirect$/;"	kind:namespace	line:5
-HttpResponseRedirect	src/invoices/views.py	/^from django.http import HttpResponseRedirect$/;"	kind:namespace	line:6
-INSTALLED_APPS	src/invoiceapp/settings.py	/^INSTALLED_APPS = [$/;"	kind:variable	line:33
-INVOICE_MIN_NUMBER	src/invoiceapp/settings.py	/^INVOICE_MIN_NUMBER = 1000000000/;"	kind:variable	line:152
-INVOICE_NUMBERING_ORDERING	src/invoiceapp/settings.py	/^INVOICE_NUMBERING_ORDERING = 10$/;"	kind:variable	line:151
+DeleteInvoice	src/invoices/views.py	/^class DeleteInvoice(AppLoginRequiredMixin, generic.edit.DeleteView):$/;"	kind:class	line:141
+HttpResponse	src/core/middleware.py	/^from django.http import HttpResponse$/;"	kind:namespace	line:2
+HttpResponseRedirect	src/core/views.py	/^from django.http import HttpResponseRedirect$/;"	kind:namespace	line:6
+HttpResponseRedirect	src/invoices/views.py	/^from django.http import HttpResponseRedirect$/;"	kind:namespace	line:7
+INSTALLED_APPS	src/config/settings.py	/^INSTALLED_APPS = [$/;"	kind:variable	line:33
+INVOICE_MIN_NUMBER	src/config/settings.py	/^INVOICE_MIN_NUMBER = 1000000000$/;"	kind:variable	line:155
+INVOICE_NUMBERING_ORDERING	src/config/settings.py	/^INVOICE_NUMBERING_ORDERING = 10$/;"	kind:variable	line:154
 INVOICE_TYPES	src/invoices/models.py	/^INVOICE_TYPES = ($/;"	kind:variable	line:7
 Invoice	src/invoices/admin.py	/^from invoices.models import Invoice$/;"	kind:namespace	line:2
 Invoice	src/invoices/forms.py	/^from invoices.models import Invoice$/;"	kind:namespace	line:3
 Invoice	src/invoices/models.py	/^class Invoice(models.Model):$/;"	kind:class	line:13
-Invoice	src/invoices/views.py	/^from .models import Invoice, InvoiceItem$/;"	kind:namespace	line:11
+Invoice	src/invoices/views.py	/^from .models import Invoice, InvoiceItem$/;"	kind:namespace	line:13
 InvoiceAdmin	src/invoices/admin.py	/^class InvoiceAdmin(admin.ModelAdmin):$/;"	kind:class	line:13
 InvoiceDetailForm	src/invoices/forms.py	/^class InvoiceDetailForm(forms.Form):$/;"	kind:class	line:6
-InvoiceDetailForm	src/invoices/views.py	/^from .forms import InvoiceForm, InvoiceDetailForm$/;"	kind:namespace	line:10
+InvoiceDetailForm	src/invoices/views.py	/^from .forms import InvoiceDetailForm, InvoiceForm$/;"	kind:namespace	line:12
 InvoiceForm	src/invoices/forms.py	/^class InvoiceForm(forms.ModelForm):$/;"	kind:class	line:16
-InvoiceForm	src/invoices/views.py	/^from .forms import InvoiceForm, InvoiceDetailForm$/;"	kind:namespace	line:10
+InvoiceForm	src/invoices/views.py	/^from .forms import InvoiceDetailForm, InvoiceForm$/;"	kind:namespace	line:12
 InvoiceItem	src/invoices/models.py	/^class InvoiceItem(models.Model):$/;"	kind:class	line:70
-InvoiceItem	src/invoices/views.py	/^from .models import Invoice, InvoiceItem$/;"	kind:namespace	line:11
+InvoiceItem	src/invoices/views.py	/^from .models import Invoice, InvoiceItem$/;"	kind:namespace	line:13
 Invoices	src/invoices/modules.py	/^class Invoices(Module):$/;"	kind:class	line:5
 InvoicesConfig	src/invoices/apps.py	/^class InvoicesConfig(ModuleMixin, AppConfig):$/;"	kind:class	line:5
-LANGUAGE_CODE	src/invoiceapp/settings.py	/^LANGUAGE_CODE = 'bg-BG'$/;"	kind:variable	line:135
+LANGUAGE_CODE	src/config/settings.py	/^LANGUAGE_CODE = 'bg-BG'$/;"	kind:variable	line:138
 ListInvoice	src/invoices/urls.py	/^from invoices.views import ListInvoice, CreateInvoice, UpdateInvoice$/;"	kind:namespace	line:2
-ListInvoice	src/invoices/views.py	/^class ListInvoice(AppLoginRequiredMixin, generic.ListView):$/;"	kind:class	line:43
+ListInvoice	src/invoices/views.py	/^class ListInvoice(AppLoginRequiredMixin, generic.ListView):$/;"	kind:class	line:44
 LoginRequiredMixin	src/core/mixins.py	/^from django.contrib.auth.mixins import LoginRequiredMixin$/;"	kind:namespace	line:1
-LoginView	src/core/urls.py	/^from core.views import ContactView, HomeView, LoginView, RegistrationView$/;"	kind:namespace	line:2
-LoginView	src/core/views.py	/^class LoginView(generic.FormView):$/;"	kind:class	line:24
-MIDDLEWARE_CLASSES	src/invoiceapp/settings.py	/^MIDDLEWARE_CLASSES = [$/;"	kind:variable	line:49
+LoginView	src/core/urls.py	/^from core.views import contact, home, LoginView, RegistrationView$/;"	kind:namespace	line:2
+LoginView	src/core/views.py	/^class LoginView(generic.FormView):$/;"	kind:class	line:26
+MIDDLEWARE_CLASSES	src/config/settings.py	/^MIDDLEWARE_CLASSES = [$/;"	kind:variable	line:50
 Max	src/invoices/models.py	/^from django.db.models import Max$/;"	kind:namespace	line:2
 Meta	src/core/forms.py	/^    class Meta:$/;"	kind:class	line:14
 Meta	src/invoices/forms.py	/^    class Meta:$/;"	kind:class	line:52
@@ -86,40 +88,39 @@ Migration	src/invoices/migrations/0009_remove_invoice_profile.py	/^class Migrati
 Module	src/invoices/modules.py	/^from material.frontend import Module$/;"	kind:namespace	line:2
 ModuleMixin	src/invoices/apps.py	/^from material.frontend.apps import ModuleMixin$/;"	kind:namespace	line:2
 PAYMENT_TYPES	src/invoices/forms.py	/^    PAYMENT_TYPES = ($/;"	kind:variable	line:17
-PasswordChangeForm	src/core/views.py	/^from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm$/;"	kind:namespace	line:3
+PasswordChangeForm	src/core/views.py	/^from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,$/;"	kind:namespace	line:2
 PasswordChangeView	src/core/urls.py	/^from core.views import logout_view, CompanySettingsView, PasswordChangeView$/;"	kind:namespace	line:3
-PasswordChangeView	src/core/views.py	/^class PasswordChangeView(generic.FormView):$/;"	kind:class	line:33
+PasswordChangeView	src/core/views.py	/^class PasswordChangeView(generic.FormView):$/;"	kind:class	line:36
 Profile	src/core/admin.py	/^from .models import Profile$/;"	kind:namespace	line:2
 Profile	src/core/forms.py	/^from core.models import Profile$/;"	kind:namespace	line:3
 Profile	src/core/models.py	/^class Profile(models.Model):$/;"	kind:class	line:6
 Profile	src/invoices/forms.py	/^from core.models import Profile$/;"	kind:namespace	line:4
 Profile	src/invoices/models.py	/^from core.models import Profile$/;"	kind:namespace	line:5
-ROOT_URLCONF	src/invoiceapp/settings.py	/^ROOT_URLCONF = 'invoiceapp.urls'$/;"	kind:variable	line:60
-RegistrationView	src/core/urls.py	/^from core.views import ContactView, HomeView, LoginView, RegistrationView$/;"	kind:namespace	line:2
-RegistrationView	src/core/views.py	/^class RegistrationView(generic.FormView):$/;"	kind:class	line:38
-SESSION_ENGINE	src/invoiceapp/settings.py	/^SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'$/;"	kind:variable	line:148
-SITE_ID	src/invoiceapp/settings.py	/^SITE_ID = 1$/;"	kind:variable	line:61
-STATICFILES_FINDERS	src/invoiceapp/settings.py	/^STATICFILES_FINDERS = [$/;"	kind:variable	line:87
-STATIC_ROOT	src/invoiceapp/settings.py	/^STATIC_ROOT = os.path.join(BASE_DIR, 'static')$/;"	kind:variable	line:93
-STATIC_URL	src/invoiceapp/settings.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:145
-TEMPLATES	src/invoiceapp/settings.py	/^TEMPLATES = [$/;"	kind:variable	line:63
-TIME_ZONE	src/invoiceapp/settings.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:136
+ROOT_URLCONF	src/config/settings.py	/^ROOT_URLCONF = 'config.urls'$/;"	kind:variable	line:62
+RegistrationView	src/core/urls.py	/^from core.views import contact, home, LoginView, RegistrationView$/;"	kind:namespace	line:2
+RegistrationView	src/core/views.py	/^class RegistrationView(generic.FormView):$/;"	kind:class	line:52
+SESSION_ENGINE	src/config/settings.py	/^SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'$/;"	kind:variable	line:151
+SITE_ID	src/config/settings.py	/^SITE_ID = 1$/;"	kind:variable	line:63
+STATICFILES_FINDERS	src/config/settings.py	/^STATICFILES_FINDERS = [$/;"	kind:variable	line:89
+STATIC_ROOT	src/config/settings.py	/^STATIC_ROOT = os.path.join(BASE_DIR, 'static')$/;"	kind:variable	line:96
+STATIC_URL	src/config/settings.py	/^STATIC_URL = '\/static\/'$/;"	kind:variable	line:148
+TEMPLATES	src/config/settings.py	/^TEMPLATES = [$/;"	kind:variable	line:65
+TIME_ZONE	src/config/settings.py	/^TIME_ZONE = 'UTC'$/;"	kind:variable	line:139
 TestCase	src/core/tests.py	/^from django.test import TestCase$/;"	kind:namespace	line:1
 TestCase	src/invoices/tests.py	/^from django.test import TestCase$/;"	kind:namespace	line:1
-USE_I18N	src/invoiceapp/settings.py	/^USE_I18N = True$/;"	kind:variable	line:137
-USE_L10N	src/invoiceapp/settings.py	/^USE_L10N = True$/;"	kind:variable	line:138
-USE_TZ	src/invoiceapp/settings.py	/^USE_TZ = True$/;"	kind:variable	line:139
+USE_I18N	src/config/settings.py	/^USE_I18N = True$/;"	kind:variable	line:140
+USE_L10N	src/config/settings.py	/^USE_L10N = True$/;"	kind:variable	line:141
+USE_TZ	src/config/settings.py	/^USE_TZ = True$/;"	kind:variable	line:142
 UpdateInvoice	src/invoices/urls.py	/^from invoices.views import ListInvoice, CreateInvoice, UpdateInvoice$/;"	kind:namespace	line:2
-UpdateInvoice	src/invoices/views.py	/^class UpdateInvoice(AppLoginRequiredMixin, generic.edit.UpdateView):$/;"	kind:class	line:115
+UpdateInvoice	src/invoices/views.py	/^class UpdateInvoice(AppLoginRequiredMixin, generic.edit.UpdateView):$/;"	kind:class	line:116
 User	src/core/models.py	/^from django.contrib.auth.models import User$/;"	kind:namespace	line:2
 User	src/invoices/models.py	/^from django.contrib.auth.models import User$/;"	kind:namespace	line:4
-UserCreationForm	src/core/views.py	/^from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm$/;"	kind:namespace	line:3
-WSGI_APPLICATION	src/invoiceapp/settings.py	/^WSGI_APPLICATION = 'invoiceapp.wsgi.application'$/;"	kind:variable	line:84
+WSGI_APPLICATION	src/config/settings.py	/^WSGI_APPLICATION = 'config.wsgi.application'$/;"	kind:variable	line:86
 _	src/core/forms.py	/^from django.utils.translation import ugettext_lazy as _$/;"	kind:namespace	line:2
-__init__	src/invoices/views.py	/^    def __init__(self, *args, **kwargs):$/;"	kind:member	line:53
+__init__	src/invoices/views.py	/^    def __init__(self, *args, **kwargs):$/;"	kind:member	line:54
+__init__.py	src/config/__init__.py	1;"	kind:file	line:1
 __init__.py	src/core/__init__.py	1;"	kind:file	line:1
 __init__.py	src/core/migrations/__init__.py	1;"	kind:file	line:1
-__init__.py	src/invoiceapp/__init__.py	1;"	kind:file	line:1
 __init__.py	src/invoices/__init__.py	1;"	kind:file	line:1
 __init__.py	src/invoices/importers/__init__.py	1;"	kind:file	line:1
 __init__.py	src/invoices/migrations/__init__.py	1;"	kind:file	line:1
@@ -131,16 +132,19 @@ __str__	src/invoices/models.py	/^    def __str__(self):$/;"	kind:member	line:80
 accepted_by	src/invoices/forms.py	/^    accepted_by = forms.CharField(required=False)$/;"	kind:variable	line:49
 accepted_by	src/invoices/models.py	/^    accepted_by = models.CharField(max_length=255)$/;"	kind:variable	line:37
 add_class	src/core/templatetags/app_forms.py	/^def add_class(field, class_name):$/;"	kind:function	line:6
+admin	src/config/urls.py	/^from django.contrib import admin$/;"	kind:namespace	line:5
 admin	src/core/admin.py	/^from django.contrib import admin$/;"	kind:namespace	line:1
-admin	src/invoiceapp/urls.py	/^from django.contrib import admin$/;"	kind:namespace	line:21
 admin	src/invoices/admin.py	/^from django.contrib import admin$/;"	kind:namespace	line:1
 admin.py	src/core/admin.py	1;"	kind:file	line:1
 admin.py	src/invoices/admin.py	1;"	kind:file	line:1
 app_forms.py	src/core/templatetags/app_forms.py	1;"	kind:file	line:1
-application	src/invoiceapp/wsgi.py	/^application = get_wsgi_application()$/;"	kind:variable	line:16
+application	src/config/wsgi.py	/^application = get_wsgi_application()$/;"	kind:variable	line:16
 apps.py	src/core/apps.py	1;"	kind:file	line:1
 apps.py	src/invoices/apps.py	1;"	kind:file	line:1
-context_object_name	src/invoices/views.py	/^    context_object_name = 'invoices_list'$/;"	kind:variable	line:45
+base64	src/core/middleware.py	/^        import base64$/;"	kind:namespace	line:18
+contact	src/core/urls.py	/^from core.views import contact, home, LoginView, RegistrationView$/;"	kind:namespace	line:2
+contact	src/core/views.py	/^def contact(request):$/;"	kind:function	line:18
+context_object_name	src/invoices/views.py	/^    context_object_name = 'invoices_list'$/;"	kind:variable	line:46
 created_by	src/invoices/forms.py	/^    created_by = forms.CharField(required=False)$/;"	kind:variable	line:48
 created_by	src/invoices/models.py	/^    created_by = models.CharField(max_length=255)$/;"	kind:variable	line:36
 db	src/core/migrations/0001_initial.py	/^import django.db.models.deletion$/;"	kind:namespace	line:7
@@ -187,37 +191,41 @@ field	src/invoices/migrations/0008_auto_20161123_1819.py	/^            field=mod
 fields	src/core/migrations/0001_initial.py	/^            fields=[$/;"	kind:variable	line:21
 fields	src/invoices/migrations/0001_initial.py	/^            fields=[$/;"	kind:variable	line:22
 fields	src/invoices/migrations/0001_initial.py	/^            fields=[$/;"	kind:variable	line:54
-form_class	src/core/views.py	/^    form_class = AuthenticationForm$/;"	kind:variable	line:25
-form_class	src/core/views.py	/^    form_class = CompanySettingsForm$/;"	kind:variable	line:44
-form_class	src/core/views.py	/^    form_class = PasswordChangeForm$/;"	kind:variable	line:34
-form_class	src/core/views.py	/^    form_class = UserCreationForm$/;"	kind:variable	line:39
-form_class	src/invoices/views.py	/^    form_class = InvoiceForm$/;"	kind:variable	line:117
-form_class	src/invoices/views.py	/^    form_class = InvoiceForm$/;"	kind:variable	line:49
-form_invalid	src/invoices/views.py	/^    def form_invalid(self, form, invalid_forms):$/;"	kind:member	line:104
-form_valid	src/core/views.py	/^    def form_valid(self, form):$/;"	kind:member	line:29
-form_valid	src/core/views.py	/^    def form_valid(self, form):$/;"	kind:member	line:48
-form_valid	src/invoices/views.py	/^    def form_valid(self, form, valid_forms):$/;"	kind:member	line:90
+form_class	src/core/views.py	/^    form_class = AuthenticationForm$/;"	kind:variable	line:27
+form_class	src/core/views.py	/^    form_class = CompanySettingsForm$/;"	kind:variable	line:58
+form_class	src/core/views.py	/^    form_class = PasswordChangeForm$/;"	kind:variable	line:37
+form_class	src/core/views.py	/^    form_class = UserCreationForm$/;"	kind:variable	line:53
+form_class	src/invoices/views.py	/^    form_class = InvoiceForm$/;"	kind:variable	line:118
+form_class	src/invoices/views.py	/^    form_class = InvoiceForm$/;"	kind:variable	line:50
+form_invalid	src/invoices/views.py	/^    def form_invalid(self, form, invalid_forms):$/;"	kind:member	line:105
+form_valid	src/core/views.py	/^    def form_valid(self, form):$/;"	kind:member	line:31
+form_valid	src/core/views.py	/^    def form_valid(self, form):$/;"	kind:member	line:46
+form_valid	src/core/views.py	/^    def form_valid(self, form):$/;"	kind:member	line:62
+form_valid	src/invoices/views.py	/^    def form_valid(self, form, valid_forms):$/;"	kind:member	line:91
 forms	src/core/forms.py	/^from django import forms$/;"	kind:namespace	line:1
 forms	src/invoices/forms.py	/^from django import forms$/;"	kind:namespace	line:1
 forms.py	src/core/forms.py	1;"	kind:file	line:1
 forms.py	src/invoices/forms.py	1;"	kind:file	line:1
-generic	src/core/views.py	/^from django.views import generic$/;"	kind:namespace	line:1
-generic	src/invoices/views.py	/^from django.views import generic$/;"	kind:namespace	line:5
-get	src/invoices/views.py	/^    def get(self, request, invoice_type='invoice', **kwargs):$/;"	kind:member	line:59
-get_context_data	src/invoices/views.py	/^    def get_context_data(self):$/;"	kind:member	line:123
-get_context_data	src/invoices/views.py	/^    def get_context_data(self, **kwargs):$/;"	kind:member	line:83
-get_initial	src/core/views.py	/^    def get_initial(self):$/;"	kind:member	line:54
-get_initial	src/invoices/views.py	/^    def get_initial(self):$/;"	kind:member	line:107
-get_initial	src/invoices/views.py	/^    def get_initial(self):$/;"	kind:member	line:134
-get_invoice_details	src/invoices/views.py	/^def get_invoice_details(request):$/;"	kind:function	line:16
+generic	src/core/views.py	/^from django.views import generic$/;"	kind:namespace	line:8
+generic	src/invoices/views.py	/^from django.views import generic$/;"	kind:namespace	line:8
+get	src/invoices/views.py	/^    def get(self, request, invoice_type='invoice', **kwargs):$/;"	kind:member	line:60
+get_context_data	src/invoices/views.py	/^    def get_context_data(self):$/;"	kind:member	line:124
+get_context_data	src/invoices/views.py	/^    def get_context_data(self, **kwargs):$/;"	kind:member	line:84
+get_form_kwargs	src/core/views.py	/^    def get_form_kwargs(self):$/;"	kind:member	line:40
+get_initial	src/core/views.py	/^    def get_initial(self):$/;"	kind:member	line:68
+get_initial	src/invoices/views.py	/^    def get_initial(self):$/;"	kind:member	line:108
+get_initial	src/invoices/views.py	/^    def get_initial(self):$/;"	kind:member	line:135
+get_invoice_details	src/invoices/views.py	/^def get_invoice_details(request):$/;"	kind:function	line:17
 get_next_invoice_no	src/invoices/models.py	/^    def get_next_invoice_no():$/;"	kind:member	line:52
 get_next_proforma_no	src/invoices/models.py	/^    def get_next_proforma_no():$/;"	kind:member	line:57
-get_success_url	src/invoices/views.py	/^    def get_success_url(self):$/;"	kind:member	line:120
-get_success_url	src/invoices/views.py	/^    def get_success_url(self):$/;"	kind:member	line:143
-get_wsgi_application	src/invoiceapp/wsgi.py	/^from django.core.wsgi import get_wsgi_application$/;"	kind:namespace	line:12
+get_success_url	src/invoices/views.py	/^    def get_success_url(self):$/;"	kind:member	line:121
+get_success_url	src/invoices/views.py	/^    def get_success_url(self):$/;"	kind:member	line:144
+get_wsgi_application	src/config/wsgi.py	/^from django.core.wsgi import get_wsgi_application$/;"	kind:namespace	line:12
 has_add_permission	src/invoices/admin.py	/^    def has_add_permission(self, request):$/;"	kind:member	line:14
+home	src/core/urls.py	/^from core.views import contact, home, LoginView, RegistrationView$/;"	kind:namespace	line:2
+home	src/core/views.py	/^def home(request):$/;"	kind:function	line:22
 icon	src/invoices/modules.py	/^    icon = 'mdi-image-compare'$/;"	kind:variable	line:6
-include	src/invoiceapp/urls.py	/^from django.conf.urls import url, include$/;"	kind:namespace	line:18
+include	src/config/urls.py	/^from django.conf.urls import url, include$/;"	kind:namespace	line:2
 initial	src/core/migrations/0001_initial.py	/^    initial = True$/;"	kind:variable	line:12
 initial	src/invoices/migrations/0001_initial.py	/^    initial = True$/;"	kind:variable	line:13
 inlineformset_factory	src/invoices/forms.py	/^from django.forms import inlineformset_factory$/;"	kind:namespace	line:2
@@ -228,14 +236,15 @@ invoice_no	src/invoices/models.py	/^    invoice_no = models.PositiveIntegerField
 invoice_type	src/invoices/models.py	/^    invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')$/;"	kind:variable	line:22
 json	src/invoices/views.py	/^import json$/;"	kind:namespace	line:3
 last_updated	src/core/models.py	/^    last_updated = models.DateTimeField(auto_now_add=True, blank=True, null=True)$/;"	kind:variable	line:16
-login	src/core/views.py	/^from django.contrib.auth import logout, login$/;"	kind:namespace	line:4
+login	src/core/views.py	/^from django.contrib.auth import login, logout, update_session_auth_hash$/;"	kind:namespace	line:1
 login_url	src/core/mixins.py	/^    login_url = reverse_lazy('login')/;"	kind:variable	line:6
-logout	src/core/views.py	/^from django.contrib.auth import logout, login$/;"	kind:namespace	line:4
+logout	src/core/views.py	/^from django.contrib.auth import login, logout, update_session_auth_hash$/;"	kind:namespace	line:1
 logout_view	src/core/urls.py	/^from core.views import logout_view, CompanySettingsView, PasswordChangeView$/;"	kind:namespace	line:3
-logout_view	src/core/views.py	/^def logout_view(request):$/;"	kind:function	line:10
+logout_view	src/core/views.py	/^def logout_view(request):$/;"	kind:function	line:13
 manage.py	src/manage.py	1;"	kind:file	line:1
 measure	src/invoices/forms.py	/^    measure = forms.CharField(max_length=55)$/;"	kind:variable	line:10
 measure	src/invoices/models.py	/^    measure = models.CharField(max_length=55)$/;"	kind:variable	line:75
+middleware.py	src/core/middleware.py	1;"	kind:file	line:1
 migrations	src/core/migrations/0001_initial.py	/^from django.db import migrations, models$/;"	kind:namespace	line:6
 migrations	src/core/migrations/0002_profile_last_updated.py	/^from django.db import migrations, models$/;"	kind:namespace	line:5
 migrations	src/core/migrations/0003_auto_20161123_1828.py	/^from django.db import migrations, models$/;"	kind:namespace	line:5
@@ -252,9 +261,9 @@ mixins.py	src/core/mixins.py	1;"	kind:file	line:1
 mixins.py	src/invoices/mixins.py	1;"	kind:file	line:1
 model	src/core/forms.py	/^        model = Profile$/;"	kind:variable	line:15
 model	src/invoices/forms.py	/^        model = Invoice$/;"	kind:variable	line:53
-model	src/invoices/views.py	/^    model = Invoice$/;"	kind:variable	line:116
-model	src/invoices/views.py	/^    model = Invoice$/;"	kind:variable	line:141
-model	src/invoices/views.py	/^    model = Invoice$/;"	kind:variable	line:44
+model	src/invoices/views.py	/^    model = Invoice$/;"	kind:variable	line:117
+model	src/invoices/views.py	/^    model = Invoice$/;"	kind:variable	line:142
+model	src/invoices/views.py	/^    model = Invoice$/;"	kind:variable	line:45
 model_name	src/core/migrations/0002_profile_last_updated.py	/^            model_name='profile',$/;"	kind:variable	line:16
 model_name	src/core/migrations/0003_auto_20161123_1828.py	/^            model_name='profile',$/;"	kind:variable	line:16
 model_name	src/invoices/migrations/0002_auto_20160906_1358.py	/^            model_name='invoice',$/;"	kind:variable	line:16
@@ -277,8 +286,8 @@ model_name	src/invoices/migrations/0008_auto_20161123_1819.py	/^            mode
 model_name	src/invoices/migrations/0008_auto_20161123_1819.py	/^            model_name='invoice',$/;"	kind:variable	line:38
 model_name	src/invoices/migrations/0008_auto_20161123_1819.py	/^            model_name='invoice',$/;"	kind:variable	line:42
 model_name	src/invoices/migrations/0009_remove_invoice_profile.py	/^            model_name='invoice',$/;"	kind:variable	line:16
-model_to_dict	src/core/views.py	/^from django.forms.models import model_to_dict$/;"	kind:namespace	line:6
-model_to_dict	src/invoices/views.py	/^from django.forms.models import model_to_dict$/;"	kind:namespace	line:8
+model_to_dict	src/core/views.py	/^from django.forms.models import model_to_dict$/;"	kind:namespace	line:5
+model_to_dict	src/invoices/views.py	/^from django.forms.models import model_to_dict$/;"	kind:namespace	line:6
 models	src/core/migrations/0001_initial.py	/^from django.db import migrations, models$/;"	kind:namespace	line:6
 models	src/core/migrations/0001_initial.py	/^import django.db.models.deletion$/;"	kind:namespace	line:7
 models	src/core/migrations/0002_profile_last_updated.py	/^from django.db import migrations, models$/;"	kind:namespace	line:5
@@ -328,7 +337,7 @@ name	src/invoices/migrations/0009_remove_invoice_profile.py	/^            name='
 name	src/invoices/models.py	/^    name = models.CharField(max_length=155)$/;"	kind:variable	line:73
 new_name	src/invoices/migrations/0007_auto_20160919_2031.py	/^            new_name='invoice',$/;"	kind:variable	line:18
 nopad	src/invoices/templatetags/inv_utils.py	/^def nopad(val):$/;"	kind:function	line:6
-nopad	src/invoices/views.py	/^from .templatetags.inv_utils import nopad$/;"	kind:namespace	line:12
+nopad	src/invoices/views.py	/^from .templatetags.inv_utils import nopad$/;"	kind:namespace	line:14
 note	src/invoices/forms.py	/^    note = forms.CharField(required=False)$/;"	kind:variable	line:50
 note	src/invoices/models.py	/^    note = models.TextField()$/;"	kind:variable	line:39
 old_name	src/invoices/migrations/0007_auto_20160919_2031.py	/^            old_name='inv',$/;"	kind:variable	line:17
@@ -344,8 +353,8 @@ operations	src/invoices/migrations/0006_auto_20160907_0853.py	/^    operations =
 operations	src/invoices/migrations/0007_auto_20160919_2031.py	/^    operations = [$/;"	kind:variable	line:14
 operations	src/invoices/migrations/0008_auto_20161123_1819.py	/^    operations = [$/;"	kind:variable	line:16
 operations	src/invoices/migrations/0009_remove_invoice_profile.py	/^    operations = [$/;"	kind:variable	line:14
-os	src/invoiceapp/settings.py	/^import os$/;"	kind:namespace	line:13
-os	src/invoiceapp/wsgi.py	/^import os$/;"	kind:namespace	line:10
+os	src/config/settings.py	/^import os$/;"	kind:namespace	line:13
+os	src/config/wsgi.py	/^import os$/;"	kind:namespace	line:10
 os	src/manage.py	/^import os$/;"	kind:namespace	line:2
 payment_bank	src/invoices/forms.py	/^    payment_bank = forms.CharField(required=False)$/;"	kind:variable	line:43
 payment_bank	src/invoices/models.py	/^    payment_bank = models.CharField(max_length=255)$/;"	kind:variable	line:31
@@ -355,7 +364,8 @@ payment_swift	src/invoices/forms.py	/^    payment_swift = forms.CharField(requir
 payment_swift	src/invoices/models.py	/^    payment_swift = models.CharField(max_length=255)$/;"	kind:variable	line:30
 payment_type	src/invoices/forms.py	/^    payment_type = forms.ChoiceField(choices=PAYMENT_TYPES)$/;"	kind:variable	line:40
 payment_type	src/invoices/models.py	/^    payment_type = models.CharField(max_length=255)$/;"	kind:variable	line:28
-post	src/invoices/views.py	/^    def post(self, request, invoice_type='invoice', **kwargs):$/;"	kind:member	line:63
+post	src/invoices/views.py	/^    def post(self, request, invoice_type='invoice', **kwargs):$/;"	kind:member	line:64
+process_request	src/core/middleware.py	/^    def process_request(self,request):$/;"	kind:member	line:14
 proforma_no	src/invoices/forms.py	/^    proforma_no = forms.IntegerField(required=False)$/;"	kind:variable	line:36
 proforma_no	src/invoices/models.py	/^    proforma_no = models.PositiveIntegerField(blank=True, null=True, unique=True)$/;"	kind:variable	line:24
 provider_address	src/core/forms.py	/^    provider_address = forms.CharField(label=_(u'Адрес'))$/;"	kind:variable	line:11
@@ -394,20 +404,22 @@ register	src/core/templatetags/app_forms.py	/^register = template.Library()$/;"	
 register	src/invoices/templatetags/inv_utils.py	/^register = template.Library()$/;"	kind:variable	line:4
 released_at	src/invoices/forms.py	/^    released_at = forms.DateField(required=False)$/;"	kind:variable	line:37
 released_at	src/invoices/models.py	/^    released_at = models.DateField(blank=True, null=True, auto_now_add=True)$/;"	kind:variable	line:25
+render_to_response	src/core/views.py	/^from django.shortcuts import render_to_response$/;"	kind:namespace	line:7
 reverse_lazy	src/core/mixins.py	/^from django.core.urlresolvers import reverse_lazy$/;"	kind:namespace	line:2
-reverse_lazy	src/core/views.py	/^from django.core.urlresolvers import reverse_lazy$/;"	kind:namespace	line:2
-reverse_lazy	src/invoices/views.py	/^from django.core.urlresolvers import reverse_lazy$/;"	kind:namespace	line:7
+reverse_lazy	src/core/views.py	/^from django.core.urlresolvers import reverse_lazy$/;"	kind:namespace	line:4
+reverse_lazy	src/invoices/views.py	/^from django.core.urlresolvers import reverse_lazy$/;"	kind:namespace	line:5
 save	src/invoices/models.py	/^    def save(self, *args, **kwargs):$/;"	kind:member	line:61
+settings	src/config/urls.py	/^from django.conf import settings$/;"	kind:namespace	line:1
+settings	src/core/middleware.py	/^from django.conf import settings$/;"	kind:namespace	line:3
 settings	src/core/migrations/0001_initial.py	/^from django.conf import settings$/;"	kind:namespace	line:5
-settings	src/invoiceapp/urls.py	/^from django.conf import settings$/;"	kind:namespace	line:17
 settings	src/invoices/migrations/0001_initial.py	/^from django.conf import settings$/;"	kind:namespace	line:5
 settings	src/invoices/models.py	/^from django.conf import settings$/;"	kind:namespace	line:3
 settings	src/invoices/templatetags/inv_utils.py	/^from django.conf import settings$/;"	kind:namespace	line:2
-settings.py	src/invoiceapp/settings.py	1;"	kind:file	line:1
-static	src/invoiceapp/urls.py	/^from django.conf.urls.static import static$/;"	kind:namespace	line:19
-success_url	src/core/views.py	/^    success_url = reverse_lazy('home')$/;"	kind:variable	line:46
-success_url	src/core/views.py	/^    success_url = reverse_lazy('list')$/;"	kind:variable	line:27
-success_url	src/invoices/views.py	/^    success_url = reverse_lazy('list')$/;"	kind:variable	line:50
+settings.py	src/config/settings.py	1;"	kind:file	line:1
+static	src/config/urls.py	/^from django.conf.urls.static import static$/;"	kind:namespace	line:3
+success_url	src/core/views.py	/^    success_url = reverse_lazy('home')$/;"	kind:variable	line:60
+success_url	src/core/views.py	/^    success_url = reverse_lazy('list')$/;"	kind:variable	line:29
+success_url	src/invoices/views.py	/^    success_url = reverse_lazy('list')$/;"	kind:variable	line:51
 sys	src/manage.py	/^import sys$/;"	kind:namespace	line:3
 tax_base	src/invoices/forms.py	/^    tax_base = forms.DecimalField(required=False)$/;"	kind:variable	line:45
 tax_base	src/invoices/models.py	/^    tax_base = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True, null=True)$/;"	kind:variable	line:33
@@ -417,20 +429,19 @@ tax_percent	src/invoices/forms.py	/^    tax_percent = forms.DecimalField(require
 tax_percent	src/invoices/models.py	/^    tax_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True, null=True)$/;"	kind:variable	line:34
 template	src/core/templatetags/app_forms.py	/^from django import template$/;"	kind:namespace	line:1
 template	src/invoices/templatetags/inv_utils.py	/^from django import template$/;"	kind:namespace	line:1
-template_name	src/core/views.py	/^    template_name = 'contact.html'$/;"	kind:variable	line:17
-template_name	src/core/views.py	/^    template_name = 'home.html'$/;"	kind:variable	line:21
-template_name	src/core/views.py	/^    template_name = 'login.html'$/;"	kind:variable	line:26
-template_name	src/core/views.py	/^    template_name = 'password.html'$/;"	kind:variable	line:35
-template_name	src/core/views.py	/^    template_name = 'profile.html'$/;"	kind:variable	line:45
-template_name	src/core/views.py	/^    template_name = 'registration.html'$/;"	kind:variable	line:40
-template_name	src/invoices/views.py	/^    template_name = 'invoices\/invoice_form.html'$/;"	kind:variable	line:118
-template_name	src/invoices/views.py	/^    template_name = 'invoices\/invoice_form.html'$/;"	kind:variable	line:51
+template_name	src/core/views.py	/^    template_name = '_registration.html'$/;"	kind:variable	line:54
+template_name	src/core/views.py	/^    template_name = 'change_password.html'$/;"	kind:variable	line:38
+template_name	src/core/views.py	/^    template_name = 'login.html'$/;"	kind:variable	line:28
+template_name	src/core/views.py	/^    template_name = 'profile.html'$/;"	kind:variable	line:59
+template_name	src/invoices/views.py	/^    template_name = 'invoices\/invoice_form.html'$/;"	kind:variable	line:119
+template_name	src/invoices/views.py	/^    template_name = 'invoices\/invoice_form.html'$/;"	kind:variable	line:52
 tests.py	src/core/tests.py	1;"	kind:file	line:1
 tests.py	src/invoices/tests.py	1;"	kind:file	line:1
 timezone	src/invoices/migrations/0001_initial.py	/^import django.utils.timezone$/;"	kind:namespace	line:8
 total	src/invoices/forms.py	/^    total = forms.DecimalField()$/;"	kind:variable	line:12
 total	src/invoices/models.py	/^    def total(self):$/;"	kind:member	line:48
 total	src/invoices/models.py	/^    total = models.DecimalField(max_digits=10, decimal_places=2, blank=True)$/;"	kind:variable	line:77
+unauthed	src/core/middleware.py	/^    def unauthed(self):$/;"	kind:member	line:7
 unicode_literals	src/core/migrations/0001_initial.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
 unicode_literals	src/core/migrations/0002_profile_last_updated.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
 unicode_literals	src/core/migrations/0003_auto_20161123_1828.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
@@ -445,18 +456,19 @@ unicode_literals	src/invoices/migrations/0008_auto_20161123_1819.py	/^from __fut
 unicode_literals	src/invoices/migrations/0009_remove_invoice_profile.py	/^from __future__ import unicode_literals$/;"	kind:namespace	line:3
 unit_price	src/invoices/forms.py	/^    unit_price = forms.DecimalField()$/;"	kind:variable	line:11
 unit_price	src/invoices/models.py	/^    unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)$/;"	kind:variable	line:76
+update_session_auth_hash	src/core/views.py	/^from django.contrib.auth import login, logout, update_session_auth_hash$/;"	kind:namespace	line:1
+url	src/config/urls.py	/^from django.conf.urls import url, include$/;"	kind:namespace	line:2
 url	src/core/urls.py	/^from django.conf.urls import url$/;"	kind:namespace	line:1
-url	src/invoiceapp/urls.py	/^from django.conf.urls import url, include$/;"	kind:namespace	line:18
 url	src/invoices/urls.py	/^from django.conf.urls import url$/;"	kind:namespace	line:1
+urlpatterns	src/config/urls.py	/^urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)$/;"	kind:variable	line:7
 urlpatterns	src/core/urls.py	/^urlpatterns = [$/;"	kind:variable	line:5
-urlpatterns	src/invoiceapp/urls.py	/^urlpatterns = static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)$/;"	kind:variable	line:23
 urlpatterns	src/invoices/urls.py	/^urlpatterns = [$/;"	kind:variable	line:5
+urls.py	src/config/urls.py	1;"	kind:file	line:1
 urls.py	src/core/urls.py	1;"	kind:file	line:1
-urls.py	src/invoiceapp/urls.py	1;"	kind:file	line:1
 urls.py	src/invoices/urls.py	1;"	kind:file	line:1
 user	src/core/models.py	/^    user = models.OneToOneField(User)$/;"	kind:variable	line:7
 user	src/invoices/models.py	/^    user = models.ForeignKey(User)$/;"	kind:variable	line:14
 utils	src/invoices/migrations/0001_initial.py	/^import django.utils.timezone$/;"	kind:namespace	line:8
 views.py	src/core/views.py	1;"	kind:file	line:1
 views.py	src/invoices/views.py	1;"	kind:file	line:1
-wsgi.py	src/invoiceapp/wsgi.py	1;"	kind:file	line:1
+wsgi.py	src/config/wsgi.py	1;"	kind:file	line:1

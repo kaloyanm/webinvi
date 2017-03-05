@@ -1,7 +1,6 @@
-{% load static %}
+{% load static compress %}
 <!DOCTYPE html>
 <html lang="en" {% block html_attr %} {% endblock %}>
-
 <head>
 
     <meta charset="utf-8">
@@ -14,7 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static "custom/bootstrap.min.css" %}" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     <!-- <link href="{% static "bootstrap/dist/css/heroic-features.css" %}" rel="stylesheet"> -->
 
@@ -33,13 +32,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
-                {% include "navigation.html" %}
+                {% include "_navigation.html" %}
                 </div>
             </div>
         </div>
             <!-- /.container -->
     </nav>
-    
+
     <!-- Page Content -->
     <div class="container" >
         <div class="row">
@@ -47,7 +46,7 @@
             {% block content %}{% endblock %}
             </div>
         </div>
-        
+
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -60,17 +59,14 @@
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <!-- <script src="js/jquery.js"></script> -->
-
     <!-- Bootstrap Core JavaScript -->
-    <!-- <script src="js/bootstrap.min.js"></script> -->
+    {% compress js %}
     <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/dropdown.js' %}"></script>
     <script type="text/javascript">
     $('.dropdown-toggle').dropdown();
     </script>
+    {% endcompress %}
 </body>
-
 </html>

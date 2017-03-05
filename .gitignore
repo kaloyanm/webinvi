@@ -20,3 +20,5 @@ uploads/
 # MAC
 .DS_Store
 src/static/*
+tags
+.vscode/

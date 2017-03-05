@@ -11,3 +11,7 @@ pytest
 six
 sqlparse
 uWSGI
+django_compressor
+Scrapy
+requests
+beautifulsoup4

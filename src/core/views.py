@@ -4,6 +4,7 @@ from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,
 from django.core.urlresolvers import reverse_lazy
 from django.forms.models import model_to_dict
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.views import generic
 
 from core.forms import CompanySettingsForm
@@ -14,13 +15,12 @@ def logout_view(request):
     return HttpResponseRedirect(reverse_lazy('home'))
 
 
-# Create your views here.
-class ContactView(generic.TemplateView):
-    template_name = 'contact.html'
+def contact(request):
+    return render(request, 'contact.html')
 
 
-class HomeView(generic.TemplateView):
-    template_name = 'home.html'
+def home(request):
+    return render(request, 'home.html')
 
 
 class LoginView(generic.FormView):
@@ -51,7 +51,7 @@ class PasswordChangeView(generic.FormView):
 
 class RegistrationView(generic.FormView):
     form_class = UserCreationForm
-    template_name = 'registration.html'
+    template_name = '_registration.html'
 
 
 class CompanySettingsView(generic.FormView):
