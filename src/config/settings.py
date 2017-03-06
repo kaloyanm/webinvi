@@ -157,7 +157,7 @@ INVOICE_MIN_NUMBER = 1000000000
 
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', True)
 
-BASIC_AUTH = os.environ.get('BASIC_AUTH', False)
+BASIC_AUTH = os.environ.get('BASIC_AUTH', True)
 BASICAUTH_USERNAME = os.environ.get('BASICAUTH_USERNAME', 'demo')
 BASICAUTH_PASSWORD = os.environ.get('BASICAUTH_PASSWORD', 'demo')
 
