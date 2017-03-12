@@ -14,9 +14,6 @@ class InvoiceDetailForm(forms.Form):
 
 
 class InvoiceForm(forms.ModelForm):
-    PAYMENT_TYPES = (
-        ('bank', 'Bank Transfer'),
-    )
 
     receiver_name = forms.CharField()
     receiver_eik = forms.CharField(required=False)
@@ -37,7 +34,7 @@ class InvoiceForm(forms.ModelForm):
     released_at = forms.DateField(required=False)
     tax_event_at = forms.DateField(required=False)
 
-    payment_type = forms.ChoiceField(choices=PAYMENT_TYPES)
+    payment_type = forms.CharField(required=False)
     payment_iban = forms.CharField(required=False)
     payment_swift = forms.CharField(required=False)
     payment_bank = forms.CharField(required=False)

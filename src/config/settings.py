@@ -100,7 +100,8 @@ BOWER_INSTALLED_APPS = (
     'underscore',
     'bootstrap',
     'html5shiv',
-    'angular',
+    'jquery',
+    'jquery-tmpl',
 )
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
