@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
 from django.db.models import Max
 from django.conf import settings
@@ -37,6 +39,7 @@ class Invoice(models.Model):
     accepted_by = models.CharField(max_length=255)
 
     note = models.TextField()
+    no_dds_reason = models.CharField(max_length=255, default="")
 
     def __str__(self):
         return self.receiver_name
