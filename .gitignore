@@ -22,3 +22,5 @@ uploads/
 src/static/*
 tags
 .vscode/
+.direnv
+.envrc
