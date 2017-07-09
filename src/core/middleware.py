@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.conf import settings
 
-class BasicAuthMiddleware(object):
+class BasicAuthMiddleware:
 
     def unauthed(self):
         response = HttpResponse("""<html><title>Auth required</title><body>
@@ -11,7 +11,7 @@ class BasicAuthMiddleware(object):
         response.status_code = 401
         return response
 
-    def process_request(self,request):
+    def process_request(self, request):
         if not settings.BASIC_AUTH:
             return
 

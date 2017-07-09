@@ -1,0 +1,89 @@
+{% extends base_template %}
+{% load static compress inv_utils %}
+
+{% block content %}
+<div class="row">&nbsp;</div>
+
+<form class="form-horizontal" method="POST" action="" id="invoice_app">
+    {% csrf_token %}
+    <input name="invoice_type" type="hidden" value="{{ invoice_type }}" />
+{% for field, errors in form.errors.items %}
+    {% for error in errors %}
+    <div class="row alert alert-warning" role="alert">{{field}}: {{error}}</div>
+    {% endfor %}
+{% endfor %}
+<div class="row">
+    <div class="pull-left" style="width: 49%;">
+        <div class="col-md-12"><h1>{% if invoice_type == 'proforma' %}Проформа{%else%}Фактура{%endif%} <small>оригинал</small></h1></div>
+    </div>
+    <div class="pull-right" style="width: 49%;">
+        {% include "invoices/_invoice_meta.html" %}
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="pull-left" style="width: 48%;">
+        {% include "invoices/_invoice_receiver.html" %}
+    </div>
+    <div class="pull-right" style="width: 48%;">
+        {% include "invoices/_invoice_company.html" %}
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12 col-padding-clear">{% include "invoices/_invoice_details.html" %}</div>
+</div>
+<br />
+<div class="row">
+    <div class="pull-left" style="width: 48%;">
+        {% include "invoices/_invoice_bank.html" %}
+    </div>
+    <div class="pull-right" style="width: 48%;">
+        {% include "invoices/_invoice_total.html" %}
+    </div>
+</div>
+<div class="row">
+    <div class="appclearfix"></div>
+    <div class="pull-left" style="width: 48%;">
+        <label class=" col-md-5" >Получил:</label>
+        <div class="col-md-7 col-padding">
+            <input type="text" class="form-control input-sm" >
+        </div>
+    </div>
+    <div class="pull-right" style="width: 48%;">
+        <label class=" col-md-5" >Съставил:</label>
+         <div class="col-md-7 col-padding">
+            <input type="text" class="form-control input-sm" >
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" style="padding-left:0px;padding-right:0px;">
+          <label class="control-label" >Бележка:</label>
+          <input name="note" value="{{ form.note.value }}" type="text" class="form-control input-sm" >
+    </div>
+</div>
+{% if not print %}
+<div class="row" style="margin-top: 15px;">
+    <div class="col-md-12" style="padding-left:0px;padding-right:0px;">
+        <span class="pull-right">
+            {% if pk %}
+                <a href="{% url 'delete' pk %}" class="btn btn-danger btn-sm" role="button">Изтриване</a>
+                <a href="{% url 'print' pk %}" class="btn btn-default btn-sm dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Принтиране
+
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a target="_blank" href="{% url 'preview' pk %}">Preview</a></li>
+                    <li><a target="_blank" href="{% url 'print' pk %}">Принтирай</a></li>
+                </ul>
+            {% endif%}
+            <button type="submit" href="{% url 'list' %}" class="btn btn-success btn-sm" role="button">Запазване</button>
+        </span>
+    </div>
+</div>
+{% endif %}
+</form>
+<script src="https://unpkg.com/vue"></script>
+<script type="text/javascript">window.formset = {{ formset|safe }}; console.log(window.formset);</script>
+<script src="{% static "invoices/js/app.js" %}"></script>
+{% endblock %}

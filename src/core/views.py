@@ -1,13 +1,19 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,
                                        UserCreationForm)
 from django.core.urlresolvers import reverse_lazy
 from django.forms.models import model_to_dict
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 
-from core.forms import CompanySettingsForm
+from core.models import Company
+from core.forms import CompanyForm
+from invoices.models import Invoice
+
+import logging
+logger = logging.getLogger(__name__)
 
 
 def logout_view(request):
@@ -54,16 +60,39 @@ class RegistrationView(generic.FormView):
     template_name = '_registration.html'
 
 
-class CompanySettingsView(generic.FormView):
-    form_class = CompanySettingsForm
-    template_name = 'profile.html'
-    success_url = reverse_lazy('home')
+@login_required
+def companies(request):
+    objects = Company.objects.filter(user=request.user)
+    context = {"objects": objects}
+    return render(request, template_name="core/companies.html",
+                  context=context)
 
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object.save()
-        return HttpResponseRedirect(self.get_success_url())
 
-    def get_initial(self):
-        return model_to_dict(self.request.user.profile)
+@login_required
+def company(request, pk=None):
+    if pk:
+        company = get_object_or_404(Company, pk=pk)
+        data = model_to_dict(company)
+    else:
+        data = None
+        
+    if request.method == "POST":
+        form = CompanyForm(request.POST)
+        if form.is_valid():
+            form.cleaned_data["user"] = request.user
+            obj, created = Company.objects.update_or_create(pk=pk, defaults=form.cleaned_data)
+            # if created:
+            #     obj.user = request.user
+            #     obj.save()
+            return redirect("companies")
+    else:
+        form = CompanyForm(initial=data)
+
+    return render(request, template_name="core/company.html",
+                  context={"form": form, "pk": pk})
+
+@login_required
+def drop_company(request, pk):
+    company = get_object_or_404(Company, pk=pk)
+    company.delete()
+    return redirect("companies")

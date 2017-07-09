@@ -3,7 +3,7 @@
 {% block content %}
 {{form.errors}}
 <div class="row">
-    <div class='col-sm-5'>
+    <div class='col-md-5'>
         <form method="POST" action="">
         {% csrf_token %}
         {% include "layout_form_vertical.html" with form=form %}

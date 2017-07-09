@@ -1,145 +1,132 @@
 # -*- coding: utf-8 -*-
 
 import json
+import pdfkit
 
-from django.core.urlresolvers import reverse_lazy
+from django.db import transaction
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from django.forms.models import model_to_dict
-from django.http import HttpResponseRedirect
-from django.views import generic
+from django.core.urlresolvers import reverse
+from django.core.serializers.json import DjangoJSONEncoder
 
-from core.mixins import AppLoginRequiredMixin
+from core.forms import CompanyForm
 
-from .forms import InvoiceDetailForm, InvoiceForm
-from .models import Invoice, InvoiceItem
-from .templatetags.inv_utils import nopad
-
-
-def get_invoice_details(request):
-    '''
-    Helper method to get invoice items from the form
-    '''
-    invoice_details_prefix = 'invoice_details[{}]'
-    invoice_details_fields = ['name', 'quantity', 'measure', 'unit_price', 'discount', 'total']
-
-    details = {}
-    for field in invoice_details_fields:
-        post_field_key = invoice_details_prefix.format(field)
-        details[field] = request.POST.getlist(post_field_key)
-
-    # create empty table values
-    longest = len(max(details.values()))
-    default_row = dict(zip(invoice_details_fields, [''] * len(invoice_details_fields)))
-    invoice_details = [default_row.copy() for _ in range(longest)]
-
-    # update the columns
-    for column, data in details.items():
-        row_index = 0
-        for value in data:
-            invoice_details[row_index][column] = value
-            row_index += 1
-    return invoice_details
+from invoices.forms import InvoiceForm, InvoiceItemFormSet
+from invoices.models import (
+    Invoice,
+    InvoiceItem,
+    get_next_invoice_no,
+    get_next_proforma_no,
+)
 
 
-# Create your views here.
-class ListInvoice(AppLoginRequiredMixin, generic.ListView):
-    model = Invoice
-    context_object_name = 'invoices_list'
+def django_json_dumps(items):
+    return json.dumps(items, cls=DjangoJSONEncoder)
 
 
-class CreateInvoice(AppLoginRequiredMixin, generic.CreateView):
-    form_class = InvoiceForm
-    success_url = reverse_lazy('list')
-    template_name = 'invoices/invoice_form.html'
+def process_invoice(request, form, form_items):
+    if form.is_valid() and form_items.is_valid():
+        instance = form.save()
+        instance.company = request.company
+        instance.save()
 
-    def __init__(self, *args, **kwargs):
-        super(CreateInvoice, self).__init__(*args, **kwargs)
-        self.object = None
-        self.invoice_type = 'invoice' # default
-        self.invoice_details = []
-
-    def get(self, request, invoice_type='invoice', **kwargs):
-        self.invoice_type = invoice_type
-        return super(CreateInvoice, self).get(request, invoice_type, **kwargs)
-
-    def post(self, request, invoice_type='invoice', **kwargs):
-        self.invoice_details = get_invoice_details(request)
-        self.invoice_type = invoice_type
-
-        invalid_forms = []
-        valid_forms = []
-        for item in self.invoice_details:
-            item_form = InvoiceDetailForm(item)
-            if not item_form.is_valid():
-                invalid_forms.append(item_form)
-            else:
-                valid_forms.append(item_form)
-
-        form = self.get_form(self.form_class)
-
-        if form.is_valid() and len(invalid_forms) == 0:
-            return self.form_valid(form, valid_forms)
-        else:
-            return self.form_invalid(form, invalid_forms)
-
-    def get_context_data(self, **kwargs):
-        context = super(CreateInvoice, self).get_context_data(**kwargs)
-        context['invoice_type'] = self.invoice_type
-        context['invoice_details'] = self.invoice_details
-        context['invoice_details_json'] = json.dumps(self.invoice_details)
-        return context
-
-    def form_valid(self, form, valid_forms):
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object.invoice_type = self.invoice_type
-        self.object.save()
-
-        if len(valid_forms) > 0:
-            for form_entry in valid_forms:
-                inv_item = InvoiceItem(**form_entry.cleaned_data)
-                inv_item.invoice = self.object
-                inv_item.save()
-
-        return HttpResponseRedirect(self.get_success_url())
-
-    def form_invalid(self, form, invalid_forms):
-        return self.render_to_response(self.get_context_data(form=form, invalid_forms=invalid_forms))
-
-    def get_initial(self):
-        initial = super().get_initial()
-        initial.update(model_to_dict(self.request.user.profile))
-        initial['invoice_no'] = nopad(Invoice.get_next_invoice_no())
-        initial['proforma_no'] = nopad(Invoice.get_next_proforma_no())
-        return initial
+        with transaction.atomic():
+            instance.invoiceitem_set.all().delete()
+            for form in form_items:
+                invoiceitem = InvoiceItem(**form.cleaned_data)
+                invoiceitem.invoice = instance
+                invoiceitem.company = request.company
+                invoiceitem.save()
+        return True
+    return False
 
 
-class UpdateInvoice(AppLoginRequiredMixin, generic.edit.UpdateView):
-    model = Invoice
-    form_class = InvoiceForm
-    template_name = 'invoices/invoice_form.html'
+@login_required
+def invoice(request, pk=None, invoice_type="invoice",
+            base_template="base.html", print=None):
+    if pk:
+        try:
+            instance = get_object_or_404(Invoice, pk=pk)
+        except Invoice.DoesNotExist:
+            pass
+    else:
+        instance = None
 
-    def get_success_url(self):
-        return reverse_lazy('update', kwargs={'pk': self.object.pk})
+    default_data = {
+        "invoice_no": get_next_invoice_no(request.company),
+        "proforma_no": get_next_proforma_no(request.company),
+        "released_at": str(timezone.now()),
+        "taxevent_at": str(timezone.now()),
+    }
 
-    def get_context_data(self):
-        context = super(UpdateInvoice, self).get_context_data()
-        context['object'] = self.object
+    context = {
+        "print": print,
+        "base_template": base_template,
+        "form": InvoiceForm(initial=default_data),
+        "formset": json.dumps({}),
+        "invoice_type": invoice_type,
+        "company_form": CompanyForm(model_to_dict(request.company)),
+        "pk": pk,
+    }
 
-        items = self.object.invoiceitem_set.all().values()
-        items = items if items else {} # [] is not serializible
+    if request.method == "POST":
+        form = InvoiceForm(request.POST, instance=instance)
+        form_items = InvoiceItemFormSet(request.POST)
 
-        context['invoice_details'] = items
-        context['invoice_details_json'] = json.dumps(items)
-        return context
+        if process_invoice(request, form, form_items):
+            return redirect(reverse(invoice_type, args=[pk]))
 
-    def get_initial(self):
-        initial = super().get_initial()
-        initial.update(model_to_dict(self.request.user.profile))
-        return initial
+        context["form"] = form
+    else:
+        if instance:
+            context["company_form"] = CompanyForm(initial=model_to_dict(instance.company))
+            context["form"] = InvoiceForm(initial=model_to_dict(instance))
+
+    if instance:
+        context["formset"] = django_json_dumps(list(instance.invoiceitem_set.values()))
+
+    return render(request, template_name="invoices/invoice.html",
+                  context=context)
 
 
-class DeleteInvoice(AppLoginRequiredMixin, generic.edit.DeleteView):
-    model = Invoice
+@login_required
+def delete_invoice(request, pk):
+    invoice = get_object_or_404(Invoice, pk=pk)
+    context = {"object": invoice}
 
-    def get_success_url(self):
-        return reverse_lazy('list')
+    if request.method == "POST":
+        return redirect("list")
+
+    return render(request, template_name="invoices/confirm_delete.html",
+                  context=context)
+
+
+@login_required
+def list_invoices(request):
+    return render(request, template_name='invoices/invoice_list.html',
+                  context={"objects": Invoice.objects.filter(company=request.company)})
+
+
+@login_required
+def preview(request, pk, base_template="print.html"):
+    return invoice(request, pk, base_template=base_template,
+                   print=True)
+
+
+@login_required
+def print(request, pk):
+    options = {
+        'page-size': 'A4',
+        'encoding': "UTF-8",
+        'no-outline': None
+    }
+
+    response = preview(request, pk)
+    pdf_content = pdfkit.from_string(str(response.content), False, options=options)
+
+    response = HttpResponse(pdf_content, content_type="application/pdf")
+    response["Content-Disposition"] = "attachment; filename='invoice.pdf'"
+    return response

@@ -9,7 +9,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Смяна на паролата</a>
+            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Фирмена регистрация</a>
         </li>
         </ul>
 
@@ -17,9 +17,10 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">&nbsp;</div>
         </div>
-
+    
         {% bootstrap_form form size="small" %}
-        <button type="submit" class="btn btn-success btn-sm" role="button">Запазване</button>
+        <button type="submit" class="btn btn-success btn-sm pull-right" role="button">Запазване</button>
+        {% if pk %}<a href="{% url 'drop_company' pk %}" type="submit" class="btn btn-danger btn-sm" role="button">Изтрий</a>{% endif %}
       </form>
     </div>
     <div class="col-md-5 col-md-offset-1 text-center"></div>

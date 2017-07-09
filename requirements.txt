@@ -4,7 +4,6 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-appdirs==1.4.2            # via setuptools
 attrs==16.3.0             # via automat, service-identity
 automat==0.5.0            # via twisted
 beautifulsoup4==4.5.3
@@ -13,17 +12,17 @@ constantly==15.1.0        # via twisted
 cryptography==1.7.2       # via pyopenssl
 cssselect==1.0.1          # via parsel, scrapy
 django-appconf==1.0.2     # via django-compressor
+django-bootstrap3==8.2.3
 django-bower==5.1.0
 django-compressor==2.1.1
 django-crispy-forms==1.6.0
 django-debug-toolbar==1.5
 django-extensions==1.6.7
-django-material==0.8.0
 django==1.9.7
+honcho==1.0.1
 idna==2.4                 # via cryptography
 incremental==16.10.1      # via twisted
 lxml==3.7.3               # via parsel, scrapy
-packaging==16.8           # via setuptools
 parsel==1.1.0             # via scrapy
 pdfminer3k==1.3.0
 ply==3.9
@@ -33,7 +32,6 @@ pyasn1==0.2.3             # via cryptography, pyasn1-modules, service-identity
 pycparser==2.17           # via cffi
 pydispatcher==2.0.5       # via scrapy
 pyopenssl==16.2.0         # via scrapy, service-identity
-pyparsing==2.1.10         # via packaging
 pytest==3.0.2
 queuelib==1.4.2           # via scrapy
 rcssmin==1.0.6            # via django-compressor
@@ -41,12 +39,10 @@ requests==2.13.0
 rjsmin==1.0.12            # via django-compressor
 scrapy==1.3.2
 service-identity==16.0.0  # via scrapy
+simplejson==3.11.0
 six==1.10.0
 sqlparse==0.2.0
 twisted==17.1.0           # via scrapy
 uwsgi==2.0.13.1
 w3lib==1.17.0             # via parsel, scrapy
 zope.interface==4.3.3     # via twisted
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools                # via cryptography, zope.interface

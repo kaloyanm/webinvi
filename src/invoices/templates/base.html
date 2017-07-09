@@ -2,29 +2,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <title>edocprint - business with grace</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>edocprint - business with grace</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="{% static "invoices/custom/bootstrap.min.css" %}" rel="stylesheet">
-    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    {% include "_headers.html" %}
 </head>
 
-<body>
+<body class="">
     <!-- Navigation -->
     <nav class="navbar navbar-inverse " role="navigation">
         <div class="container">
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
+                <div class="col-md-8 col-md-offset-2">
                 {% include "_navigation.html" %}
                 </div>
             </div>
@@ -34,16 +26,16 @@
 
     <!-- Page Content -->
     <div class="container" >
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2" >
-            {% block content %}{% endblock %}
+        <div class="row" >
+            <div class="col-md-8 col-md-offset-2">
+                {% block content %}{% endblock %}
             </div>
         </div>
 
         <!-- Footer -->
         <footer>
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
+                <div class="col-md-8 col-md-offset-2">
                     {% block footer_head %}<hr>{% endblock %}
                     <p>Copyright &copy; Innova Crew 2016</p>
                 </div>
@@ -53,13 +45,6 @@
     <!-- /.container -->
 
     <!-- Bootstrap Core JavaScript -->
-    {% compress js %}
-    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/dropdown.js' %}"></script>
-    <script type="text/javascript">
-    $('.dropdown-toggle').dropdown();
-    </script>
-    {% endcompress %}
+    {% include "_footer_scripts.html" %}
 </body>
 </html>

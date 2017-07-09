@@ -3,7 +3,7 @@ django-bower
 django-crispy-forms
 django-debug-toolbar
 django-extensions
-django-material
+django-bootstrap3
 pdfminer3k
 ply
 py
@@ -15,3 +15,7 @@ django_compressor
 Scrapy
 requests
 beautifulsoup4
+honcho
+simplejson
+pdfkit
+wkhtmltopdf
