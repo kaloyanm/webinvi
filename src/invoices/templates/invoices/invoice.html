@@ -1,4 +1,4 @@
-{% extends base_template %}
+{% extends "base.html" %}
 {% load static compress inv_utils %}
 
 {% block content %}
@@ -69,13 +69,7 @@
         <span class="pull-right">
             {% if pk %}
                 <a href="{% url 'delete' pk %}" class="btn btn-danger btn-sm" role="button">Изтриване</a>
-                <a href="{% url 'print' pk %}" class="btn btn-default btn-sm dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Принтиране
-
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a target="_blank" href="{% url 'preview' pk %}">Preview</a></li>
-                    <li><a target="_blank" href="{% url 'print' pk %}">Принтирай</a></li>
-                </ul>
+                <a href="javascript:void();" onclick="print();" class="btn btn-default btn-sm dropdown-toggle" role="button">Принтиране</a>
             {% endif%}
             <button type="submit" href="{% url 'list' %}" class="btn btn-success btn-sm" role="button">Запазване</button>
         </span>
@@ -84,6 +78,9 @@
 {% endif %}
 </form>
 <script src="https://unpkg.com/vue"></script>
-<script type="text/javascript">window.formset = {{ formset|safe }}; console.log(window.formset);</script>
+<script type="text/javascript">window.formset = {{ formset|safe }};</script>
+<script src="{% static "jspdf/dist/jspdf.min.js" %}"></script>
+<script src="{% static "html2canvas/build/html2canvas.js" %}"></script>
+<script src="{% static "invoices/js/html2pdf.js" %}"></script>
 <script src="{% static "invoices/js/app.js" %}"></script>
 {% endblock %}

@@ -76,3 +76,19 @@ var app  = new Vue({
     }
   }
 });
+
+function print() {
+    var pdf = new jsPDF('p', 'pt', 'A4');
+    pdf.canvas.height = 80 * 11;
+    pdf.canvas.width = 80 * 8.5;
+    html2pdf(document.getElementById("print"), pdf, function (pdf) {
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute('style', 'position:absolute;right:0; top:0; bottom:0; height:100%; width:100%;');
+        document.body.appendChild(iframe);
+
+        print_content = pdf.output('datauristring');
+        console.log("ehooooo")
+        console.log(print_content)
+        iframe.src = print_content;
+    });
+}
