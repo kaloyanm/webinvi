@@ -4,12 +4,9 @@ import os
 import json
 import re
 
-import requests
 import scrapy
 from bs4 import BeautifulSoup
 from django.conf import settings
-
-from invoices.models import Invoice
 
 
 class LoginFakturiSpider(scrapy.Spider):
