@@ -17,5 +17,4 @@ requests
 beautifulsoup4
 honcho
 simplejson
-pdfkit
-wkhtmltopdf
+xhtml2pdf==0.2b1
