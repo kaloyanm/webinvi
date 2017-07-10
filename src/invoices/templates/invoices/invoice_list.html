@@ -40,6 +40,14 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% if pager.num_pages > 1 %}
+        <nav aria-label="...">
+          <ul class="pager">
+            {% if page.has_previous %}<li class="previous"><a href="{% url 'list' %}?page={{ page.previous_page_number }}"><span aria-hidden="true">&larr;</span> Older</a></li>{% endif %}
+            {% if page.has_next %}<li class="next"><a href="{% url 'list' %}?page={{ page.next_page_number }}">Newer <span aria-hidden="true">&rarr;</span></a></li>{% endif %}
+          </ul>
+        </nav>
+        {% endif %}
     </div>
 </div>
 {% endblock%}

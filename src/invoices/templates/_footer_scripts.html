@@ -1,10 +1,7 @@
-{% load compress static %}
-
-{% compress js %}
+{% load static %}
 <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
 <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'bootstrap/js/dropdown.js' %}"></script>
 <script type="text/javascript">
 $('.dropdown-toggle').dropdown();
 </script>
-{% endcompress %}

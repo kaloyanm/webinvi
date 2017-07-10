@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import json
-import pdfkit
 
 from django.db import transaction
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from django.forms.models import model_to_dict
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.paginator import Paginator
+
 
 from core.forms import CompanyForm
-
 from invoices.forms import InvoiceForm, InvoiceItemFormSet
 from invoices.models import (
     Invoice,
@@ -43,10 +42,8 @@ def process_invoice(request, form, form_items):
         return True
     return False
 
-
 @login_required
-def invoice(request, pk=None, invoice_type="invoice",
-            base_template="base.html", print=None):
+def invoice(request, pk=None, invoice_type="invoice"):
     if pk:
         try:
             instance = get_object_or_404(Invoice, pk=pk)
@@ -63,8 +60,6 @@ def invoice(request, pk=None, invoice_type="invoice",
     }
 
     context = {
-        "print": print,
-        "base_template": base_template,
         "form": InvoiceForm(initial=default_data),
         "formset": json.dumps({}),
         "invoice_type": invoice_type,
@@ -106,27 +101,39 @@ def delete_invoice(request, pk):
 
 @login_required
 def list_invoices(request):
+    queryset = Invoice.objects.filter(company=request.company)
+    pager = Paginator(queryset, 15)
+    page = pager.page(request.GET.get("page", 1))
+
     return render(request, template_name='invoices/invoice_list.html',
-                  context={"objects": Invoice.objects.filter(company=request.company)})
+                  context={"objects": page.object_list, "pager": pager, "page": page})
 
 
-@login_required
-def preview(request, pk, base_template="print.html"):
-    return invoice(request, pk, base_template=base_template,
-                   print=True)
+# @login_required
+# def preview(request, pk, base_template="print.html"):
+#     return _invoice(request, pk, base_template=base_template,
+#                    print=True)
 
 
-@login_required
-def print(request, pk):
-    options = {
-        'page-size': 'A4',
-        'encoding': "UTF-8",
-        'no-outline': None
-    }
-
-    response = preview(request, pk)
-    pdf_content = pdfkit.from_string(str(response.content), False, options=options)
-
-    response = HttpResponse(pdf_content, content_type="application/pdf")
-    response["Content-Disposition"] = "attachment; filename='invoice.pdf'"
-    return response
+# @login_required
+# def print(request, pk):
+#     import os
+#     from xhtml2pdf import pisa
+#     from io import BytesIO
+#
+#     css = [
+#         os.path.dirname(__file__) + static("invoices/custom/bootstrap.united.min.css"),
+#         os.path.dirname(__file__) + static("invoices/custom/app.css"),
+#     ]
+#
+#     styles = [open(css_file).read() for css_file in css]
+#     context = {"styles": styles}
+#     response = _invoice(request, pk, base_template="print.html", print=True, context=context)
+#     result = BytesIO()
+#
+#     pdf = pisa.pisaDocument(response.getvalue(), result, encoding="utf-8")
+#     if not pdf.err:
+#         response = HttpResponse(result.getvalue(), content_type="application/pdf")
+#         # response["Content-Disposition"] = "attachment; filename='invoice.pdf'"
+#         return response
+#     return HttpResponse('We had some errors printing the document!')
