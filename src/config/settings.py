@@ -102,7 +102,8 @@ BOWER_INSTALLED_APPS = (
     'html5shiv',
     'bootstrap#^3.3.7',
     'popper.js',
-    'html2pdf',
+    'html2canvas',
+    'jspdf',
 )
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
