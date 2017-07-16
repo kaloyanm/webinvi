@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'debug_toolbar',
+    'rosetta',
     'compressor',
     'djangobower',
     'django_extensions',
@@ -146,59 +147,17 @@ USE_L10N = True
 USE_TZ = True
 LOGIN_URL = '/login/'
 
-# DJANGO_LOG_LEVEL = os.getenv('DJANGO_LOG_LEVEL', 'INFO')
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': True,
-#     'formatters': {
-#         'verbose': {
-#             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-#         },
-#         'simple': {
-#             'format': '%(levelname)s %(message)s'
-#         },
-#     },
-#     'filters': {
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         },
-#     },
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             'filters': ['require_debug_true'],
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'simple'
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'level': 'DEBUG',
-#             'handlers': ['console'],
-#             'propagate': True,
-#         },
-#         'django.request': {
-#             'handlers': ['console'],
-#             'level': 'DEBUG',
-#             'propagate': False,
-#         },
-#     }
-# }
-# import sys
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': True
-#     'handlers': {
-#         'console': {
-#             'class': 'logging.StreamHandler',
-#             'stream': sys.stdout,
-#         }
-#     },
-#     'root': {
-#         'handlers': ['console'],
-#         'level': 'INFO'
-#     }
-# }
+from django.utils.translation import ugettext_lazy as _
+
+LANGUAGES = [
+    ('es', _('Испански')),
+    ('en', _('Английски')),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/

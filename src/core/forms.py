@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class CompanyForm(forms.Form):
-    name = forms.CharField(label=_(u'Доставчик'))
+    name = forms.CharField(label=_(u'Има на компанията'))
     eik = forms.CharField(label=_(u'БУЛСТАТ'))
     dds = forms.CharField(label=_(u'Ин по ДДС'), required=False)
     city = forms.CharField(label=_(u'Град'))

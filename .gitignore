@@ -24,3 +24,6 @@ tags
 .vscode/
 .direnv
 .envrc
+
+# App generated files
+./src/crawled/

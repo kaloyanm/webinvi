@@ -3,52 +3,66 @@
 
 {% block content %}
 
-{% block submenu %}
-<div class="row">
-    <div class="col-md-10 col-md-offset-2">
+    {% block submenu %}
+        <div class="row">
+            <div class="col-md-10 col-md-offset-2">
         <span class="pull-right">
             Добави фактура:
             <a href="{% url 'invoice' %}" class="btn btn-primary btn-sm" role="button">+ Данъчна</a>
             <a href="{% url 'proforma' %}" class="btn btn-primary btn-sm" role="button">+ Проформа</a>
         </span>
-    </div>
-</div>
-{% endblock %}
-<div class="row">&nbsp;</div>
-{% block subcontent %}
-<div class="row grey">
-    <div class="col-md-12">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Клиент</th>
-                    <th>Тип</th>
-                    <th>Издадена на</th>
-                    <th>Номер</th>
-                    <th>Сума</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for inv in objects %}
-                <tr>
-                    <td scope="row">{{ inv.client_name }}</td>
-                    <td>{% if inv.invoice_type == 'invoice' %}Фактура{% else %}Проформа{% endif%}</td>
-                    <td><a href="{% url 'invoice' inv.pk %}">{{inv.released_at}}</a></td>
-                    <td>{% if inv.invoice_type == 'invoice' %}{{inv.invoice_no|nopad}}{% else %}{{inv.proforma_no|nopad}}{% endif%}</td>
-                    <td>{{inv.total}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% if pager.num_pages > 1 %}
-        <nav aria-label="...">
-          <ul class="pager">
-            {% if page.has_previous %}<li class="previous"><a href="{% url 'list' %}?page={{ page.previous_page_number }}"><span aria-hidden="true">&larr;</span> Older</a></li>{% endif %}
-            {% if page.has_next %}<li class="next"><a href="{% url 'list' %}?page={{ page.next_page_number }}">Newer <span aria-hidden="true">&rarr;</span></a></li>{% endif %}
-          </ul>
-        </nav>
-        {% endif %}
-    </div>
-</div>
-{% endblock%}
+            </div>
+        </div>
+    {% endblock %}
+    <div class="row">&nbsp;</div>
+    {% block subcontent %}
+        <div class="row grey">
+            <div class="col-md-12">
+                <div class="clearfix">&nbsp;</div>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Намери клиент">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Търси</button>
+                    </span>
+                </div><!-- /input-group -->
+                <div class="clearfix">&nbsp;</div>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Клиент</th>
+                        <th>Тип</th>
+                        <th>Издадена на</th>
+                        <th>Номер</th>
+                        <th>Сума</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for inv in objects %}
+                        <tr>
+                            <td scope="row">{{ inv.client_name }}</td>
+                            <td>{% if inv.invoice_type == 'invoice' %}Фактура{% else %}Проформа{% endif %}</td>
+                            <td><a href="{% url 'invoice' inv.pk %}">{{ inv.released_at }}</a></td>
+                            <td>{{ inv.number|nopad }}</td>
+                            <td>{{ inv.total }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% if pager.num_pages > 1 %}
+                    <nav aria-label="...">
+                        <ul class="pager">
+                            {% if page.has_previous %}
+                                <li class="previous"><a
+                                        href="{% url 'list' %}?page={{ page.previous_page_number }}"><span
+                                        aria-hidden="true">&larr;</span> По-нови</a></li>{% endif %}
+                            {% if page.has_next %}
+                                <li class="next"><a href="{% url 'list' %}?page={{ page.next_page_number }}">По-стари
+                                    <span aria-hidden="true">&rarr;</span></a></li>{% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    {% endblock %}
 {% endblock %}

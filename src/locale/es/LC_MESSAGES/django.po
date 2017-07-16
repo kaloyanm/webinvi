@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-07-16 15:18+0300\n"
+"PO-Revision-Date: 2017-07-16 12:03+0000\n"
+"Last-Translator: b'  <>'\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.7.13\n"
+
+#: config/settings.py:153
+msgid "Испански"
+msgstr ""
+
+#: config/settings.py:154
+msgid "Английски"
+msgstr ""
+
+#: core/forms.py:6
+msgid "Има на компанията"
+msgstr ""
+
+#: core/forms.py:7
+msgid "БУЛСТАТ"
+msgstr ""
+
+#: core/forms.py:8
+msgid "Ин по ДДС"
+msgstr ""
+
+#: core/forms.py:9
+msgid "Град"
+msgstr ""
+
+#: core/forms.py:10
+msgid "Адрес"
+msgstr ""
+
+#: core/forms.py:11
+msgid "МОЛ"
+msgstr ""
+
+#: core/forms.py:12
+msgid "Маркирай като основна"
+msgstr ""
+
+#~ msgid "Spain"
+#~ msgstr "Испански"
+
+#~ msgid "English"
+#~ msgstr "Английски"

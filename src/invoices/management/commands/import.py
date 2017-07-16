@@ -5,48 +5,37 @@ from __future__ import absolute_import
 import os
 import json
 
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandError
 from django.conf import settings
+from django.db import transaction
+from django.core.paginator import Paginator
 
-from invoices.models import Invoice
+from invoices.models import Invoice, InvoiceItem
 from core.models import Company
-
-# def import_map_invoice_type(data, field):
-#     return "proforma" if data['proforma'] else "invoice"
-#
-#
-# def import_invoice_no(data, field):
-#     return data[field] if not data['proforma'] else 0
-#
-#
-# def import_map_proforma_no(data, field):
-#     return data[field] if data['proforma'] else 0
-
-
 
 
 class Command(BaseCommand):
-
+    # local field vs. remote field
     mapping = {
-        # "invoice_type": import_map_invoice_type,
         "client_name": "client_name",
         "client_eik": "client_eik",
         "client_dds": "client_dds_no",
         "client_city": "client_city",
         "client_address": "client_address",
         "client_mol": "client_mol",
-        # "invoice_no": import_invoice_no,
-        # "proforma_no": import_map_proforma_no,
         "payment_swift": "swift",
         "payment_type": "pay_method",
         "payment_iban": "iban",
         "payment_bank": "bank",
-        "": "",
         "note": "notice",
         "no_dds_reason": "dds_cause",
         "created_by": "author",
         "accepted_by": "receiver",
+        "number": "number",
+        "released_at": "date",
+        "taxevent_at": "date_event"
     }
 
     def add_arguments(self, parser):
@@ -64,25 +53,55 @@ class Command(BaseCommand):
         except Company.DoesNotExist:
             raise CommandError("Missing default company for user {}".format(options["user_id"]))
 
+        Invoice.objects.filter(company=company).delete()
+
         imported = 0
         for root, dirs, files in os.walk(settings.FAKTURI_EXPORT_PATH):
             for name in files:
                 invoice_path = os.path.join(root, name)
 
                 with open(invoice_path) as fp:
-                    record = {}
+                    invoice = {}
+                    invoice_items = []
                     content = json.load(fp)
 
                     for local, remote in self.mapping.items():
                         if remote in content:
-                            record[local] = content[remote]
-                    self.save(record, company)
+                            invoice[local] = content[remote]
+
+                    if "collection" in content:
+                        invoice_items = self.prepare_invoice_items( content.get("collection") )
+
+                    content["number"] = int(content["number"])
+                    invoice["invoice_type"] = "proforma" if content.get("proforma") else "invoice"
+                    invoice["released_at"] = datetime.strptime(invoice["released_at"], "%d.%m.%Y").strftime("%Y-%m-%d")
+                    invoice["taxevent_at"] = datetime.strptime(invoice["taxevent_at"], "%d.%m.%Y").strftime("%Y-%m-%d")
+
+                    self.save(invoice, invoice_items, company)
                     imported += 1
 
         self.stdout.write(self.style.SUCCESS("{} invoices have been imported successfuly".format(imported)))
 
-    def save(self, record, company):
-        invoice = Invoice(**record)
-        invoice.company = company
-        invoice.save()
-        # print(record)
+    def prepare_invoice_items(self, collection):
+        items = []
+        paginator = Paginator(collection, 5)
+
+        for p in paginator.page_range:
+            page = paginator.page(p)
+            item = {}
+            for prop in page.object_list:
+                key, values = list(prop.keys()).pop(), list(prop.values())
+                item[key.replace("[]", "")] = values.pop()
+            items.append(item)
+        return items
+
+    def save(self, invoice, invoice_items, company):
+        with transaction.atomic():
+            instance = Invoice(**invoice)
+            instance.company = company
+            instance.save()
+
+            for item in invoice_items:
+                entry = InvoiceItem(**item)
+                entry.invoice = instance
+                entry.save()

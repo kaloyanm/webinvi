@@ -40,11 +40,11 @@ class LoginFakturiSpider(scrapy.Spider):
             soup = BeautifulSoup(html_content, "lxml")
             spawned = self.fetch(soup)
 
-            if "по-стари фактури" in html_content:
-                self.page_counter += 1
-                page = self.invoices_list_url.format(self.page_counter)
-                r = scrapy.http.Request(page, callback=self.parse_list)
-                spawned.append(r)
+            # if "по-стари фактури" in html_content:
+            #     self.page_counter += 1
+            #     page = self.invoices_list_url.format(self.page_counter)
+            #     r = scrapy.http.Request(page, callback=self.parse_list)
+            #     spawned.append(r)
 
             return spawned
 
@@ -65,13 +65,20 @@ class LoginFakturiSpider(scrapy.Spider):
         soup = BeautifulSoup(html_content, "lxml")
 
         data = {}
+        collection = []
+
         data['proforma'] = True if "ПРОФОРМА" in html_content else False
         for input in soup.find_all('input'):
             if "name" in input.attrs and "value" in input.attrs:
-                data[input.attrs['name']] = input.attrs['value']
+                if "[]" in input.attrs['name']:
+                    collection.append({input.attrs['name']: input.attrs['value']})
+                else:
+                    data[input.attrs['name']] = input.attrs['value']
 
+        data["collection"] = collection
         invoice_dump = "{}.json".format(data['number'])
         invoice_path = os.path.join(settings.FAKTURI_EXPORT_PATH, invoice_dump)
+
         if os.path.exists(invoice_path):
             return
 

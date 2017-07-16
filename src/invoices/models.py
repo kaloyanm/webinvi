@@ -11,17 +11,10 @@ INVOICE_TYPES = (
 )
 
 
-def get_next_invoice_no(company):
-    max_no = Invoice.objects.filter(company=company) \
-                 .aggregate(Max('invoice_no')) \
-                 .get('invoice_no__max') or 0
-    return max_no + 1
-
-
-def get_next_proforma_no(company):
-    max_no = Invoice.objects.filter(company=company) \
-                 .aggregate(Max('proforma_no')) \
-                 .get('proforma_no__max') or 0
+def get_next_number(company, invoice_type):
+    max_no = Invoice.objects.filter(company=company, invoice_type=invoice_type) \
+                 .aggregate(Max('number')) \
+                 .get('number__max') or 0
     return max_no + 1
 
 
@@ -37,8 +30,7 @@ class Invoice(models.Model):
     client_mol = models.CharField(max_length=255)
 
     invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')
-    invoice_no = models.PositiveIntegerField(blank=True, null=True, unique=True)
-    proforma_no = models.PositiveIntegerField(blank=True, null=True, unique=True)
+    number = models.PositiveIntegerField(blank=True, null=True, db_index=True)
     released_at = models.DateField(blank=True, null=True, auto_now_add=True)
     taxevent_at = models.DateField(blank=True, null=True, auto_now_add=True)
 
@@ -55,6 +47,11 @@ class Invoice(models.Model):
     note = models.TextField()
     no_dds_reason = models.CharField(max_length=255, blank=True)
 
+    class Meta:
+        ordering = ("-released_at",)
+        unique_together = ("company", "invoice_type", "number")
+
+
     def __str__(self):
         return self.client_name
 
@@ -63,7 +60,7 @@ class Invoice(models.Model):
 
     @property
     def gross(self):
-        prices = [item.total for item in self.invoiceitem_set]
+        prices = [item.total for item in self.invoiceitem_set.all()]
         return sum(prices)
 
     @property
@@ -74,10 +71,8 @@ class Invoice(models.Model):
             return self.gross
 
     def save(self, *args, **kwargs):
-        if not self.invoice_no and self.invoice_type == 'invoice':
-            self.invoice_no = get_next_invoice_no(self.company)
-        if not self.proforma_no and self.invoice_type == 'proforma':
-            self.proforma_no = get_next_proforma_no(self.company)
+        if not self.number:
+            self.number = get_next_number(self.company, self.invoice_type)
 
         super(Invoice, self).save(*args, **kwargs)
 
@@ -86,7 +81,7 @@ class InvoiceItem(models.Model):
 
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
     name = models.CharField(max_length=155)
-    quantity = models.PositiveIntegerField(blank=True, default=1)
+    quantity = models.FloatField(blank=True, default=1)
     measure = models.CharField(max_length=55, blank=True)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
     discount = models.FloatField(blank=True, null=True)
@@ -98,4 +93,6 @@ class InvoiceItem(models.Model):
     def total(self):
         unit_price = self.unit_price if not self.discount else \
             self.unit_price - self.unit_price * self.discount * 100
-        return self.quantity * unit_price if self.quantity and unit_price else unit_price
+        unit_price = float(unit_price)
+        total = self.quantity * unit_price if self.quantity and unit_price else unit_price
+        return total

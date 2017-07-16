@@ -43,6 +43,10 @@ class PasswordChangeView(generic.FormView):
     form_class = PasswordChangeForm
     template_name = 'change_password.html'
 
+    def get_initial(self):
+        self.initial = {}
+        return super().get_initial()
+
     def get_form_kwargs(self):
         kwargs = super(PasswordChangeView, self).get_form_kwargs()
         kwargs['data'] = self.request.POST

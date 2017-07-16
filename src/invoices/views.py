@@ -17,8 +17,7 @@ from invoices.forms import InvoiceForm, InvoiceItemFormSet
 from invoices.models import (
     Invoice,
     InvoiceItem,
-    get_next_invoice_no,
-    get_next_proforma_no,
+    get_next_number,
 )
 
 
@@ -45,25 +44,23 @@ def process_invoice(request, form, form_items):
 @login_required
 def invoice(request, pk=None, invoice_type="invoice"):
     if pk:
-        try:
-            instance = get_object_or_404(Invoice, pk=pk)
-        except Invoice.DoesNotExist:
-            pass
+        instance = get_object_or_404(Invoice, pk=pk)
+        company = instance.company
     else:
         instance = None
+        company = request.company
 
     default_data = {
-        "invoice_no": get_next_invoice_no(request.company),
-        "proforma_no": get_next_proforma_no(request.company),
+        "number": get_next_number(request.company, invoice_type),
         "released_at": str(timezone.now()),
         "taxevent_at": str(timezone.now()),
     }
 
     context = {
         "form": InvoiceForm(initial=default_data),
-        "formset": json.dumps({}),
+        "formset": json.dumps([]),
         "invoice_type": invoice_type,
-        "company_form": CompanyForm(model_to_dict(request.company)),
+        "company_form": CompanyForm(model_to_dict(company)),
         "pk": pk,
     }
 
@@ -107,33 +104,3 @@ def list_invoices(request):
 
     return render(request, template_name='invoices/invoice_list.html',
                   context={"objects": page.object_list, "pager": pager, "page": page})
-
-
-# @login_required
-# def preview(request, pk, base_template="print.html"):
-#     return _invoice(request, pk, base_template=base_template,
-#                    print=True)
-
-
-# @login_required
-# def print(request, pk):
-#     import os
-#     from xhtml2pdf import pisa
-#     from io import BytesIO
-#
-#     css = [
-#         os.path.dirname(__file__) + static("invoices/custom/bootstrap.united.min.css"),
-#         os.path.dirname(__file__) + static("invoices/custom/app.css"),
-#     ]
-#
-#     styles = [open(css_file).read() for css_file in css]
-#     context = {"styles": styles}
-#     response = _invoice(request, pk, base_template="print.html", print=True, context=context)
-#     result = BytesIO()
-#
-#     pdf = pisa.pisaDocument(response.getvalue(), result, encoding="utf-8")
-#     if not pdf.err:
-#         response = HttpResponse(result.getvalue(), content_type="application/pdf")
-#         # response["Content-Disposition"] = "attachment; filename='invoice.pdf'"
-#         return response
-#     return HttpResponse('We had some errors printing the document!')
