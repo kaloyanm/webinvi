@@ -113,17 +113,6 @@ DATABASES = {
         },
     },
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'USER': 'osx',
-#         'NAME': 'fakturi',
-#         'TEST': {
-#             'NAME': 'test_fakturi',
-#         },
-#     },
-# }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
