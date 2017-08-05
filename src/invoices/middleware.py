@@ -10,4 +10,4 @@ class UserCompanyMiddleware:
             try:
                 request.company = Company.objects.get(user=request.user, default=True)
             except Company.DoesNotExist:
-                return redirect("company")
+                request.company = None

@@ -18,13 +18,15 @@
     {% block subcontent %}
         <div class="row grey">
             <div class="col-md-12">
-                <div class="clearfix">&nbsp;</div>
+                <form method="GET">
+                <div class="clearfix">&nbsp</div>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Намери клиент">
+                    <input type="text" name="query" value="{{ query }}" class="form-control" placeholder="Намери клиент">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Търси</button>
+                        <button class="btn btn-default" type="submit">Търси</button>
                     </span>
                 </div><!-- /input-group -->
+                </form>
                 <div class="clearfix">&nbsp;</div>
 
                 <table class="table table-striped">
@@ -54,10 +56,10 @@
                         <ul class="pager">
                             {% if page.has_previous %}
                                 <li class="previous"><a
-                                        href="{% url 'list' %}?page={{ page.previous_page_number }}"><span
+                                        href="{% url 'list' %}?page={{ page.previous_page_number }}&query={{ query }}"><span
                                         aria-hidden="true">&larr;</span> По-нови</a></li>{% endif %}
                             {% if page.has_next %}
-                                <li class="next"><a href="{% url 'list' %}?page={{ page.next_page_number }}">По-стари
+                                <li class="next"><a href="{% url 'list' %}?page={{ page.next_page_number }}&query={{ query }}">По-стари
                                     <span aria-hidden="true">&rarr;</span></a></li>{% endif %}
                         </ul>
                     </nav>

@@ -4,12 +4,16 @@
 {% block content %}
 <div class="row">
     <div class='col-md-6' style="border-right: 1px dashed grey;">
-        <form method="POST" action="">
+        <form method="POST" action="" enctype="multipart/form-data">
         {% csrf_token %}
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
-            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">Фирмена регистрация</a>
+            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                {% block edit_title %}
+                __title__
+                {% endblock %}
+            </a>
         </li>
         </ul>
 
@@ -17,10 +21,12 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">&nbsp;</div>
         </div>
-    
+
         {% bootstrap_form form size="small" %}
         <button type="submit" class="btn btn-success btn-sm pull-right" role="button">Запазване</button>
-        {% if pk %}<a href="{% url 'drop_company' pk %}" type="submit" class="btn btn-danger btn-sm" role="button">Изтрий</a>{% endif %}
+        {% block edit_buttons %}
+        __buttons__
+        {% endblock %}
       </form>
     </div>
     <div class="col-md-5 col-md-offset-1 text-center"></div>

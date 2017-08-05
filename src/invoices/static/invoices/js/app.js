@@ -76,17 +76,15 @@ var app = new Vue({
     }
 });
 
-function print_on() {
-    $('.noprint').hide();
-}
-
-function print_off() {
-    $('.noprint').show();
-}
+// function print_on() {
+//     $('.noprint').hide();
+// }
+//
+// function print_off() {
+//     $('.noprint').show();
+// }
 
 function print() {
-    print_on();
-
     var pdf = new jsPDF('p', 'pt', 'A4');
     pdf.canvas.height = 80 * 11;
     pdf.canvas.width = 80 * 8.5;
@@ -98,7 +96,6 @@ function print() {
         print_content = pdf.output('datauristring');
         iframe.src = print_content;
     });
-    print_off();
 }
 
 

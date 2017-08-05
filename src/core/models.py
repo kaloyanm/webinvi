@@ -15,8 +15,6 @@ class Company(models.Model):
     default = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
-    class Meta:
-        unique_together = ('default', 'user')
 
     def __str__(self):
         return "{} ({})".format(self.name, self.eik)
@@ -26,7 +24,3 @@ class Company(models.Model):
         
         if self.default:
             Company.objects.filter(user=self.user).exclude(pk=self.pk).update(default=False)
-
-    @staticmethod
-    def get_default(user):
-        return

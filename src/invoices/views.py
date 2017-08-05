@@ -12,8 +12,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.core.paginator import Paginator
 
 
+
 from core.forms import CompanyForm
-from invoices.forms import InvoiceForm, InvoiceItemFormSet
+from invoices.forms import InvoiceForm, InvoiceItemFormSet, SearchForm
 from invoices.models import (
     Invoice,
     InvoiceItem,
@@ -49,6 +50,9 @@ def invoice(request, pk=None, invoice_type="invoice"):
     else:
         instance = None
         company = request.company
+
+    if not company:
+        return redirect(reverse("company"))
 
     default_data = {
         "number": get_next_number(request.company, invoice_type),
@@ -99,8 +103,23 @@ def delete_invoice(request, pk):
 @login_required
 def list_invoices(request):
     queryset = Invoice.objects.filter(company=request.company)
+
+    search_q = request.GET.get("query", "")
+    if search_q:
+        form = SearchForm({"terms": search_q})
+        if form.is_valid():
+            terms = form.cleaned_data.get("terms")
+            queryset = queryset.filter(client_name__icontains=terms)
+
     pager = Paginator(queryset, 15)
     page = pager.page(request.GET.get("page", 1))
+    
+    context = {
+        "objects": page.object_list, 
+        "pager": pager, 
+        "page": page,
+        "query": search_q, 
+    }
 
     return render(request, template_name='invoices/invoice_list.html',
-                  context={"objects": page.object_list, "pager": pager, "page": page})
+                  context=context)

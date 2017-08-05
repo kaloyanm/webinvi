@@ -7,4 +7,4 @@ class InvoiceAdmin(admin.ModelAdmin):
         return False
 
 # Register your models here.
-admin.site.register(Invoice, InvoiceAdmin)
+# admin.site.register(Invoice, InvoiceAdmin)

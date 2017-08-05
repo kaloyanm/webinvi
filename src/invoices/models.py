@@ -22,17 +22,17 @@ def get_next_number(company, invoice_type):
 class Invoice(models.Model):
     company = models.ForeignKey(Company, null=True)
     
-    client_name = models.CharField(max_length=255)
-    client_eik = models.CharField(max_length=255)
+    client_name = models.CharField(max_length=255, db_index=True)
+    client_eik = models.CharField(max_length=255, db_index=True)
     client_dds = models.CharField(max_length=255, blank=True)
     client_city = models.CharField(max_length=255)
-    client_address = models.CharField(max_length=255)
+    client_address = models.CharField(max_length=255, db_index=True)
     client_mol = models.CharField(max_length=255)
 
     invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')
     number = models.PositiveIntegerField(blank=True, null=True, db_index=True)
-    released_at = models.DateField(blank=True, null=True, auto_now_add=True)
-    taxevent_at = models.DateField(blank=True, null=True, auto_now_add=True)
+    released_at = models.DateField(blank=True, null=True)
+    taxevent_at = models.DateField(blank=True, null=True)
 
     payment_type = models.CharField(max_length=255, blank=True)
     payment_iban = models.CharField(max_length=255, blank=True)
@@ -48,7 +48,7 @@ class Invoice(models.Model):
     no_dds_reason = models.CharField(max_length=255, blank=True)
 
     class Meta:
-        ordering = ("-released_at",)
+        ordering = ("-released_at", "-invoice_type", "-number")
         unique_together = ("company", "invoice_type", "number")
 
 

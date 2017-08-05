@@ -1,20 +1,16 @@
 <label class=" col-md-5" >Номер:</label>
 <div class="col-md-7 col-padding">
-    {% if invoice_type ==  "invoice" %}
-        <input type="number" class="form-control input-sm" name="invoice_no" value="{{ form.invoice_no.value }}">
-    {% else %}
-        <input type="number" class="form-control input-sm" name="proforma_no" value="{{ form.proforma_no.value }}">
-    {% endif %}
+    <input type="number" class="form-control input-sm" name="proforma_no" value="{{ form.number.value }}">
 </div>
 <div class="appclearfix"></div>
 
 <label class=" col-md-5" >Дата на издаване:</label>
 <div class="col-md-7 col-padding">
-    <input type="date" class="form-control input-sm" name="released_at" value="{{ form.released_at.value }}">
+    <input  class="form-control input-sm" name="released_at" value="{{ form.released_at.value }}">
 </div>
 <div class="appclearfix"></div>
 
 <label class=" col-md-5" >Данъчно събитие:</label>
 <div class="col-md-7 col-padding">
-    <input type="date" class="form-control input-sm" name="taxevent_at" value="{{ form.taxevent_at.value }}">
+    <input  class="form-control input-sm" name="taxevent_at" value="{{ form.taxevent_at.value }}">
 </div>

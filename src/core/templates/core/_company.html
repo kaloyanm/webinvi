@@ -1,0 +1,9 @@
+{% extends "core/_edit_form.html" %}
+
+{% block edit_title %}
+    Фирмена регистрация
+{% endblock %}
+
+{% block edit_buttons %}
+    {% if pk %}<a href="{% url 'drop_company' pk %}" type="submit" class="btn btn-danger btn-sm" role="button">Изтрий</a>{% endif %}
+{% endblock %}

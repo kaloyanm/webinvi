@@ -10,3 +10,8 @@ class CompanyForm(forms.Form):
     address = forms.CharField(label=_(u'Адрес'))
     mol = forms.CharField(label=_(u'МОЛ'))
     default = forms.BooleanField(required=False, label=_(u'Маркирай като основна'))
+
+
+class CompaniesImportForm(forms.Form):
+    file = forms.FileField()
+    wipe_existing = forms.BooleanField(required=False)

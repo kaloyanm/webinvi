@@ -1,7 +1,9 @@
 from django.conf.urls import url
-from core.views import (contact, home, LoginView, RegistrationView,
-                        logout_view, PasswordChangeView, company,
-                        companies, drop_company)
+from core.views import (
+    contact, home, LoginView, RegistrationView,
+    logout_view, PasswordChangeView, company,
+    companies, drop_company, export_companies,
+    import_companies)
 
 urlpatterns = [
     url(r'^contact/', contact, name='contact'),
@@ -13,5 +15,7 @@ urlpatterns = [
     url(r'^company/drop/(?P<pk>[0-9]+)/', drop_company, name='drop_company'),
     url(r'^company/(?P<pk>[0-9]+)/', company, name='company'),
     url(r'^company/', company, name='company'),
+    url(r'^export/companies/', export_companies, name='export_companies'),
+    url(r'^import/companies/', import_companies, name='import_companies'),
     url(r'^$', home, name='home'),
 ]
