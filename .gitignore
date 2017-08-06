@@ -15,6 +15,7 @@ build/
 
 # Static files
 bower_install/
+node_modules/
 uploads/
 
 # MAC
@@ -24,6 +25,7 @@ tags
 .vscode/
 .direnv
 .envrc
+yarn.lock
 
 # App generated files
 ./src/crawled/

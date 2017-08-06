@@ -84,19 +84,10 @@ WSGI_APPLICATION = 'src.wsgi.application'
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'djangobower.finders.BowerFinder',
     'compressor.finders.CompressorFinder'
 ]
 
-BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'bower_install')
-BOWER_INSTALLED_APPS = (
-    'underscore',
-    'html5shiv',
-    'bootstrap#^3.3.7',
-    'popper.js',
-    'html2canvas',
-    'jspdf',
-)
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Database
