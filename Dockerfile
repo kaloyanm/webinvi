@@ -10,4 +10,4 @@ RUN pip install -r requirements.txt
 ADD . /code/
 RUN yarn install
 RUN webpack
-RUN python src/manage.py collectstatic --noinput --verbosity=3
+RUN ./manage.py collectstatic --noinput --verbosity=3

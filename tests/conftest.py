@@ -5,7 +5,7 @@ import os
 from unittest import mock
 from django.shortcuts import render
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'src.src.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'src.settings'
 os.environ['DEBUG'] = 'False'
 
 
