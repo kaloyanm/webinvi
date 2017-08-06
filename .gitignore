@@ -12,6 +12,7 @@ __pycache__/
 env/
 venv/
 build/
+.cache/
 
 # Static files
 bower_install/

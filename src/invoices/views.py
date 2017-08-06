@@ -12,14 +12,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.core.paginator import Paginator
 
 
-
 from core.forms import CompanyForm
 from invoices.forms import InvoiceForm, InvoiceItemFormSet, SearchForm
-from invoices.models import (
-    Invoice,
-    InvoiceItem,
-    get_next_number,
-)
+from invoices.models import Invoice, InvoiceItem, get_next_number
 
 
 def django_json_dumps(items):
@@ -90,8 +85,7 @@ def invoice(request, pk=None, invoice_type="invoice"):
 
 @login_required
 def delete_invoice(request, pk):
-    invoice = get_object_or_404(Invoice, pk=pk)
-    context = {"object": invoice}
+    context = {"object": get_object_or_404(Invoice, pk=pk)}
 
     if request.method == "POST":
         return redirect("list")

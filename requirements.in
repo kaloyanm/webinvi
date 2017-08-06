@@ -4,10 +4,7 @@ django-crispy-forms
 django-debug-toolbar
 django-extensions
 django-bootstrap3
-pdfminer3k
-ply
 py
-pytest
 six
 sqlparse
 uWSGI
@@ -15,8 +12,14 @@ django_compressor
 Scrapy
 requests
 beautifulsoup4
-honcho
 xhtml2pdf==0.2b1
 django-rosetta
 django-import-export
 psycopg2
+
+# Testing facilities
+pytest
+pytest-cov
+pytest-django
+pytest-mock
+factory-boy

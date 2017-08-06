@@ -59,6 +59,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'invoices.middleware.UserCompanyMiddleware',
+    'core.profiling.ProfilerMiddleware',
 ]
 
 ROOT_URLCONF = 'src.urls'
@@ -104,6 +105,7 @@ DATABASES = {
         },
     },
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -155,17 +157,14 @@ LOCALE_PATHS = [
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 # Business logic
-INVOICE_NUMBERING_ORDERING = 10
-INVOICE_MIN_NUMBER = 1000000000
-
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', True)
 
 BASIC_AUTH = os.environ.get('BASIC_AUTH', True)
 BASICAUTH_USERNAME = os.environ.get('BASICAUTH_USERNAME', 'demo')
 BASICAUTH_PASSWORD = os.environ.get('BASICAUTH_PASSWORD', 'demo')
 
-FAKTURI_EIK = os.environ.get("FAKTURI_EIK", "202088403")
-FAKTURI_PASSWORD = os.environ.get("FAKTURI_PASSWORD", "rt3490h")
+FAKTURI_EIK = os.environ.get("FAKTURI_EIK")
+FAKTURI_PASSWORD = os.environ.get("FAKTURI_PASSWORD")
 FAKTURI_EXPORT_PATH = os.path.join(BASE_DIR, "crawled", "invoices")
 
 OERATES_APP_ID = os.environ.get("OERATES_APP_ID", "3a0c967d227e44bcb6ec3651911fce7d")
