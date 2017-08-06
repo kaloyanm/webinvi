@@ -19,6 +19,8 @@ steps to set that up:
 4. Run `docker-compose up`.
 5. Wait :). This might take up to 20 minutes. Meanwhile don't do anything
 and let it finish
+6. Enter into the web container with `docker exec -it invoice bash` and
+apply the migrations via `python src/manage.py migrate`
 
 
 Once the setup is done, you will have a docker containers running. To start or stop the project run
