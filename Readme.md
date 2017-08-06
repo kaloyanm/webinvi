@@ -10,7 +10,7 @@ Contents
 
 Setup
 =====
-To run the platform on your machine, you should use vagrant. Follow these
+To run the platform on your machine, you should use docker. Follow these
 steps to set that up:
 
 1. Download and install Docker (https://docs.docker.com/engine/installation/)
