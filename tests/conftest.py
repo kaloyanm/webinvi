@@ -1,6 +1,7 @@
 
 import logging
 import os
+import django
 
 from unittest import mock
 from django.shortcuts import render
@@ -19,3 +20,4 @@ def render_wrapper(request, template_name, context=None, *args, **kwargs):
 def pytest_configure(config):
     logging.getLogger('django.db.backends.schema').setLevel(logging.INFO)
     mock.patch('django.shortcuts.render', render_wrapper).start()
+    django.setup()

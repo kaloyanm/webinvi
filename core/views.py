@@ -169,6 +169,7 @@ def import_companies(request):
                 import_csv_upload(company_resource, request.FILES["file"])
                 return redirect(reverse_lazy("companies"))
             except ImportException as e:
+                logging.debug(e)
                 raise Http404
 
     context = { "form": form}

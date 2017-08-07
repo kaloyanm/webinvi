@@ -1,3 +1,5 @@
+
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -18,9 +20,11 @@ class Company(models.Model):
 
     def __str__(self):
         return "{} ({})".format(self.name, self.eik)
-    
+
+    def get_absolute_url(self):
+        return reverse('core.views.company', args=[self.pk])
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        
         if self.default:
             Company.objects.filter(user=self.user).exclude(pk=self.pk).update(default=False)
