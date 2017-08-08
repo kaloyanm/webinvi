@@ -28,3 +28,5 @@ class Company(models.Model):
         super().save(*args, **kwargs)
         if self.default:
             Company.objects.filter(user=self.user).exclude(pk=self.pk).update(default=False)
+        elif not Company.objects.filter(user=self.user, default=True).exists():
+            Company.objects.filter(pk=self.pk).update(default=True)

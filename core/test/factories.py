@@ -27,7 +27,7 @@ class CompanyFactory(factory.DjangoModelFactory):
 
     user = factory.SubFactory('core.test.factories.UserFactory')
     name = factory.Faker('company', locale='bg_BG')
-    city = factory.Faker('city')
-    address = factory.Faker('address')
-    mol = factory.Faker('name')
+    city = factory.Faker('city', locale='bg_BG')
+    address = factory.Faker('address', locale='bg_BG')
+    mol = factory.Faker('name', locale='bg_BG')
     eik = factory.Sequence(lambda n: 2345678912 - n) # any ten digits number would suffice

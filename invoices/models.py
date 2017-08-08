@@ -20,7 +20,7 @@ def get_next_number(company, invoice_type):
 
 # Create your models here.
 class Invoice(models.Model):
-    company = models.ForeignKey(Company, null=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     
     client_name = models.CharField(max_length=255, db_index=True)
     client_eik = models.CharField(max_length=255, db_index=True)
