@@ -149,7 +149,6 @@ def import_csv_upload(resource_instance, file_in_memory):
     dataset.extend(content)
 
     result = resource_instance.import_data(dataset, dry_run=False)
-    print(get_import_errors(result))
     if result.has_errors():
         raise ImportException()
     
@@ -169,9 +168,8 @@ def import_companies(request):
                 import_csv_upload(company_resource, request.FILES["file"])
                 return redirect(reverse_lazy("companies"))
             except ImportException as e:
-                logging.debug(e)
                 raise Http404
 
-    context = { "form": form}
-    return render(request, template_name="core/_import_companies.html", context=context)
+    return render(request, template_name="core/_import_companies.html",
+                  context={"form": form})
 
