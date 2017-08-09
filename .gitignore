@@ -28,5 +28,6 @@ tags
 .vagrant
 yarn.lock
 /static
+.idea/
 
 # App generated files
