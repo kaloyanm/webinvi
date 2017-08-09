@@ -25,9 +25,8 @@ src/static/*
 tags
 .vscode/
 .direnv
-.envrc
+.vagrant
 yarn.lock
-static/
+/static
 
 # App generated files
-srcdpre/crawled/

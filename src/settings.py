@@ -95,9 +95,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'USER': os.environ.get('DATABASE_USER', 'postgres'),
-        'NAME': os.environ.get('DATABASE_NAME', 'postgres'),
-        'HOST': os.environ.get('DATABASE_HOST', 'db'),
+        'USER': os.environ.get('DATABASE_USER', 'ubuntu'),
+        'NAME': os.environ.get('DATABASE_NAME', 'fakturi'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'ubuntu'),
+        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
         'PORT': os.environ.get('DATABASE_PORT', 5432),
         'TEST': {
             'NAME': 'test_fakturi',
