@@ -27,6 +27,7 @@ tags
 .direnv
 .envrc
 yarn.lock
+static/
 
 # App generated files
 srcdpre/crawled/
