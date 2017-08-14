@@ -68,17 +68,13 @@
         <span class="pull-right">
             {% if pk %}
                 <a href="{% url 'delete' pk %}" class="btn btn-danger btn-sm noprint" role="button">Изтриване</a>
-                <a href="javascript:void();" onclick="print();" class="btn btn-default btn-sm dropdown-toggle noprint" role="button">Принтиране</a>
+                <a href="javascript:void(0);" onclick="print_invoice();" class="btn btn-default btn-sm dropdown-toggle noprint" role="button">Принтиране</a>
             {% endif%}
             <button type="submit" href="{% url 'list' %}" class="btn btn-success btn-sm noprint" role="button">Запазване</button>
         </span>
     </div>
 </div>
 </form>
-<script src="https://unpkg.com/vue"></script>
 <script type="text/javascript">window.formset = {{ formset|safe }};</script>
-<script src="{% static "jspdf/dist/jspdf.min.js" %}"></script>
-<script src="{% static "html2canvas/build/html2canvas.js" %}"></script>
-<script src="{% static "invoices/js/html2pdf.js" %}"></script>
 <script src="{% static "invoices/js/app.js" %}"></script>
 {% endblock %}

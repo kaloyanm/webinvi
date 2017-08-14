@@ -3,6 +3,6 @@ window.jQuery = $;
 window.$ = $;
 
 import 'bootstrap';
-import 'popper.js';
-import 'html2canvas';
-import 'jspdf';
+//import 'popper.js';
+
+import './scss/style.scss';
