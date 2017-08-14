@@ -196,7 +196,7 @@ var html2pdf = (function(html2canvas, jsPDF) {
       if (page)  pdf.addPage();
       var imgData = pageCanvas.toDataURL('image/' + opt.image.type, opt.image.quality);
       pdf.addImage(imgData, opt.image.type, opt.margin[1], opt.margin[0],
-                   pageSize.inner.width, pageHeight);
+        pageSize.inner.width, pageHeight);
 
       // Add hyperlinks.
       if (opt.enableLinks) {
@@ -385,3 +385,6 @@ var html2pdf = (function(html2canvas, jsPDF) {
   // Expose the html2pdf function.
   return html2pdf;
 }(html2canvas, jsPDF));
+
+
+export {html2pdf};
