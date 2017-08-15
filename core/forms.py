@@ -15,3 +15,8 @@ class CompanyForm(forms.Form):
 class CompaniesImportForm(forms.Form):
     file = forms.FileField()
     wipe_existing = forms.BooleanField(required=False)
+
+
+class InvoiceproImportForm(forms.Form):
+    file = forms.FileField()
+    wipe_existing = forms.BooleanField(required=False)

@@ -10,9 +10,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 
 from core.models import Company
-from core.forms import CompanyForm, CompaniesImportForm
+from core.forms import CompanyForm, CompaniesImportForm, InvoiceproImportForm
 from core.admin import CompanyResource
 
+from core.import_export.invoicepro import read_invoicepro_file
 
 def logout_view(request):
     logout(request)
@@ -151,7 +152,7 @@ def import_csv_upload(resource_instance, file_in_memory):
     result = resource_instance.import_data(dataset, dry_run=False)
     if result.has_errors():
         raise ImportException()
-    
+
     return True
 
 
@@ -173,3 +174,34 @@ def import_companies(request):
     return render(request, template_name="core/_import_companies.html",
                   context={"form": form})
 
+
+@login_required
+def import_invoicepro(request):
+    form = InvoiceproImportForm()
+
+    if request.method == "POST":
+        form = InvoiceproImportForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            company_resource = CompanyResource(user=request.user)
+            try:
+                invoicepro_file = read_invoicepro_file(request.FILES["file"])
+                companies_dataset = invoicepro_file['companies'].as_dataset({
+                    'id': 'id',
+                    'Name_bg': 'name',
+                    'Bulstat': 'eik',
+                    'VatId': 'dds',
+                    'Address_bg': 'address',
+                    'City_bg': 'city',
+                    'Mol_bg': 'mol',
+                })
+                result = company_resource.import_data(companies_dataset, dry_run=False)
+                if result.has_errors():
+                    raise ImportException()
+
+                return redirect(reverse_lazy("companies"))
+            except ImportException as e:
+                raise Http404
+
+    return render(request, template_name="core/_import_invoicepro.html",
+                  context={"form": form})
