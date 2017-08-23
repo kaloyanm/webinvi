@@ -3,6 +3,7 @@
 <input type="hidden" name="form-INITIAL_FORMS" v-model="initial_forms" />
 <input type="hidden" name="form-MAX_NUM_FORMS" value="1000" />
 <table class="table table-striped _m0">
+  <thead>
     <tr>
       <th class="noprint"><a class="btn btn-success btn-xs" @click="add()">+</a></th>
       <th width="30%" class="applabel">Продукт / Услуга</th>
@@ -12,6 +13,8 @@
       <th class="applabel">% Отстъпка</th>
       <th class="applabel">Цена</th>
     </tr>
+  </thead>
+  <tbody>
     <tr v-for="(row, index) in rows">
         <td class="noprint">
             <a class="btn btn-danger btn-xs" @click="remove(index)">x</a>
@@ -41,4 +44,5 @@
                    v-model="row.gross" disabled>
         </td>
     </tr>
+  </tbody>
 </table>
