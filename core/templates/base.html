@@ -11,12 +11,12 @@
     {% include "_headers.html" %}
 </head>
 
-<body class="">
+<body>
     <!-- Navigation -->
     <nav class="navbar navbar-inverse " role="navigation">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2">
+                <div class="col-xs-12">
                 {% include "_navigation.html" %}
                 </div>
             </div>
@@ -25,24 +25,23 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <main class="container-fluid">
         <div class="row" >
-            <div class="col-md-8 col-md-offset-2" id="print">
+            <div class="col-md-12" id="_print">
                 {% block content %}{% endblock %}
             </div>
         </div>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    {% block footer_head %}<hr>{% endblock %}
-                    <p>Copyright &copy; Innova Crew 2016</p>
-                </div>
-            </div>
-        </footer>
-    </div>
+    </main>
     <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="footer container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="_m0">Copyright &copy; Innova Crew 2016</p>
+        </div>
+      </div>
+    </footer>
 
     <!-- Bootstrap Core JavaScript -->
 {#    {% include "_footer_scripts.html" %}#}

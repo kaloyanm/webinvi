@@ -6,60 +6,55 @@
 
 <!-- Brand and toggle get grouped for better mobile display -->
 <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="{% url 'home' %}">eDocPrint</a>
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+  </button>
+  <a class="navbar-brand" href="{% url 'home' %}">eDocPrint</a>
 </div>
 <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-        <li>
-            <a href="#">Относно</a>
-        </li>
-        {% if user.is_active %}
-            <li>
-                <a href="{% url 'list' %}">Фактури</a>
-            </li>
-        {% endif %}
-        <li>
-            <a href="{% url 'contact' %}">За контакт</a>
-        </li>
-    </ul>
-    <ul class="nav navbar-nav pull-right">
+  <ul class="nav navbar-nav">
+    <li>
+      <a href="{% url 'contact' %}">За контакт</a>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav pull-right">
 
-        {% if user.is_active %}
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">Профил ({{ request.user.id }}) <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#"><b>Обща информация</b></a></li>
-                    <li><a href="{% url 'companies' %}">Фирми</a></li>
-                    <li><a href="{% url 'password' %}">Смяна на паролата</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Dropbox</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Експорт</a></li>
-                </ul>
-            </li>
-        {% endif %}
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false"><img src="{{ flags_dir }}{{ lang.code }}.png"/> <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                {% for lang_code, lang_name in LANGUAGES %}
-                    <li><a href="#"><img src="{{ flags_dir }}{{ lang_code }}.png"/> {{ lang_name }}</a></li>
-                {% endfor %}
-            </ul>
-        </li>
-        {% if not user.is_active %}
-            <li>
-                <a href="{% url 'login' %}">Вход</a>
-            </li>
-        {% else %}
-             <li><a href="{% url 'logout' %}">Изход</a></li>
-        {% endif %}
-    </ul>
+    {% if user.is_active %}
+      <li>
+        <a href="{% url 'list' %}">Фактури</a>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+           aria-expanded="false">Профил ({{ request.user.id }}) <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#"><b>Обща информация</b></a></li>
+          <li><a href="{% url 'companies' %}">Фирми</a></li>
+          <li><a href="{% url 'password' %}">Смяна на паролата</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">Dropbox</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">Експорт</a></li>
+        </ul>
+      </li>
+    {% endif %}
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+         aria-expanded="false"><img src="{{ flags_dir }}{{ lang.code }}.png"/> <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        {% for lang_code, lang_name in LANGUAGES %}
+          <li><a href="#"><img src="{{ flags_dir }}{{ lang_code }}.png"/> {{ lang_name }}</a></li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% if not user.is_active %}
+      <li>
+        <a href="{% url 'login' %}">Вход</a>
+      </li>
+    {% else %}
+      <li><a href="{% url 'logout' %}">Изход</a></li>
+    {% endif %}
+  </ul>
 </div>
 <!-- /.navbar-collapse -->
