@@ -15,12 +15,31 @@ main {
   flex: 1;
 }
 
+.body--invoice {
+  background: #eee;
+}
+
+.invoice-settings {
+  padding: 15px;
+  width: 350px;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
 .invoice {
-  max-width: 970px;
+  max-width: 800px;
   margin-bottom: 30px;
+  background: #fff;
+  padding: 15px;
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
+  margin-left: 350px;
 
   label {
-    margin: 5px 0 0 0;
+    margin: 6px 0 0 0;
+    font-size: 12px;
+    padding-right: 0;
   }
 }
 

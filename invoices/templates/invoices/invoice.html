@@ -1,86 +1,133 @@
 {% extends "base.html" %}
 {% load static compress inv_utils %}
+{% block body_class %}body--invoice{% endblock %}
 
 {% block content %}
-  <div class="container invoice">
-    <form class="form-horizontal" method="POST" action="" id="invoice_app">
-      {% csrf_token %}
-
-      <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
-
-      {% for field, errors in form.errors.items %}
-        {% for error in errors %}
-          <div class="row alert alert-warning" role="alert">{{ field }}: {{ error }}</div>
-        {% endfor %}
-      {% endfor %}
-
-      <div class="row _mbs">
-        <div class="col-xs-6">
-          <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
-            <small>оригинал</small>
-          </h1>
-        </div>
-        <div class="col-xs-6 _p0">
-          {% include "invoices/_invoice_meta.html" %}
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-6 _p0 _ptxs _pbxs">
-          {% include "invoices/_invoice_receiver.html" %}
-        </div>
-        <div class="col-xs-6 _p0 _ptxs _pbxs _bg-background-light">
-          {% include "invoices/_invoice_company.html" %}
-        </div>
-      </div>
-
-      <div class="row _ptm _pbm">
-        <div class="col-xs-12">{% include "invoices/_invoice_details.html" %}</div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-6 _p0 _ptxs _pbxs">
-          {% include "invoices/_invoice_bank.html" %}
-
-          <label class="col-xs-5">Получил:</label>
-          <div class="col-xs-7">
-            <input type="text" class="form-control input-sm">
+  <div class="invoice-settings _mbs">
+    <h2>Настройки</h2>
+    <div class="_mrs">
+      <label>Език:</label>
+      <select>
+        <option value="1">Български</option>
+        <option value="2">English</option>
+      </select>
+    </div>
+    <div>
+      <label>Валута:</label>
+      <select>
+        <option value="1">$</option>
+        <option value="2">&euro;</option>
+      </select>
+    </div>
+    <div>
+      <label>Доставчик:</label>
+      <select>
+        <option value="1">Доставчик 1</option>
+        <option value="2">Доставчик 2</option>
+      </select>
+    </div>
+    <div>
+      <label>Услуга / Продукт:</label>
+      <select>
+        <option value="1">Услуга 1</option>
+        <option value="2">Услуга 2</option>
+      </select>
+      <a href="#" class="_mls">[+] Добави</a>
+    </div>
+    <div class="row _mts">
+      <div class="col-md-12">
+        {% if pk %}
+          <div class="pull-left">
+            <a href="javascript:void(0);" onclick="print_invoice();" class="btn btn-primary btn-sm dropdown-toggle noprint" role="button">Принтиране</a>
           </div>
-        </div>
-        <div class="col-xs-6 _p0 _bg-background-light _ptxs _pbxs">
-          {% include "invoices/_invoice_total.html" %}
-
-          <label class=" col-md-5">Съставил:</label>
-          <div class="col-md-7 col-padding">
-            <input type="text" class="form-control input-sm">
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <label class="control-label">Бележка:</label>
-          <input name="note" value="{{ form.note.value }}" type="text" class="form-control input-sm">
-        </div>
-      </div>
-      <div class="row _mts">
-        <div class="col-md-12">
+        {% endif %}
+        <div class="pull-right">
           {% if pk %}
-            <div class="pull-left">
-              <a href="javascript:void(0);" onclick="print_invoice();" class="btn btn-primary btn-sm dropdown-toggle noprint" role="button">Принтиране</a>
-            </div>
-          {% endif %}
-          <div class="pull-right">
-            {% if pk %}
-              <a href="{% url 'delete' pk %}" class="btn btn-danger btn-sm noprint" role="button">Изтриване</a>
+            <a href="{% url 'delete' pk %}" class="btn btn-danger btn-sm noprint" role="button">Изтриване</a>
 
-            {% endif %}
-            <button type="submit" href="{% url 'list' %}" class="btn btn-success btn-sm noprint" role="button">Запазване</button>
-          </div>
+          {% endif %}
+          <button type="submit" href="{% url 'list' %}" class="btn btn-success btn-sm noprint" role="button">Запазване</button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
+  <form class="form-horizontal invoice" method="POST" action="" id="invoice_app">
+    {% csrf_token %}
+
+    <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
+
+    {% for field, errors in form.errors.items %}
+      {% for error in errors %}
+        <div class="row alert alert-warning" role="alert">{{ field }}: {{ error }}</div>
+      {% endfor %}
+    {% endfor %}
+
+    <div class="row _mbs">
+      <div class="col-xs-6">
+        <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
+          <small>оригинал</small>
+        </h1>
+      </div>
+      <div class="col-xs-6 _p0">
+        {% include "invoices/_invoice_meta.html" %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6 _p0 _ptxs _pbxs">
+        {% include "invoices/_invoice_receiver.html" %}
+      </div>
+      <div class="col-xs-6 _p0 _ptxs _pbxs">
+        {% include "invoices/_invoice_company.html" %}
+      </div>
+    </div>
+
+    <div class="row _pts _pbs">
+      <div class="col-xs-12">{% include "invoices/_invoice_details.html" %}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-6 _p0 _ptxs _pbxs">
+        {% include "invoices/_invoice_bank.html" %}
+
+        <label class="col-xs-4">Получил:</label>
+        <div class="col-xs-8">
+          <input type="text" class="form-control input-sm">
+        </div>
+      </div>
+      <div class="col-xs-6 _p0 _ptxs _pbxs">
+        {% include "invoices/_invoice_total.html" %}
+
+        <label class="col-xs-4">Съставил:</label>
+        <div class="col-xs-8">
+          <input type="text" class="form-control input-sm">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <label class="control-label">Бележка:</label>
+        <input name="note" value="{{ form.note.value }}" type="text" class="form-control input-sm">
+      </div>
+    </div>
+    <div class="row _mts">
+      <div class="col-md-12">
+        {% if pk %}
+          <div class="pull-left">
+            <a href="javascript:void(0);" onclick="print_invoice();" class="btn btn-primary btn-sm dropdown-toggle noprint" role="button">Принтиране</a>
+          </div>
+        {% endif %}
+        <div class="pull-right">
+          {% if pk %}
+            <a href="{% url 'delete' pk %}" class="btn btn-danger btn-sm noprint" role="button">Изтриване</a>
+
+          {% endif %}
+          <button type="submit" href="{% url 'list' %}" class="btn btn-success btn-sm noprint" role="button">Запазване</button>
+        </div>
+      </div>
+    </div>
+  </form>
 
   <script type="text/javascript">window.formset = {{ formset|safe }};</script>
   <script src="{% static "invoices/js/app.js" %}"></script>
