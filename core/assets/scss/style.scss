@@ -1,8 +1,18 @@
 @import "bootstrap";
 @import "concise-utils";
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
 .invoice {
   max-width: 970px;
+  margin-bottom: 30px;
 
   label {
     margin: 5px 0 0 0;
