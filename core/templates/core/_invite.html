@@ -1,0 +1,22 @@
+{% extends "core/_edit_form.html" %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+    <li><a href="#">Профил</a></li>
+    <li><a href="{% url 'companies' %}">Фирми</a></li>
+    <li>{{ company.name }}</li>
+    <li><a href="{% url 'collaborators' company.pk %}">Сътрудници</a></li>
+</ol>
+{% endblock %}
+
+{% block edit_title %}
+    Добавяне на сътрудник
+{% endblock %}
+
+{% block edit_buttons %}
+    {% if object.pk %}
+        <a href="#" type="submit" class="btn btn-danger btn-sm" role="button">Повтори</a>
+    {% else %}
+        <button type="submit" class="btn btn-success btn-sm pull-right" role="button">Изпрати</button>
+    {% endif %}
+{% endblock %}

@@ -57,8 +57,6 @@ class CompaniesImportForm(forms.Form):
 class InvoiceproImportForm(forms.Form):
     file = forms.FileField()
     wipe_existing = forms.BooleanField(required=False)
-
-
 # @todo: remove it after semantic forms module is successfully installed
 class ExampleSemanticForm(forms.Form):
     def __init__(self, *args, **kwargs):

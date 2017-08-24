@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<ol class="breadcrumb">
+    <li><a href="#">Профил</a></li>
+    <li><a href="{% url 'companies' %}">Фирми</a></li>
+    <li>{{ company.name }}</li>
+    <li><a href="{% url 'collaborators' company.pk %}">Сътрудници</a></li>
+</ol>
+
+{% block submenu %}
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <span class="pull-right">
+            <a href="{% url 'invite' company.pk %}" class="btn btn-primary btn-xs" role="button">+ Добави</a>
+        </span>
+    </div>
+</div>
+{% endblock %}
+
+<div class="row">&nbsp;</div>
+<div class="row grey">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Потребител</th>
+                    <th>Статус</th>
+                    <th>Email</th>
+                    <th>Изтича На</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in objects %}
+                <tr>
+                    <td>{{ item.user|default:'-' }}</td>
+                    <td>{% if item.verified %} <span style="green">verified</span> {% else %} <span style="color:orange">pending</span> {% endif %}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.expire_on }}</td>
+                    <td><a href="{% url 'drop_collab' item.pk %}" class="btn btn-warning btn-xs pull">премахни</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

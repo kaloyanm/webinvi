@@ -2,6 +2,7 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
 
 # Create your models here.
@@ -30,3 +31,19 @@ class Company(models.Model):
             Company.objects.filter(user=self.user).exclude(pk=self.pk).update(default=False)
         elif not Company.objects.filter(user=self.user, default=True).exists():
             Company.objects.filter(pk=self.pk).update(default=True)
+
+
+class CompanyAccess(models.Model):
+
+    company = models.ForeignKey(Company)
+    user = models.ForeignKey(User, null=True)
+    email = models.EmailField(db_index=True)
+    verified = models.BooleanField(default=False)
+    invitation_key = models.CharField(max_length=155, db_index=True)
+    expire_on = models.DateField()
+
+    class Meta:
+        unique_together = ("company", "user")
+
+    def __str__(self):
+        return str(_("Точка за достъп на {} за {}".format(self.email, self.company)))

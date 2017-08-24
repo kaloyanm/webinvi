@@ -11,7 +11,7 @@ from invoices.test.factories import InvoiceFactory, InvoiceItemFactory
 class Command(BaseCommand):
     help = 'Generate application dummy data'
 
-    num_companies = 50
+    num_companies = 10
     num_invoices = 50
 
     def handle(self, *args, **options):
