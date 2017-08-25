@@ -33,9 +33,12 @@ module.exports = function(env){
           loader: ExtractTextPlugin.extract({
             fallback : 'style-loader',
             use: [
-              'css-loader',
+              'raw-loader',
               {
-                loader: 'postcss-loader'
+                loader: 'postcss-loader',
+                options: {
+                  sourceMap: isDev
+                }
               },
               {
                 loader: 'sass-loader',
@@ -53,7 +56,9 @@ module.exports = function(env){
         'process.env.NODE_ENV': JSON.stringify(environment)
       }),
       //new BundleTracker({filename: './webpack-stats.json'}),
-      new ExtractTextPlugin('./core/static/core/css/style.css'),
+      new ExtractTextPlugin({
+        filename:'./core/static/core/css/style.css',
+        allChunks: true}),
       new webpack.ProvidePlugin({
         jQuery: 'jquery',
         $: 'jquery',

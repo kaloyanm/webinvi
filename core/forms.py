@@ -35,8 +35,7 @@ class ExampleSemanticForm(forms.Form):
         self.helper.form_action = 'sample_form_name'
 
         # Note that the submit button is added separately, with a Semantic UI class.
-        self.helper.add_input(Submit('submit', 'Submit',
-                                     css_class='ui button'))
+        self.helper.add_input(Submit('submit', 'Submit', css_class='ui button'))
 
     like_website = forms.TypedChoiceField(
         label='Do you like this website?',

@@ -348,7 +348,7 @@
 }
 
 ._bg-base-primary {
-  background-color: $brand-primary;
+  //background-color: $brand-primary;
 }
 
 ._c-base-selection {
@@ -637,7 +637,7 @@
   visibility: hidden;
 }
 
-@media (min-width: $screen-xs) {
+@media (min-width: 480px) {
   ._show-s,
   ._hide-xs,
   ._hide-m,
@@ -656,7 +656,7 @@
   }
 }
 
-@media (min-width: $screen-sm) {
+@media (min-width: 768px) {
   ._show-m,
   ._hide-sm,
   ._hide-xm,
@@ -675,7 +675,7 @@
   }
 }
 
-@media (min-width: $screen-md) {
+@media (min-width: 991px) {
   ._show-l,
   ._hide-xs,
   ._hide-s,
@@ -694,7 +694,7 @@
   }
 }
 
-@media (min-width: $screen-lg) {
+@media (min-width: 1200px) {
   ._show-xl,
   ._hide-xs,
   ._hide-s,

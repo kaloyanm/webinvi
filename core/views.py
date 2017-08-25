@@ -8,12 +8,16 @@ from django.forms.models import model_to_dict
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
+from django.utils.translation import ugettext_lazy as _
 
 from core.models import Company
 from core.forms import CompanyForm, CompaniesImportForm, InvoiceproImportForm, ExampleSemanticForm
 from core.admin import CompanyResource
 
 from core.import_export.invoicepro import read_invoicepro_file
+
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 def logout_view(request):
     logout(request)
@@ -27,9 +31,18 @@ def contact(request):
 def home(request):
     return render(request, 'home.html')
 
+class SubmitButtonMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', _('Submit'), css_class='ui button primary'))
+
+class LoginForm(SubmitButtonMixin, AuthenticationForm):
+    pass
+
 
 class LoginView(generic.FormView):
-    form_class = AuthenticationForm
+    form_class = LoginForm
     template_name = 'login.html'
     success_url = reverse_lazy('list')
 
