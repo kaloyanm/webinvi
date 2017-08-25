@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 
 from core.models import Company
-from core.forms import CompanyForm, CompaniesImportForm, InvoiceproImportForm
+from core.forms import CompanyForm, CompaniesImportForm, InvoiceproImportForm, ExampleSemanticForm
 from core.admin import CompanyResource
 
 from core.import_export.invoicepro import read_invoicepro_file
@@ -205,3 +205,8 @@ def import_invoicepro(request):
 
     return render(request, template_name="core/_import_invoicepro.html",
                   context={"form": form})
+
+
+def test_semantic(request):
+    context = {'form': ExampleSemanticForm}
+    return render(request, 'test/_semantic.html', context)

@@ -3,7 +3,7 @@ from core.views import (
     contact, home, LoginView, RegistrationView,
     logout_view, PasswordChangeView, company,
     companies, drop_company, export_companies,
-    import_companies, import_invoicepro)
+    import_companies, import_invoicepro, test_semantic)
 
 urlpatterns = [
     url(r'^contact/', contact, name='contact'),
@@ -18,5 +18,10 @@ urlpatterns = [
     url(r'^export/companies/', export_companies, name='export_companies'),
     url(r'^import/companies/', import_companies, name='import_companies'),
     url(r'^import/invoicepro/', import_invoicepro, name='import_invoicepro'),
+
+    # Test
+    url(r'^semantic/', test_semantic),
+
+    # Main entry point
     url(r'^$', home, name='home'),
 ]

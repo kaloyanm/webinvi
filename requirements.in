@@ -16,6 +16,8 @@ xhtml2pdf==0.2b1
 django-rosetta
 django-import-export
 psycopg2
+honcho
+django-crispy-forms
 
 # Testing facilities
 pytest

@@ -27,6 +27,7 @@
     "postcss-loader": "^2.0.6",
     "resolve-url-loader": "^2.1.0",
     "sass-loader": "^6.0.6",
+    "semantic-ui": "^2.2.13",
     "style-loader": "^0.18.2",
     "underscore": "^1.8.3",
     "url-loader": "^0.5.9",
