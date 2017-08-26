@@ -1,64 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Jumbotron Header -->
-<header class="well jumbotron hero-spacer">
-    <h1>Бачкай си спокойно!</h1>
-    <p>За хора които им е писнало от чиновничество и разпиляване на хартия.
-    Издаването на фактури никога не е било по-лесно.</p>
-    <p><a class="btn btn-primary btn-large">Кажи ми как!</a>
-    </p>
-</header>
-
-<hr>
-
-<!-- Title -->
-<div class="row">
-    <div class="col-lg-12">
-        <h3>Пакети</h3>
+  <div class="ui inverted vertical masthead center aligned segment">
+    <div class="ui text container">
+      <h1 class="ui inverted header">
+        Бачкай си спокойно!
+      </h1>
+      <h2>За хора които им е писнало от чиновничество и разпиляване на хартия.
+        Издаването на фактури никога не е било по-лесно.</h2>
+      <div class="ui huge primary button">Кажи ми как!</div>
     </div>
-</div>
-<!-- /.row -->
+  </div>
+  <section class="_ptxl">
+    <div class="ui vertical stripe segment center aligned">
+      <h1 class="ui header">Пакети</h1>
+    </div>
 
-<!-- Page Features -->
-<div class="row text-center">
-
-    <div class="col-md-4 col-md-6 hero-feature">
-        <div class="thumbnail">
-            <div class="caption">
-                <h3>Фрийлансър</h3>
-                <p>За свободни професии.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Безплатно</a>
-                </p>
-            </div>
+    <div class="ui vertical stripe quote segment">
+      <div class="ui equal width stackable internally celled grid">
+        <div class="center aligned row">
+          <div class="column">
+            <h2>Фрийлансър</h2>
+            <p>За свободни професии.</p>
+            <div class="ui primary button">Вземи</div>
+          </div>
+          <div class="column">
+            <h2>Малък бизнес</h2>
+            <p>Фирми до 10 човека.</p>
+            <div class="ui primary button">Вземи</div>
+          </div>
+          <div class="column">
+            <h2>АД</h2>
+            <p>Организации и кооперативи.</p>
+            <div class="ui primary button">Вземи</div>
+          </div>
         </div>
+      </div>
     </div>
-
-    <div class="col-md-4 col-md-6 hero-feature">
-        <div class="thumbnail">
-
-            <div class="caption">
-                <h3>Малък бизнес</h3>
-                <p>Фирми до 10 човека.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Вземи!</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 col-md-6 hero-feature">
-        <div class="thumbnail">
-            <div class="caption">
-                <h3>АД</h3>
-                <p>Организации и кооперативи.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Вземи!</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- /.row -->
+  </section>
 {% endblock %}

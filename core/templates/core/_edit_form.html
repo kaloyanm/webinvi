@@ -1,34 +1,45 @@
 {% extends 'base.html' %}
-{% load bootstrap3 %}
+{% load crispy_forms_tags bootstrap3 %}
 
 {% block content %}
-<div class="row">
-    <div class='col-md-6' style="border-right: 1px dashed grey;">
-        <form method="POST" action="" enctype="multipart/form-data">
-        {% csrf_token %}
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active">
-            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
-                {% block edit_title %}
-                __title__
-                {% endblock %}
-            </a>
-        </li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">&nbsp;</div>
-        </div>
-
-        {% bootstrap_form form size="small" %}
-        <button type="submit" class="btn btn-success btn-sm pull-right" role="button">Запазване</button>
-        {% block edit_buttons %}
-        __buttons__
-        {% endblock %}
-      </form>
-    </div>
-    <div class="col-md-5 col-md-offset-1 text-center"></div>
+<div class="ui basic segment">
+  <h2 class="left floated">Фирмена регистрация</h2>
 </div>
+
+<div class="ui basic segment" style="max-width: 500px">
+  {% crispy form %}
+  {% block edit_buttons %}
+    __buttons__
+  {% endblock %}
+</div>
+
+{#  <div class="row">#}
+{#    <div class='col-md-6' style="border-right: 1px dashed grey;">#}
+{#      <form method="POST" action="" enctype="multipart/form-data">#}
+{#        {% csrf_token %}#}
+{#        <!-- Nav tabs -->#}
+{#        <ul class="nav nav-tabs" role="tablist">#}
+{#          <li role="presentation" class="active">#}
+{#            <a href="#home" aria-controls="home" role="tab" data-toggle="tab">#}
+{#              {% block edit_title %}#}
+{#                __title__#}
+{#              {% endblock %}#}
+{#            </a>#}
+{#          </li>#}
+{#        </ul>#}
+{##}
+{#        <!-- Tab panes -->#}
+{#        <div class="tab-content">#}
+{#          <div role="tabpanel" class="tab-pane active" id="home">&nbsp;</div>#}
+{#        </div>#}
+{##}
+{#        {% bootstrap_form form size="small" %}#}
+{#        <button type="submit" class="btn btn-success btn-sm pull-right" role="button">Запазване</button>#}
+{#        {% block edit_buttons %}#}
+{#          __buttons__#}
+{#        {% endblock %}#}
+{#      </form>#}
+{#    </div>#}
+{#    <div class="col-md-5 col-md-offset-1 text-center"></div>#}
+{#  </div>#}
 {% endblock %}

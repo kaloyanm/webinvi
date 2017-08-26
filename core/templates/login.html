@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="row">
-    <div class='col-md-5' style="border-right: 1px dashed grey;">
-        <form method="POST" action="">
-    {% csrf_token %}
-        {% include "layout_form_vertical.html" with form=form %}
-        <button type="submit" class="btn btn-default">Влез</button>
-      </form>
+<section class="_ptxl _pbxl">
+  <div class="ui grid equal width container stackable">
+  <div class="column">
+    <h1>Вход потребители</h1>
+    <div class="ui form">
+        {% crispy form %}
     </div>
-    <div class="col-md-5 col-md-offset-1 text-center">
-        <br /><br /><br /><br />
-        <a href="{% url 'registration' %}" class="btn btn-default btn-sm">Регистрирай се</a>
+  </div>
+  <div class="ui column middle aligned centered grid">
+    <h1>Нямате профил?</h1>
+    <a href="{% url 'registration' %}" class="ui button primary">Регистрирай се</a>
     </div>
-</div>
+  </div>
+</section>
 {% endblock %}

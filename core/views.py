@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, update_session_auth_hash
-from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,
-                                       UserCreationForm)
 from django.core.urlresolvers import reverse_lazy
 from django.forms.models import model_to_dict
 from django.http import HttpResponse, Http404
@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 
 from core.models import Company
-from core.forms import CompanyForm, CompaniesImportForm, InvoiceproImportForm
+from core.forms import LoginForm, ChangePassForm, RegistratiоnForm, CompanyForm, CompaniesImportForm, InvoiceproImportForm, ExampleSemanticForm
 from core.admin import CompanyResource
 
 from core.import_export.invoicepro import read_invoicepro_file
@@ -29,7 +29,7 @@ def home(request):
 
 
 class LoginView(generic.FormView):
-    form_class = AuthenticationForm
+    form_class = LoginForm
     template_name = 'login.html'
     success_url = reverse_lazy('list')
 
@@ -39,7 +39,7 @@ class LoginView(generic.FormView):
 
 
 class PasswordChangeView(generic.FormView):
-    form_class = PasswordChangeForm
+    form_class = ChangePassForm
     template_name = 'change_password.html'
 
     def get_initial(self):
@@ -59,7 +59,7 @@ class PasswordChangeView(generic.FormView):
 
 
 class RegistrationView(generic.FormView):
-    form_class = UserCreationForm
+    form_class = RegistratiоnForm
     template_name = '_registration.html'
 
 
@@ -205,3 +205,8 @@ def import_invoicepro(request):
 
     return render(request, template_name="core/_import_invoicepro.html",
                   context={"form": form})
+
+
+def test_semantic(request):
+    context = {'form': ExampleSemanticForm}
+    return render(request, 'test/_semantic.html', context)

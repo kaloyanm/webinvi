@@ -1,43 +1,41 @@
 {% extends "base.html" %}
 {% block content %}
-
-{% block submenu %}
-<div class="row">
-    <div class="col-md-10 col-md-offset-2">
-        <span class="pull-right">
-            <a href="{% url 'import_companies' %}" class="btn btn-warning btn-sm" role="button">Импорт</a>
-            <a href="{% url 'export_companies' %}" class="btn btn-default btn-sm" role="button">Експорт</a>
-            <a href="{% url 'company' %}" class="btn btn-primary btn-sm" role="button">+ Добави нова</a>
-        </span>
+  <div class="ui grid basic segment">
+    <div class="two column row">
+      <div class="column">
+        <h2 class="left floated">Фирми</h2>
+      </div>
+      <div class="column right aligned">
+        <a href="{% url 'import_companies' %}" class="ui button primary tiny" role="button">Импорт</a>
+        <a href="{% url 'export_companies' %}" class="ui button primary tiny" role="button">Експорт</a>
+        <a href="{% url 'company' %}" class="ui button primary tiny" role="button">+ Добави нова</a>
+      </div>
     </div>
-</div>
-{% endblock %}
+  </div>
 
-<div class="row">&nbsp;</div>
-<div class="row grey">
-    <div class="col-md-12">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Име</th>
-                    <th>Булстат</th>
-                    <th>МОЛ</th>
-                    <th>Град</th>
-                    <th>Адрес</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in objects %}
-                <tr>
-                    <td scope="row"><a href="{% url 'company' item.pk %}">{{item.name}} {% if item.default %}*{% endif%}</a></td>
-                    <td>{{item.eik}}</td>
-                    <td>{{item.mol}}</td>
-                    <td>{{item.city}}</td>
-                    <td>{{item.address}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
+  <div class="ui basic segment">
+    <table class="ui celled table">
+      <thead>
+      <tr>
+        <th>Име</th>
+        <th>Булстат</th>
+        <th>МОЛ</th>
+        <th>Град</th>
+        <th>Адрес</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for item in objects %}
+        <tr>
+          <td scope="row"><a href="{% url 'company' item.pk %}">{{ item.name }} {% if item.default %}*{% endif %}</a>
+          </td>
+          <td>{{ item.eik }}</td>
+          <td>{{ item.mol }}</td>
+          <td>{{ item.city }}</td>
+          <td>{{ item.address }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}

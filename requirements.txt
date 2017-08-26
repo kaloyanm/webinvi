@@ -22,10 +22,11 @@ django-debug-toolbar==1.5
 django-extensions==1.6.7
 django-import-export==0.5.1
 django-rosetta==0.7.13
-django==1.9.7             # via django-bower, django-debug-toolbar, django-rosetta
+django==1.9.7
 et-xmlfile==1.0.1         # via openpyxl
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
+honcho==1.0.1
 html5lib==1.0b10          # via xhtml2pdf
 httplib2==0.10.3          # via xhtml2pdf
 idna==2.4                 # via cryptography

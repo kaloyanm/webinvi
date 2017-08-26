@@ -31,6 +31,7 @@ yarn.lock
 .idea/
 
 # App generated files
+/semantic/
 /core/static/core/js
 /core/static/core/css
 /invoices/static/invoices/js

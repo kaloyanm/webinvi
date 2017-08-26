@@ -1,13 +1,18 @@
-@import "bootstrap";
+@import "semantic-ui";
 @import "concise-utils";
 
-html {
-  position: relative;
-  min-height: 100%;
+.pusher {
+  display: flex;
+  min-height: 100vh!important;
+  flex-direction: column;
 }
 
-body {
-  margin-bottom: 60px;
+main {
+  flex: 1;
+}
+
+.Site-content {
+  flex: 1;
 }
 
 .invoice {
@@ -19,29 +24,133 @@ body {
   }
 }
 
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-  background-color: #f5f5f5;
+//.form-control {
+//  border: 0;
+//  border-radius: 0;
+//  box-shadow: none;
+//  border-bottom: 1px solid #ccc;
+//  padding-left: 0;
+//  background: transparent;
+//
+//  &[disabled] {
+//    border: 0;
+//    background: transparent;
+//  }
+//
+//  &:focus {
+//    box-shadow: none;
+//  }
+//}
+
+#mobile-menu {
+  z-index: 100;
+}
+.hidden.menu {
+  display: none;
+}
+.error-msg{
+  color: #9f3a38;
+}
+.field:not(.error) .error-msg {
+  display: none;
 }
 
-.form-control {
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  border-bottom: 1px solid #ccc;
-  padding-left: 0;
-  background: transparent;
+.masthead {
+  position: relative;
+  background: transparent!important;
 
-  &[disabled] {
-    border: 0;
-    background: transparent;
+  &:before {
+    content: "";
+    z-index: -1;
+    background: #000;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
   }
 
-  &:focus {
-    box-shadow: none;
+  &:after {
+    content: "";
+    background: url(https://mediashower.com/img/571B2592-4306-11E5-B9CD-D381AAD98836/too%20much%20paperwork.jpg);
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-size: cover;
   }
 }
+
+.masthead.segment {
+  min-height: 700px;
+  padding: 1em 0;
+}
+.masthead .logo.item img {
+  margin-right: 1em;
+}
+.masthead .ui.menu .ui.button {
+  margin-left: 0.5em;
+}
+.masthead h1.ui.header {
+  margin-top: 3em;
+  margin-bottom: 0;
+  font-size: 4em;
+  font-weight: normal;
+}
+.masthead h2 {
+  font-size: 1.7em;
+  font-weight: normal;
+}
+
+.quote.stripe.segment {
+  padding: 0;
+}
+.quote.stripe.segment .grid .column {
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.footer.segment {
+  padding: 5em 0;
+}
+
+.menu-toc {
+  display: none!important;
+}
+
+.menu--main {
+  margin: 0!important;
+  border-radius: 0!important;
+
+  .ui.button {
+    margin-left: .5rem!important;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  //.ui.fixed.menu {
+  //  display: none !important;
+  //}
+  .secondary.pointing.menu .item,
+  .secondary.pointing.menu .menu {
+    display: none;
+  }
+  .menu-toc {
+    display: flex!important;
+  }
+  .masthead.segment {
+    min-height: 350px;
+  }
+  .masthead h1.ui.header {
+    font-size: 2em;
+    margin-top: 1.5em;
+  }
+  .masthead h2 {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+  }
+}
+

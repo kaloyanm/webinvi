@@ -8,42 +8,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    {% include "_headers.html" %}
+    <link href="{% static "core/css/style.css" %}" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse " role="navigation">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12">
-                {% include "_navigation.html" %}
-                </div>
-            </div>
-        </div>
-            <!-- /.container -->
+  <!-- Sidebar Menu -->
+  <aside id="mobile-menu" role="navigation" class="ui vertical inverted sidebar overlay menu">
+    <a class="active item">Home</a>
+    <a class="item">Work</a>
+    <a class="item">Company</a>
+    <a class="item">Careers</a>
+    <a class="item">Login</a>
+    <a class="item">Signup</a>
+  </aside>
+
+  <!-- Page Contents -->
+  <div class="pusher">
+    <nav id="main-menu" role="navigation" class="ui borderless aligned inverted large menu menu--main">
+      <div class="ui container fluid">
+        <a class="menu-toc item">
+          <i class="sidebar icon">Icon</i>
+        </a>
+        {% include "_navigation.html" %}
+      </div>
     </nav>
 
-    <!-- Page Content -->
-    <main class="container-fluid">
-        <div class="row" >
-            <div class="col-md-12" id="_print">
-                {% block content %}{% endblock %}
-            </div>
-        </div>
+    <main>
+      {% block content %}{% endblock %}
     </main>
-    <!-- /.container -->
 
-    <!-- Footer -->
-    <footer class="footer container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <p class="_m0">Copyright &copy; Innova Crew 2016</p>
+    <footer class="ui inverted vertical footer segment">
+      <div class="ui container">
+        <div class="ui stackable inverted divided equal height stackable grid">
+          <div class="three wide column">
+            <h4 class="ui inverted header">About</h4>
+            <div class="ui inverted link list">
+              <a href="#" class="item">Sitemap</a>
+              <a href="#" class="item">Contact Us</a>
+              <a href="#" class="item">Religious Ceremonies</a>
+              <a href="#" class="item">Gazebo Plans</a>
+            </div>
+          </div>
+          <div class="three wide column">
+            <h4 class="ui inverted header">Services</h4>
+            <div class="ui inverted link list">
+              <a href="#" class="item">Banana Pre-Order</a>
+              <a href="#" class="item">DNA FAQ</a>
+              <a href="#" class="item">How To Access</a>
+              <a href="#" class="item">Favorite X-Men</a>
+            </div>
+          </div>
+          <div class="seven wide column">
+            <h4 class="ui inverted header">Footer Header</h4>
+            <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+          </div>
         </div>
       </div>
     </footer>
+  </div>
 
-    <!-- Bootstrap Core JavaScript -->
-{#    {% include "_footer_scripts.html" %}#}
+
+{#    <nav class="navbar navbar-inverse " role="navigation">#}
+{#        <div class="container-fluid">#}
+{#            <div class="row">#}
+{#                <div class="col-xs-12">#}
+{#                {% include "_navigation.html" %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </nav>#}
+
+
+<script src="{% static 'core/js/public.js' %}"></script>
 </body>
 </html>
