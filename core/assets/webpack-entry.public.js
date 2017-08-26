@@ -28,19 +28,18 @@ import 'semantic-ui-sass/js/transition';
 
 import './scss/style.scss';
 
-$(document).ready(function() {
-  // fix main menu to page on passing
-  $('#main-menu').visibility({
-    type: 'fixed'
-  });
-
-  // create sidebar and attach to menu open
-  $('#mobile-menu').sidebar('attach events', '.menu-toc');
-
-  // show dropdown on hover
-  $('#menu-dropdown').dropdown({
-    on: 'click'
-  });
-
+// fix main menu to page on passing
+$('#main-menu').visibility({
+  type: 'fixed'
 });
+
+// create sidebar and attach to menu open
+$('#mobile-menu').sidebar('attach events', '.menu-toc');
+
+// show dropdown on hover
+$('#menu-dropdown').dropdown({
+  on: 'click'
+});
+
+$('#sticky-settings').sticky({context: '#invoice_app'});
 

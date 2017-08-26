@@ -15,26 +15,27 @@ main {
   flex: 1;
 }
 
-.body--invoice {
+.body--invoice main {
   background: #eee;
 }
 
-.invoice-settings {
+#sticky-settings {
   padding: 15px;
-  width: 350px;
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
+  background: #fff;
+
+  &.fixed {
+    top: 100px
+  }
 }
 
-.invoice {
-  max-width: 800px;
-  margin-bottom: 30px;
+#invoice-container {
+  max-width: 800px!important;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
   background: #fff;
   padding: 15px;
   box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
-  margin-left: 350px;
+  margin-left: 350px!important;
 
   label {
     margin: 6px 0 0 0;
@@ -72,6 +73,19 @@ main {
 }
 .field:not(.error) .error-msg {
   display: none;
+}
+
+#invoice_app .custom-inline {
+  display: flex;
+  margin-bottom: .5rem;
+
+  label {
+    width: 120px;
+  }
+
+  input {
+    flex: 1;
+  }
 }
 
 .masthead {
