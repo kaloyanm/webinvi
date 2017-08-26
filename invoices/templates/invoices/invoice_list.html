@@ -3,68 +3,71 @@
 
 {% block content %}
 
-    {% block submenu %}
-        <div class="row">
-            <div class="col-md-10 col-md-offset-2">
-        <span class="pull-right">
-            Добави фактура:
-            <a href="{% url 'invoice' %}" class="btn btn-primary btn-sm" role="button">+ Данъчна</a>
-            <a href="{% url 'proforma' %}" class="btn btn-primary btn-sm" role="button">+ Проформа</a>
-        </span>
-            </div>
-        </div>
-    {% endblock %}
-    <div class="row">&nbsp;</div>
-    {% block subcontent %}
-        <div class="row grey">
-            <div class="col-md-12">
-                <form method="GET">
-                <div class="clearfix">&nbsp</div>
-                <div class="input-group">
-                    <input type="text" name="query" value="{{ query }}" class="form-control" placeholder="Намери клиент">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Търси</button>
-                    </span>
-                </div><!-- /input-group -->
-                </form>
-                <div class="clearfix">&nbsp;</div>
+  <div class="ui grid basic segment">
+    <div class="two column row">
+      <div class="column">
+        <h2 class="left floated">Фактури</h2>
+      </div>
+      <div class="column right aligned">
+        <span class="_mrs">Добави фактура:</span>
+        <a href="{% url 'invoice' %}" class="ui button primary tiny" role="button">+ Данъчна</a>
+        <a href="{% url 'proforma' %}" class="ui button primary tiny" role="button">+ Проформа</a>
+      </div>
+    </div>
+  </div>
 
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Клиент</th>
-                        <th>Тип</th>
-                        <th>Издадена на</th>
-                        <th>Номер</th>
-                        <th>Сума</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for inv in objects %}
-                        <tr>
-                            <td scope="row">{{ inv.client_name }}</td>
-                            <td>{% if inv.invoice_type == 'invoice' %}Фактура{% else %}Проформа{% endif %}</td>
-                            <td><a href="{% url 'invoice' inv.pk %}">{{ inv.released_at }}</a></td>
-                            <td>{{ inv.number|nopad }}</td>
-                            <td>{{ inv.total }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                {% if pager.num_pages > 1 %}
-                    <nav aria-label="...">
-                        <ul class="pager">
-                            {% if page.has_previous %}
-                                <li class="previous"><a
-                                        href="{% url 'list' %}?page={{ page.previous_page_number }}&query={{ query }}"><span
-                                        aria-hidden="true">&larr;</span> По-нови</a></li>{% endif %}
-                            {% if page.has_next %}
-                                <li class="next"><a href="{% url 'list' %}?page={{ page.next_page_number }}&query={{ query }}">По-стари
-                                    <span aria-hidden="true">&rarr;</span></a></li>{% endif %}
-                        </ul>
-                    </nav>
-                {% endif %}
-            </div>
-        </div>
-    {% endblock %}
+  <div class="ui basic segment">
+    <form method="GET">
+      <div class="ui action fluid input">
+        <input type="text" name="query" value="{{ query }}" placeholder="Намери клиент">
+        <button class="ui button" type="submit">Търси</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="ui basic segment">
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th>Клиент</th>
+          <th>Тип</th>
+          <th>Издадена на</th>
+          <th>Номер</th>
+          <th>Сума</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for inv in objects %}
+        <tr>
+          <td scope="row">{{ inv.client_name }}</td>
+          <td>{% if inv.invoice_type == 'invoice' %}Фактура{% else %}Проформа{% endif %}</td>
+          <td><a href="{% url 'invoice' inv.pk %}">{{ inv.released_at }}</a></td>
+          <td>{{ inv.number|nopad }}</td>
+          <td>{{ inv.total }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+      {% if pager.num_pages > 1 %}
+      <tfoot>
+        <tr>
+          <th colspan="5">
+          <div class="ui right floated pagination menu">
+            {% if page.has_previous %}
+              <a href="{% url 'list' %}?page={{ page.previous_page_number }}&query={{ query }}" class="icon item">
+                &larr; По-нови
+              </a>
+            {% endif %}
+            {% if page.has_next %}
+              <a href="{% url 'list' %}?page={{ page.next_page_number }}&query={{ query }}" class="icon item">
+                По-стари &rarr;
+              </a>
+            {% endif %}
+          </div>
+          </th>
+        </tr>
+      </tfoot>
+      {% endif %}
+    </table>
+  </div>
+
 {% endblock %}

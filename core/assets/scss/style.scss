@@ -1,14 +1,19 @@
 @import "semantic-ui";
 @import "concise-utils";
 
-//html {
-//  position: relative;
-//  min-height: 100%;
-//}
-//
-//body {
-//  margin-bottom: 60px;
-//}
+.pusher {
+  display: flex;
+  min-height: 100vh!important;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.Site-content {
+  flex: 1;
+}
 
 .invoice {
   max-width: 970px;
@@ -18,16 +23,6 @@
     margin: 5px 0 0 0;
   }
 }
-
-
-//.footer {
-//  position: absolute;
-//  bottom: 0;
-//  width: 100%;
-//  height: 60px;
-//  line-height: 60px;
-//  background-color: #f5f5f5;
-//}
 
 //.form-control {
 //  border: 0;
@@ -52,6 +47,41 @@
 }
 .hidden.menu {
   display: none;
+}
+.error-msg{
+  color: #9f3a38;
+}
+.field:not(.error) .error-msg {
+  display: none;
+}
+
+.masthead {
+  position: relative;
+  background: transparent!important;
+
+  &:before {
+    content: "";
+    z-index: -1;
+    background: #000;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+  }
+
+  &:after {
+    content: "";
+    background: url(https://mediashower.com/img/571B2592-4306-11E5-B9CD-D381AAD98836/too%20much%20paperwork.jpg);
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    background-size: cover;
+  }
 }
 
 .masthead.segment {

@@ -10336,27 +10336,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_semantic_ui_sass_js_api__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_semantic_ui_sass_js_api___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_semantic_ui_sass_js_api__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_semantic_ui_sass_js_form__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_semantic_ui_sass_js_form__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_semantic_ui_sass_js_form___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_semantic_ui_sass_js_form__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_semantic_ui_sass_js_state__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_semantic_ui_sass_js_state__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_semantic_ui_sass_js_state___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_semantic_ui_sass_js_state__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_semantic_ui_sass_js_visibility__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_semantic_ui_sass_js_visibility__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_semantic_ui_sass_js_visibility___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_semantic_ui_sass_js_visibility__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_semantic_ui_sass_js_site__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_semantic_ui_sass_js_site__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_semantic_ui_sass_js_site___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_semantic_ui_sass_js_site__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_semantic_ui_sass_js_checkbox__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_semantic_ui_sass_js_checkbox__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_semantic_ui_sass_js_checkbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_semantic_ui_sass_js_checkbox__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_semantic_ui_sass_js_dimmer__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_semantic_ui_sass_js_dimmer__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_semantic_ui_sass_js_dimmer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_semantic_ui_sass_js_dimmer__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_semantic_ui_sass_js_dropdown__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_semantic_ui_sass_js_dropdown__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_semantic_ui_sass_js_dropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_semantic_ui_sass_js_dropdown__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_semantic_ui_sass_js_sidebar__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_semantic_ui_sass_js_sidebar__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_semantic_ui_sass_js_sidebar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_semantic_ui_sass_js_sidebar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_semantic_ui_sass_js_sticky__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_semantic_ui_sass_js_sticky__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_semantic_ui_sass_js_sticky___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_semantic_ui_sass_js_sticky__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_semantic_ui_sass_js_transition__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_semantic_ui_sass_js_transition__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_semantic_ui_sass_js_transition___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_semantic_ui_sass_js_transition__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__scss_style_scss__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__scss_style_scss__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__scss_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__scss_style_scss__);
 
 window.jQuery = __WEBPACK_IMPORTED_MODULE_0_jquery___default.a;
@@ -11581,8 +11581,7 @@ $.api.settings = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 6 */,
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -13295,7 +13294,7 @@ $.fn.form.settings = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -14010,7 +14009,7 @@ $.fn.state.settings = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -15328,7 +15327,7 @@ $.fn.visibility.settings = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -15822,8 +15821,7 @@ $.extend($.expr[ ":" ], {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 11 */,
-/* 12 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -16661,7 +16659,722 @@ $.fn.checkbox.settings = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 13 */
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(jQuery) {/*!
+ * # Semantic UI - Dimmer
+ * http://github.com/semantic-org/semantic-ui/
+ *
+ *
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+
+;(function ($, window, document, undefined) {
+
+"use strict";
+
+window = (typeof window != 'undefined' && window.Math == Math)
+  ? window
+  : (typeof self != 'undefined' && self.Math == Math)
+    ? self
+    : Function('return this')()
+;
+
+$.fn.dimmer = function(parameters) {
+  var
+    $allModules     = $(this),
+
+    time            = new Date().getTime(),
+    performance     = [],
+
+    query           = arguments[0],
+    methodInvoked   = (typeof query == 'string'),
+    queryArguments  = [].slice.call(arguments, 1),
+
+    returnedValue
+  ;
+
+  $allModules
+    .each(function() {
+      var
+        settings        = ( $.isPlainObject(parameters) )
+          ? $.extend(true, {}, $.fn.dimmer.settings, parameters)
+          : $.extend({}, $.fn.dimmer.settings),
+
+        selector        = settings.selector,
+        namespace       = settings.namespace,
+        className       = settings.className,
+        error           = settings.error,
+
+        eventNamespace  = '.' + namespace,
+        moduleNamespace = 'module-' + namespace,
+        moduleSelector  = $allModules.selector || '',
+
+        clickEvent      = ('ontouchstart' in document.documentElement)
+          ? 'touchstart'
+          : 'click',
+
+        $module = $(this),
+        $dimmer,
+        $dimmable,
+
+        element   = this,
+        instance  = $module.data(moduleNamespace),
+        module
+      ;
+
+      module = {
+
+        preinitialize: function() {
+          if( module.is.dimmer() ) {
+
+            $dimmable = $module.parent();
+            $dimmer   = $module;
+          }
+          else {
+            $dimmable = $module;
+            if( module.has.dimmer() ) {
+              if(settings.dimmerName) {
+                $dimmer = $dimmable.find(selector.dimmer).filter('.' + settings.dimmerName);
+              }
+              else {
+                $dimmer = $dimmable.find(selector.dimmer);
+              }
+            }
+            else {
+              $dimmer = module.create();
+            }
+            module.set.variation();
+          }
+        },
+
+        initialize: function() {
+          module.debug('Initializing dimmer', settings);
+
+          module.bind.events();
+          module.set.dimmable();
+          module.instantiate();
+        },
+
+        instantiate: function() {
+          module.verbose('Storing instance of module', module);
+          instance = module;
+          $module
+            .data(moduleNamespace, instance)
+          ;
+        },
+
+        destroy: function() {
+          module.verbose('Destroying previous module', $dimmer);
+          module.unbind.events();
+          module.remove.variation();
+          $dimmable
+            .off(eventNamespace)
+          ;
+        },
+
+        bind: {
+          events: function() {
+            if(settings.on == 'hover') {
+              $dimmable
+                .on('mouseenter' + eventNamespace, module.show)
+                .on('mouseleave' + eventNamespace, module.hide)
+              ;
+            }
+            else if(settings.on == 'click') {
+              $dimmable
+                .on(clickEvent + eventNamespace, module.toggle)
+              ;
+            }
+            if( module.is.page() ) {
+              module.debug('Setting as a page dimmer', $dimmable);
+              module.set.pageDimmer();
+            }
+
+            if( module.is.closable() ) {
+              module.verbose('Adding dimmer close event', $dimmer);
+              $dimmable
+                .on(clickEvent + eventNamespace, selector.dimmer, module.event.click)
+              ;
+            }
+          }
+        },
+
+        unbind: {
+          events: function() {
+            $module
+              .removeData(moduleNamespace)
+            ;
+            $dimmable
+              .off(eventNamespace)
+            ;
+          }
+        },
+
+        event: {
+          click: function(event) {
+            module.verbose('Determining if event occured on dimmer', event);
+            if( $dimmer.find(event.target).length === 0 || $(event.target).is(selector.content) ) {
+              module.hide();
+              event.stopImmediatePropagation();
+            }
+          }
+        },
+
+        addContent: function(element) {
+          var
+            $content = $(element)
+          ;
+          module.debug('Add content to dimmer', $content);
+          if($content.parent()[0] !== $dimmer[0]) {
+            $content.detach().appendTo($dimmer);
+          }
+        },
+
+        create: function() {
+          var
+            $element = $( settings.template.dimmer() )
+          ;
+          if(settings.dimmerName) {
+            module.debug('Creating named dimmer', settings.dimmerName);
+            $element.addClass(settings.dimmerName);
+          }
+          $element
+            .appendTo($dimmable)
+          ;
+          return $element;
+        },
+
+        show: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          module.debug('Showing dimmer', $dimmer, settings);
+          if( (!module.is.dimmed() || module.is.animating()) && module.is.enabled() ) {
+            module.animate.show(callback);
+            settings.onShow.call(element);
+            settings.onChange.call(element);
+          }
+          else {
+            module.debug('Dimmer is already shown or disabled');
+          }
+        },
+
+        hide: function(callback) {
+          callback = $.isFunction(callback)
+            ? callback
+            : function(){}
+          ;
+          if( module.is.dimmed() || module.is.animating() ) {
+            module.debug('Hiding dimmer', $dimmer);
+            module.animate.hide(callback);
+            settings.onHide.call(element);
+            settings.onChange.call(element);
+          }
+          else {
+            module.debug('Dimmer is not visible');
+          }
+        },
+
+        toggle: function() {
+          module.verbose('Toggling dimmer visibility', $dimmer);
+          if( !module.is.dimmed() ) {
+            module.show();
+          }
+          else {
+            module.hide();
+          }
+        },
+
+        animate: {
+          show: function(callback) {
+            callback = $.isFunction(callback)
+              ? callback
+              : function(){}
+            ;
+            if(settings.useCSS && $.fn.transition !== undefined && $dimmer.transition('is supported')) {
+              if(settings.opacity !== 'auto') {
+                module.set.opacity();
+              }
+              $dimmer
+                .transition({
+                  animation   : settings.transition + ' in',
+                  queue       : false,
+                  duration    : module.get.duration(),
+                  useFailSafe : true,
+                  onStart     : function() {
+                    module.set.dimmed();
+                  },
+                  onComplete  : function() {
+                    module.set.active();
+                    callback();
+                  }
+                })
+              ;
+            }
+            else {
+              module.verbose('Showing dimmer animation with javascript');
+              module.set.dimmed();
+              if(settings.opacity == 'auto') {
+                settings.opacity = 0.8;
+              }
+              $dimmer
+                .stop()
+                .css({
+                  opacity : 0,
+                  width   : '100%',
+                  height  : '100%'
+                })
+                .fadeTo(module.get.duration(), settings.opacity, function() {
+                  $dimmer.removeAttr('style');
+                  module.set.active();
+                  callback();
+                })
+              ;
+            }
+          },
+          hide: function(callback) {
+            callback = $.isFunction(callback)
+              ? callback
+              : function(){}
+            ;
+            if(settings.useCSS && $.fn.transition !== undefined && $dimmer.transition('is supported')) {
+              module.verbose('Hiding dimmer with css');
+              $dimmer
+                .transition({
+                  animation   : settings.transition + ' out',
+                  queue       : false,
+                  duration    : module.get.duration(),
+                  useFailSafe : true,
+                  onStart     : function() {
+                    module.remove.dimmed();
+                  },
+                  onComplete  : function() {
+                    module.remove.active();
+                    callback();
+                  }
+                })
+              ;
+            }
+            else {
+              module.verbose('Hiding dimmer with javascript');
+              module.remove.dimmed();
+              $dimmer
+                .stop()
+                .fadeOut(module.get.duration(), function() {
+                  module.remove.active();
+                  $dimmer.removeAttr('style');
+                  callback();
+                })
+              ;
+            }
+          }
+        },
+
+        get: {
+          dimmer: function() {
+            return $dimmer;
+          },
+          duration: function() {
+            if(typeof settings.duration == 'object') {
+              if( module.is.active() ) {
+                return settings.duration.hide;
+              }
+              else {
+                return settings.duration.show;
+              }
+            }
+            return settings.duration;
+          }
+        },
+
+        has: {
+          dimmer: function() {
+            if(settings.dimmerName) {
+              return ($module.find(selector.dimmer).filter('.' + settings.dimmerName).length > 0);
+            }
+            else {
+              return ( $module.find(selector.dimmer).length > 0 );
+            }
+          }
+        },
+
+        is: {
+          active: function() {
+            return $dimmer.hasClass(className.active);
+          },
+          animating: function() {
+            return ( $dimmer.is(':animated') || $dimmer.hasClass(className.animating) );
+          },
+          closable: function() {
+            if(settings.closable == 'auto') {
+              if(settings.on == 'hover') {
+                return false;
+              }
+              return true;
+            }
+            return settings.closable;
+          },
+          dimmer: function() {
+            return $module.hasClass(className.dimmer);
+          },
+          dimmable: function() {
+            return $module.hasClass(className.dimmable);
+          },
+          dimmed: function() {
+            return $dimmable.hasClass(className.dimmed);
+          },
+          disabled: function() {
+            return $dimmable.hasClass(className.disabled);
+          },
+          enabled: function() {
+            return !module.is.disabled();
+          },
+          page: function () {
+            return $dimmable.is('body');
+          },
+          pageDimmer: function() {
+            return $dimmer.hasClass(className.pageDimmer);
+          }
+        },
+
+        can: {
+          show: function() {
+            return !$dimmer.hasClass(className.disabled);
+          }
+        },
+
+        set: {
+          opacity: function(opacity) {
+            var
+              color      = $dimmer.css('background-color'),
+              colorArray = color.split(','),
+              isRGB      = (colorArray && colorArray.length == 3),
+              isRGBA     = (colorArray && colorArray.length == 4)
+            ;
+            opacity    = settings.opacity === 0 ? 0 : settings.opacity || opacity;
+            if(isRGB || isRGBA) {
+              colorArray[3] = opacity + ')';
+              color         = colorArray.join(',');
+            }
+            else {
+              color = 'rgba(0, 0, 0, ' + opacity + ')';
+            }
+            module.debug('Setting opacity to', opacity);
+            $dimmer.css('background-color', color);
+          },
+          active: function() {
+            $dimmer.addClass(className.active);
+          },
+          dimmable: function() {
+            $dimmable.addClass(className.dimmable);
+          },
+          dimmed: function() {
+            $dimmable.addClass(className.dimmed);
+          },
+          pageDimmer: function() {
+            $dimmer.addClass(className.pageDimmer);
+          },
+          disabled: function() {
+            $dimmer.addClass(className.disabled);
+          },
+          variation: function(variation) {
+            variation = variation || settings.variation;
+            if(variation) {
+              $dimmer.addClass(variation);
+            }
+          }
+        },
+
+        remove: {
+          active: function() {
+            $dimmer
+              .removeClass(className.active)
+            ;
+          },
+          dimmed: function() {
+            $dimmable.removeClass(className.dimmed);
+          },
+          disabled: function() {
+            $dimmer.removeClass(className.disabled);
+          },
+          variation: function(variation) {
+            variation = variation || settings.variation;
+            if(variation) {
+              $dimmer.removeClass(variation);
+            }
+          }
+        },
+
+        setting: function(name, value) {
+          module.debug('Changing setting', name, value);
+          if( $.isPlainObject(name) ) {
+            $.extend(true, settings, name);
+          }
+          else if(value !== undefined) {
+            if($.isPlainObject(settings[name])) {
+              $.extend(true, settings[name], value);
+            }
+            else {
+              settings[name] = value;
+            }
+          }
+          else {
+            return settings[name];
+          }
+        },
+        internal: function(name, value) {
+          if( $.isPlainObject(name) ) {
+            $.extend(true, module, name);
+          }
+          else if(value !== undefined) {
+            module[name] = value;
+          }
+          else {
+            return module[name];
+          }
+        },
+        debug: function() {
+          if(!settings.silent && settings.debug) {
+            if(settings.performance) {
+              module.performance.log(arguments);
+            }
+            else {
+              module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+              module.debug.apply(console, arguments);
+            }
+          }
+        },
+        verbose: function() {
+          if(!settings.silent && settings.verbose && settings.debug) {
+            if(settings.performance) {
+              module.performance.log(arguments);
+            }
+            else {
+              module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+              module.verbose.apply(console, arguments);
+            }
+          }
+        },
+        error: function() {
+          if(!settings.silent) {
+            module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+            module.error.apply(console, arguments);
+          }
+        },
+        performance: {
+          log: function(message) {
+            var
+              currentTime,
+              executionTime,
+              previousTime
+            ;
+            if(settings.performance) {
+              currentTime   = new Date().getTime();
+              previousTime  = time || currentTime;
+              executionTime = currentTime - previousTime;
+              time          = currentTime;
+              performance.push({
+                'Name'           : message[0],
+                'Arguments'      : [].slice.call(message, 1) || '',
+                'Element'        : element,
+                'Execution Time' : executionTime
+              });
+            }
+            clearTimeout(module.performance.timer);
+            module.performance.timer = setTimeout(module.performance.display, 500);
+          },
+          display: function() {
+            var
+              title = settings.name + ':',
+              totalTime = 0
+            ;
+            time = false;
+            clearTimeout(module.performance.timer);
+            $.each(performance, function(index, data) {
+              totalTime += data['Execution Time'];
+            });
+            title += ' ' + totalTime + 'ms';
+            if(moduleSelector) {
+              title += ' \'' + moduleSelector + '\'';
+            }
+            if($allModules.length > 1) {
+              title += ' ' + '(' + $allModules.length + ')';
+            }
+            if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
+              console.groupCollapsed(title);
+              if(console.table) {
+                console.table(performance);
+              }
+              else {
+                $.each(performance, function(index, data) {
+                  console.log(data['Name'] + ': ' + data['Execution Time']+'ms');
+                });
+              }
+              console.groupEnd();
+            }
+            performance = [];
+          }
+        },
+        invoke: function(query, passedArguments, context) {
+          var
+            object = instance,
+            maxDepth,
+            found,
+            response
+          ;
+          passedArguments = passedArguments || queryArguments;
+          context         = element         || context;
+          if(typeof query == 'string' && object !== undefined) {
+            query    = query.split(/[\. ]/);
+            maxDepth = query.length - 1;
+            $.each(query, function(depth, value) {
+              var camelCaseValue = (depth != maxDepth)
+                ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
+                : query
+              ;
+              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
+                object = object[camelCaseValue];
+              }
+              else if( object[camelCaseValue] !== undefined ) {
+                found = object[camelCaseValue];
+                return false;
+              }
+              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
+                object = object[value];
+              }
+              else if( object[value] !== undefined ) {
+                found = object[value];
+                return false;
+              }
+              else {
+                module.error(error.method, query);
+                return false;
+              }
+            });
+          }
+          if ( $.isFunction( found ) ) {
+            response = found.apply(context, passedArguments);
+          }
+          else if(found !== undefined) {
+            response = found;
+          }
+          if($.isArray(returnedValue)) {
+            returnedValue.push(response);
+          }
+          else if(returnedValue !== undefined) {
+            returnedValue = [returnedValue, response];
+          }
+          else if(response !== undefined) {
+            returnedValue = response;
+          }
+          return found;
+        }
+      };
+
+      module.preinitialize();
+
+      if(methodInvoked) {
+        if(instance === undefined) {
+          module.initialize();
+        }
+        module.invoke(query);
+      }
+      else {
+        if(instance !== undefined) {
+          instance.invoke('destroy');
+        }
+        module.initialize();
+      }
+    })
+  ;
+
+  return (returnedValue !== undefined)
+    ? returnedValue
+    : this
+  ;
+};
+
+$.fn.dimmer.settings = {
+
+  name        : 'Dimmer',
+  namespace   : 'dimmer',
+
+  silent      : false,
+  debug       : false,
+  verbose     : false,
+  performance : true,
+
+  // name to distinguish between multiple dimmers in context
+  dimmerName  : false,
+
+  // whether to add a variation type
+  variation   : false,
+
+  // whether to bind close events
+  closable    : 'auto',
+
+  // whether to use css animations
+  useCSS      : true,
+
+  // css animation to use
+  transition  : 'fade',
+
+  // event to bind to
+  on          : false,
+
+  // overriding opacity value
+  opacity     : 'auto',
+
+  // transition durations
+  duration    : {
+    show : 500,
+    hide : 500
+  },
+
+  onChange    : function(){},
+  onShow      : function(){},
+  onHide      : function(){},
+
+  error   : {
+    method   : 'The method you called is not defined.'
+  },
+
+  className : {
+    active     : 'active',
+    animating  : 'animating',
+    dimmable   : 'dimmable',
+    dimmed     : 'dimmed',
+    dimmer     : 'dimmer',
+    disabled   : 'disabled',
+    hide       : 'hide',
+    pageDimmer : 'page',
+    show       : 'show'
+  },
+
+  selector: {
+    dimmer   : '> .ui.dimmer',
+    content  : '.ui.dimmer > .content, .ui.dimmer > .content > .center'
+  },
+
+  template: {
+    dimmer: function() {
+     return $('<div />').attr('class', 'ui dimmer');
+    }
+  }
+
+};
+
+})( jQuery, window, document );
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -20508,7 +21221,7 @@ $.fn.dropdown.settings.templates = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -21548,7 +22261,7 @@ $.fn.sidebar.settings = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -22514,7 +23227,7 @@ $.fn.sticky.settings = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -23616,731 +24329,10 @@ $.fn.transition.settings = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(jQuery) {/*!
- * # Semantic UI - Dimmer
- * http://github.com/semantic-org/semantic-ui/
- *
- *
- * Released under the MIT license
- * http://opensource.org/licenses/MIT
- *
- */
-
-;(function ($, window, document, undefined) {
-
-"use strict";
-
-window = (typeof window != 'undefined' && window.Math == Math)
-  ? window
-  : (typeof self != 'undefined' && self.Math == Math)
-    ? self
-    : Function('return this')()
-;
-
-$.fn.dimmer = function(parameters) {
-  var
-    $allModules     = $(this),
-
-    time            = new Date().getTime(),
-    performance     = [],
-
-    query           = arguments[0],
-    methodInvoked   = (typeof query == 'string'),
-    queryArguments  = [].slice.call(arguments, 1),
-
-    returnedValue
-  ;
-
-  $allModules
-    .each(function() {
-      var
-        settings        = ( $.isPlainObject(parameters) )
-          ? $.extend(true, {}, $.fn.dimmer.settings, parameters)
-          : $.extend({}, $.fn.dimmer.settings),
-
-        selector        = settings.selector,
-        namespace       = settings.namespace,
-        className       = settings.className,
-        error           = settings.error,
-
-        eventNamespace  = '.' + namespace,
-        moduleNamespace = 'module-' + namespace,
-        moduleSelector  = $allModules.selector || '',
-
-        clickEvent      = ('ontouchstart' in document.documentElement)
-          ? 'touchstart'
-          : 'click',
-
-        $module = $(this),
-        $dimmer,
-        $dimmable,
-
-        element   = this,
-        instance  = $module.data(moduleNamespace),
-        module
-      ;
-
-      module = {
-
-        preinitialize: function() {
-          if( module.is.dimmer() ) {
-
-            $dimmable = $module.parent();
-            $dimmer   = $module;
-          }
-          else {
-            $dimmable = $module;
-            if( module.has.dimmer() ) {
-              if(settings.dimmerName) {
-                $dimmer = $dimmable.find(selector.dimmer).filter('.' + settings.dimmerName);
-              }
-              else {
-                $dimmer = $dimmable.find(selector.dimmer);
-              }
-            }
-            else {
-              $dimmer = module.create();
-            }
-            module.set.variation();
-          }
-        },
-
-        initialize: function() {
-          module.debug('Initializing dimmer', settings);
-
-          module.bind.events();
-          module.set.dimmable();
-          module.instantiate();
-        },
-
-        instantiate: function() {
-          module.verbose('Storing instance of module', module);
-          instance = module;
-          $module
-            .data(moduleNamespace, instance)
-          ;
-        },
-
-        destroy: function() {
-          module.verbose('Destroying previous module', $dimmer);
-          module.unbind.events();
-          module.remove.variation();
-          $dimmable
-            .off(eventNamespace)
-          ;
-        },
-
-        bind: {
-          events: function() {
-            if(settings.on == 'hover') {
-              $dimmable
-                .on('mouseenter' + eventNamespace, module.show)
-                .on('mouseleave' + eventNamespace, module.hide)
-              ;
-            }
-            else if(settings.on == 'click') {
-              $dimmable
-                .on(clickEvent + eventNamespace, module.toggle)
-              ;
-            }
-            if( module.is.page() ) {
-              module.debug('Setting as a page dimmer', $dimmable);
-              module.set.pageDimmer();
-            }
-
-            if( module.is.closable() ) {
-              module.verbose('Adding dimmer close event', $dimmer);
-              $dimmable
-                .on(clickEvent + eventNamespace, selector.dimmer, module.event.click)
-              ;
-            }
-          }
-        },
-
-        unbind: {
-          events: function() {
-            $module
-              .removeData(moduleNamespace)
-            ;
-            $dimmable
-              .off(eventNamespace)
-            ;
-          }
-        },
-
-        event: {
-          click: function(event) {
-            module.verbose('Determining if event occured on dimmer', event);
-            if( $dimmer.find(event.target).length === 0 || $(event.target).is(selector.content) ) {
-              module.hide();
-              event.stopImmediatePropagation();
-            }
-          }
-        },
-
-        addContent: function(element) {
-          var
-            $content = $(element)
-          ;
-          module.debug('Add content to dimmer', $content);
-          if($content.parent()[0] !== $dimmer[0]) {
-            $content.detach().appendTo($dimmer);
-          }
-        },
-
-        create: function() {
-          var
-            $element = $( settings.template.dimmer() )
-          ;
-          if(settings.dimmerName) {
-            module.debug('Creating named dimmer', settings.dimmerName);
-            $element.addClass(settings.dimmerName);
-          }
-          $element
-            .appendTo($dimmable)
-          ;
-          return $element;
-        },
-
-        show: function(callback) {
-          callback = $.isFunction(callback)
-            ? callback
-            : function(){}
-          ;
-          module.debug('Showing dimmer', $dimmer, settings);
-          if( (!module.is.dimmed() || module.is.animating()) && module.is.enabled() ) {
-            module.animate.show(callback);
-            settings.onShow.call(element);
-            settings.onChange.call(element);
-          }
-          else {
-            module.debug('Dimmer is already shown or disabled');
-          }
-        },
-
-        hide: function(callback) {
-          callback = $.isFunction(callback)
-            ? callback
-            : function(){}
-          ;
-          if( module.is.dimmed() || module.is.animating() ) {
-            module.debug('Hiding dimmer', $dimmer);
-            module.animate.hide(callback);
-            settings.onHide.call(element);
-            settings.onChange.call(element);
-          }
-          else {
-            module.debug('Dimmer is not visible');
-          }
-        },
-
-        toggle: function() {
-          module.verbose('Toggling dimmer visibility', $dimmer);
-          if( !module.is.dimmed() ) {
-            module.show();
-          }
-          else {
-            module.hide();
-          }
-        },
-
-        animate: {
-          show: function(callback) {
-            callback = $.isFunction(callback)
-              ? callback
-              : function(){}
-            ;
-            if(settings.useCSS && $.fn.transition !== undefined && $dimmer.transition('is supported')) {
-              if(settings.opacity !== 'auto') {
-                module.set.opacity();
-              }
-              $dimmer
-                .transition({
-                  animation   : settings.transition + ' in',
-                  queue       : false,
-                  duration    : module.get.duration(),
-                  useFailSafe : true,
-                  onStart     : function() {
-                    module.set.dimmed();
-                  },
-                  onComplete  : function() {
-                    module.set.active();
-                    callback();
-                  }
-                })
-              ;
-            }
-            else {
-              module.verbose('Showing dimmer animation with javascript');
-              module.set.dimmed();
-              if(settings.opacity == 'auto') {
-                settings.opacity = 0.8;
-              }
-              $dimmer
-                .stop()
-                .css({
-                  opacity : 0,
-                  width   : '100%',
-                  height  : '100%'
-                })
-                .fadeTo(module.get.duration(), settings.opacity, function() {
-                  $dimmer.removeAttr('style');
-                  module.set.active();
-                  callback();
-                })
-              ;
-            }
-          },
-          hide: function(callback) {
-            callback = $.isFunction(callback)
-              ? callback
-              : function(){}
-            ;
-            if(settings.useCSS && $.fn.transition !== undefined && $dimmer.transition('is supported')) {
-              module.verbose('Hiding dimmer with css');
-              $dimmer
-                .transition({
-                  animation   : settings.transition + ' out',
-                  queue       : false,
-                  duration    : module.get.duration(),
-                  useFailSafe : true,
-                  onStart     : function() {
-                    module.remove.dimmed();
-                  },
-                  onComplete  : function() {
-                    module.remove.active();
-                    callback();
-                  }
-                })
-              ;
-            }
-            else {
-              module.verbose('Hiding dimmer with javascript');
-              module.remove.dimmed();
-              $dimmer
-                .stop()
-                .fadeOut(module.get.duration(), function() {
-                  module.remove.active();
-                  $dimmer.removeAttr('style');
-                  callback();
-                })
-              ;
-            }
-          }
-        },
-
-        get: {
-          dimmer: function() {
-            return $dimmer;
-          },
-          duration: function() {
-            if(typeof settings.duration == 'object') {
-              if( module.is.active() ) {
-                return settings.duration.hide;
-              }
-              else {
-                return settings.duration.show;
-              }
-            }
-            return settings.duration;
-          }
-        },
-
-        has: {
-          dimmer: function() {
-            if(settings.dimmerName) {
-              return ($module.find(selector.dimmer).filter('.' + settings.dimmerName).length > 0);
-            }
-            else {
-              return ( $module.find(selector.dimmer).length > 0 );
-            }
-          }
-        },
-
-        is: {
-          active: function() {
-            return $dimmer.hasClass(className.active);
-          },
-          animating: function() {
-            return ( $dimmer.is(':animated') || $dimmer.hasClass(className.animating) );
-          },
-          closable: function() {
-            if(settings.closable == 'auto') {
-              if(settings.on == 'hover') {
-                return false;
-              }
-              return true;
-            }
-            return settings.closable;
-          },
-          dimmer: function() {
-            return $module.hasClass(className.dimmer);
-          },
-          dimmable: function() {
-            return $module.hasClass(className.dimmable);
-          },
-          dimmed: function() {
-            return $dimmable.hasClass(className.dimmed);
-          },
-          disabled: function() {
-            return $dimmable.hasClass(className.disabled);
-          },
-          enabled: function() {
-            return !module.is.disabled();
-          },
-          page: function () {
-            return $dimmable.is('body');
-          },
-          pageDimmer: function() {
-            return $dimmer.hasClass(className.pageDimmer);
-          }
-        },
-
-        can: {
-          show: function() {
-            return !$dimmer.hasClass(className.disabled);
-          }
-        },
-
-        set: {
-          opacity: function(opacity) {
-            var
-              color      = $dimmer.css('background-color'),
-              colorArray = color.split(','),
-              isRGB      = (colorArray && colorArray.length == 3),
-              isRGBA     = (colorArray && colorArray.length == 4)
-            ;
-            opacity    = settings.opacity === 0 ? 0 : settings.opacity || opacity;
-            if(isRGB || isRGBA) {
-              colorArray[3] = opacity + ')';
-              color         = colorArray.join(',');
-            }
-            else {
-              color = 'rgba(0, 0, 0, ' + opacity + ')';
-            }
-            module.debug('Setting opacity to', opacity);
-            $dimmer.css('background-color', color);
-          },
-          active: function() {
-            $dimmer.addClass(className.active);
-          },
-          dimmable: function() {
-            $dimmable.addClass(className.dimmable);
-          },
-          dimmed: function() {
-            $dimmable.addClass(className.dimmed);
-          },
-          pageDimmer: function() {
-            $dimmer.addClass(className.pageDimmer);
-          },
-          disabled: function() {
-            $dimmer.addClass(className.disabled);
-          },
-          variation: function(variation) {
-            variation = variation || settings.variation;
-            if(variation) {
-              $dimmer.addClass(variation);
-            }
-          }
-        },
-
-        remove: {
-          active: function() {
-            $dimmer
-              .removeClass(className.active)
-            ;
-          },
-          dimmed: function() {
-            $dimmable.removeClass(className.dimmed);
-          },
-          disabled: function() {
-            $dimmer.removeClass(className.disabled);
-          },
-          variation: function(variation) {
-            variation = variation || settings.variation;
-            if(variation) {
-              $dimmer.removeClass(variation);
-            }
-          }
-        },
-
-        setting: function(name, value) {
-          module.debug('Changing setting', name, value);
-          if( $.isPlainObject(name) ) {
-            $.extend(true, settings, name);
-          }
-          else if(value !== undefined) {
-            if($.isPlainObject(settings[name])) {
-              $.extend(true, settings[name], value);
-            }
-            else {
-              settings[name] = value;
-            }
-          }
-          else {
-            return settings[name];
-          }
-        },
-        internal: function(name, value) {
-          if( $.isPlainObject(name) ) {
-            $.extend(true, module, name);
-          }
-          else if(value !== undefined) {
-            module[name] = value;
-          }
-          else {
-            return module[name];
-          }
-        },
-        debug: function() {
-          if(!settings.silent && settings.debug) {
-            if(settings.performance) {
-              module.performance.log(arguments);
-            }
-            else {
-              module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
-              module.debug.apply(console, arguments);
-            }
-          }
-        },
-        verbose: function() {
-          if(!settings.silent && settings.verbose && settings.debug) {
-            if(settings.performance) {
-              module.performance.log(arguments);
-            }
-            else {
-              module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
-              module.verbose.apply(console, arguments);
-            }
-          }
-        },
-        error: function() {
-          if(!settings.silent) {
-            module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
-            module.error.apply(console, arguments);
-          }
-        },
-        performance: {
-          log: function(message) {
-            var
-              currentTime,
-              executionTime,
-              previousTime
-            ;
-            if(settings.performance) {
-              currentTime   = new Date().getTime();
-              previousTime  = time || currentTime;
-              executionTime = currentTime - previousTime;
-              time          = currentTime;
-              performance.push({
-                'Name'           : message[0],
-                'Arguments'      : [].slice.call(message, 1) || '',
-                'Element'        : element,
-                'Execution Time' : executionTime
-              });
-            }
-            clearTimeout(module.performance.timer);
-            module.performance.timer = setTimeout(module.performance.display, 500);
-          },
-          display: function() {
-            var
-              title = settings.name + ':',
-              totalTime = 0
-            ;
-            time = false;
-            clearTimeout(module.performance.timer);
-            $.each(performance, function(index, data) {
-              totalTime += data['Execution Time'];
-            });
-            title += ' ' + totalTime + 'ms';
-            if(moduleSelector) {
-              title += ' \'' + moduleSelector + '\'';
-            }
-            if($allModules.length > 1) {
-              title += ' ' + '(' + $allModules.length + ')';
-            }
-            if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
-              console.groupCollapsed(title);
-              if(console.table) {
-                console.table(performance);
-              }
-              else {
-                $.each(performance, function(index, data) {
-                  console.log(data['Name'] + ': ' + data['Execution Time']+'ms');
-                });
-              }
-              console.groupEnd();
-            }
-            performance = [];
-          }
-        },
-        invoke: function(query, passedArguments, context) {
-          var
-            object = instance,
-            maxDepth,
-            found,
-            response
-          ;
-          passedArguments = passedArguments || queryArguments;
-          context         = element         || context;
-          if(typeof query == 'string' && object !== undefined) {
-            query    = query.split(/[\. ]/);
-            maxDepth = query.length - 1;
-            $.each(query, function(depth, value) {
-              var camelCaseValue = (depth != maxDepth)
-                ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
-                : query
-              ;
-              if( $.isPlainObject( object[camelCaseValue] ) && (depth != maxDepth) ) {
-                object = object[camelCaseValue];
-              }
-              else if( object[camelCaseValue] !== undefined ) {
-                found = object[camelCaseValue];
-                return false;
-              }
-              else if( $.isPlainObject( object[value] ) && (depth != maxDepth) ) {
-                object = object[value];
-              }
-              else if( object[value] !== undefined ) {
-                found = object[value];
-                return false;
-              }
-              else {
-                module.error(error.method, query);
-                return false;
-              }
-            });
-          }
-          if ( $.isFunction( found ) ) {
-            response = found.apply(context, passedArguments);
-          }
-          else if(found !== undefined) {
-            response = found;
-          }
-          if($.isArray(returnedValue)) {
-            returnedValue.push(response);
-          }
-          else if(returnedValue !== undefined) {
-            returnedValue = [returnedValue, response];
-          }
-          else if(response !== undefined) {
-            returnedValue = response;
-          }
-          return found;
-        }
-      };
-
-      module.preinitialize();
-
-      if(methodInvoked) {
-        if(instance === undefined) {
-          module.initialize();
-        }
-        module.invoke(query);
-      }
-      else {
-        if(instance !== undefined) {
-          instance.invoke('destroy');
-        }
-        module.initialize();
-      }
-    })
-  ;
-
-  return (returnedValue !== undefined)
-    ? returnedValue
-    : this
-  ;
-};
-
-$.fn.dimmer.settings = {
-
-  name        : 'Dimmer',
-  namespace   : 'dimmer',
-
-  silent      : false,
-  debug       : false,
-  verbose     : false,
-  performance : true,
-
-  // name to distinguish between multiple dimmers in context
-  dimmerName  : false,
-
-  // whether to add a variation type
-  variation   : false,
-
-  // whether to bind close events
-  closable    : 'auto',
-
-  // whether to use css animations
-  useCSS      : true,
-
-  // css animation to use
-  transition  : 'fade',
-
-  // event to bind to
-  on          : false,
-
-  // overriding opacity value
-  opacity     : 'auto',
-
-  // transition durations
-  duration    : {
-    show : 500,
-    hide : 500
-  },
-
-  onChange    : function(){},
-  onShow      : function(){},
-  onHide      : function(){},
-
-  error   : {
-    method   : 'The method you called is not defined.'
-  },
-
-  className : {
-    active     : 'active',
-    animating  : 'animating',
-    dimmable   : 'dimmable',
-    dimmed     : 'dimmed',
-    dimmer     : 'dimmer',
-    disabled   : 'disabled',
-    hide       : 'hide',
-    pageDimmer : 'page',
-    show       : 'show'
-  },
-
-  selector: {
-    dimmer   : '> .ui.dimmer',
-    content  : '.ui.dimmer > .content, .ui.dimmer > .content > .center'
-  },
-
-  template: {
-    dimmer: function() {
-     return $('<div />').attr('class', 'ui dimmer');
-    }
-  }
-
-};
-
-})( jQuery, window, document );
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);

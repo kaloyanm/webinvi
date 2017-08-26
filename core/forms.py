@@ -1,10 +1,45 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
+
+class ChangePassForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(ChangePassForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'ui form'
+        self.helper.add_input(Submit('submit', _('Обнови'), css_class='ui button primary'))
+
+
+class RegistratiоnForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(RegistratiоnForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'ui form'
+        self.helper.add_input(Submit('submit', _('Влез'), css_class='ui button primary'))
+
+
+class LoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'ui form'
+        self.helper.add_input(Submit('submit', _('Влез'), css_class='ui button primary'))
+
+
 class CompanyForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(CompanyForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'ui form'
+        self.helper.add_input(Submit('submit', _('Запази'), css_class='ui button primary'))
+
     name = forms.CharField(label=_(u'Има на компанията'))
     eik = forms.CharField(label=_(u'БУЛСТАТ'))
     dds = forms.CharField(label=_(u'Ин по ДДС'), required=False)
