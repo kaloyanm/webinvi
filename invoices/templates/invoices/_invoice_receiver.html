@@ -1,29 +1,26 @@
-<label class="col-md-4" >Получател:</label>
-<div class="col-md-8">
-    {{form.client_name}}
+{% load crispy_forms_tags crispy_forms_filters %}
+<div class="inline field custom-inline">
+  <label>Получател:</label>
+  {% form.client_name|as_crispy_field %}
 </div>
 
-<label class="col-md-4" >БУЛСТАТ:</label>
-<div class="col-md-8">
-    {{form.client_eik}}
+<div class="inline field custom-inline">
+  <label>БУЛСТАТ:</label>
+  {% bootstrap_field form.client_eik size='small' show_label='' form_group_class='' bound_css_class='' placeholder='' %}
 </div>
 
-<label class="col-md-4" >Ин по ДДС:</label>
-<div class="col-md-8">
-    {{form.client_dds}}
+<div class="inline field custom-inline">
+  <label>Ин по ДДС:</label>
+  {% bootstrap_field form.client_dds size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
 </div>
 
-<label class="col-md-4" >Град:</label>
-<div class="col-md-8">
-    {{form.client_city}}
+<div class="inline field custom-inline">
+  <label>Град:</label>
+  {% bootstrap_field form.client_city size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
 </div>
 
-<label class="col-md-4" >Адрес:</label>
-<div class="col-md-8">
-    {{form.client_address}}
-</div>
+<label>Адрес:</label>
+{% bootstrap_field form.client_address size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
 
-<label class="col-md-4" >МОЛ:</label>
-<div class="col-md-8">
-    {{form.client_mol}}
-</div>
+<label>МОЛ:</label>
+{% bootstrap_field form.client_mol size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}

@@ -1,48 +1,48 @@
 {% load static %}
-<input type="hidden" name="form-TOTAL_FORMS" v-model="total_forms" />
-<input type="hidden" name="form-INITIAL_FORMS" v-model="initial_forms" />
-<input type="hidden" name="form-MAX_NUM_FORMS" value="1000" />
-<table class="table table-striped _m0">
+<input type="hidden" name="form-TOTAL_FORMS" v-model="total_forms"/>
+<input type="hidden" name="form-INITIAL_FORMS" v-model="initial_forms"/>
+<input type="hidden" name="form-MAX_NUM_FORMS" value="1000"/>
+<table class="ui very basic compact table">
   <thead>
-    <tr>
-      <th class="noprint"><a class="btn btn-success btn-xs" @click="add()">+</a></th>
-      <th width="30%" class="applabel">Продукт / Услуга</th>
-      <th width="7%" class="applabel">Кол.</th>
-      <th class="applabel">Мярка</th>
-      <th class="applabel">Ед. Цена</th>
-      <th class="applabel">% Отстъпка</th>
-      <th class="applabel">Цена</th>
-    </tr>
+  <tr>
+    <th class="noprint">
+      <div class="ui icon buttons">
+        <a class="ui button" @click="add()">+</a>
+      </div>
+    </th>
+    <th width="30%">Продукт / Услуга</th>
+    <th width="10%">Кол.</th>
+    <th>Мярка</th>
+    <th>Ед. Цена</th>
+    <th>% Отстъпка</th>
+    <th>Цена</th>
+  </tr>
   </thead>
   <tbody>
-    <tr v-for="(row, index) in rows">
-        <td class="noprint">
-            <a class="btn btn-danger btn-xs" @click="remove(index)">x</a>
-        </td>
-        <td>
-            <input type="text" :name="'form-'+index+'-name'" class="form-control input-sm"
-                   v-model="row.name">
-        </td>
-        <td>
-            <input type="number" :name="'form-'+index+'-quantity'" class="form-control input-sm"
-                   v-model="row.quantity"  @keyup="calc_row(index); calc_total();" @click="calc_row(index);calc_total();">
-        </td>
-        <td>
-            <input type="text" :name="'form-'+index+'-unit'" class="form-control input-sm"
-                   v-model="row.unit" >
-        </td>
-        <td>
-            <input type="number" :name="'form-'+index+'-unit_price'" class="form-control input-sm"
-                   v-model="row.unit_price"  @keyup="calc_row(index); calc_total();">
-        </td>
-        <td>
-            <input type="text" :name="'form-'+index+'-discount'" class="form-control input-sm"
-                   v-model="row.discount"  @keyup="calc_row(index); calc_total();">
-        </td>
-        <td>
-            <input type="text" :name="'form-'+index+'-total'" class="form-control input-sm"
-                   v-model="row.gross" disabled>
-        </td>
-    </tr>
+  <tr v-for="(row, index) in rows">
+    <td class="noprint">
+      <div class="ui icon buttons">
+        <a class="ui button" @click="remove(index)">x</a>
+      </div>
+    </td>
+    <td>
+      <input type="text" :name="'form-'+index+'-name'" v-model="row.name">
+    </td>
+    <td>
+      <input type="number" :name="'form-'+index+'-quantity'" v-model="row.quantity" @keyup="calc_row(index); calc_total();" @click="calc_row(index);calc_total();">
+    </td>
+    <td>
+      <input type="text" :name="'form-'+index+'-unit'" v-model="row.unit">
+    </td>
+    <td>
+      <input type="number" :name="'form-'+index+'-unit_price'" v-model="row.unit_price" @keyup="calc_row(index); calc_total();">
+    </td>
+    <td>
+      <input type="text" :name="'form-'+index+'-discount'" v-model="row.discount" @keyup="calc_row(index); calc_total();">
+    </td>
+    <td>
+      <input type="text" :name="'form-'+index+'-total'" v-model="row.gross" disabled>
+    </td>
+  </tr>
   </tbody>
 </table>

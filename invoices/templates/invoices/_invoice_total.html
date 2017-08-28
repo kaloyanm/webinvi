@@ -1,19 +1,19 @@
-<label class="col-md-4" >Данъчна основа:</label>
-<div class="col-md-8">
-    <input type="number" class="form-control input-sm" name="tax_base" v-model="gross" value="" disabled>
+<div class="inline field custom-inline">
+  <label>Данъчна основа:</label>
+  <input type="number" name="tax_base" v-model="gross" value="" disabled>
 </div>
 
-<label class="col-md-4" >% ДДС:</label>
-<div class="col-md-8">
-    <input type="number" class="form-control input-sm" name="dds" v-model="dds_percent" value="" @blur="calc_total()" @keyup="calc_total()">
+<div class="inline field custom-inline">
+  <label>% ДДС:</label>
+  <input type="number" name="dds" v-model="dds_percent" value="" @blur="calc_total()" @keyup="calc_total()">
 </div>
 
-<label class="col-md-4" >Сума за плащане:</label>
-<div class="col-md-8">
-    <input type="number" class="form-control input-sm" name="total" v-model="total" disabled />
+<div class="inline field custom-inline">
+  <label>Сума за плащане:</label>
+  <input type="number" name="total" v-model="total" disabled />
 </div>
 
-<label class="col-md-4" >Словом:</label>
-<div class="col-md-8">
-    <input type="number" class="form-control input-sm" disabled>
+<div class="inline field custom-inline">
+  <label>Словом:</label>
+  <input type="number" disabled>
 </div>

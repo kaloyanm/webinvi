@@ -7,34 +7,31 @@
     <div class="left ui rail">
       <div id="sticky-settings" class="ui sticky">
         <h2>Настройки</h2>
-        <div class="_mrs">
-          <label>Език:</label>
-          <select>
-            <option value="1">Български</option>
-            <option value="2">English</option>
-          </select>
-        </div>
-        <div>
-          <label>Валута:</label>
-          <select>
-            <option value="1">$</option>
-            <option value="2">&euro;</option>
-          </select>
-        </div>
-        <div>
-          <label>Доставчик:</label>
-          <select>
-            <option value="1">Доставчик 1</option>
-            <option value="2">Доставчик 2</option>
-          </select>
-        </div>
-        <div>
-          <label>Услуга / Продукт:</label>
-          <select>
+
+        <select class="ui search dropdown fluid _mbxs">
+          <option value="1">Български</option>
+          <option value="2">English</option>
+        </select>
+
+        <select class="ui search dropdown fluid _mbxs">
+          <option value="">Валута</option>
+          <option value="1">($) Долари</option>
+          <option value="2">(&euro;) Евро</option>
+        </select>
+
+        <select class="ui search dropdown fluid _mbxs">
+          <option value="">Доставчик</option>
+          <option value="1">Доставчик 1</option>
+          <option value="2">Доставчик 2</option>
+        </select>
+
+        <div class="_flex">
+          <select id="service-dropdown" class="ui search dropdown fluid">
+            <option value="">Услуга / Продукт</option>
             <option value="1">Услуга 1</option>
             <option value="2">Услуга 2</option>
           </select>
-          <a href="#" class="_mls">[+] Добави</a>
+          <a href="#" class="ui button green">+</a>
         </div>
         <div class="row _mts">
           <div class="col-md-12">
@@ -68,7 +65,7 @@
 
       <div class="ui grid">
 
-        <div class="equal width row">
+        <div class="equal width row _pb0">
           <div class="column">
             <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
               <small>оригинал</small>
@@ -79,42 +76,44 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-xs-6 _p0 _ptxs _pbxs">
+        <div class="equal width row _pb0">
+          <div class="column">
             {% include "invoices/_invoice_receiver.html" %}
           </div>
-          <div class="col-xs-6 _p0 _ptxs _pbxs">
+          <div class="column">
             {% include "invoices/_invoice_company.html" %}
           </div>
         </div>
 
-        <div class="row _pts _pbs">
-          <div class="col-xs-12">{% include "invoices/_invoice_details.html" %}</div>
+        <div class="equal width row _pb0">
+          <div class="column">{% include "invoices/_invoice_details.html" %}</div>
         </div>
 
-        <div class="row">
-          <div class="col-xs-6 _p0 _ptxs _pbxs">
+        <div class="equal width row _pb0">
+          <div class="column">
             {% include "invoices/_invoice_bank.html" %}
 
-            <label class="col-xs-4">Получил:</label>
-            <div class="col-xs-8">
-              <input type="text" class="form-control input-sm">
+            <div class="inline field custom-inline">
+              <label>Получил:</label>
+              <input type="text">
             </div>
           </div>
-          <div class="col-xs-6 _p0 _ptxs _pbxs">
+          <div class="column">
             {% include "invoices/_invoice_total.html" %}
 
-            <label class="col-xs-4">Съставил:</label>
-            <div class="col-xs-8">
-              <input type="text" class="form-control input-sm">
+            <div class="inline field custom-inline">
+              <label>Съставил:</label>
+              <input type="text">
             </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <label class="control-label">Бележка:</label>
-            <input name="note" value="{{ form.note.value }}" type="text" class="form-control input-sm">
+        <div class="equal width row">
+          <div class="column">
+            <div class="field">
+              <label>Бележка:</label>
+              <input name="note" value="{{ form.note.value }}" type="text">
+            </div>
           </div>
         </div>
       </div>

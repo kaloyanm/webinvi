@@ -36,8 +36,8 @@ $('#main-menu').visibility({
 // create sidebar and attach to menu open
 $('#mobile-menu').sidebar('attach events', '.menu-toc');
 
-// show dropdown on hover
-$('#menu-dropdown').dropdown({
+
+$('.dropdown').dropdown({
   on: 'click'
 });
 

@@ -44,23 +44,23 @@ main {
   }
 }
 
-//.form-control {
-//  border: 0;
-//  border-radius: 0;
-//  box-shadow: none;
-//  border-bottom: 1px solid #ccc;
-//  padding-left: 0;
-//  background: transparent;
-//
-//  &[disabled] {
-//    border: 0;
-//    background: transparent;
-//  }
-//
-//  &:focus {
-//    box-shadow: none;
-//  }
-//}
+#invoice_app input {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+  background: transparent;
+
+  &[disabled] {
+    border: 0;
+    background: transparent;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
 
 #mobile-menu {
   z-index: 100;
@@ -86,6 +86,10 @@ main {
   input {
     flex: 1;
   }
+}
+
+#service-dropdown {
+  flex: 1;
 }
 
 .masthead {
