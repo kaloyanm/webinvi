@@ -11,11 +11,10 @@ class UserFactory(factory.DjangoModelFactory):
         model = User
         django_get_or_create = ('username', )
 
-    username = factory.Sequence(lambda n: 'user%d' % n)
+    username = factory.Faker('email')
     password = factory.PostGenerationMethodCall('set_password', 'defaultpassword')
     first_name = factory.Faker('first_name_female')
     last_name = factory.Faker('last_name_female')
-    email = factory.Faker('email')
     is_active = True
     is_staff = False
     is_superuser = False

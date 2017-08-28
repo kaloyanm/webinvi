@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import datetime
 
 from django.conf import settings
@@ -13,13 +10,22 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.db.models import Q
+from django.forms.models import model_to_dict
 
-from core.models import Company
-from core.forms import LoginForm, ChangePassForm, RegistratiоnForm, CompanyForm, CompaniesImportForm, InvoiceproImportForm, ExampleSemanticForm
 from core.models import Company, CompanyAccess
-from core.forms import CompanyForm, CompaniesImportForm, InvoiceproImportForm, CompanyInviteForm
-from core.admin import CompanyResource
+from core.forms import (
+    LoginForm,
+    ChangePassForm,
+    RegistratiоnForm,
+    CompanyForm,
+    CompaniesImportForm,
+    InvoiceproImportForm,
+    CompanyInviteForm,
+    ProfileForm,
+)
 
+
+from core.admin import CompanyResource
 from core.import_export.invoicepro import read_invoicepro_file
 from core.utils import make_random_password
 
@@ -47,29 +53,39 @@ class LoginView(generic.FormView):
         return super(LoginView, self).form_valid(form)
 
 
-class PasswordChangeView(generic.FormView):
-    form_class = ChangePassForm
-    template_name = 'change_password.html'
+@login_required
+def change_password(request):
+    form = ChangePassForm(request.user)
 
-    def get_initial(self):
-        self.initial = {}
-        return super().get_initial()
+    if request.method == "POST":
+        form = ChangePassForm(request.user, request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            update_session_auth_hash(request, form.user)
+            return redirect(reverse_lazy("password"))
 
-    def get_form_kwargs(self):
-        kwargs = super(PasswordChangeView, self).get_form_kwargs()
-        kwargs['data'] = self.request.POST
-        kwargs['user'] = self.request.user
-        return kwargs
-
-    def form_valid(self, form):
-        form.save(commit=True)
-        update_session_auth_hash(self.request, form.user)
-        return super(PasswordChangeView, self).form_valid(form)
+    context = {"form": form}
+    return render(request, template_name="change_password.html", context=context)
 
 
 class RegistrationView(generic.FormView):
     form_class = RegistratiоnForm
     template_name = '_registration.html'
+
+
+@login_required
+def profile(request):
+    initial = model_to_dict(request.user)
+    form = ProfileForm(initial=initial)
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(reverse_lazy("profile"))
+
+    context = {"form": form}
+    return render(request, template_name="core/_profile.html", context=context)
 
 
 @login_required

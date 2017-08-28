@@ -2,7 +2,6 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-{{form.errors}}
 <section class="_ptxl _pbxl">
   <div class="ui grid equal width container stackable">
     <div class="column">
@@ -15,13 +14,4 @@
     </div>
   </div>
 </section>
-{#<div class="row">#}
-{#    <div class='col-md-5'>#}
-{#        <form method="POST" action="">#}
-{#        {% csrf_token %}#}
-{#        {% include "layout_form_vertical.html" with form=form %}#}
-{#        <button type="submit" class="btn btn-default">Регистрирай се</button>#}
-{#      </form>#}
-{#    </div>#}
-{#</div>#}
 {% endblock %}
