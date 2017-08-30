@@ -2,6 +2,7 @@
 from django import forms
 from django.forms import formset_factory
 from invoices.models import Invoice, InvoiceItem
+from core.mixins import InjectCssClassMixin
 
 class InvoiceItemForm(forms.Form):
 
@@ -14,7 +15,11 @@ class InvoiceItemForm(forms.Form):
 InvoiceItemFormSet = formset_factory(InvoiceItemForm)
 
 
-class InvoiceForm(forms.ModelForm):
+class InvoiceForm(InjectCssClassMixin, forms.ModelForm):
+    css_classes = {
+        "client_eik": "inline field custom-inline",
+    }
+
     class Meta:
         model = Invoice
         exclude = ('company', )
