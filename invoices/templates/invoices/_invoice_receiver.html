@@ -1,26 +1,8 @@
 {% load crispy_forms_tags crispy_forms_filters %}
-<div class="inline field custom-inline">
-  <label>Получател:</label>
-  {% form.client_name|as_crispy_field %}
-</div>
 
-<div class="inline field custom-inline">
-  <label>БУЛСТАТ:</label>
-  {% bootstrap_field form.client_eik size='small' show_label='' form_group_class='' bound_css_class='' placeholder='' %}
-</div>
-
-<div class="inline field custom-inline">
-  <label>Ин по ДДС:</label>
-  {% bootstrap_field form.client_dds size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
-</div>
-
-<div class="inline field custom-inline">
-  <label>Град:</label>
-  {% bootstrap_field form.client_city size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
-</div>
-
-<label>Адрес:</label>
-{% bootstrap_field form.client_address size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
-
-<label>МОЛ:</label>
-{% bootstrap_field form.client_mol size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
+{{ form.client_name|as_crispy_field }}
+{{ form.client_eik|as_crispy_field }}
+{{ form.client_dds|as_crispy_field }}
+{{ form.client_city|as_crispy_field }}
+{{ form.client_address|as_crispy_field }}
+{{ form.client_mol|as_crispy_field }}

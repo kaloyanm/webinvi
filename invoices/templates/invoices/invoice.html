@@ -4,50 +4,47 @@
 
 {% block content %}
   <div id="invoice-container" class="ui basic segment">
-    <div class="left ui rail">
+    <div id="settings-rail" class="left ui rail">
       <div id="sticky-settings" class="ui sticky">
-        <h2>Настройки</h2>
-
-        <select class="ui search dropdown fluid _mbxs">
-          <option value="1">Български</option>
-          <option value="2">English</option>
-        </select>
-
-        <select class="ui search dropdown fluid _mbxs">
-          <option value="">Валута</option>
-          <option value="1">($) Долари</option>
-          <option value="2">(&euro;) Евро</option>
-        </select>
-
-        <select class="ui search dropdown fluid _mbxs">
-          <option value="">Доставчик</option>
-          <option value="1">Доставчик 1</option>
-          <option value="2">Доставчик 2</option>
-        </select>
-
-        <div class="_flex">
-          <select id="service-dropdown" class="ui search dropdown fluid">
-            <option value="">Услуга / Продукт</option>
-            <option value="1">Услуга 1</option>
-            <option value="2">Услуга 2</option>
-          </select>
-          <a href="#" class="ui button green">+</a>
+        <div class="ui top attached block header">
+          <h2>Настройки</h2>
         </div>
-        <div class="row _mts">
-          <div class="col-md-12">
-            {% if pk %}
-              <div class="pull-left">
-                <a href="javascript:void(0);" onclick="print_invoice();" class="btn btn-primary btn-sm dropdown-toggle noprint" role="button">Принтиране</a>
-              </div>
-            {% endif %}
-            <div class="pull-right">
-              {% if pk %}
-                <a href="{% url 'delete' pk %}" class="btn btn-danger btn-sm noprint" role="button">Изтриване</a>
+        <div class="ui attached segment">
+          <select class="ui search dropdown fluid _mbxs">
+            <option value="1">Български</option>
+            <option value="2">English</option>
+          </select>
 
-              {% endif %}
-              <button type="submit" href="{% url 'list' %}" class="btn btn-success btn-sm noprint" role="button">Запазване</button>
-            </div>
+          <select class="ui search dropdown fluid _mbxs">
+            <option value="">Валута</option>
+            <option value="1">($) Долари</option>
+            <option value="2">(&euro;) Евро</option>
+          </select>
+
+          <select class="ui search dropdown fluid _mbxs">
+            <option value="">Доставчик</option>
+            <option value="1">Доставчик 1</option>
+            <option value="2">Доставчик 2</option>
+          </select>
+
+          <div class="_flex">
+            <select id="service-dropdown" class="ui search dropdown fluid">
+              <option value="">Услуга / Продукт</option>
+              <option value="1">Услуга 1</option>
+              <option value="2">Услуга 2</option>
+            </select>
+            <a href="#" class="ui button green _mr0 _mlxs">&rarr;</a>
           </div>
+        </div>
+        <div class="ui bottom items attached header _oh">
+          {% if pk %}
+            <a href="javascript:void(0);" onclick="print_invoice();" class="ui left floated button primary tiny noprint" role="button">Принтиране</a>
+          {% endif %}
+
+          {% if pk %}
+            <a href="{% url 'delete' pk %}" class="ui right floated button tiny red" role="button">Изтриване</a>
+          {% endif %}
+          <button type="submit" href="{% url 'list' %}" class="ui right floated button noprint tiny green" role="button">Запазване</button>
         </div>
       </div>
     </div>

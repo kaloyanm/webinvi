@@ -15,7 +15,6 @@ InvoiceItemFormSet = formset_factory(InvoiceItemForm)
 
 
 class InvoiceForm(forms.ModelForm):
-    
     class Meta:
         model = Invoice
         exclude = ('company', )
