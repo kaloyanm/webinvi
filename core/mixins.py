@@ -9,8 +9,6 @@ from crispy_forms.layout import Submit
 
 class AppLoginRequiredMixin(LoginRequiredMixin):
     login_url = reverse_lazy('login')
-
-
 class SubmitButtonMixin:
     submit_button_label =  _('Запази')
 

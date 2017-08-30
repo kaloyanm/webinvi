@@ -107,12 +107,12 @@ def list_invoices(request):
 
     pager = Paginator(queryset, 15)
     page = pager.page(request.GET.get("page", 1))
-    
+
     context = {
-        "objects": page.object_list, 
-        "pager": pager, 
+        "objects": page.object_list,
+        "pager": pager,
         "page": page,
-        "query": search_q, 
+        "query": search_q,
     }
 
     return render(request, template_name='invoices/invoice_list.html',

@@ -4,7 +4,7 @@
   {{ field }}
 {% else %}
   <div id="div_{{ field.auto_id }}"
-       class="{{ field.wrapper_class }} {% if field.required %}required {% endif %}inline field custom-inline{% if field.errors and form_show_errors %} error{% endif %}{% if field|is_checkbox %} ui checkbox{% endif %}">
+       class="{% if field.required %}required {% endif %}field{% if field.errors and form_show_errors %} error{% endif %}{% if field|is_checkbox %} ui checkbox{% endif %}">
 
     {% if field|is_checkbox %}
       {% crispy_field field %}
