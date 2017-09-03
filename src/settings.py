@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'compressor',
     'django_extensions',
     'import_export',
-    'bootstrap3',
     'core',
     'invoices',
 ]
@@ -88,8 +87,6 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder'
 ]
 
-
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
