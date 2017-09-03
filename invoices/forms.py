@@ -1,6 +1,9 @@
 
+from inspect import signature
 from django import forms
 from django.forms import formset_factory
+
+from core.mixins import InlineFieldsMixin
 from invoices.models import Invoice
 
 
@@ -15,7 +18,9 @@ class InvoiceItemForm(forms.Form):
 InvoiceItemFormSet = formset_factory(InvoiceItemForm)
 
 
-class InvoiceForm(forms.ModelForm):
+class InvoiceForm(InlineFieldsMixin, forms.ModelForm):
+
+    inline_fields = ["__all__"]
 
     class Meta:
         model = Invoice
