@@ -51,8 +51,3 @@ class CompaniesImportForm(SubmitButtonMixin, forms.Form):
 class InvoiceproImportForm(SubmitButtonMixin, forms.Form):
     file = forms.FileField()
     wipe_existing = forms.BooleanField(required=False)
-
-
-class CompanyInviteForm(SubmitButtonMixin, forms.Form):
-    email = forms.EmailField()
-    message = forms.CharField(widget=forms.Textarea(), required=False)
