@@ -22,7 +22,6 @@
   <div href="#" id="menu-dropdown" class="ui dropdown item" role="button" aria-haspopup="true">
     Профил ({{ request.user.username }}) <i class="dropdown icon"></i>
     <div class="menu">
-      <a href="{% url 'profile' %}" class="item">Обща информация</a>
       <a href="{% url 'password' %}" class="item">Смяна на паролата</a>
       <div class="divider"></div>
       <a href="#" class="item">Dropbox</a>

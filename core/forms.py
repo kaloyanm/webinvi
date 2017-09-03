@@ -5,7 +5,6 @@ from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
     UserCreationForm,
-    UserChangeForm,
     PasswordChangeForm
 )
 
@@ -26,16 +25,6 @@ class RegistratiоnForm(SubmitButtonMixin, UserCreationForm):
         fields = ["username"]
         exclude = ["email"]
     username = forms.EmailField(max_length=64)
-
-
-class ProfileForm(SubmitButtonMixin, UserChangeForm):
-    submit_button_label = _('Обнови')
-
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name']
-        exclude = ['password']
-    # username = forms.EmailField(max_length=64, disabled=True)
 
 
 class LoginForm(SubmitButtonMixin, AuthenticationForm):

@@ -22,7 +22,6 @@
         <th>МОЛ</th>
         <th>Град</th>
         <th>Адрес</th>
-        <th></th>
       </tr>
       </thead>
       <tbody>
@@ -33,7 +32,6 @@
           <td>{{ item.mol }}</td>
           <td>{{ item.city }}</td>
           <td>{{ item.address }}</td>
-          <td><a class="mini ui button" href="{%  url "collaborators" item.pk %}">collaborators</a></td>
         </tr>
       {% endfor %}
       </tbody>

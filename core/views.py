@@ -1,18 +1,13 @@
-import datetime
-
-from django.conf import settings
-from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.core.urlresolvers import reverse_lazy
-from django.forms.models import model_to_dict
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.db.models import Q
 from django.forms.models import model_to_dict
 
-from core.models import Company, CompanyAccess
+from core.models import Company
 from core.forms import (
     LoginForm,
     ChangePassForm,
@@ -20,14 +15,10 @@ from core.forms import (
     CompanyForm,
     CompaniesImportForm,
     InvoiceproImportForm,
-    CompanyInviteForm,
-    ProfileForm,
 )
-
 
 from core.admin import CompanyResource
 from core.import_export.invoicepro import read_invoicepro_file
-from core.utils import make_random_password
 
 
 def logout_view(request):
@@ -74,21 +65,6 @@ class RegistrationView(generic.FormView):
 
 
 @login_required
-def profile(request):
-    initial = model_to_dict(request.user)
-    form = ProfileForm(initial=initial)
-
-    if request.method == "POST":
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            form.save(commit=True)
-            return redirect(reverse_lazy("profile"))
-
-    context = {"form": form}
-    return render(request, template_name="core/_profile.html", context=context)
-
-
-@login_required
 def companies(request):
     clauses = Q(user=request.user) or Q(companyaccess__user=request.user, companyaccess__verified=True)
     objects = Company.objects.filter(clauses)
@@ -131,50 +107,6 @@ def export_companies(request):
     response = HttpResponse(dataset.csv, content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename=companies.csv'
     return response
-
-@login_required
-def collaborators(request, company_pk):
-    company = get_object_or_404(Company, user=request.user, pk=company_pk)
-    objects = CompanyAccess.objects.filter(company=company)
-    context = {"company": company, "objects": objects}
-    return render(request, template_name="core/_collaborators.html", context=context)
-
-
-@login_required
-def invite(request, company_pk):
-    company = get_object_or_404(Company, user=request.user, pk=company_pk)
-    form = CompanyInviteForm()
-
-    if request.method == "POST":
-        form = CompanyInviteForm(request.POST)
-        if form.is_valid():
-            access = CompanyAccess()
-            access.company = company
-            access.email = form.cleaned_data["email"]
-            access.invitation_key = make_random_password()
-            access.expire_on = timezone.now() + datetime.timedelta(days=settings.INVITE_EXPIRE_DAYS)
-            access.save()
-            return redirect(reverse_lazy("collaborators", args=(company_pk,)))
-
-    context = {"form": form, "company": company}
-    return render(request, template_name="core/_invite.html", context=context)
-
-
-@login_required
-def drop_collab(request, pk):
-    object = get_object_or_404(CompanyAccess, pk=pk)
-    if request.method == "POST":
-        company_pk = object.company_id
-        object.delete()
-        return redirect(reverse_lazy("collaborators", args=(company_pk,)))
-
-    context = {"object": object}
-    return render(request, template_name="core/_delete_form.html", context=context)
-
-
-@login_required
-def verify_collab(request, invite_key):
-    pass
 
 
 class ImportException(Exception):
