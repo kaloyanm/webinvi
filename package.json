@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "autoprefixer": "^7.1.2",
-    "bootstrap-loader": "^2.1.0",
-    "bootstrap-sass": "^3.3.7",
     "css-loader": "^0.28.4",
     "css-mqpacker": "^6.0.1",
     "cssnano": "^3.10.0",

@@ -1,36 +1,34 @@
-{% load bootstrap3 %}
-
 <label class=" col-md-5 applabel" >Получател:</label>
 <div class="col-md-7 col-padding">
-    {% bootstrap_field form.client_name size='small' show_label='' form_group_class='' bound_css_class='' placeholder='' %}
+    {{form.client_name}}
 </div>
 <div class="appclearfix"></div>
 
 <label class=" col-md-5 applabel" >БУЛСТАТ:</label>
 <div class="col-md-7 col-padding">
-    {% bootstrap_field form.client_eik size='small' show_label='' form_group_class='' bound_css_class='' placeholder='' %}
+    {{form.client_eik}}
 </div>
 <div class="appclearfix"></div>
 
 <label class=" col-md-5 applabel" >Ин по ДДС:</label>
 <div class="col-md-7 col-padding">
-    {% bootstrap_field form.client_dds size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
+    {{form.client_dds}}
 </div>
 <div class="appclearfix"></div>
 
 <label class=" col-md-5 applabel" >Град:</label>
 <div class="col-md-7 col-padding">
-    {% bootstrap_field form.client_city size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
+    {{form.client_city}}
 </div>
 <div class="appclearfix"></div>
 
 <label class=" col-md-5 applabel" >Адрес:</label>
 <div class="col-md-7 col-padding">
-    {% bootstrap_field form.client_address size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
+    {{form.client_address}}
 </div>
 <div class="appclearfix"></div>
 
 <label class=" col-md-5 applabel" >МОЛ:</label>
 <div class="col-md-7 col-padding">
-    {% bootstrap_field form.client_mol size='small' show_label='' form_group_class='' bound_css_class='' placeholder=''%}
+    {{form.client_mol}}
 </div>
