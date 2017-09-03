@@ -6,7 +6,6 @@
 
 <div class="left item">
   <a href="{% url 'home' %}" class="header item">
-{#    <img class="logo" src="assets/images/logo.png">#}
     eDocPrint
   </a>
   <a href="{% url 'contact' %}" class="_active item">За контакт</a>
@@ -21,9 +20,8 @@
   <a class="item" href="{% url 'companies' %}">Фирми</a>
 
   <div href="#" id="menu-dropdown" class="ui dropdown item" role="button" aria-haspopup="true">
-    Профил ({{ request.user.id }}) <i class="dropdown icon"></i>
+    Профил ({{ request.user.username }}) <i class="dropdown icon"></i>
     <div class="menu">
-      <a href="#" class="item">Обща информация</a>
       <a href="{% url 'password' %}" class="item">Смяна на паролата</a>
       <div class="divider"></div>
       <a href="#" class="item">Dropbox</a>
@@ -34,15 +32,3 @@
   <a class="ui inverted button" href="{% url 'logout' %}">Изход</a>
 {% endif %}
 </div>
-
-{#    <li class="dropdown">#}
-{#      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"#}
-{#         aria-expanded="false"><img src="{{ flags_dir }}{{ lang.code }}.png"/> <span class="caret"></span></a>#}
-{#      <ul class="dropdown-menu">#}
-{#        {% for lang_code, lang_name in LANGUAGES %}#}
-{#          <li><a href="#"><img src="{{ flags_dir }}{{ lang_code }}.png"/> {{ lang_name }}</a></li>#}
-{#        {% endfor %}#}
-{#      </ul>#}
-{#    </li>#}
-
-

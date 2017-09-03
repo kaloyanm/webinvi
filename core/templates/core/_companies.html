@@ -14,7 +14,7 @@
   </div>
 
   <div class="ui basic segment">
-    <table class="ui celled table">
+    <table class="ui table">
       <thead>
       <tr>
         <th>Име</th>
@@ -27,8 +27,7 @@
       <tbody>
       {% for item in objects %}
         <tr>
-          <td scope="row"><a href="{% url 'company' item.pk %}">{{ item.name }} {% if item.default %}*{% endif %}</a>
-          </td>
+          <td scope="row"><a href="{% url 'company' item.pk %}">{{ item.name }} {% if item.default %}*{% endif %}</a></td>
           <td>{{ item.eik }}</td>
           <td>{{ item.mol }}</td>
           <td>{{ item.city }}</td>
