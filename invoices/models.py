@@ -10,6 +10,11 @@ INVOICE_TYPES = (
     ('proforma', 'Proforma'),
 )
 
+# LANGUAGES = (
+#     ('bg', 'Bulgarian'),
+#     ('en', 'English'),
+# )
+
 
 def get_next_number(company, invoice_type):
     max_no = Invoice.objects.filter(company=company, invoice_type=invoice_type) \
@@ -21,7 +26,7 @@ def get_next_number(company, invoice_type):
 # Create your models here.
 class Invoice(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    
+
     client_name = models.CharField(max_length=255, db_index=True)
     client_eik = models.CharField(max_length=255, db_index=True)
     client_dds = models.CharField(max_length=255, blank=True)
@@ -49,7 +54,7 @@ class Invoice(models.Model):
 
     class Meta:
         ordering = ("-released_at", "-invoice_type", "-number")
-        unique_together = ("company", "invoice_type", "number")
+        unique_together = ("company", "invoice_type", "number"),
 
 
     def __str__(self):

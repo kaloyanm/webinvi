@@ -3,7 +3,7 @@ django-bower
 django-crispy-forms
 django-debug-toolbar
 django-extensions
-django-bootstrap3
+django-modeltranslation
 py
 six
 sqlparse
