@@ -8,7 +8,7 @@ from django.contrib.auth.forms import (
     PasswordChangeForm
 )
 
-from core.mixins import SubmitButtonMixin
+from core.mixins import SubmitButtonMixin, InlineFieldsMixin
 
 User = get_user_model()
 
@@ -31,8 +31,9 @@ class LoginForm(SubmitButtonMixin, AuthenticationForm):
     submit_button_label = _('Влез')
 
 
-class CompanyForm(SubmitButtonMixin, forms.Form):
+class CompanyForm(SubmitButtonMixin, InlineFieldsMixin, forms.Form):
     submit_button_label = _('Запази')
+    inline_fields = ['__all__']
 
     name = forms.CharField(label=_(u'Има на компанията'))
     eik = forms.CharField(label=_(u'БУЛСТАТ'))

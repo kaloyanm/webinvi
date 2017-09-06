@@ -10,11 +10,6 @@ INVOICE_TYPES = (
     ('proforma', 'Proforma'),
 )
 
-# LANGUAGES = (
-#     ('bg', 'Bulgarian'),
-#     ('en', 'English'),
-# )
-
 
 def get_next_number(company, invoice_type):
     max_no = Invoice.objects.filter(company=company, invoice_type=invoice_type) \

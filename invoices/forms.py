@@ -1,5 +1,4 @@
 
-from inspect import signature
 from django import forms
 from django.forms import formset_factory
 
@@ -21,6 +20,10 @@ InvoiceItemFormSet = formset_factory(InvoiceItemForm)
 class InvoiceForm(InlineFieldsMixin, forms.ModelForm):
 
     inline_fields = ["__all__"]
+
+    tax_base = forms.DecimalField(disabled=True, required=False)
+    total = forms.DecimalField(disabled=True, required=False)
+    verbally = forms.CharField(max_length=255, required=False)
 
     class Meta:
         model = Invoice

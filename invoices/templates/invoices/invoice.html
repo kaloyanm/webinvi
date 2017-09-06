@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static compress inv_utils %}
+{% load crispy_forms_tags crispy_forms_filters %}
 {% block body_class %}body--invoice{% endblock %}
 
 {% block content %}
@@ -69,16 +70,28 @@
             </h1>
           </div>
           <div class="column">
-            {% include "invoices/_invoice_meta.html" %}
+            {{ form.number|as_crispy_field }}
+            {{ form.released_at|as_crispy_field }}
+            {{ form.taxevent_at|as_crispy_field }}
           </div>
         </div>
 
         <div class="equal width row _pb0">
           <div class="column">
-            {% include "invoices/_invoice_receiver.html" %}
+            {{ form.client_name|as_crispy_field }}
+            {{ form.client_eik|as_crispy_field }}
+            {{ form.client_dds|as_crispy_field }}
+            {{ form.client_city|as_crispy_field }}
+            {{ form.client_address|as_crispy_field }}
+            {{ form.client_mol|as_crispy_field }}
           </div>
           <div class="column">
-            {% include "invoices/_invoice_company.html" %}
+            {{company_form.name|as_crispy_field}}
+            {{company_form.eik|as_crispy_field}}
+            {{company_form.dds|as_crispy_field}}
+            {{company_form.city|as_crispy_field}}
+            {{company_form.address|as_crispy_field}}
+            {{company_form.mol|as_crispy_field}}
           </div>
         </div>
 
@@ -88,20 +101,18 @@
 
         <div class="equal width row _pb0">
           <div class="column">
-            {% include "invoices/_invoice_bank.html" %}
-
-            <div class="inline field custom-inline">
-              <label>Получил:</label>
-              <input type="text">
-            </div>
+            {{ form.payment_type|as_crispy_field }}
+            {{ form.payment_iban|as_crispy_field }}
+            {{ form.payment_swift|as_crispy_field }}
+            {{ form.payment_bank|as_crispy_field }}
+            {{ form.accepted_by|as_crispy_field }}
           </div>
           <div class="column">
-            {% include "invoices/_invoice_total.html" %}
-
-            <div class="inline field custom-inline">
-              <label>Съставил:</label>
-              <input type="text">
-            </div>
+            {{ form.tax_base|as_crispy_field }}
+            {{ form.dds_percent|as_crispy_field }}
+            {{ form.total|as_crispy_field }}
+            {{ form.verbally|as_crispy_field }}
+            {{ form.created_by|as_crispy_field }}
           </div>
         </div>
 
