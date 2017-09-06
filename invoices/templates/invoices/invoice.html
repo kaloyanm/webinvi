@@ -1,10 +1,11 @@
-{% extends "base.html" %}
+{% extends base_template %}
 {% load static compress inv_utils %}
 {% load crispy_forms_tags crispy_forms_filters %}
 {% block body_class %}body--invoice{% endblock %}
 
 {% block content %}
   <div id="invoice-container" class="ui basic segment">
+    {% if not print %}
     <div id="settings-rail" class="left ui rail">
       <div id="sticky-settings" class="ui sticky">
         <div class="ui top attached block header">
@@ -24,7 +25,7 @@
         </div>
         <div class="ui bottom items attached header _oh">
           {% if pk %}
-            <a href="javascript:void(0);" onclick="print_invoice();" class="ui left floated button primary tiny noprint" role="button">Принтиране</a>
+            <a href="{% url 'print' pk %}" class="ui left floated button primary tiny noprint" role="button">Принтиране</a>
           {% endif %}
 
           {% if pk %}
@@ -34,7 +35,7 @@
         </div>
       </div>
     </div>
-
+    {% endif %}
     <form class="ui tiny form" method="POST" action="" id="invoice_app">
       {% csrf_token %}
 
