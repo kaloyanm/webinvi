@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'debug_toolbar',
+    'modeltranslation',
     'crispy_forms',
     'rosetta',
     'compressor',
@@ -143,6 +144,7 @@ STATIC_URL = '/static/'
 from django.utils.translation import ugettext_lazy as _
 
 LANGUAGES = [
+    ('bg', _('Български')),
     ('es', _('Испански')),
     ('en', _('Английски')),
 ]

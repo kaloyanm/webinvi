@@ -11,7 +11,7 @@ class UserFactory(factory.DjangoModelFactory):
         model = User
         django_get_or_create = ('username', )
 
-    username = factory.Faker('email')
+    username = factory.Sequence(lambda n: 'user%d@demo.com' % n)
     password = factory.PostGenerationMethodCall('set_password', 'defaultpassword')
     first_name = factory.Faker('first_name_female')
     last_name = factory.Faker('last_name_female')
