@@ -11,7 +11,7 @@
     <link href="{% static "core/css/style.css" %}" rel="stylesheet">
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
   <!-- Sidebar Menu -->
   <aside id="mobile-menu" role="navigation" class="ui vertical inverted sidebar overlay menu">
     <a class="active item">Home</a>

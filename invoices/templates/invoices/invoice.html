@@ -1,9 +1,41 @@
 {% extends "base.html" %}
 {% load static compress inv_utils %}
+{% load crispy_forms_tags crispy_forms_filters %}
+{% block body_class %}body--invoice{% endblock %}
 
 {% block content %}
-  <div class="container invoice">
-    <form class="form-horizontal" method="POST" action="" id="invoice_app">
+  <div id="invoice-container" class="ui basic segment">
+    <div id="settings-rail" class="left ui rail">
+      <div id="sticky-settings" class="ui sticky">
+        <div class="ui top attached block header">
+          <h2>Настройки</h2>
+        </div>
+        <div class="ui attached segment">
+          <select class="ui search dropdown fluid _mbxs">
+            <option value="1">Български</option>
+            <option value="2">English</option>
+          </select>
+
+          <select class="ui search dropdown fluid _mbxs">
+            <option value="">Валута</option>
+            <option value="1">($) Долари</option>
+            <option value="2">(&euro;) Евро</option>
+          </select>
+        </div>
+        <div class="ui bottom items attached header _oh">
+          {% if pk %}
+            <a href="javascript:void(0);" onclick="print_invoice();" class="ui left floated button primary tiny noprint" role="button">Принтиране</a>
+          {% endif %}
+
+          {% if pk %}
+            <a href="{% url 'delete' pk %}" class="ui right floated button tiny red" role="button">Изтриване</a>
+          {% endif %}
+          <button type="submit" href="{% url 'list' %}" class="ui right floated button noprint tiny green" role="button">Запазване</button>
+        </div>
+      </div>
+    </div>
+
+    <form class="ui tiny form" method="POST" action="" id="invoice_app">
       {% csrf_token %}
 
       <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
@@ -14,53 +46,68 @@
         {% endfor %}
       {% endfor %}
 
-      <div class="row _mbs">
-        <div class="col-xs-6">
-          <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
-            <small>оригинал</small>
-          </h1>
-        </div>
-        <div class="col-xs-6 _p0">
-          {% include "invoices/_invoice_meta.html" %}
-        </div>
-      </div>
+      <div class="ui grid">
 
-      <div class="row">
-        <div class="col-xs-6 _p0 _ptxs _pbxs">
-          {% include "invoices/_invoice_receiver.html" %}
-        </div>
-        <div class="col-xs-6 _p0 _ptxs _pbxs _bg-background-light">
-          {% include "invoices/_invoice_company.html" %}
-        </div>
-      </div>
-
-      <div class="row _ptm _pbm">
-        <div class="col-xs-12">{% include "invoices/_invoice_details.html" %}</div>
-      </div>
-
-      <div class="row">
-        <div class="col-xs-6 _p0 _ptxs _pbxs">
-          {% include "invoices/_invoice_bank.html" %}
-
-          <label class="col-xs-5">Получил:</label>
-          <div class="col-xs-7">
-            <input type="text" class="form-control input-sm">
+        <div class="equal width row _pb0">
+          <div class="column">
+            <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
+              <small>оригинал</small>
+            </h1>
+          </div>
+          <div class="column">
+            {{ form.number|as_crispy_field }}
+            {{ form.released_at|as_crispy_field }}
+            {{ form.taxevent_at|as_crispy_field }}
           </div>
         </div>
-        <div class="col-xs-6 _p0 _bg-background-light _ptxs _pbxs">
-          {% include "invoices/_invoice_total.html" %}
 
-          <label class=" col-md-5">Съставил:</label>
-          <div class="col-md-7 col-padding">
-            <input type="text" class="form-control input-sm">
+        <div class="equal width row _pb0">
+          <div class="column">
+            {{ form.client_name|as_crispy_field }}
+            {{ form.client_eik|as_crispy_field }}
+            {{ form.client_dds|as_crispy_field }}
+            {{ form.client_city|as_crispy_field }}
+            {{ form.client_address|as_crispy_field }}
+            {{ form.client_mol|as_crispy_field }}
+          </div>
+          <div class="column">
+            {{company_form.name|as_crispy_field}}
+            {{company_form.eik|as_crispy_field}}
+            {{company_form.dds|as_crispy_field}}
+            {{company_form.city|as_crispy_field}}
+            {{company_form.address|as_crispy_field}}
+            {{company_form.mol|as_crispy_field}}
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <label class="control-label">Бележка:</label>
-          <input name="note" value="{{ form.note.value }}" type="text" class="form-control input-sm">
+        <div class="equal width row _pb0">
+          <div class="column">{% include "invoices/_invoice_details.html" %}</div>
+        </div>
+
+        <div class="equal width row _pb0">
+          <div class="column">
+            {{ form.payment_type|as_crispy_field }}
+            {{ form.payment_iban|as_crispy_field }}
+            {{ form.payment_swift|as_crispy_field }}
+            {{ form.payment_bank|as_crispy_field }}
+            {{ form.accepted_by|as_crispy_field }}
+          </div>
+          <div class="column">
+            {{ form.tax_base|as_crispy_field }}
+            {{ form.dds_percent|as_crispy_field }}
+            {{ form.total|as_crispy_field }}
+            {{ form.verbally|as_crispy_field }}
+            {{ form.created_by|as_crispy_field }}
+          </div>
+        </div>
+
+        <div class="equal width row">
+          <div class="column">
+            <div class="field">
+              <label>Бележка:</label>
+              <input name="note" value="{{ form.note.value }}" type="text">
+            </div>
+          </div>
         </div>
       </div>
       <div class="row _mts">
