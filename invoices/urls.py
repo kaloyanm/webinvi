@@ -1,10 +1,11 @@
 from django.conf.urls import url
 from invoices.views import (
-    list_invoices, invoice, delete_invoice
+    list_invoices, invoice, delete_invoice, webprint
 )
 
 
 urlpatterns = [
+    url(r'^print/(?P<pk>[0-9]+)/', webprint, name='print'),
     url(r'^invoice/(?P<pk>[0-9]+)/', invoice, name='invoice'),
     url(r'^invoice/', invoice, name='invoice'),
     url(r'^proforma/(?P<pk>[0-9]+)/', invoice, {"invoice_type": "proforma"}, name='proforma'),

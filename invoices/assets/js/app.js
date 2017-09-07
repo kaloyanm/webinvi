@@ -1,7 +1,5 @@
 import Vue from 'vue';
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import {html2pdf} from './html2pdf.js';
 
 var round = function (number, precision) {
   var factor = Math.pow(10, precision);
@@ -81,34 +79,29 @@ var app = new Vue({
   }
 });
 
-// function print_on() {
-//     $('.noprint').hide();
-// }
+
+// window.print_invoice = function() {
+//   var doc = new jsPDF({
+//     orientation: 'p',
+//     unit: 'mm',
+//     format: 'a4'
+//   });
 //
-// function print_off() {
-//     $('.noprint').show();
+//   // We'll make our own renderer to skip this editor
+//   var specialElementHandlers = {
+//       '#editor': function(element, renderer){
+//           return true;
+//       },
+//       '.controls': function(element, renderer){
+//           return true;
+//       }
+//   };
+//
+//   // All units are in the set measurement for the document
+//   // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
+//   doc.fromHTML($('#invoice_app').get(0), 15, 15, {
+//       'width': 768,
+//       'elementHandlers': specialElementHandlers
+//   });
+//   doc.save('document.pdf');
 // }
-
-function print_invoice() {
-  var pdf = new jsPDF('p', 'pt', 'A4');
-  pdf.canvas.height = 80 * 11;
-  pdf.canvas.width = 80 * 8.5;
-  console.log(pdf);
-  html2pdf(document.getElementById("print"), pdf, function (pdf) {
-    var iframe = document.createElement('iframe');
-    iframe.setAttribute('style', 'position:absolute;right:0; top:0; bottom:0; height:100%; width:100%;');
-    document.body.appendChild(iframe);
-
-    print_content = pdf.output('datauristring');
-    iframe.src = print_content;
-  });
-}
-
-console.log(jsPDF);
-
-var pdf = new jsPDF('p', 'pt', 'A4');
-pdf.canvas.height = 80 * 11;
-pdf.canvas.width = 80 * 8.5;
-console.log(pdf.pageFormats);
-
-window.print_invoice = print_invoice;

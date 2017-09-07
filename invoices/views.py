@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import json
+import os
 
+from xhtml2pdf import pisa
+from io import StringIO, BytesIO
+from django.conf import settings
 from django.db import transaction
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -10,7 +14,7 @@ from django.forms.models import model_to_dict
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.paginator import Paginator
-
+from django.http import HttpResponse, Http404
 
 from core.forms import CompanyForm
 from invoices.forms import InvoiceForm, InvoiceItemFormSet, SearchForm
@@ -38,7 +42,8 @@ def process_invoice(request, form, form_items):
     return False
 
 @login_required
-def invoice(request, pk=None, invoice_type="invoice"):
+def invoice(request, pk=None, invoice_type="invoice",
+            base_template="base.html", print=None):
     if pk:
         instance = get_object_or_404(Invoice, pk=pk)
         company = instance.company
@@ -56,6 +61,8 @@ def invoice(request, pk=None, invoice_type="invoice"):
     }
 
     context = {
+        "print": print,
+        "base_template": base_template,
         "form": InvoiceForm(initial=default_data),
         "formset": json.dumps([]),
         "invoice_type": invoice_type,
@@ -117,3 +124,30 @@ def list_invoices(request):
 
     return render(request, template_name='invoices/invoice_list.html',
                   context=context)
+
+
+@login_required
+def preview(request, pk, base_template="print.html"):
+    return invoice(request, pk, base_template=base_template,
+                   print=True)
+
+@login_required
+def webprint(request, pk):
+    def fetch_resources(uri, rel):
+        if uri.startswith("http"):
+            path = uri
+        else:
+            path = os.path.join(settings.STATIC_ROOT, uri.replace(settings.STATIC_URL, ""))
+        return path
+
+    response = preview(request, pk)
+    return response
+    result = BytesIO()
+    pdf = pisa.pisaDocument(response.content, dest=result)
+
+    if not pdf.err:
+        response = HttpResponse(result.getvalue(), content_type="application/pdf")
+        response["Content-Disposition"] = "attachment; filename='invoice.pdf'"
+        return response
+    else:
+        raise Http404
