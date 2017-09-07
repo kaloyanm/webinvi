@@ -1,14 +1,9 @@
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ImproperlyConfigured
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-
-
-class AppLoginRequiredMixin(LoginRequiredMixin):
-    login_url = reverse_lazy('login')
 
 
 class SubmitButtonMixin:
@@ -32,3 +27,14 @@ class InlineFieldsMixin:
             if self.inline_fields[0] == "__all__" or \
                     field in self.inline_fields:
                 self.fields[field].inline = True
+
+
+class TranslateLabelsFormMixin:
+    translate_labels = {}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field, label in self.translate_labels.items():
+            if field not in self.fields.keys():
+                raise ImproperlyConfigured
+            self.fields[field].label = label

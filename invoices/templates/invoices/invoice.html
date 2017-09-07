@@ -111,22 +111,6 @@
           </div>
         </div>
       </div>
-      <div class="row _mts">
-        <div class="col-md-12">
-          {% if pk %}
-            <div class="pull-left">
-              <a href="javascript:void(0);" onclick="print_invoice();" class="btn btn-primary btn-sm dropdown-toggle noprint" role="button">Принтиране</a>
-            </div>
-          {% endif %}
-          <div class="pull-right">
-            {% if pk %}
-              <a href="{% url 'delete' pk %}" class="btn btn-danger btn-sm noprint" role="button">Изтриване</a>
-
-            {% endif %}
-            <button type="submit" href="{% url 'list' %}" class="btn btn-success btn-sm noprint" role="button">Запазване</button>
-          </div>
-        </div>
-      </div>
     </form>
   </div>
 
