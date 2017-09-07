@@ -5,11 +5,13 @@
 <table class="ui very basic compact table">
   <thead>
   <tr>
+    {% if not print %}
     <th class="noprint">
       <div class="ui icon buttons">
         <a class="ui button" @click="add()">+</a>
       </div>
     </th>
+    {% endif %}
     <th width="30%">Продукт / Услуга</th>
     <th width="10%">Кол.</th>
     <th>Мярка</th>
@@ -19,6 +21,7 @@
   </tr>
   </thead>
   <tbody>
+  {% block items %}
   <tr v-for="(row, index) in rows">
     <td class="noprint">
       <div class="ui icon buttons">
@@ -44,5 +47,6 @@
       <input type="text" :name="'form-'+index+'-total'" v-model="row.gross" disabled>
     </td>
   </tr>
+  {% endblock %}
   </tbody>
 </table>

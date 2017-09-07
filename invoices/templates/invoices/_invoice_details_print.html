@@ -1,0 +1,26 @@
+{% extends "invoices/_invoice_details.html" %}
+
+{% block items %}
+{% for item in instance.invoiceitem_set.all %}
+<tr>
+    <td>
+        {{ item.name }}
+    </td>
+    <td>
+        {{ item.quantity }}
+    </td>
+    <td>
+        {{ item.measure }}
+    </td>
+    <td>
+        {{ item.unit_price }}
+    </td>
+    <td>
+        {{ item.discount }}
+    </td>
+    <td>
+        {{ item.total }}
+    </td>
+</tr>
+{% endfor %}
+{% endblock %}

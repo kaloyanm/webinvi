@@ -82,7 +82,7 @@
         </div>
 
         <div class="equal width row _pb0">
-          <div class="column">{% include "invoices/_invoice_details.html" %}</div>
+          <div class="column">{% if print %}{% include "invoices/_invoice_details_print.html" %}{% else %}{% include "invoices/_invoice_details.html" %}{% endif %}</div>
         </div>
 
         <div class="equal width row _pb0">
@@ -114,7 +114,8 @@
     </form>
   </div>
 
-  <script type="text/javascript">window.formset = {{ formset|safe }};</script>
-  <script src="{% static "invoices/js/app.js" %}"></script>
-
+{% if not print %}
+<script type="text/javascript">window.formset = {{ formset|safe }};</script>
+<script src="{% static "invoices/js/app.js" %}"></script>
+{% endif %}
 {% endblock %}
