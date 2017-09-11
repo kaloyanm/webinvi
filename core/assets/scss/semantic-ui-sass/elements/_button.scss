@@ -217,120 +217,120 @@
        Animated
 --------------------*/
 
-.ui.animated.button {
-  position: relative;
-  overflow: hidden;
-  padding-right: 0em !important;
-  vertical-align: middle;
-  z-index: 1;
-}
-.ui.animated.button .content {
-  will-change: transform, opacity;
-}
-.ui.animated.button .visible.content {
-  position: relative;
-  margin-right: 1.5em;
-}
-.ui.animated.button .hidden.content {
-  position: absolute;
-  width: 100%;
-}
+//.ui.animated.button {
+//  position: relative;
+//  overflow: hidden;
+//  padding-right: 0em !important;
+//  vertical-align: middle;
+//  z-index: 1;
+//}
+//.ui.animated.button .content {
+//  will-change: transform, opacity;
+//}
+//.ui.animated.button .visible.content {
+//  position: relative;
+//  margin-right: 1.5em;
+//}
+//.ui.animated.button .hidden.content {
+//  position: absolute;
+//  width: 100%;
+//}
 
 /* Horizontal */
-.ui.animated.button .visible.content,
-.ui.animated.button .hidden.content {
-  -webkit-transition: right 0.3s ease 0s;
-  transition: right 0.3s ease 0s;
-}
-.ui.animated.button .visible.content {
-  left: auto;
-  right: 0%;
-}
-.ui.animated.button .hidden.content {
-  top: 50%;
-  left: auto;
-  right: -100%;
-  margin-top: -0.5em;
-}
-.ui.animated.button:focus .visible.content,
-.ui.animated.button:hover .visible.content {
-  left: auto;
-  right: 200%;
-}
-.ui.animated.button:focus .hidden.content,
-.ui.animated.button:hover .hidden.content {
-  left: auto;
-  right: 0%;
-}
+//.ui.animated.button .visible.content,
+//.ui.animated.button .hidden.content {
+//  -webkit-transition: right 0.3s ease 0s;
+//  transition: right 0.3s ease 0s;
+//}
+//.ui.animated.button .visible.content {
+//  left: auto;
+//  right: 0%;
+//}
+//.ui.animated.button .hidden.content {
+//  top: 50%;
+//  left: auto;
+//  right: -100%;
+//  margin-top: -0.5em;
+//}
+//.ui.animated.button:focus .visible.content,
+//.ui.animated.button:hover .visible.content {
+//  left: auto;
+//  right: 200%;
+//}
+//.ui.animated.button:focus .hidden.content,
+//.ui.animated.button:hover .hidden.content {
+//  left: auto;
+//  right: 0%;
+//}
 
 /* Vertical */
-.ui.vertical.animated.button .visible.content,
-.ui.vertical.animated.button .hidden.content {
-  -webkit-transition: top 0.3s ease, -webkit-transform 0.3s ease;
-  transition: top 0.3s ease, -webkit-transform 0.3s ease;
-  transition: top 0.3s ease, transform 0.3s ease;
-  transition: top 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;
-}
-.ui.vertical.animated.button .visible.content {
-  -webkit-transform: translateY(0%);
-          transform: translateY(0%);
-  right: auto;
-}
-.ui.vertical.animated.button .hidden.content {
-  top: -50%;
-  left: 0%;
-  right: auto;
-}
-.ui.vertical.animated.button:focus .visible.content,
-.ui.vertical.animated.button:hover .visible.content {
-  -webkit-transform: translateY(200%);
-          transform: translateY(200%);
-  right: auto;
-}
-.ui.vertical.animated.button:focus .hidden.content,
-.ui.vertical.animated.button:hover .hidden.content {
-  top: 50%;
-  right: auto;
-}
+//.ui.vertical.animated.button .visible.content,
+//.ui.vertical.animated.button .hidden.content {
+//  -webkit-transition: top 0.3s ease, -webkit-transform 0.3s ease;
+//  transition: top 0.3s ease, -webkit-transform 0.3s ease;
+//  transition: top 0.3s ease, transform 0.3s ease;
+//  transition: top 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;
+//}
+//.ui.vertical.animated.button .visible.content {
+//  -webkit-transform: translateY(0%);
+//          transform: translateY(0%);
+//  right: auto;
+//}
+//.ui.vertical.animated.button .hidden.content {
+//  top: -50%;
+//  left: 0%;
+//  right: auto;
+//}
+//.ui.vertical.animated.button:focus .visible.content,
+//.ui.vertical.animated.button:hover .visible.content {
+//  -webkit-transform: translateY(200%);
+//          transform: translateY(200%);
+//  right: auto;
+//}
+//.ui.vertical.animated.button:focus .hidden.content,
+//.ui.vertical.animated.button:hover .hidden.content {
+//  top: 50%;
+//  right: auto;
+//}
 
 /* Fade */
-.ui.fade.animated.button .visible.content,
-.ui.fade.animated.button .hidden.content {
-  -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
-  transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  transition: opacity 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;
-}
-.ui.fade.animated.button .visible.content {
-  left: auto;
-  right: auto;
-  opacity: 1;
-  -webkit-transform: scale(1);
-          transform: scale(1);
-}
-.ui.fade.animated.button .hidden.content {
-  opacity: 0;
-  left: 0%;
-  right: auto;
-  -webkit-transform: scale(1.5);
-          transform: scale(1.5);
-}
-.ui.fade.animated.button:focus .visible.content,
-.ui.fade.animated.button:hover .visible.content {
-  left: auto;
-  right: auto;
-  opacity: 0;
-  -webkit-transform: scale(0.75);
-          transform: scale(0.75);
-}
-.ui.fade.animated.button:focus .hidden.content,
-.ui.fade.animated.button:hover .hidden.content {
-  left: 0%;
-  right: auto;
-  opacity: 1;
-  -webkit-transform: scale(1);
-          transform: scale(1);
-}
+//.ui.fade.animated.button .visible.content,
+//.ui.fade.animated.button .hidden.content {
+//  -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+//  transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+//  transition: opacity 0.3s ease, transform 0.3s ease;
+//  transition: opacity 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;
+//}
+//.ui.fade.animated.button .visible.content {
+//  left: auto;
+//  right: auto;
+//  opacity: 1;
+//  -webkit-transform: scale(1);
+//          transform: scale(1);
+//}
+//.ui.fade.animated.button .hidden.content {
+//  opacity: 0;
+//  left: 0%;
+//  right: auto;
+//  -webkit-transform: scale(1.5);
+//          transform: scale(1.5);
+//}
+//.ui.fade.animated.button:focus .visible.content,
+//.ui.fade.animated.button:hover .visible.content {
+//  left: auto;
+//  right: auto;
+//  opacity: 0;
+//  -webkit-transform: scale(0.75);
+//          transform: scale(0.75);
+//}
+//.ui.fade.animated.button:focus .hidden.content,
+//.ui.fade.animated.button:hover .hidden.content {
+//  left: 0%;
+//  right: auto;
+//  opacity: 1;
+//  -webkit-transform: scale(1);
+//          transform: scale(1);
+//}
 
 /*-------------------
        Inverted
@@ -484,113 +484,113 @@
 }
 
 /* Google Plus */
-.ui.google.plus.button {
-  background-color: #DD4B39;
-  color: #FFFFFF;
-  text-shadow: none;
-  background-image: none;
-  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
-}
-.ui.google.plus.button:hover {
-  background-color: #e0321c;
-  color: #FFFFFF;
-  text-shadow: none;
-}
-.ui.google.plus.button:active {
-  background-color: #c23321;
-  color: #FFFFFF;
-  text-shadow: none;
-}
+//.ui.google.plus.button {
+//  background-color: #DD4B39;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//  background-image: none;
+//  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+//}
+//.ui.google.plus.button:hover {
+//  background-color: #e0321c;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
+//.ui.google.plus.button:active {
+//  background-color: #c23321;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
 
 /* Linked In */
-.ui.linkedin.button {
-  background-color: #1F88BE;
-  color: #FFFFFF;
-  text-shadow: none;
-}
-.ui.linkedin.button:hover {
-  background-color: #147baf;
-  color: #FFFFFF;
-  text-shadow: none;
-}
-.ui.linkedin.button:active {
-  background-color: #186992;
-  color: #FFFFFF;
-  text-shadow: none;
-}
+//.ui.linkedin.button {
+//  background-color: #1F88BE;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
+//.ui.linkedin.button:hover {
+//  background-color: #147baf;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
+//.ui.linkedin.button:active {
+//  background-color: #186992;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
 
 /* YouTube */
-.ui.youtube.button {
-  background-color: #CC181E;
-  color: #FFFFFF;
-  text-shadow: none;
-  background-image: none;
-  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
-}
-.ui.youtube.button:hover {
-  background-color: #bd0d13;
-  color: #FFFFFF;
-  text-shadow: none;
-}
-.ui.youtube.button:active {
-  background-color: #9e1317;
-  color: #FFFFFF;
-  text-shadow: none;
-}
+//.ui.youtube.button {
+//  background-color: #CC181E;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//  background-image: none;
+//  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+//}
+//.ui.youtube.button:hover {
+//  background-color: #bd0d13;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
+//.ui.youtube.button:active {
+//  background-color: #9e1317;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
 
 /* Instagram */
-.ui.instagram.button {
-  background-color: #49769C;
-  color: #FFFFFF;
-  text-shadow: none;
-  background-image: none;
-  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
-}
-.ui.instagram.button:hover {
-  background-color: #3d698e;
-  color: #FFFFFF;
-  text-shadow: none;
-}
-.ui.instagram.button:active {
-  background-color: #395c79;
-  color: #FFFFFF;
-  text-shadow: none;
-}
+//.ui.instagram.button {
+//  background-color: #49769C;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//  background-image: none;
+//  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+//}
+//.ui.instagram.button:hover {
+//  background-color: #3d698e;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
+//.ui.instagram.button:active {
+//  background-color: #395c79;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
 
 /* Pinterest */
-.ui.pinterest.button {
-  background-color: #BD081C;
-  color: #FFFFFF;
-  text-shadow: none;
-  background-image: none;
-  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
-}
-.ui.pinterest.button:hover {
-  background-color: #ac0013;
-  color: #FFFFFF;
-  text-shadow: none;
-}
-.ui.pinterest.button:active {
-  background-color: #8c0615;
-  color: #FFFFFF;
-  text-shadow: none;
-}
+//.ui.pinterest.button {
+//  background-color: #BD081C;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//  background-image: none;
+//  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+//}
+//.ui.pinterest.button:hover {
+//  background-color: #ac0013;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
+//.ui.pinterest.button:active {
+//  background-color: #8c0615;
+//  color: #FFFFFF;
+//  text-shadow: none;
+//}
 
 /* VK */
-.ui.vk.button {
-  background-color: #4D7198;
-  color: #FFFFFF;
-  background-image: none;
-  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
-}
-.ui.vk.button:hover {
-  background-color: #41648a;
-  color: #FFFFFF;
-}
-.ui.vk.button:active {
-  background-color: #3c5876;
-  color: #FFFFFF;
-}
+//.ui.vk.button {
+//  background-color: #4D7198;
+//  color: #FFFFFF;
+//  background-image: none;
+//  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;
+//}
+//.ui.vk.button:hover {
+//  background-color: #41648a;
+//  color: #FFFFFF;
+//}
+//.ui.vk.button:active {
+//  background-color: #3c5876;
+//  color: #FFFFFF;
+//}
 
 /*--------------
      Icon
@@ -715,7 +715,7 @@
 /*-------------------
         Basic
 --------------------*/
-
+/*
 .ui.basic.buttons .button,
 .ui.basic.button {
   background: transparent none !important;
@@ -761,10 +761,10 @@
 .ui.basic.buttons .active.button:hover,
 .ui.basic.active.button:hover {
   background-color: rgba(0, 0, 0, 0.05);
-}
+}*/
 
 /* Vertical */
-.ui.basic.buttons .button:hover {
+/*.ui.basic.buttons .button:hover {
   box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.35) inset, 0px 0px 0px 0px rgba(34, 36, 38, 0.15) inset inset;
 }
 .ui.basic.buttons .button:active {
@@ -772,10 +772,10 @@
 }
 .ui.basic.buttons .active.button {
   box-shadow: '' !important;
-}
+}*/
 
 /* Standard Basic Inverted */
-.ui.basic.inverted.buttons .button,
+/*.ui.basic.inverted.buttons .button,
 .ui.basic.inverted.button {
   background-color: transparent !important;
   color: #F9FAFB !important;
@@ -808,10 +808,10 @@
 .ui.basic.inverted.active.button:hover {
   background-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0px 0px 0px 2px #ffffff inset !important;
-}
+}*/
 
 /* Basic Group */
-.ui.basic.buttons .button {
+/*.ui.basic.buttons .button {
   border-left: 1px solid rgba(34, 36, 38, 0.15);
   box-shadow: none;
 }
@@ -824,7 +824,7 @@
 }
 .ui.basic.vertical.buttons .button:first-child {
   border-top-width: 0px;
-}
+}*/
 
 /*--------------
   Labeled Icon
@@ -949,7 +949,7 @@
       Or Buttons
 --------------------*/
 
-.ui.buttons .or {
+/*.ui.buttons .or {
   position: relative;
   width: 0.3em;
   height: 2.57142857em;
@@ -976,7 +976,7 @@
 }
 .ui.buttons .or[data-text]:before {
   content: attr(data-text);
-}
+}*/
 
 /* Fluid Or */
 .ui.fluid.buttons .or {
@@ -1105,7 +1105,7 @@
         Fluid
 --------------------*/
 
-.ui.fluid.buttons,
+/*.ui.fluid.buttons,
 .ui.fluid.button {
   width: 100%;
 }
@@ -1177,9 +1177,10 @@
 }
 .ui.twelve.buttons > .button {
   width: 8.3333%;
-}
+}*/
 
 /* Fluid Vertical Buttons */
+/*
 .ui.fluid.vertical.buttons,
 .ui.fluid.vertical.buttons > .button {
   display: -webkit-box;
@@ -1220,6 +1221,7 @@
 .ui.twelve.vertical.buttons > .button {
   height: 8.3333%;
 }
+*/
 
 /*-------------------
        Colors
