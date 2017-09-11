@@ -28,10 +28,56 @@ import 'semantic-ui-sass/js/transition';
 
 import './scss/style.scss';
 
-// fix main menu to page on passing
-$('#main-menu').visibility({
-  type: 'fixed'
-});
+var $body = $(document.body);
+var $doc = $(document);
+var $window = $(window);
+var $mainMenu = $('#main-menu');
+var isHome = $body.hasClass('page--home');
+var scrollTop = $window.scrollTop();
+var latestKnownScrollY = 0;
+var ticking = false;
+
+if (!isHome) {
+  $mainMenu.visibility({
+    type: 'fixed'
+  });
+}
+
+if (isHome && scrollTop === 0) {
+  $mainMenu.removeClass('menu--solid').addClass('menu--transparent');
+}
+
+if (isHome && scrollTop !== 0) {
+  $mainMenu.removeClass('menu--transparent').addClass('menu--solid');
+}
+
+if (isHome) {
+  $doc.scroll(function() {
+    latestKnownScrollY = $window.scrollTop();
+    requestTick();
+  });
+}
+
+function updateMenu() {
+  ticking = false;
+  var currentScrollY = latestKnownScrollY;
+
+  if (currentScrollY === 0 && $mainMenu.hasClass('menu--transparent') === false) {
+    $mainMenu.removeClass('menu--solid').addClass('menu--transparent');
+    return;
+  }
+
+  if (currentScrollY > 0 && $mainMenu.hasClass('menu--solid') === false) {
+    $mainMenu.removeClass('menu--transparent').addClass('menu--solid');
+  }
+}
+
+function requestTick() {
+  if(!ticking) {
+    requestAnimationFrame(updateMenu);
+  }
+  ticking = true;
+}
 
 // create sidebar and attach to menu open
 $('#mobile-menu').sidebar('attach events', '.menu-toc');
