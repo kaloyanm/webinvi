@@ -7,6 +7,15 @@
   flex-direction: column;
 }
 
+.logo {
+  width: 210px;
+  height: 35px;
+}
+
+#main-menu {
+  background-color: #160333;
+}
+
 .page--home {
   #main-menu {
     position: fixed;
@@ -20,7 +29,7 @@
     background-color: transparent;
   }
   &.menu--solid {
-    background-color: #1b1c1d;
+    background-color: #160333;
   }
 }
 
@@ -124,12 +133,13 @@ main {
 
 .masthead {
   position: relative;
+  //background: linear-gradient(147deg,#7452a9,#250057) !important;
   background: transparent!important;
 
   &:before {
     content: "";
     z-index: -1;
-    background: #000;
+    background: linear-gradient(147deg,#7452a9,#250057) !important;
     top: 0;
     left: 0;
     bottom: 0;
@@ -139,15 +149,14 @@ main {
 
   &:after {
     content: "";
-    background: url(https://mediashower.com/img/571B2592-4306-11E5-B9CD-D381AAD98836/too%20much%20paperwork.jpg);
-    opacity: 0.2;
+    background: url("../images/invoiceapp.png") no-repeat center bottom;
+    //opacity: 0.2;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     position: absolute;
     z-index: -1;
-    background-size: cover;
   }
 }
 
@@ -162,7 +171,7 @@ main {
   margin-left: 0.5em;
 }
 .masthead h1.ui.header {
-  margin-top: 3em;
+  margin-top: 2em;
   margin-bottom: 0;
   font-size: 4em;
   font-weight: normal;

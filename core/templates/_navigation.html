@@ -5,8 +5,8 @@
 {% static 'core/images/flags/' as flags_dir %}
 
 <div class="left item">
-  <a href="{% url 'home' %}" class="header item">
-    eDocPrint
+  <a href="{% url 'home' %}">
+    <img class="logo" src="{% static 'core/images/logo.svg' %}" alt="Лого">
   </a>
   <a href="{% url 'contact' %}" class="_active item">За контакт</a>
 </div>
@@ -20,7 +20,7 @@
   <a class="item" href="{% url 'companies' %}">Фирми</a>
 
   <div href="#" id="menu-dropdown" class="ui dropdown item" role="button" aria-haspopup="true">
-    Профил ({{ request.user.username }}) <i class="dropdown icon"></i>
+    {{ request.user.username }} <i class="dropdown icon"></i>
     <div class="menu">
       <a href="{% url 'password' %}" class="item">Смяна на паролата</a>
       <div class="divider"></div>
