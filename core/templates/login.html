@@ -1,19 +1,24 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% extends "single-page-form.html" %}
+{% load static crispy_forms_tags %}
+
+{% block title %}Вход - WebInvoices{% endblock %}
 
 {% block content %}
-<section class="_ptxl _pbxl">
-  <div class="ui grid equal width container stackable">
+<div class="ui middle aligned center aligned grid">
   <div class="column">
-    <h1>Вход потребители</h1>
-    <div class="ui form">
-        {% crispy form %}
+    <a class="logo-link _mbm" href="{% url 'home' %}">
+      <img class="logo image" src="{% static 'core/images/logo.svg' %}" alt="Лого">
+      <small>BETA</small>
+    </a>
+    <div class="ui stacked segment">
+      <h1 class="ui header _mbs">Вход</h1>
+      {% crispy form %}
+    </div>
+
+    <div class="ui message">
+      Нямаш профил? <a href="{% url 'registration' %}">Регистрирай се</a>
     </div>
   </div>
-  <div class="ui column middle aligned centered grid">
-    <h1>Нямате профил?</h1>
-    <a href="{% url 'registration' %}" class="ui button primary">Регистрирай се</a>
-    </div>
-  </div>
-</section>
+</div>
 {% endblock %}
+

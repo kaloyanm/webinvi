@@ -1,19 +1,113 @@
 {% extends "base.html" %}
-
+{% load static %}
+{% block body_class %}page--home{% endblock %}
 {% block content %}
   <div class="ui inverted vertical masthead center aligned segment">
-    <div class="ui text container">
-      <h1 class="ui inverted header">
-        Бачкай си спокойно!
-      </h1>
-      <h2>За хора които им е писнало от чиновничество и разпиляване на хартия.
-        Издаването на фактури никога не е било по-лесно.</h2>
-      <div class="ui huge primary button">Кажи ми как!</div>
+    <div class="ui container">
+      <div class="ui inverted huge header">Писнало ти е от бумащина?</div>
+      <h1 class="ui inverted huge header _mtm">По-добри e-фактури</h1>
+      <p class="ui inverted header _mtxs"><span class="_plxs _prxs">Европейски стандарт</span>&middot; <span class="_plxs _prxs">Многоезичност</span> &middot; <span class="_plxs _prxs">Различни валути</span> &middot; <span class="_plxs _prxs">Интеграция с ...</span></p>
+      <a href="{% url 'registration' %}" class="ui large inverted button _mtm">Тествай безплатно</a>
     </div>
   </div>
-  <section class="_ptxl">
+  <div id="section-features" class="_bg-gray-lighter _ptl _pbl">
+    <h2 class="ui center aligned header _mbm">Функционалности</h2>
+    <div class="ui three column stackable grid container">
+      <div class="column">
+        <div class="ui items unstackable segment">
+          <div class="item">
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
+            <div class="content">
+              <a class="ui medium header">Фукнционалнот функцион 111</a>
+              <div class="description">
+                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui items unstackable segment">
+          <div class="item">
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
+            <div class="content">
+              <a class="ui medium header">Фукнционалнот функцион 111</a>
+              <div class="description">
+                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui items unstackable segment">
+          <div class="item">
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
+            <div class="content">
+              <a class="ui medium header">Фукнционалнот функцион 111</a>
+              <div class="description">
+                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui items unstackable segment">
+          <div class="item">
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
+            <div class="content">
+              <a class="ui medium header">Фукнционалнот функцион 111</a>
+              <div class="description">
+                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui items unstackable segment">
+          <div class="item">
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
+            <div class="content">
+              <a class="ui medium header">Фукнционалнот функцион 111</a>
+              <div class="description">
+                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui items unstackable segment">
+          <div class="item">
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
+            <div class="content">
+              <a class="ui medium header">Фукнционалнот функцион 111</a>
+              <div class="description">
+                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display: none" class="_ptl _pbl">
     <div class="ui vertical stripe segment center aligned">
-      <h1 class="ui header">Пакети</h1>
+      <h2 class="ui center aligned header _mbm">Пакети</h2>
     </div>
 
     <div class="ui vertical stripe quote segment">
@@ -37,5 +131,5 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 {% endblock %}

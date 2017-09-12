@@ -2,25 +2,38 @@
 {% get_available_languages as LANGUAGES %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_language_info for LANGUAGE_CODE as lang %}
-{% static 'core/images/flags/' as flags_dir %}
 
 <div class="left item">
-  <a href="{% url 'home' %}" class="header item">
-    eDocPrint
+  <a href="{% url 'home' %}">
+    <img class="logo" src="{% static 'core/images/logo.svg' %}" alt="Лого">
+    <small>BETA</small>
   </a>
-  <a href="{% url 'contact' %}" class="_active item">За контакт</a>
 </div>
 
 <div class="right item">
-{% if not user.is_active %}
+  <div href="#" class="ui dropdown item" role="button" aria-haspopup="true">
+    <input type="hidden" name="language">
+    <div class="text"><i class="{{ lang.code }} flag"></i> {{ lang.name }}</div>
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      {% for lang_code, lang_name in LANGUAGES %}
+        <div class="item" data-value="af"><i class="{{ lang_code }} flag"></i> {{ lang_name }}</div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if not user.is_active %}
+
   <a class="ui inverted button" href="{% url 'login' %}">Вход</a>
   <a class="ui inverted button" href="{% url 'registration' %}">Регистрация</a>
-{% else %}
+
+  {% else %}
+
   <a class="item" href="{% url 'list' %}">Фактури</a>
   <a class="item" href="{% url 'companies' %}">Фирми</a>
 
-  <div href="#" id="menu-dropdown" class="ui dropdown item" role="button" aria-haspopup="true">
-    Профил ({{ request.user.username }}) <i class="dropdown icon"></i>
+  <div class="ui dropdown item" role="button" aria-haspopup="true">
+    {{ request.user.username }} <i class="dropdown icon"></i>
     <div class="menu">
       <a href="{% url 'password' %}" class="item">Смяна на паролата</a>
       <div class="divider"></div>
@@ -30,5 +43,5 @@
   </div>
 
   <a class="ui inverted button" href="{% url 'logout' %}">Изход</a>
-{% endif %}
+  {% endif %}
 </div>

@@ -1,10 +1,67 @@
 @import "semantic-ui";
 @import "concise-utils";
 
+//Teal
+//$primary-color: #00ACC1;
+//$gradient-start: #00BCD4;
+//$gradient-end: #154263;
+
+//Amber
+$primary-color: #1383a8;
+$gradient-start: #1f67b1;
+$gradient-end: #08a09f;
+
+$footer-bgr: #181b23!important;
+$menu-bgr: #031933;
+
+.svg-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  vertical-align: top;
+}
+
 .pusher {
   display: flex;
   min-height: 100vh!important;
   flex-direction: column;
+}
+
+.logo {
+  width: 170px;
+  height: 32px;
+}
+
+#main-menu {
+  background-color: $menu-bgr;
+}
+
+.page--home {
+  #main-menu {
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+  }
+}
+
+#main-menu {
+  &.menu--transparent {
+    background-color: transparent;
+  }
+  &.menu--solid {
+    background-color: $menu-bgr;
+  }
+}
+
+.ui.primary.button, .ui.primary.buttons .button {
+  background-color: $primary-color;
+
+  &:hover {
+    background-color: darken($primary-color, 4);
+  }
 }
 
 main {
@@ -104,7 +161,7 @@ main {
   &:before {
     content: "";
     z-index: -1;
-    background: #000;
+    background: linear-gradient(147deg,$gradient-start,$gradient-end) !important;
     top: 0;
     left: 0;
     bottom: 0;
@@ -114,15 +171,19 @@ main {
 
   &:after {
     content: "";
-    background: url(https://mediashower.com/img/571B2592-4306-11E5-B9CD-D381AAD98836/too%20much%20paperwork.jpg);
-    opacity: 0.2;
+    background: url("../images/invoiceapp.png") no-repeat center bottom;
+    //opacity: 0.2;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     position: absolute;
     z-index: -1;
-    background-size: cover;
+  }
+
+  div.ui.header {
+    margin-top: 4em;
+    font-weight: normal;
   }
 }
 
@@ -130,46 +191,13 @@ main {
   min-height: 700px;
   padding: 1em 0;
 }
-.masthead .logo.item img {
-  margin-right: 1em;
-}
-.masthead .ui.menu .ui.button {
-  margin-left: 0.5em;
-}
+
+
+
 .masthead h1.ui.header {
-  margin-top: 3em;
   margin-bottom: 0;
   font-size: 4em;
-  font-weight: normal;
-}
-.masthead h2 {
-  font-size: 1.7em;
-  font-weight: normal;
-}
-
-.quote.stripe.segment {
-  padding: 0;
-}
-.quote.stripe.segment .grid .column {
-  padding-top: 5em;
-  padding-bottom: 5em;
-}
-
-.footer.segment {
-  padding: 5em 0;
-}
-
-.menu-toc {
-  display: none!important;
-}
-
-.menu--main {
-  margin: 0!important;
-  border-radius: 0!important;
-
-  .ui.button {
-    margin-left: .5rem!important;
-  }
+  font-weight: bold;
 }
 
 @media only screen and (max-width: 700px) {
@@ -196,3 +224,60 @@ main {
   }
 }
 
+.footer.segment {
+  background: $footer-bgr;
+  padding: 5em 0;
+}
+
+.menu-toc {
+  display: none!important;
+}
+
+.menu--main {
+  margin: 0!important;
+  border-radius: 0!important;
+
+  .ui.button {
+    margin-left: .5rem!important;
+  }
+}
+
+.logo-link {
+  overflow: hidden;
+  display: block;
+
+  small {
+    color:#fff!important;
+  }
+}
+
+.single-page-form {
+  background: linear-gradient(147deg,$gradient-start,$gradient-end) !important;
+
+  .form {
+    margin: 0;
+  }
+
+  .logo {
+    width: 220px;
+    height: 36px;
+  }
+
+  h1, .field {
+    text-align: left;
+  }
+
+  > .grid {
+    height: 100%;
+  }
+
+  .column {
+    max-width: 450px;
+  }
+}
+
+#section-features {
+  .icon {
+    font-size: 5em;
+  }
+}
