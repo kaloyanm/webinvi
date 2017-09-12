@@ -1,3 +1,4 @@
+import 'svgxuse';
 import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;

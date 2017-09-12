@@ -4,20 +4,21 @@
 {% block content %}
   <div class="ui inverted vertical masthead center aligned segment">
     <div class="ui container">
-      <h1 class="ui inverted huge header">По-добри Е-фактури</h1>
+      <div class="ui inverted huge header">Писнало ти е от бумащина?</div>
+      <h1 class="ui inverted huge header _mtm">По-добри e-фактури</h1>
       <p class="ui inverted header _mtxs"><span class="_plxs _prxs">Европейски стандарт</span>&middot; <span class="_plxs _prxs">Многоезичност</span> &middot; <span class="_plxs _prxs">Различни валути</span> &middot; <span class="_plxs _prxs">Интеграция с ...</span></p>
-      <div class="ui large inverted button _mtl">Тествай безплатно</div>
+      <a href="{% url 'registration' %}" class="ui large inverted button _mtm">Тествай безплатно</a>
     </div>
   </div>
-  <div class="_bg-gray-lighter _ptl _pbl">
+  <div id="section-features" class="_bg-gray-lighter _ptl _pbl">
     <h2 class="ui center aligned header _mbm">Функционалности</h2>
     <div class="ui three column stackable grid container">
       <div class="column">
-        <div class="ui items segment">
+        <div class="ui items unstackable segment">
           <div class="item">
-            <a class="ui tiny image">
-              <img src="https://semantic-ui.com/images/wireframe/image.png" class="ui wireframe image">
-            </a>
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
             <div class="content">
               <a class="ui medium header">Фукнционалнот функцион 111</a>
               <div class="description">
@@ -28,11 +29,11 @@
         </div>
       </div>
       <div class="column">
-        <div class="ui items segment">
+        <div class="ui items unstackable segment">
           <div class="item">
-            <a class="ui tiny image">
-              <img src="https://semantic-ui.com/images/wireframe/image.png" class="ui wireframe image">
-            </a>
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
             <div class="content">
               <a class="ui medium header">Фукнционалнот функцион 111</a>
               <div class="description">
@@ -43,11 +44,11 @@
         </div>
       </div>
       <div class="column">
-        <div class="ui items segment">
+        <div class="ui items unstackable segment">
           <div class="item">
-            <a class="ui tiny image">
-              <img src="https://semantic-ui.com/images/wireframe/image.png" class="ui wireframe image">
-            </a>
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
             <div class="content">
               <a class="ui medium header">Фукнционалнот функцион 111</a>
               <div class="description">
@@ -58,11 +59,11 @@
         </div>
       </div>
       <div class="column">
-        <div class="ui items segment">
+        <div class="ui items unstackable segment">
           <div class="item">
-            <a class="ui tiny image">
-              <img src="https://semantic-ui.com/images/wireframe/image.png" class="ui wireframe image">
-            </a>
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
             <div class="content">
               <a class="ui medium header">Фукнционалнот функцион 111</a>
               <div class="description">
@@ -73,11 +74,11 @@
         </div>
       </div>
       <div class="column">
-        <div class="ui items segment">
+        <div class="ui items unstackable segment">
           <div class="item">
-            <a class="ui tiny image">
-              <img src="https://semantic-ui.com/images/wireframe/image.png" class="ui wireframe image">
-            </a>
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
             <div class="content">
               <a class="ui medium header">Фукнционалнот функцион 111</a>
               <div class="description">
@@ -88,11 +89,11 @@
         </div>
       </div>
       <div class="column">
-        <div class="ui items segment">
+        <div class="ui items unstackable segment">
           <div class="item">
-            <a class="ui tiny image">
-              <img src="https://semantic-ui.com/images/wireframe/image.png" class="ui wireframe image">
-            </a>
+            <div class="ui tiny image">
+              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
+            </div>
             <div class="content">
               <a class="ui medium header">Фукнционалнот функцион 111</a>
               <div class="description">
@@ -104,7 +105,7 @@
       </div>
     </div>
   </div>
-  <div class="_ptl _pbl">
+  <div style="display: none" class="_ptl _pbl">
     <div class="ui vertical stripe segment center aligned">
       <h2 class="ui center aligned header _mbm">Пакети</h2>
     </div>
