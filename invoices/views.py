@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import json
-import os
+import uuid
+import urllib.request
 
-from xhtml2pdf import pisa
-from io import StringIO, BytesIO
-from django.conf import settings
+from django.core.cache import cache
 from django.db import transaction
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -41,8 +40,8 @@ def process_invoice(request, form, form_items):
         return True
     return False
 
-@login_required
-def invoice(request, pk=None, invoice_type="invoice",
+
+def _invoice(request, pk=None, invoice_type="invoice",
             base_template="base.html", print=None):
     if pk:
         instance = get_object_or_404(Invoice, pk=pk)
@@ -92,6 +91,11 @@ def invoice(request, pk=None, invoice_type="invoice",
 
 
 @login_required
+def invoice(*args, **kwargs):
+    return _invoice(*args, **kwargs)
+
+
+@login_required
 def delete_invoice(request, pk):
     context = {"object": get_object_or_404(Invoice, pk=pk)}
 
@@ -127,28 +131,33 @@ def list_invoices(request):
                   context=context)
 
 
-@login_required
-def preview(request, pk, base_template="print.html"):
-    return invoice(request, pk, base_template=base_template,
+def print_preview(request, token):
+    try:
+        invoice_pk = cache.get(token)
+        print("invoice:", invoice_pk)
+        invoice = Invoice.objects.get(pk=invoice_pk)
+        request.user = invoice.company.user
+        request.company = invoice.company
+    except Exception:
+        raise Http404
+
+    return _invoice(request, pk=invoice_pk, base_template="print.html",
                    print=True)
 
+
 @login_required
-def webprint(request, pk):
-    def fetch_resources(uri, rel):
-        if uri.startswith("http"):
-            path = uri
+def print_invoice(request, pk):
+    access_token = uuid.uuid4()
+    cache.set(access_token, pk)
+
+    print_preview_url = "http://localhost:8000{}".format(reverse("printpreview", kwargs=dict(token=access_token)))
+    pdf_generator_url = "http://localhost:8080/?url={}".format(print_preview_url)
+
+    req = urllib.request.Request(pdf_generator_url)
+    with urllib.request.urlopen(req) as res:
+        if res.status == 200:
+            response = HttpResponse(res.read(), content_type="application/pdf")
+            # response["Content-Disposition"] = "attachment; filename='invoice.pdf'"
+            return response
         else:
-            path = os.path.join(settings.STATIC_ROOT, uri.replace(settings.STATIC_URL, ""))
-        return path
-
-    response = preview(request, pk)
-    return response
-    result = BytesIO()
-    pdf = pisa.pisaDocument(response.content, dest=result)
-
-    if not pdf.err:
-        response = HttpResponse(result.getvalue(), content_type="application/pdf")
-        response["Content-Disposition"] = "attachment; filename='invoice.pdf'"
-        return response
-    else:
-        raise Http404
+            raise Http404
