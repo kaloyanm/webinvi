@@ -25,16 +25,16 @@
         </div>
         <div class="ui bottom items attached _oh">
           {% if pk %}
-            <a href="{% url 'print' pk %}"class="ui left floated button primary" role="button"><i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-libreoffice"></use></svg></i>Генерирай PDF</a>
+            <a href="{% url 'print' pk %}"class="ui small left floated button primary" role="button"><i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-libreoffice"></use></svg></i>Генерирай PDF</a>
           {% endif %}
 
           {% if pk %}
-            <a href="{% url 'delete' pk %}" class="ui right floated button red icon" role="button">
+            <a href="{% url 'delete' pk %}" class="ui small right floated button red icon" role="button">
               <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
             </a>
           {% endif %}
 
-          <button type="submit" href="{% url 'list' %}" class="ui right floated button green" role="button">
+          <button type="submit" href="{% url 'list' %}" class="ui small right floated button green" role="button">
             <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>Запазване</button>
         </div>
       </div>
