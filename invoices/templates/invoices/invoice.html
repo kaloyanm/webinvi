@@ -50,12 +50,11 @@
       <div class="ui grid">
 
         <div class="equal width row _pb0">
-          <div class="column">
+          <div class="column column__title">
             <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
               <small>оригинал</small>
             </h1>
-          </div>
-          <div class="column">
+          </div><div class="column column__info">
             {{ form.number|as_crispy_field }}
             {{ form.released_at|as_crispy_field }}
             {{ form.taxevent_at|as_crispy_field }}
@@ -63,15 +62,14 @@
         </div>
 
         <div class="equal width row _pb0">
-          <div class="column">
+          <div class="column column__client">
             {{ form.client_name|as_crispy_field }}
             {{ form.client_eik|as_crispy_field }}
             {{ form.client_dds|as_crispy_field }}
             {{ form.client_city|as_crispy_field }}
             {{ form.client_address|as_crispy_field }}
             {{ form.client_mol|as_crispy_field }}
-          </div>
-          <div class="column">
+          </div><div class="column column__company">
             {{company_form.name|as_crispy_field}}
             {{company_form.eik|as_crispy_field}}
             {{company_form.dds|as_crispy_field}}
@@ -82,22 +80,28 @@
         </div>
 
         <div class="equal width row _pb0">
-          <div class="column">{% if print %}{% include "invoices/_invoice_details_print.html" %}{% else %}{% include "invoices/_invoice_details.html" %}{% endif %}</div>
+          <div class="column column__table">{% if print %}{% include "invoices/_invoice_details_print.html" %}{% else %}{% include "invoices/_invoice_details.html" %}{% endif %}</div>
         </div>
 
         <div class="equal width row _pb0">
-          <div class="column">
+          <div class="column column__payment">
             {{ form.payment_type|as_crispy_field }}
             {{ form.payment_iban|as_crispy_field }}
             {{ form.payment_swift|as_crispy_field }}
             {{ form.payment_bank|as_crispy_field }}
-            {{ form.accepted_by|as_crispy_field }}
-          </div>
-          <div class="column">
+
+          </div><div class="column column__total">
             {{ form.tax_base|as_crispy_field }}
             {{ form.dds_percent|as_crispy_field }}
             {{ form.total|as_crispy_field }}
             {{ form.verbally|as_crispy_field }}
+          </div>
+        </div>
+
+        <div class="equal width row row__accepted">
+          <div class="column">
+            {{ form.accepted_by|as_crispy_field }}
+          </div><div class="column">
             {{ form.created_by|as_crispy_field }}
           </div>
         </div>
@@ -105,7 +109,7 @@
         <div class="equal width row">
           <div class="column">
             <div class="field">
-              <label>Бележка:</label>
+              <label>Бележка</label>
               <input name="note" value="{{ form.note.value }}" type="text">
             </div>
           </div>
