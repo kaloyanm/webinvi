@@ -1,5 +1,8 @@
 {% extends "invoices/_invoice_details.html" %}
 
+{# Leave empty to overwrite "Add" button in main table #}
+{% block add_button %}{% endblock %}
+
 {% block items %}
 {% for item in instance.invoiceitem_set.all %}
 <tr>

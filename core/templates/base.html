@@ -26,36 +26,40 @@
 
   <!-- Page Contents -->
   <div class="pusher">
-    <nav id="main-menu" role="navigation" class="ui borderless aligned inverted large menu menu--main">
-      <div class="ui container fluid">
-        <a class="menu-toc item">
-          <i class="sidebar big icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-menu"></use></svg></i>
-        </a>
-        {% include "_navigation.html" %}
-      </div>
-    </nav>
+    <div class="_flex _dir-column">
+      <div class="wrapper">
+        <nav id="main-menu" role="navigation" class="ui borderless aligned inverted large menu menu--main">
+          <div class="ui container fluid">
+            <a class="menu-toc item">
+              <i class="sidebar big icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-menu"></use></svg></i>
+            </a>
+            {% include "_navigation.html" %}
+          </div>
+        </nav>
 
-    <main>
-      {% block content %}{% endblock %}
-    </main>
+        <main>
+          {% block content %}{% endblock %}
+        </main>
 
-    <footer class="ui inverted vertical footer segment">
-      <div class="ui container">
-        <div class="ui stackable inverted divided equal height stackable grid">
-          <div class="three wide column">
-            <h4 class="ui inverted header">За нас</h4>
-            <div class="ui inverted link list">
-              <a href="{% url 'contact' %}" class="item">Контакти</a>
-              <a href="#" class="item">Общи условия</a>
+        <footer class="ui inverted vertical footer segment">
+          <div class="ui container">
+            <div class="ui stackable inverted divided equal height stackable grid">
+              <div class="three wide column">
+                <h4 class="ui inverted header">За нас</h4>
+                <div class="ui inverted link list">
+                  <a href="{% url 'contact' %}" class="item">Контакти</a>
+                  <a href="#" class="item">Общи условия</a>
+                </div>
+              </div>
+              <div class="seven wide column">
+                <h4 class="ui inverted header">Разработено от</h4>
+                <a href="https://wemakeweb.today/" target="_blank"><img class="logo" src="{% static 'core/images/wemakeweb-logo.svg' %}" alt="WeMakweWeb Лого"></a>
+              </div>
             </div>
           </div>
-          <div class="seven wide column">
-            <h4 class="ui inverted header">Разработено от</h4>
-            <a href="https://wemakeweb.today/" target="_blank"><img class="logo" src="{% static 'core/images/wemakeweb-logo.svg' %}" alt="Wemakweweb Лого"></a>
-          </div>
-        </div>
+        </footer>
       </div>
-    </footer>
+    </div>
   </div>
   <script src="{% static 'core/js/public.js' %}"></script>
 </body>

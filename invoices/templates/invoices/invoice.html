@@ -23,15 +23,19 @@
             <option value="2">(&euro;) Евро</option>
           </select>
         </div>
-        <div class="ui bottom items attached header _oh">
+        <div class="ui bottom items attached _oh">
           {% if pk %}
-            <a href="{% url 'print' pk %}" class="ui left floated button primary tiny noprint" role="button">Принтиране</a>
+            <a href="{% url 'print' pk %}"class="ui left floated button primary" role="button"><i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-libreoffice"></use></svg></i>Генерирай PDF</a>
           {% endif %}
 
           {% if pk %}
-            <a href="{% url 'delete' pk %}" class="ui right floated button tiny red" role="button">Изтриване</a>
+            <a href="{% url 'delete' pk %}" class="ui right floated button red icon" role="button">
+              <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
+            </a>
           {% endif %}
-          <button type="submit" href="{% url 'list' %}" class="ui right floated button noprint tiny green" role="button">Запазване</button>
+
+          <button type="submit" href="{% url 'list' %}" class="ui right floated button green" role="button">
+            <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>Запазване</button>
         </div>
       </div>
     </div>
