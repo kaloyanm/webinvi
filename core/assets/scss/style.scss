@@ -12,7 +12,7 @@ $gradient-start: #1f67b1;
 $gradient-end: #08a09f;
 
 $footer-bgr: #181b23!important;
-$menu-bgr: #031933;
+$menu-bgr: #131929;
 
 .svg-icon {
   display: inline-block;
@@ -24,10 +24,15 @@ $menu-bgr: #031933;
   vertical-align: top;
 }
 
-.pusher {
+// Min-height on a flex container won't apply to its flex items
+.wrapper {
   display: flex;
-  min-height: 100vh!important;
   flex-direction: column;
+  min-height: 100vh;
+}
+main {
+  // Minimum content sizing of flex items not honored
+  flex: 1 0 auto;
 }
 
 .logo {
@@ -64,14 +69,6 @@ $menu-bgr: #031933;
   }
 }
 
-main {
-  flex: 1;
-}
-
-.Site-content {
-  flex: 1;
-}
-
 .body--invoice main {
   background: #eee;
 }
@@ -85,25 +82,71 @@ main {
   }
 }
 
+#add-item,
+#remove-item {
+  padding: 4px 2px;
+  font-size: 1.1em;
+  position: absolute;
+  left: -17px;
+  margin-top: -8px;
+}
+
+#invoice-table {
+  th {
+    background: #777;
+    color: #fff;
+    border-radius: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+}
+
+.asteriskField {
+  padding-left: 3px;
+}
+
 #settings-rail {
   width: 400px;
   padding-right: 0;
 }
 
 #invoice-container {
-  max-width: 800px!important;
+  max-width: 720px!important;
   margin-bottom: 3rem;
   margin-top: 2rem;
   background: #fff;
-  padding: 15px;
+  padding: 40px;
   box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
   margin-left: 450px!important;
 
   label {
-    margin: 6px 0 0 0;
+    margin: 0;
     font-size: 12px;
-    padding-right: 0;
+    padding: 3px 5px;
   }
+
+  .field {
+    margin-bottom: .5em;
+
+    input {
+      padding-left: 5px;
+      font-size: 12px;
+    }
+  }
+
+  .column__info > div:first-child label,
+  .column__info > div:nth-child(2) label,
+  .column__total label {
+    background: #eee;
+  }
+
+  .column__client > div:first-child label,
+  .column__company > div:first-child label,
+  .column__payment > div:first-child label {
+    background: #777;
+    color: #fff;
+  }
+
 }
 
 #invoice_app input {

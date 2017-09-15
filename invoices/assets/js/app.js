@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import jsPDF from 'jspdf';
 
 var round = function (number, precision) {
   var factor = Math.pow(10, precision);
@@ -78,30 +77,3 @@ var app = new Vue({
     }
   }
 });
-
-
-// window.print_invoice = function() {
-//   var doc = new jsPDF({
-//     orientation: 'p',
-//     unit: 'mm',
-//     format: 'a4'
-//   });
-//
-//   // We'll make our own renderer to skip this editor
-//   var specialElementHandlers = {
-//       '#editor': function(element, renderer){
-//           return true;
-//       },
-//       '.controls': function(element, renderer){
-//           return true;
-//       }
-//   };
-//
-//   // All units are in the set measurement for the document
-//   // This can be changed to "pt" (points), "mm" (Default), "cm", "in"
-//   doc.fromHTML($('#invoice_app').get(0), 15, 15, {
-//       'width': 768,
-//       'elementHandlers': specialElementHandlers
-//   });
-//   doc.save('document.pdf');
-// }

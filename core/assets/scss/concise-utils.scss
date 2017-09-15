@@ -826,9 +826,15 @@
 }
 
 ._flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
+}
+
+._flex-1 {
+  flex: 1;
+}
+
+._dir-column {
+  flex-direction: column;
 }
 
 ._oh {

@@ -2,23 +2,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>edocprint - business with grace</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="{% static "core/css/style.css" %}" rel="stylesheet">
+  <title>Invoice Print</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="{% static "invoices/css/invoice-print.css" %}" rel="stylesheet">
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
-
-  <!-- Page Contents -->
-  <div class="pusher">
-    <main>
-      {% block content %}{% endblock %}
-    </main>
-  </div>
-<script src="{% static 'core/js/public.js' %}"></script>
+<body>
+  {% block content %}{% endblock %}
+  <script src="{% static 'core/js/public.js' %}"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@ from django import forms
 from django.forms import formset_factory
 from django.utils.translation import ugettext_lazy as _
 
-from core.mixins import InlineFieldsMixin, TranslateLabelsFormMixin
+from core.mixins import TranslateLabelsFormMixin
 from invoices.models import Invoice
 
 
@@ -18,9 +18,8 @@ class InvoiceItemForm(forms.Form):
 InvoiceItemFormSet = formset_factory(InvoiceItemForm)
 
 
-class InvoiceForm(TranslateLabelsFormMixin, InlineFieldsMixin, forms.ModelForm):
+class InvoiceForm(TranslateLabelsFormMixin, forms.ModelForm):
 
-    inline_fields = ["__all__"]
     translate_labels = {
         "client_name": _("Получател"),
         "client_city": _("Град"),
