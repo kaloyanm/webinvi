@@ -12,7 +12,7 @@ class BasicAuthMiddleware:
         return response
 
     def process_request(self, request):
-        if not settings.BASIC_AUTH:
+        if not settings.BASICAUTH:
             return
 
         import base64
