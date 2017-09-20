@@ -16,7 +16,7 @@ Setup
 Starting the server
 -------------------
 
-To run the platform on your machine, you should use docker. Follow these
+To run the platform on your machine, you should use Vagrant. Follow these
 steps to set that up:
 
 1. Download and install Vagrant (https://www.vagrantup.com/downloads.html).
@@ -25,8 +25,8 @@ are on windows, you need to run this cmd with admin privileges.
 4. Run `vagrant up`.
 5. Wait :). This might take up to 20 minutes. Meanwhile don't do anything
 and let it finish
-6. Enter into the container with `vagrant ssh`. You will find a folder named webinvoices. This is your project root's 
-directory. Enter inside and apply the initial migrations via `./manage.py migrate`
+6. Enter into the container with `vagrant ssh`. You will find a folder named `webinvoices`. This is your project root's 
+directory. To run the application go inside `webinvoices` and run `honcho start`.
 7. If you want to have some data to play with run `./manage.py createdummydata`
 8. Create a default user to work with by calling `./manage.py createsuperuser`
 
