@@ -3,8 +3,6 @@ Contents
 
 * [Setup](#setup)
     * [Starting the server](#starting-the-server)
-    * [Settings and manage\.py](#settings-and-managepy)
-    * [Upgrading after a pull](#upgrading-after-a-pull)
 * [Miscellaneous](#miscellaneous)
     * [Coding Conventions](#coding-conventions)
     * [Dummy data](#dummy-data)
@@ -14,22 +12,26 @@ Contents
 
 Setup
 =====
+
+Starting the server
+-------------------
+
 To run the platform on your machine, you should use docker. Follow these
 steps to set that up:
 
-1. Download and install Docker (https://docs.docker.com/engine/installation/)
+1. Download and install Vagrant (https://www.vagrantup.com/downloads.html).
 2. Open a terminal (or command prompt) in the repository folder. If you
 are on windows, you need to run this cmd with admin privileges.
-4. Run `docker-compose up`.
+4. Run `vagrant up`.
 5. Wait :). This might take up to 20 minutes. Meanwhile don't do anything
 and let it finish
-6. Enter into the web container with `docker exec -it invoice bash` and
-apply the migrations via `python src/manage.py migrate`
-7. Create a default user to work with by calling `python src/manage.py createsuperuser`
+6. Enter into the container with `vagrant ssh`. You will find a folder named webinvoices. This is your project root's 
+directory. Enter inside and apply the initial migrations via `./manage.py migrate`
+7. If you want to have some data to play with run `./manage.py createdummydata`
+8. Create a default user to work with by calling `./manage.py createsuperuser`
 
-
-Once the setup is done, you will have a docker containers running. To
-start or stop the project run `docker-compose start` or `docker-compose stop`.
+Once the setup is done, you will have a vagrant container running. To
+start or stop the project run `vagrant up` or `vagrant halt`.
 
 Miscellaneous
 =============
