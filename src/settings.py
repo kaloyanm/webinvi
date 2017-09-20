@@ -25,6 +25,7 @@ SECRET_KEY = '21n1@2(k39!%e$yf4$j14rda--df%*7f_zn04^^w@3xke4l-^%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+HOSTNAME = os.environ.get('HOSTNAME', '182.16.0.5')
 ALLOWED_HOSTS = []
 
 
@@ -94,9 +95,9 @@ STATICFILES_FINDERS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'USER': os.environ.get('DATABASE_USER', 'ubuntu'),
+        'USER': os.environ.get('DATABASE_USER', 'vagrant'),
         'NAME': os.environ.get('DATABASE_NAME', 'fakturi'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'ubuntu'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'vagrant'),
         'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
         'PORT': os.environ.get('DATABASE_PORT', 5432),
         'TEST': {
@@ -130,13 +131,12 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'printtokens',
-        'TIMEOUT': 100000,
+        'TIMEOUT': 5,
     }
 }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
-
 LANGUAGE_CODE = 'bg-BG'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -168,7 +168,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 # Business logic
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', True)
 
-BASIC_AUTH = os.environ.get('BASIC_AUTH', True)
+BASICAUTH = os.environ.get('BASICAUTH', True)
 BASICAUTH_USERNAME = os.environ.get('BASICAUTH_USERNAME', 'demo')
 BASICAUTH_PASSWORD = os.environ.get('BASICAUTH_PASSWORD', 'demo')
 
@@ -181,3 +181,6 @@ OERATES_BASE_CURRENCY = os.environ.get("OERATES_BASE_CURRENCY", "BGN")
 
 CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
+
+BASE_URL = "http://{}:8000".format(HOSTNAME)
+PDF_SERVER_URL = "http://{}:5100".format(HOSTNAME)

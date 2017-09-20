@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-PROJECT_PATH="/home/ubuntu"
-${PROJECT_PATH}/virtualenvs/prjenv/bin/pip3.6 install -r ${PROJECT_PATH}/invoiceapp/requirements.txt
-${PROJECT_PATH}/invoiceapp/manage.py migrate
-${PROJECT_PATH}/invoiceapp/manage.py collectstatic --noinput --verbosity=3
+
+PROJECT_NAME="webinvoices"
+VIRTUALENV_DIR=/home/vagrant/.virtualenvs/$PROJECT_NAME
+PROJECT_DIR=/home/vagrant/$PROJECT_NAME
+
+source $VIRTUALENV_DIR/bin/activate
+pip install -r $PROJECT_DIR/requirements.txt
+python $PROJECT_DIR/manage.py migrate
+python $PROJECT_DIR/manage.py collectstatic --no-input

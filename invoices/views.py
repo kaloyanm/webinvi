@@ -4,6 +4,7 @@ import json
 import uuid
 import urllib.request
 
+from django.conf import settings
 from django.core.cache import cache
 from django.db import transaction
 from django.utils import timezone
@@ -134,11 +135,10 @@ def list_invoices(request):
 def print_preview(request, token):
     try:
         invoice_pk = cache.get(token)
-        print("invoice:", invoice_pk)
         invoice = Invoice.objects.get(pk=invoice_pk)
         request.user = invoice.company.user
         request.company = invoice.company
-    except Exception:
+    except Invoice.DoesNotExist:
         raise Http404
 
     return _invoice(request, pk=invoice_pk, base_template="print.html",
@@ -150,8 +150,8 @@ def print_invoice(request, pk):
     access_token = uuid.uuid4()
     cache.set(access_token, pk)
 
-    print_preview_url = "http://localhost:8000{}".format(reverse("printpreview", kwargs=dict(token=access_token)))
-    pdf_generator_url = "http://localhost:8080/?url={}".format(print_preview_url)
+    print_preview_url = "{}{}".format(settings.BASE_URL, reverse("printpreview", kwargs=dict(token=access_token)))
+    pdf_generator_url = "{}/?url={}".format(settings.PDF_SERVER_URL, print_preview_url)
 
     req = urllib.request.Request(pdf_generator_url)
     with urllib.request.urlopen(req) as res:
