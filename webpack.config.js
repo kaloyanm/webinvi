@@ -51,6 +51,9 @@ module.exports = function(env){
         }
       ]
     },
+    watchOptions: {
+      poll: 300
+    },
     plugins: [
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(environment)
