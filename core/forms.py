@@ -5,10 +5,11 @@ from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
     UserCreationForm,
-    PasswordChangeForm
+    PasswordChangeForm,
 )
-
-from core.mixins import SubmitButtonMixin
+from hvad.forms import TranslatableModelForm
+from core.mixins import SubmitButtonMixin, TranslateLabelsFormMixin
+from core.models import Company
 
 User = get_user_model()
 
@@ -31,16 +32,31 @@ class LoginForm(SubmitButtonMixin, AuthenticationForm):
     submit_button_label = _('Влез')
 
 
-class CompanyForm(SubmitButtonMixin, forms.Form):
-    submit_button_label = _('Запази')
+# class CompanyForm(SubmitButtonMixin, forms.Form):
+#     submit_button_label = _('Запази')
+#
+#     name = forms.CharField(label=_('Има на компанията'))
+#     eik = forms.CharField(label=_('БУЛСТАТ'))
+#     dds = forms.CharField(label=_('Ин по ДДС'), required=False)
+#     city = forms.CharField(label=_('Град'))
+#     address = forms.CharField(label=_('Адрес'))
+#     mol = forms.CharField(label=_('МОЛ'))
+#     default = forms.BooleanField(required=False, label=_('Маркирай като основна'))
 
-    name = forms.CharField(label=_(u'Има на компанията'))
-    eik = forms.CharField(label=_(u'БУЛСТАТ'))
-    dds = forms.CharField(label=_(u'Ин по ДДС'), required=False)
-    city = forms.CharField(label=_(u'Град'))
-    address = forms.CharField(label=_(u'Адрес'))
-    mol = forms.CharField(label=_(u'МОЛ'))
-    default = forms.BooleanField(required=False, label=_(u'Маркирай като основна'))
+class CompanyForm(SubmitButtonMixin, TranslateLabelsFormMixin, TranslatableModelForm):
+    translate_labels = {
+        "name": _('Има на компанията'),
+        "eik": _('БУЛСТАТ'),
+        "dds": _('Ин по ДДС'),
+        "city": _('Град'),
+        "address": _('Адрес'),
+        "mol": _('МОЛ'),
+        "default": _('Маркирай като основна'),
+    }
+
+    class Meta:
+        model = Company
+        exclude = ("user", )
 
 
 class CompaniesImportForm(SubmitButtonMixin, forms.Form):

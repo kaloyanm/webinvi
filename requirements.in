@@ -3,7 +3,7 @@ django-bower
 django-crispy-forms
 django-debug-toolbar
 django-extensions
-django-modeltranslation
+django-hvad
 py
 six
 sqlparse
@@ -12,7 +12,6 @@ django_compressor
 Scrapy
 requests
 beautifulsoup4
-xhtml2pdf==0.2b1
 django-rosetta
 django-import-export
 psycopg2

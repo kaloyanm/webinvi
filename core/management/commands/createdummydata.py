@@ -1,6 +1,7 @@
 
 import random
 
+from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 from core.test.factories import CompanyFactory, UserFactory
@@ -20,7 +21,7 @@ class Command(BaseCommand):
         Company.objects.all().delete()
 
         for _ in range(self.num_companies):
-            company = CompanyFactory()
+            company = CompanyFactory(language_code=settings.LANGUAGE_CODE)
             company.user.set_password("test1234")
             company.user.save()
             for _ in range(self.num_companies):

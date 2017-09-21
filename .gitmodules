@@ -1,0 +1,3 @@
+[submodule "external/html2pdf"]
+	path = external/html2pdf
+	url = https://github.com/ebdrup/html2pdf.it.git
