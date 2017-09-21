@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import socket
+import django_cache_url
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -122,15 +124,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Cache
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'printtokens',
-        'TIMEOUT': 1000,
-    }
-}
+REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
+CACHES = {}
+CACHES['default'] = django_cache_url.config(default=REDIS_URL)
+CACHES['default']['TIMEOUT'] = 60
+CACHES['default'].setdefault('OPTIONS', {})
+CACHES['default']['OPTIONS']['PARSER_CLASS'] = 'redis.connection.HiredisParser'
+CACHES['default']['OPTIONS']['MAX_ENTRIES'] = 9999
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

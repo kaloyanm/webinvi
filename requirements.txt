@@ -13,19 +13,23 @@ coverage==4.4.1           # via pytest-cov
 cryptography==1.7.2       # via pyopenssl
 cssselect==1.0.1          # via parsel, scrapy
 diff-match-patch==20121119  # via django-import-export
+dj-redis-url==0.1.4
 django-appconf==1.0.2     # via django-compressor
 django-bower==5.1.0
+django-cache-url==2.0.0
 django-compressor==2.1.1
 django-crispy-forms==1.6.0
 django-debug-toolbar==1.5
 django-extensions==1.6.7
 django-hvad==1.8.0
 django-import-export==0.5.1
+django-redis==4.8.0
 django-rosetta==0.7.13
 django==1.9.7
 et-xmlfile==1.0.1         # via openpyxl
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
+hiredis==0.2.0
 honcho==1.0.1
 idna==2.4                 # via cryptography
 incremental==16.10.1      # via twisted
@@ -51,6 +55,7 @@ python-dateutil==2.6.1    # via faker
 pyyaml==3.12              # via tablib
 queuelib==1.4.2           # via scrapy
 rcssmin==1.0.6            # via django-compressor
+redis==2.10.6
 requests==2.13.0
 rjsmin==1.0.12            # via django-compressor
 scrapy==1.3.2

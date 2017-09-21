@@ -4,6 +4,9 @@ django-crispy-forms
 django-debug-toolbar
 django-extensions
 django-hvad
+django-cache-url
+django-redis
+dj-redis-url
 py
 six
 sqlparse
@@ -17,6 +20,8 @@ django-import-export
 psycopg2
 honcho
 django-crispy-forms
+hiredis
+redis
 
 # Testing facilities
 pytest
