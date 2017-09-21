@@ -1,1 +1,1 @@
-web: uwsgi --chdir /srv/home/www/invoiceapp/ --module invoiceapp.wsgi --static-map /static=./static/
+web: uwsgi --chdir /srv/home/www/ --module src.wsgi --static-map /static=./static/
