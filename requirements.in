@@ -17,6 +17,7 @@ django-import-export
 psycopg2
 honcho
 django-crispy-forms
+django-prices-openexchangerates
 
 # Testing facilities
 pytest

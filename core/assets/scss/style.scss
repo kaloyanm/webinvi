@@ -153,7 +153,7 @@ main {
 
 }
 
-#invoice_app input {
+#invoice-container input {
   border: 0;
   border-radius: 0;
   box-shadow: none;
@@ -184,7 +184,7 @@ main {
   display: none;
 }
 
-#invoice_app .custom-inline {
+#invoice-container.custom-inline {
   display: flex;
   margin-bottom: .5rem;
 

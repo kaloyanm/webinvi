@@ -20,6 +20,8 @@ from core.forms import CompanyForm
 from invoices.forms import InvoiceForm, InvoiceItemFormSet, SearchForm
 from invoices.models import Invoice, InvoiceItem, get_next_number
 
+from prices import Price
+from django_prices_openexchangerates import exchange_currency
 
 def django_json_dumps(items):
     return json.dumps(items, cls=DjangoJSONEncoder)
@@ -86,6 +88,12 @@ def _invoice(request, pk=None, invoice_type="invoice",
 
     if instance:
         context["formset"] = django_json_dumps(list(instance.invoiceitem_set.values()))
+
+    rates = {}
+    for from_c in settings.ALLOWED_CURRENCIES:
+        rates[from_c] = round(exchange_currency(Price(1, currency=from_c), 'BGN').net, 5)
+    context['rates'] = rates
+    context['rates_json'] = django_json_dumps(rates)
 
     return render(request, template_name="invoices/invoice.html",
                   context=context)
