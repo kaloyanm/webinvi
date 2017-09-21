@@ -1,0 +1,3 @@
+PROCFILE=Procfile.dev
+HOSTNAME=localhost:8000
+PORT=7980

@@ -1,3 +1,3 @@
 web: ./manage.py runserver 0.0.0.0:8000
-html2pdf: cd ../html2pdf.it && node open.js
+html2pdf: cd external/html2pdf && node open.js
 webpack: npm run watch

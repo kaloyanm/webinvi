@@ -29,7 +29,7 @@ VIRTUALENV_DIR=/home/vagrant/.virtualenvs/$PROJECT_NAME
 su - vagrant -c "/usr/local/bin/virtualenv $VIRTUALENV_DIR --python=/usr/bin/python3.6 && \
     echo $PROJECT_DIR > $VIRTUALENV_DIR/.project"
 
-echo "alias honcho='honcho -f $PROJECT_DIR/Procfile.dev'" >> /home/vagrant/.bashrc
+echo "alias honcho='honcho -e $PROJECT_DIR/.myenv -f $PROJECT_DIR/Procfile.dev'" >> /home/vagrant/.bashrc
 echo ". $VIRTUALENV_DIR/bin/activate" >> /home/vagrant/.bashrc
 
 ## set execute permissions on manage.py, as they get lost if we build from a zip file
@@ -74,7 +74,3 @@ EOF
 curl -sL https://deb.nodesource.com/setup_8.x | bash -
 apt-get install nodejs
 npm install -g yarn webpack
-
-# html2pdf
-su - vagrant -c "git clone https://github.com/ebdrup/html2pdf.it.git"
-su - vagrant -c "cd html2pdf.it && npm install"
