@@ -29,7 +29,7 @@ tags
 yarn.lock
 /static
 .idea/
-package-lock.json
+# package-lock.json
 
 # App generated files
 /semantic/

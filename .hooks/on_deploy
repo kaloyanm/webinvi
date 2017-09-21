@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# pdf server
+git submodules init
+git submodules update
+(cd external/html2pdf/ && npm install)
+
 # node
 npm install
 npm run build:prod
@@ -8,8 +13,3 @@ npm run build:prod
 pip install -r requirements.txt
 ./manage.py migrate
 ./manage.py collectstatic --no-input
-
-
-# pdf server
-git submodules init
-git submodules update
