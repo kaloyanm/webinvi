@@ -179,5 +179,5 @@ OERATES_BASE_CURRENCY = os.environ.get("OERATES_BASE_CURRENCY", "BGN")
 CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
 
-BASE_URL = "http://{}:8000".format(HOSTNAME)
+BASE_URL = "http://{}".format(HOSTNAME)
 PDF_SERVER_URL = "http://localhost:8080"
