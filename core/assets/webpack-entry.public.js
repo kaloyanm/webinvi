@@ -88,5 +88,8 @@ $('.dropdown').dropdown({
   on: 'click'
 });
 
-$('#sticky-settings').sticky({context: '#invoice_app'});
+$('#sticky-settings').sticky({
+  offset: 105,
+  context: '#invoice-container'
+});
 
