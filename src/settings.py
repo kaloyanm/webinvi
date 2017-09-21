@@ -180,4 +180,4 @@ CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
 
 BASE_URL = "http://{}:8000".format(HOSTNAME)
-PDF_SERVER_URL = "http://{}:5100".format(HOSTNAME)
+PDF_SERVER_URL = "http://{}:8080".format(HOSTNAME)
