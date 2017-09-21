@@ -128,7 +128,7 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'printtokens',
-        'TIMEOUT': 5,
+        'TIMEOUT': 20,
     }
 }
 
