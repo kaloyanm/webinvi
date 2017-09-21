@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.core.urlresolvers import reverse_lazy
@@ -17,6 +18,7 @@ from core.forms import (
     InvoiceproImportForm,
 )
 
+from hvad.utils import get_translation
 from core.admin import CompanyResource
 from core.import_export.invoicepro import read_invoicepro_file
 
@@ -73,19 +75,21 @@ def companies(request):
 
 
 @login_required
-def company(request, pk=None):
+def company(request, pk=None, language_code=settings.LANGUAGE_CODE):
     if pk:
-        company = get_object_or_404(Company, pk=pk, user=request.user)
-        data = model_to_dict(company)
+        try:
+            instance = Company.objects.language(language_code).get(pk=pk, user=request.user)
+        except Company.DoesNotExist:
+            raise Http404
     else:
-        data = None
-    form = CompanyForm(initial=data)
+        instance = None
+    form = CompanyForm(instance=instance)
 
     if request.method == "POST":
         form = CompanyForm(request.POST)
         if form.is_valid():
-            form.cleaned_data["user"] = request.user
-            Company.objects.update_or_create(pk=pk, defaults=form.cleaned_data)
+            form.instance.user = request.user
+            form.save()
             return redirect("companies")
 
     return render(request, template_name="core/_company.html",

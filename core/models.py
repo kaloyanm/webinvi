@@ -2,18 +2,21 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.contrib.auth.models import User
-
+from hvad.models import TranslatableModel, TranslatedFields
 
 # Create your models here.
-class Company(models.Model):
+class Company(TranslatableModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    name = models.CharField(max_length=255)
+    translations = TranslatedFields(
+        name = models.CharField(max_length=255),
+        city = models.CharField(max_length=255),
+        address = models.CharField(max_length=255),
+        mol = models.CharField(max_length=255),
+    )
+
     eik = models.CharField(max_length=255, unique=True)
     dds = models.CharField(max_length=255, blank=True)
-    city = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    mol = models.CharField(max_length=255)
     default = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 

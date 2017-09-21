@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'debug_toolbar',
-    'modeltranslation',
     'crispy_forms',
     'rosetta',
     'compressor',

@@ -19,26 +19,22 @@ django-compressor==2.1.1
 django-crispy-forms==1.6.0
 django-debug-toolbar==1.5
 django-extensions==1.6.7
+django-hvad==1.8.0
 django-import-export==0.5.1
-django-modeltranslation==0.12.1
 django-rosetta==0.7.13
 django==1.9.7
 et-xmlfile==1.0.1         # via openpyxl
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
 honcho==1.0.1
-html5lib==1.0b10          # via xhtml2pdf
-httplib2==0.10.3          # via xhtml2pdf
 idna==2.4                 # via cryptography
 incremental==16.10.1      # via twisted
 jdcal==1.3                # via openpyxl
 lxml==3.7.3               # via parsel, scrapy
 microsofttranslator==0.8  # via django-rosetta
 odfpy==1.3.5              # via tablib
-olefile==0.44             # via pillow
 openpyxl==2.4.8           # via tablib
 parsel==1.1.0             # via scrapy
-pillow==4.2.1             # via reportlab, xhtml2pdf
 polib==1.0.8              # via django-rosetta
 psycopg2==2.7.2
 py==1.4.31
@@ -47,7 +43,6 @@ pyasn1==0.2.3             # via cryptography, pyasn1-modules, service-identity
 pycparser==2.17           # via cffi
 pydispatcher==2.0.5       # via scrapy
 pyopenssl==16.2.0         # via scrapy, service-identity
-pypdf2==1.26.0            # via xhtml2pdf
 pytest-cov==2.5.1
 pytest-django==3.1.2
 pytest-mock==1.6.2
@@ -56,7 +51,6 @@ python-dateutil==2.6.1    # via faker
 pyyaml==3.12              # via tablib
 queuelib==1.4.2           # via scrapy
 rcssmin==1.0.6            # via django-compressor
-reportlab==3.4.0          # via xhtml2pdf
 requests==2.13.0
 rjsmin==1.0.12            # via django-compressor
 scrapy==1.3.2
@@ -68,8 +62,6 @@ twisted==17.1.0           # via scrapy
 unicodecsv==0.14.1        # via tablib
 uwsgi==2.0.13.1
 w3lib==1.17.0             # via parsel, scrapy
-webencodings==0.5.1       # via html5lib
-xhtml2pdf==0.2b1
 xlrd==1.0.0               # via tablib
 xlwt==1.2.0               # via tablib
 zope.interface==4.3.3     # via twisted
