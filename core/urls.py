@@ -4,10 +4,11 @@ from core.views import (
     contact, home, LoginView, RegistrationView,
     logout_view, change_password, company,
     companies, drop_company, export_companies,
-    import_companies, import_invoicepro)
+    import_companies, import_invoicepro, thanks)
 
 urlpatterns = [
     url(r'^contact/', contact, name='contact'),
+    url(r'^thanks/', thanks, name='thanks'),
     url(r'^login/', LoginView.as_view(), name='login'),
     url(r'^logout/', logout_view, name='logout'),
     url(r'^registration/', RegistrationView.as_view(), name='registration'),

@@ -51,3 +51,12 @@ class CompaniesImportForm(SubmitButtonMixin, forms.Form):
 class InvoiceproImportForm(SubmitButtonMixin, forms.Form):
     file = forms.FileField()
     wipe_existing = forms.BooleanField(required=False)
+
+
+class ContactForm(SubmitButtonMixin, forms.Form):
+    submit_button_label = _('Изпрати')
+
+    name = forms.CharField(label=_(u'Име'), max_length=100)
+    email = forms.EmailField(label=_(u'Емейл'))
+    phone = forms.CharField(widget=forms.NumberInput, label=_(u'Телефон'))
+    message = forms.CharField(widget=forms.Textarea, label=_(u'Съобщение'))
