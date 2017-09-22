@@ -92,4 +92,3 @@ $('#sticky-settings').sticky({
   offset: 105,
   context: '#invoice-container'
 });
-

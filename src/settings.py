@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'debug_toolbar',
     'crispy_forms',
+    'django_prices_openexchangerates',
     'rosetta',
     'compressor',
     'django_extensions',
@@ -181,6 +182,11 @@ OERATES_BASE_CURRENCY = os.environ.get("OERATES_BASE_CURRENCY", "BGN")
 
 CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
+
+OPENEXCHANGERATES_API_KEY='3a0c967d227e44bcb6ec3651911fce7d'
+OPENEXCHANGERATES_BASE_CURRENCY='USD'
+
+ALLOWED_CURRENCIES = ['BGN', 'USD', 'EUR', 'GBP']
 
 BASE_URL = "http://{}".format(HOSTNAME)
 PDF_SERVER = os.environ.get("PDF_SERVER", "http://html2pdf.foggly.net")

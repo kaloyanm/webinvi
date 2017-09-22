@@ -4,8 +4,11 @@
 {% block body_class %}body--invoice{% endblock %}
 
 {% block content %}
+  <script>
+    var EXCHANGE_RATES = {{ rates_json|safe }};
+  </script>
   <div id="sticky-target"></div>
-  <div id="invoice-container" class="ui basic segment">
+  <div id="invoice-container" class="ui basic segment" >
     {% if not print %}
     <div id="settings-rail" class="left ui rail">
       <div id="sticky-settings" class="ui sticky">
@@ -18,11 +21,14 @@
             <option value="2">English</option>
           </select>
 
-          <select class="ui search dropdown fluid _mbxs">
-            <option value="">Валута</option>
-            <option value="1">($) Долари</option>
-            <option value="2">(&euro;) Евро</option>
+          <select class="ui search dropdown fluid _mbxs" v-model="selected_currency"  @change="currency_selected(selected_currency)">
+            <option v-for="currency in currencies" :name="currency" :value="currency" >{% verbatim %}{{ currency }}{% endverbatim %}</option>
           </select>
+
+          <div class="ui input fluid">
+            <input :name="current_rate" v-model="current_rate" type="text" @change="rate_changed()">
+          </div>
+
         </div>
         <div class="ui bottom items attached _oh">
           {% if pk %}
@@ -41,7 +47,7 @@
       </div>
     </div>
     {% endif %}
-    <form class="ui tiny form" method="POST" action="" id="invoice_app">
+    <form class="ui tiny form" method="POST" action="" >
       {% csrf_token %}
 
       <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
@@ -131,7 +137,9 @@
   </div>
   <div class="actions">
     <div class="ui negative button">Не</div>
+    {% if pk %}
     <a href="{% url 'delete' pk %}" class="ui positive button">Да</a>
+    {% endif %}
   </div>
 </div>
 
