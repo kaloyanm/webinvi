@@ -9,14 +9,14 @@ apt-get update
 
 apt-get install -y build-essential python3.6 python3.6-dev python3.6-examples htop links \
     python3-cffi python3-cryptography python3-simplejson python3-anyjson python3-psycopg2 python3-mysqldb python3-crypto \
-    libffi-dev libssl-dev libfontconfig1
+    libffi-dev libssl-dev libfontconfig1 redis-server
 
 # python
 wget https://bootstrap.pypa.io/get-pip.py
 python3.6 get-pip.py && rm get-pip.py
 
 pip3.6 install --upgrade pip
-pip3.6 install virtualenv virtualenvwrapper stevedore virtualenv-clone
+pip3.6 install virtualenv virtualenvwrapper stevedore virtualenv-clone bpython
 
 
 # setup
@@ -29,7 +29,7 @@ VIRTUALENV_DIR=/home/vagrant/.virtualenvs/$PROJECT_NAME
 su - vagrant -c "/usr/local/bin/virtualenv $VIRTUALENV_DIR --python=/usr/bin/python3.6 && \
     echo $PROJECT_DIR > $VIRTUALENV_DIR/.project"
 
-echo "alias honcho='honcho -f $PROJECT_DIR/Procfile.dev'" >> /home/vagrant/.bashrc
+echo "alias honcho='honcho -e $PROJECT_DIR/.myenv -f $PROJECT_DIR/Procfile.dev'" >> /home/vagrant/.bashrc
 echo ". $VIRTUALENV_DIR/bin/activate" >> /home/vagrant/.bashrc
 
 ## set execute permissions on manage.py, as they get lost if we build from a zip file
@@ -74,7 +74,3 @@ EOF
 curl -sL https://deb.nodesource.com/setup_8.x | bash -
 apt-get install nodejs
 npm install -g yarn webpack
-
-# html2pdf
-su - vagrant -c "git clone https://github.com/ebdrup/html2pdf.it.git"
-su - vagrant -c "cd html2pdf.it && npm install"

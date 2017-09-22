@@ -1,9 +1,12 @@
-Django==1.9.7
+Django==1.11.5
 django-bower
 django-crispy-forms
 django-debug-toolbar
 django-extensions
 django-hvad
+django-cache-url
+django-redis
+dj-redis-url
 py
 six
 sqlparse
@@ -18,6 +21,8 @@ psycopg2
 honcho
 django-crispy-forms
 django-prices-openexchangerates
+hiredis
+redis
 
 # Testing facilities
 pytest

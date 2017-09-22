@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import socket
+import django_cache_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,8 +27,10 @@ SECRET_KEY = '21n1@2(k39!%e$yf4$j14rda--df%*7f_zn04^^w@3xke4l-^%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-HOSTNAME = os.environ.get('HOSTNAME', '182.16.0.5')
-ALLOWED_HOSTS = []
+HOSTNAME = os.environ.get('HOSTNAME', socket.gethostname())
+ALLOWED_HOSTS = [
+    '182.16.0.5', 'vagrant', 'webinvoices.eu', 'webinvoices.foggly.net',
+    'webinvoices-local.dev']
 
 
 # Application definition
@@ -123,15 +127,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Cache
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'printtokens',
-        'TIMEOUT': 5,
-    }
-}
+REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
+CACHES = {}
+CACHES['default'] = django_cache_url.config(default=REDIS_URL)
+CACHES['default']['TIMEOUT'] = 60
+CACHES['default'].setdefault('OPTIONS', {})
+CACHES['default']['OPTIONS']['PARSER_CLASS'] = 'redis.connection.HiredisParser'
+CACHES['default']['OPTIONS']['MAX_ENTRIES'] = 9999
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -180,10 +183,10 @@ OERATES_BASE_CURRENCY = os.environ.get("OERATES_BASE_CURRENCY", "BGN")
 CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
 
-BASE_URL = "http://{}:8000".format(HOSTNAME)
-PDF_SERVER_URL = "http://{}:5100".format(HOSTNAME)
-
 OPENEXCHANGERATES_API_KEY='3a0c967d227e44bcb6ec3651911fce7d'
 OPENEXCHANGERATES_BASE_CURRENCY='USD'
 
 ALLOWED_CURRENCIES = ['BGN', 'USD', 'EUR', 'GBP']
+
+BASE_URL = "http://{}".format(HOSTNAME)
+PDF_SERVER = os.environ.get("PDF_SERVER", "http://html2pdf.foggly.net")
