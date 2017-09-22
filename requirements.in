@@ -24,6 +24,7 @@ django-prices-openexchangerates
 hiredis
 redis
 bpython
+celery[redis]
 
 # Testing facilities
 pytest

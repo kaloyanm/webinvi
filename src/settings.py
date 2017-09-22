@@ -192,3 +192,4 @@ ALLOWED_CURRENCIES = ['BGN', 'USD', 'EUR', 'GBP']
 
 BASE_URL = "http://{}".format(HOSTNAME)
 PDF_SERVER = os.environ.get("PDF_SERVER", "http://html2pdf.foggly.net")
+CELERY_BROKER_URL = 'redis://localhost:6379/'
