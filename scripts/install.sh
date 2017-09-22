@@ -16,7 +16,7 @@ wget https://bootstrap.pypa.io/get-pip.py
 python3.6 get-pip.py && rm get-pip.py
 
 pip3.6 install --upgrade pip
-pip3.6 install virtualenv virtualenvwrapper stevedore virtualenv-clone
+pip3.6 install virtualenv virtualenvwrapper stevedore virtualenv-clone bpython
 
 
 # setup

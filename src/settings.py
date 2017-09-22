@@ -28,7 +28,9 @@ SECRET_KEY = '21n1@2(k39!%e$yf4$j14rda--df%*7f_zn04^^w@3xke4l-^%'
 DEBUG = True
 
 HOSTNAME = os.environ.get('HOSTNAME', socket.gethostname())
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '182.16.0.5', 'vagrant', 'webinvoices.eu', 'webinvoices.foggly.net',
+    'webinvoices-local.dev']
 
 
 # Application definition
@@ -181,4 +183,4 @@ CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
 
 BASE_URL = "http://{}".format(HOSTNAME)
-PDF_SERVER_URL = "http://html2pdf.foggly.net"
+PDF_SERVER = os.environ.get("PDF_SERVER", "http://html2pdf.foggly.net")
