@@ -177,9 +177,6 @@ FAKTURI_EIK = os.environ.get("FAKTURI_EIK")
 FAKTURI_PASSWORD = os.environ.get("FAKTURI_PASSWORD")
 FAKTURI_EXPORT_PATH = os.path.join(BASE_DIR, "crawled", "invoices")
 
-OERATES_APP_ID = os.environ.get("OERATES_APP_ID", "3a0c967d227e44bcb6ec3651911fce7d")
-OERATES_BASE_CURRENCY = os.environ.get("OERATES_BASE_CURRENCY", "BGN")
-
 CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
 
