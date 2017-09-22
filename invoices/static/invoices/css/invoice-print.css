@@ -72,8 +72,7 @@ td:first-child {
 }
 
 .column__client > div:first-child label,
-.column__company > div:first-child label,
-.column__payment > div:first-child label {
+.column__company > div:first-child label {
   background: #777;
   color: #fff;
   padding: 5px;

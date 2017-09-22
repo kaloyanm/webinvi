@@ -8,6 +8,10 @@ from django.views import generic
 from django.db.models import Q
 from django.forms.models import model_to_dict
 
+from django.template import Context
+from django.core.mail import EmailMessage
+from django.template.loader import get_template
+
 from core.models import Company
 from core.forms import (
     LoginForm,
@@ -16,6 +20,7 @@ from core.forms import (
     CompanyForm,
     CompaniesImportForm,
     InvoiceproImportForm,
+    ContactForm
 )
 
 from hvad.utils import get_translation
@@ -29,12 +34,47 @@ def logout_view(request):
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    form_class = ContactForm
+
+    # new logic!
+    if request.method == 'POST':
+        form = form_class(data=request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            phone = form.cleaned_data['phone']
+            message = form.cleaned_data['message']
+
+            template = get_template('contact_template.txt')
+            context = Context({
+                'name': name,
+                'email': email,
+                'phone': phone,
+                'message': message,
+            })
+
+            content = template.render(context)
+
+            emailMessage = EmailMessage(
+                'Email from WebInvoices',
+                content,
+                'hello@webinvoices.eu',
+                ['yshterev@gmail.com'],
+                headers = {'Reply-To': email }
+            )
+            emailMessage.send()
+            return redirect('thanks')
+
+    context = {"form": form_class}
+    return render(request, 'contact.html', context)
 
 
 def home(request):
     return render(request, 'home.html')
 
+def thanks(request):
+    return render(request, 'thanks.html')
 
 class LoginView(generic.FormView):
     form_class = LoginForm

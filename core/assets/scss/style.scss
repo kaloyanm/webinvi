@@ -77,9 +77,9 @@ main {
   padding: 0;
   background: transparent;
 
-  &.fixed {
-    top: 100px
-  }
+  //&.fixed {
+  //  top: 100px
+  //}
 }
 
 #add-item,
@@ -108,6 +108,11 @@ main {
 #settings-rail {
   width: 400px;
   padding-right: 0;
+}
+
+#sticky-target {
+  position: absolute;
+  top: 0;
 }
 
 #invoice-container {
@@ -141,8 +146,7 @@ main {
   }
 
   .column__client > div:first-child label,
-  .column__company > div:first-child label,
-  .column__payment > div:first-child label {
+  .column__company > div:first-child label {
     background: #777;
     color: #fff;
   }
@@ -234,8 +238,6 @@ main {
   min-height: 700px;
   padding: 1em 0;
 }
-
-
 
 .masthead h1.ui.header {
   margin-bottom: 0;

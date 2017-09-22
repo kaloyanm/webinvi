@@ -16,13 +16,23 @@
     </div>
   </div>
 
-  <div class="ui basic segment">
-    <form method="GET">
-      <div class="ui action fluid input">
-        <input type="text" name="query" value="{{ query }}" placeholder="Намери клиент">
-        <button class="ui button" type="submit">Търси</button>
+  <div class="ui grid basic segment">
+    <div class="equal width row">
+      <div class="column">
+        <select class="ui search dropdown fluid">
+          <option value="1">Фирма 1</option>
+          <option value="2">Фирма 2</option>
+        </select>
       </div>
-    </form>
+      <div class="column">
+        <form method="GET">
+          <div class="ui action fluid input">
+            <input type="text" name="query" value="{{ query }}" placeholder="Намери клиент">
+            <button class="ui button" type="submit">Търси</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 
   <div class="ui basic segment">
