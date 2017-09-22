@@ -27,6 +27,8 @@ bpython
 celery[redis]
 google-api-python-client
 jsonpickle
+PyDrive
+transliterate
 
 # Testing facilities
 pytest

@@ -9,6 +9,7 @@ PROJECT_DIR=/home/vagrant/$PROJECT_NAME
 (cd $PROJECT_DIR && git submodule update)
 (cd $PROJECT_DIR/external/html2pdf/ && npm install)
 
+cd $PROJECT_DIR
 source $VIRTUALENV_DIR/bin/activate
 pip install -r $PROJECT_DIR/requirements.txt
 honcho run python $PROJECT_DIR/manage.py migrate

@@ -5,6 +5,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from django.db.models import Q
+from django.conf import settings
 
 from django.template import Context
 from django.core.mail import EmailMessage
@@ -263,21 +264,24 @@ def test_semantic(request):
     return render(request, 'test/_semantic.html', context)
 
 
-FLOW = flow_from_clientsecrets(
-    settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
-    scope='https://www.googleapis.com/auth/plus.me',
-    redirect_uri='http://webinvoices-local.dev:8000/oauth2callback')
+def get_google_oauth_flow():
+    flow = flow_from_clientsecrets(
+        settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
+        scope='https://www.googleapis.com/auth/drive',
+        redirect_uri='http://webinvoices-local.dev:8000/oauth2callback')
+    flow.params['access_type'] = 'offline'
+    return flow
 
 
 @login_required
 def google_oath_login(request):
+    flow = get_google_oauth_flow()
     storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
     credential = storage.get()
-    print(credential)
     if credential is None or credential.invalid is True:
-        FLOW.params['state'] = xsrfutil.generate_token(settings.SECRET_KEY,
+        flow.params['state'] = xsrfutil.generate_token(settings.SECRET_KEY,
                                                        request.user)
-        authorize_url = FLOW.step1_get_authorize_url()
+        authorize_url = flow.step1_get_authorize_url()
         return HttpResponseRedirect(authorize_url)
     else:
         request.user.settings.gdrive_sync = not request.user.settings.gdrive_sync
@@ -297,7 +301,9 @@ def google_auth_return(request):
     if not xsrfutil.validate_token(settings.SECRET_KEY, bytearray(request.GET['state'], 'utf-8'), request.user):
         return HttpResponseBadRequest()
 
-    credential = FLOW.step2_exchange(request.GET)
+    flow = get_google_oauth_flow()
+
+    credential = flow.step2_exchange(request.GET)
     storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
     storage.put(credential)
 

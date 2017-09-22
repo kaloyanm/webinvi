@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import json
-import uuid
 import urllib.request
 import logging
 import urllib
@@ -24,6 +23,8 @@ from invoices.models import Invoice, InvoiceItem, get_next_number
 
 from prices import Price
 from django_prices_openexchangerates import exchange_currency
+from invoices.tasks import save_invoice_to_google_drive
+from invoices.util import get_pdf_generator_url
 
 logger = logging.getLogger(__name__)
 
@@ -47,6 +48,21 @@ def process_invoice(request, form, form_items):
                 invoiceitem.save()
         return True
     return False
+
+
+def sync_invoice_to_external(instance, user):
+    # Store in Google Drive Here
+    if user.settings.gdrive_sync:
+        sync_settings = {
+            'gdrive_sync': user.settings.gdrive_sync,
+            'invoice_id': instance.id,
+            'filename': "{}-{}-{}.pdf".format(
+                instance.company.name,
+                instance.invoice_type,
+                instance.number
+            ),
+        }
+        save_invoice_to_google_drive.delay(user.id, sync_settings)
 
 
 def _invoice(request, pk=None, invoice_type="invoice",
@@ -83,6 +99,8 @@ def _invoice(request, pk=None, invoice_type="invoice",
         form_items = InvoiceItemFormSet(request.POST)
 
         if process_invoice(request, form, form_items):
+
+            sync_invoice_to_external(instance, request.user)
             return redirect(reverse(invoice_type, args=[pk]))
 
         context["form"] = form
@@ -185,11 +203,7 @@ def print_preview(request, token):
 
 @login_required
 def print_invoice(request, pk):
-    access_token = uuid.uuid4()
-    cache.set(access_token, pk)
-
-    print_preview_url = "{}{}".format(settings.HOSTNAME, reverse("printpreview", kwargs=dict(token=access_token)))
-    pdf_generator_url = "{}/?url={}".format(settings.PDF_SERVER, print_preview_url)
+    pdf_generator_url = get_pdf_generator_url(pk)
 
     req = urllib.request.Request(pdf_generator_url)
     with urllib.request.urlopen(req) as res:
