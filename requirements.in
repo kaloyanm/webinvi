@@ -23,6 +23,7 @@ django-crispy-forms
 django-prices-openexchangerates
 hiredis
 redis
+bpython
 
 # Testing facilities
 pytest
