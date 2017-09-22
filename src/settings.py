@@ -181,4 +181,4 @@ CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
 
 BASE_URL = "http://{}".format(HOSTNAME)
-PDF_SERVER_URL = "http://html2pdf.foggly.net:8080"
+PDF_SERVER_URL = "http://html2pdf.foggly.net"
