@@ -150,7 +150,7 @@ def print_invoice(request, pk):
     access_token = uuid.uuid4()
     cache.set(access_token, pk)
 
-    print_preview_url = "{}{}".format(settings.HOST_URL, reverse("printpreview", kwargs=dict(token=access_token)))
+    print_preview_url = "{}{}".format(settings.HOSTNAME, reverse("printpreview", kwargs=dict(token=access_token)))
     pdf_generator_url = "{}/?url={}".format(settings.PDF_SERVER_URL, print_preview_url)
 
     req = urllib.request.Request(pdf_generator_url)

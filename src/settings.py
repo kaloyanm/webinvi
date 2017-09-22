@@ -181,5 +181,4 @@ CRISPY_TEMPLATE_PACK = 'semantic-ui'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ('semantic-ui')
 
 BASE_URL = "http://{}".format(HOSTNAME)
-HOST_URL = os.environ.get("HOST_URL", "http://localhost:3000")
 PDF_SERVER_URL = "http://localhost:8080"
