@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# pdf server
-git submodule init
-git submodule update
-(cd external/html2pdf/ && npm install)
-
 # node
 npm install
 npm run build:prod
