@@ -151,7 +151,7 @@ def print_invoice(request, pk):
     cache.set(access_token, pk)
 
     print_preview_url = "{}{}".format(settings.HOSTNAME, reverse("printpreview", kwargs=dict(token=access_token)))
-    pdf_generator_url = "{}/?url={}".format(settings.PDF_SERVER_URL, print_preview_url)
+    pdf_generator_url = "{}/?url={}".format(settings.PDF_SERVER, print_preview_url)
 
     req = urllib.request.Request(pdf_generator_url)
     with urllib.request.urlopen(req) as res:

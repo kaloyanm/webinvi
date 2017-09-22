@@ -25,7 +25,7 @@ django-hvad==1.8.0
 django-import-export==0.5.1
 django-redis==4.8.0
 django-rosetta==0.7.13
-django==1.9.7
+django==1.11.5            # via django-bower, django-debug-toolbar, django-hvad, django-rosetta
 et-xmlfile==1.0.1         # via openpyxl
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
@@ -52,6 +52,7 @@ pytest-django==3.1.2
 pytest-mock==1.6.2
 pytest==3.0.2
 python-dateutil==2.6.1    # via faker
+pytz==2017.2              # via django
 pyyaml==3.12              # via tablib
 queuelib==1.4.2           # via scrapy
 rcssmin==1.0.6            # via django-compressor
