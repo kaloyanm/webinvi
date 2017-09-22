@@ -10,7 +10,7 @@ from django.template import Context
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
-from core.models import Company
+from core.models import Company, UserSettings
 from core.forms import (
     LoginForm,
     ChangePassForm,
@@ -23,6 +23,14 @@ from core.forms import (
 
 from core.admin import CompanyResource
 from core.import_export.invoicepro import read_invoicepro_file
+
+from googleapiclient.discovery import build
+from django.http import HttpResponseBadRequest
+from django.http import HttpResponseRedirect
+from core.models import CredentialsModel
+from oauth2client.contrib import xsrfutil
+from oauth2client.client import flow_from_clientsecrets
+from oauth2client.contrib.django_util.storage import DjangoORMStorage
 
 
 def logout_view(request):
@@ -253,3 +261,46 @@ def import_invoicepro(request):
 def test_semantic(request):
     context = {'form': ExampleSemanticForm}
     return render(request, 'test/_semantic.html', context)
+
+
+FLOW = flow_from_clientsecrets(
+    settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
+    scope='https://www.googleapis.com/auth/plus.me',
+    redirect_uri='http://webinvoices-local.dev:8000/oauth2callback')
+
+
+@login_required
+def google_oath_login(request):
+    storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
+    credential = storage.get()
+    print(credential)
+    if credential is None or credential.invalid is True:
+        FLOW.params['state'] = xsrfutil.generate_token(settings.SECRET_KEY,
+                                                       request.user)
+        authorize_url = FLOW.step1_get_authorize_url()
+        return HttpResponseRedirect(authorize_url)
+    else:
+        request.user.settings.gdrive_sync = not request.user.settings.gdrive_sync
+        request.user.settings.save()
+        return HttpResponseRedirect("companies/")
+
+
+@login_required
+def google_oath_logout(request):
+    storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
+    storage.delete()
+    return HttpResponseRedirect("companies/")
+
+
+@login_required
+def google_auth_return(request):
+    if not xsrfutil.validate_token(settings.SECRET_KEY, bytearray(request.GET['state'], 'utf-8'), request.user):
+        return HttpResponseBadRequest()
+
+    credential = FLOW.step2_exchange(request.GET)
+    storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
+    storage.put(credential)
+
+    request.user.settings.gdrive_sync = not request.user.settings.gdrive_sync
+    request.user.settings.save()
+    return HttpResponseRedirect("companies/")

@@ -25,6 +25,8 @@ hiredis
 redis
 bpython
 celery[redis]
+google-api-python-client
+jsonpickle
 
 # Testing facilities
 pytest
