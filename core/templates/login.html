@@ -1,7 +1,7 @@
 {% extends "single-page-form.html" %}
-{% load static crispy_forms_tags %}
+{% load static crispy_forms_tags i18n %}
 
-{% block title %}Вход - WebInvoices{% endblock %}
+{% block title %}{%  trans 'Вход' %} - WebInvoices{% endblock %}
 
 {% block content %}
 <div class="ui middle aligned center aligned grid">
@@ -16,9 +16,8 @@
     </div>
 
     <div class="ui message">
-      Нямаш профил? <a href="{% url 'registration' %}">Регистрирай се</a>
+      {%  trans 'Нямаш профил?' %} <a href="{% url 'registration' %}">{%  trans 'Регистрирай се' %}</a>
     </div>
   </div>
 </div>
 {% endblock %}
-

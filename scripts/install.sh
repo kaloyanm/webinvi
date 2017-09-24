@@ -9,7 +9,7 @@ apt-get update
 
 apt-get install -y build-essential python3.6 python3.6-dev python3.6-examples htop links \
     python3-cffi python3-cryptography python3-simplejson python3-anyjson python3-psycopg2 python3-mysqldb python3-crypto \
-    libffi-dev libssl-dev libfontconfig1 redis-server
+    libffi-dev libssl-dev libfontconfig1 redis-server gettext
 
 # python
 wget https://bootstrap.pypa.io/get-pip.py

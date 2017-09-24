@@ -6,6 +6,7 @@ Contents
 * [Miscellaneous](#miscellaneous)
     * [Coding Conventions](#coding-conventions)
     * [Dummy data](#dummy-data)
+    * [Translations](#translations)
 * [Tests](#tests)
     * [Coverage](#coverage)
     * [Profiling](#profiling)
@@ -27,8 +28,7 @@ are on windows, you need to run this cmd with admin privileges.
 and let it finish
 6. Enter into the container with `vagrant ssh`. You will find a folder named `webinvoices`. This is your project root's 
 directory. To run the application go inside `webinvoices` and run `honcho start`.
-7. If you want to have some data to play with run `./manage.py createdummydata`
-8. Create a default user to work with by calling `./manage.py createsuperuser`
+7. Create a default user to work with by calling `./manage.py createsuperuser`
 
 Once the setup is done, you will have a vagrant container running. To
 start or stop the project run `vagrant up` or `vagrant halt`.
@@ -57,10 +57,25 @@ We use [eslint](http://eslint.org/) for style checks.
 Dummy data
 ----------
 The platform can generate dummy data for local testing. To seed the db with
-dummy data, run `fm createdummydata`. The newly generated data will be
-associated with the first admin account found in the database.
+dummy data, run `./manage.py createdummydata`. This will produce 10 companies each one associated with 50 invoices.
 
+Translations
+------------
 
+Once the string literals of an application have been tagged for later translation, the translation themselves need to be written (or obtained). Here’s how that works.
+
+1. The first step is to create a message file for a new language.
+
+    `django-admin makemessages -l en`
+    
+2. We use django-rosetta to edit the translations. In order to see them go to ``http://yourdomain.com/rosetta/``. Don't forget to log in into the admin beforehand.
+    
+3. After you create and edit your message file – and each time you make changes to it – you’ll need to compile it into a more efficient form, for use by gettext. Do this with the django-admin compilemessages utility.
+    
+    `django-admin compilemessages`
+    
+That’s it. Your translations are ready for use.
+    
 Tests
 =====
 Use this command to run the tests:
