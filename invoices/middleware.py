@@ -2,7 +2,7 @@
 from core.models import Company
 
 
-class UserCompanyMiddleware:
+class UserCompanyMiddleware(object):
 
     def process_request(self, request):
         if request.user and not request.user.is_anonymous():

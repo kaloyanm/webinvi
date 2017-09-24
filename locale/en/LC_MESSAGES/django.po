@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-16 15:18+0300\n"
-"PO-Revision-Date: 2017-07-16 12:20+0000\n"
+"POT-Creation-Date: 2017-09-24 17:27+0000\n"
+"PO-Revision-Date: 2017-09-24 17:32+0000\n"
 "Last-Translator: b'  <>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,41 +18,140 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.7.13\n"
 
-#: config/settings.py:153
-msgid "Испански"
-msgstr "Spain"
+#: core/forms.py:17
+msgid "Обнови"
+msgstr ""
 
-#: config/settings.py:154
-msgid "Английски"
-msgstr "English"
+#: core/forms.py:21 core/forms.py:32
+msgid "Влез"
+msgstr ""
 
-#: core/forms.py:6
+#: core/forms.py:48
 msgid "Има на компанията"
 msgstr "Company name"
 
-#: core/forms.py:7
+#: core/forms.py:49
 msgid "БУЛСТАТ"
 msgstr ""
 
-#: core/forms.py:8
+#: core/forms.py:50 invoices/forms.py:27
 msgid "Ин по ДДС"
 msgstr ""
 
-#: core/forms.py:9
+#: core/forms.py:51 invoices/forms.py:25
 msgid "Град"
 msgstr "City"
 
-#: core/forms.py:10
+#: core/forms.py:52 invoices/forms.py:28
 msgid "Адрес"
 msgstr "Address"
 
-#: core/forms.py:11
+#: core/forms.py:53 invoices/forms.py:29
 msgid "МОЛ"
 msgstr ""
 
-#: core/forms.py:12
+#: core/forms.py:54
 msgid "Маркирай като основна"
 msgstr "Set as default"
+
+#: core/forms.py:73
+msgid "Изпрати"
+msgstr "Send"
+
+#: core/forms.py:75
+msgid "Име"
+msgstr "Name"
+
+#: core/forms.py:76
+msgid "Емейл"
+msgstr "Email"
+
+#: core/forms.py:77
+msgid "Телефон"
+msgstr "Phone"
+
+#: core/forms.py:78
+msgid "Съобщение"
+msgstr "Your message"
+
+#: core/mixins.py:10
+msgid "Запази"
+msgstr "Save"
+
+#: invoices/forms.py:24
+msgid "Получател"
+msgstr "Receiver"
+
+#: invoices/forms.py:26
+msgid "Булстат"
+msgstr ""
+
+#: invoices/forms.py:30
+msgid "Номер"
+msgstr "Number"
+
+#: invoices/forms.py:31
+msgid "Начин на плащане"
+msgstr "Payment method"
+
+#: invoices/forms.py:32
+msgid "IBAN"
+msgstr "IBAN"
+
+#: invoices/forms.py:33
+msgid "SWIFT"
+msgstr "SWIFT"
+
+#: invoices/forms.py:34
+msgid "Банка"
+msgstr "Bank"
+
+#: invoices/forms.py:35
+#, fuzzy
+#| msgid "Маркирай като основна"
+msgid "Данъчна основа"
+msgstr "Set as default"
+
+#: invoices/forms.py:36
+msgid "ДДС"
+msgstr "VAT"
+
+#: invoices/forms.py:37
+msgid "Крайна цена"
+msgstr "Total price"
+
+#: invoices/forms.py:38
+msgid "Приел"
+msgstr "Accepted By"
+
+#: invoices/forms.py:39
+msgid "Съставил"
+msgstr "Created By"
+
+#: invoices/forms.py:40
+msgid "Словом"
+msgstr ""
+
+#: invoices/forms.py:41
+msgid "Данъчно събитие"
+msgstr "Tax date"
+
+#: invoices/forms.py:42
+#, fuzzy
+#| msgid "Има на компанията"
+msgid "Дата на издаване"
+msgstr "Release date"
+
+#: src/settings.py:155
+msgid "Български"
+msgstr "Bulgarian"
+
+#: src/settings.py:156
+msgid "Английски"
+msgstr "English"
+
+#~ msgid "Испански"
+#~ msgstr "Spain"
 
 #~ msgid "Spain"
 #~ msgstr "Испански"

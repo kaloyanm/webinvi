@@ -62,6 +62,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'core.middleware.ForceDefaultLanguageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'invoices.middleware.UserCompanyMiddleware',
     'core.profiling.ProfilerMiddleware',
@@ -136,7 +138,7 @@ CACHES['default']['OPTIONS']['MAX_ENTRIES'] = 9999
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
-LANGUAGE_CODE = 'bg-BG'
+LANGUAGE_CODE = 'bg'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
@@ -153,7 +155,6 @@ from django.utils.translation import ugettext_lazy as _
 
 LANGUAGES = [
     ('bg', _('Български')),
-    ('es', _('Испански')),
     ('en', _('Английски')),
 ]
 
