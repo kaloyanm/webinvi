@@ -41,13 +41,13 @@
             </div>
           {% endif %}
 
-          <button type="submit" href="{% url 'list' %}" class="ui small right floated button green" role="button">
+          <button type="submit" onclick="document.forms.invoice_form.submit()" href="{% url 'list' %}" class="ui small right floated button green" role="button">
             <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>Запазване</button>
         </div>
       </div>
     </div>
     {% endif %}
-    <form class="ui tiny form" method="POST" action="" >
+    <form name="invoice_form" class="ui tiny form" method="POST" action="" >
       {% csrf_token %}
 
       <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
