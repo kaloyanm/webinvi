@@ -24,4 +24,5 @@ Vagrant.configure(2) do |config|
     config.vm.synced_folder ".", "/home/vagrant/webinvoices"
     config.vm.provision :shell, path: "scripts/install.sh"
     config.vm.provision :shell, run: "always", :path => "scripts/update.sh", privileged: false
+    config.vm.provision :shell, run: "always", :path => "scripts/startup.sh"
 end

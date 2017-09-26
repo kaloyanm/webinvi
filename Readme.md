@@ -5,8 +5,10 @@ Contents
     * [Starting the server](#starting-the-server)
 * [Miscellaneous](#miscellaneous)
     * [Coding Conventions](#coding-conventions)
+* [Development](#daytoday)
     * [Dummy data](#dummy-data)
     * [Translations](#translations)
+    * [Emails](#emails)
 * [Tests](#tests)
     * [Coverage](#coverage)
     * [Profiling](#profiling)
@@ -54,6 +56,11 @@ We organize our imports with [isort](https://github.com/timothycrosley/isort).
 ### Javascript
 We use [eslint](http://eslint.org/) for style checks.
 
+
+
+Development
+===========
+
 Dummy data
 ----------
 The platform can generate dummy data for local testing. To seed the db with
@@ -75,6 +82,11 @@ Once the string literals of an application have been tagged for later translatio
     `django-admin compilemessages`
     
 That’s it. Your translations are ready for use.
+
+Emails
+-----
+The project uses **mailhog** to capture all outbound emails. Just open `http://182.16.0.5:8025/` to see them.
+
     
 Tests
 =====

@@ -102,6 +102,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DATABASE_NAME', 'fakturi'),
+        'USER': os.environ.get('DATABASE_USER', 'vagrant'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'vagrant'),
         'TEST': {
             'NAME': 'test_fakturi',
         }
@@ -144,6 +146,10 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 LOGIN_URL = '/login/'
+
+# Email
+EMAIL_HOST = env_var('EMAIL_HOST', 'localhost')
+EMAIL_PORT = env_var('EMAIL_PORT', 25)
 
 
 # Static files (CSS, JavaScript, Images)

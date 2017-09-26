@@ -74,3 +74,8 @@ EOF
 curl -sL https://deb.nodesource.com/setup_8.x | bash -
 apt-get install nodejs
 npm install -g yarn webpack
+
+# Mailhog
+echo "Installing MailHog"
+wget --progress=bar:force -O /usr/bin/mailhog https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64
+chmod +x /usr/bin/mailhog
