@@ -148,8 +148,8 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 
 # Email
-EMAIL_HOST = env_var('EMAIL_HOST', 'localhost')
-EMAIL_PORT = env_var('EMAIL_PORT', 25)
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
 
 
 # Static files (CSS, JavaScript, Images)
