@@ -4,6 +4,7 @@ import json
 import uuid
 import urllib.request
 import logging
+import urllib
 
 from django.conf import settings
 from django.core.cache import cache
@@ -17,6 +18,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse, Http404
 
 from core.forms import CompanyForm
+from core.models import Company
 from invoices.forms import InvoiceForm, InvoiceItemFormSet, SearchForm
 from invoices.models import Invoice, InvoiceItem, get_next_number
 
@@ -81,7 +83,6 @@ def _invoice(request, pk=None, invoice_type="invoice",
         form_items = InvoiceItemFormSet(request.POST)
 
         if process_invoice(request, form, form_items):
-            logger.info("items:", django_json_dumps(form_items.cleaned_data))
             return redirect(reverse(invoice_type, args=[pk]))
 
         context["form"] = form
@@ -119,16 +120,39 @@ def delete_invoice(request, pk):
                   context=context)
 
 
-@login_required
-def list_invoices(request):
-    queryset = Invoice.objects.filter(company=request.company)
+def search_invoices(company, search_terms):
+    from django.contrib.postgres.search import SearchQuery, SearchVector
+    queryset = Invoice.objects.filter(company=company)
 
-    search_q = request.GET.get("query", "")
-    if search_q:
-        form = SearchForm({"terms": search_q})
-        if form.is_valid():
-            terms = form.cleaned_data.get("terms")
-            queryset = queryset.filter(client_name__icontains=terms)
+    def terms2query(search_terms):
+        terms = search_terms.split(" ")
+        out = SearchQuery(terms.pop())
+        for term in terms:
+            out = out | SearchQuery(term)
+        return out
+
+    if search_terms:
+        search_vector_fields = ['client_name', 'client_city',
+                                'client_mol', 'client_address']
+        queryset = queryset.annotate(search=SearchVector(*search_vector_fields))\
+            .filter(search=terms2query(search_terms))
+    return queryset
+
+
+@login_required
+def list_invoices(request, company_pk=None):
+    company_pk = company_pk if company_pk else request.session.get('company_pk')
+    if company_pk:
+        try:
+            company = Company.objects.get(pk=company_pk)
+            request.session['company_pk'] = company_pk
+        except Company.DoesNotExist:
+            raise Http404
+    else:
+        company = request.company
+
+    search_terms = request.GET.get("query", "")
+    queryset = search_invoices(company, search_terms)
 
     pager = Paginator(queryset, 15)
     page = pager.page(request.GET.get("page", 1))
@@ -137,7 +161,9 @@ def list_invoices(request):
         "objects": page.object_list,
         "pager": pager,
         "page": page,
-        "query": search_q,
+        "query": search_terms,
+        "company": company,
+        "companies": request.user.company_set.all().values_list('id', 'name', 'eik'),
     }
 
     return render(request, template_name='invoices/invoice_list.html',

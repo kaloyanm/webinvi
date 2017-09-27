@@ -19,9 +19,10 @@
   <div class="ui grid basic segment">
     <div class="equal width row">
       <div class="column">
-        <select class="ui search dropdown fluid">
-          <option value="1">Фирма 1</option>
-          <option value="2">Фирма 2</option>
+        <select class="ui search dropdown fluid" onchange="window.location.href=this.options[this.selectedIndex].value;">
+            {% for company_pk, company_name, eik in companies %}
+            <option value="{% url 'list' company_pk %}" {% if company.pk == company_pk %}selected{% endif %}>{{ company_name }} - {{ eik }}</option>
+            {% endfor %}
         </select>
       </div>
       <div class="column">

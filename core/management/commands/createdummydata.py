@@ -13,26 +13,34 @@ class Command(BaseCommand):
     help = 'Generate application dummy data'
 
     def handle(self, *args, **options):
-        num_companies = 10
-        num_invoices = 50
-        output_message = "{} companies created each with {} invoices".format(num_companies, num_invoices)
+        comp_per_user = 10
+        inv_per_company = 50
+        num_users = 10
+        output_message = "{} users created each with {} companies each with {} invoices"\
+            .format(num_users, comp_per_user, inv_per_company)
 
         User = get_user_model()
         User.objects.all().delete()
         Company.objects.all().delete()
 
-        while num_companies > 0:
-            company = CompanyFactory(default=True)
-            company.user.set_password("test1234")
-            company.user.save()
+        while num_users > 0:
+            user = UserFactory.create()
+            user.set_password("test1234")
+            user.save()
 
-            counter = num_invoices
+            counter = comp_per_user
             while counter > 0:
-                invoice = InvoiceFactory.create(company=company)
-                for _ in range(random.randint(1, 10)):
-                    InvoiceItemFactory.create(invoice=invoice)
+                company = CompanyFactory(user=user)
+                company.save()
                 counter -= 1
 
-            num_companies -= 1
+                counter2 = inv_per_company
+                while counter2 > 0:
+                    invoice = InvoiceFactory.create(company=company)
+                    for _ in range(random.randint(1, 10)):
+                        InvoiceItemFactory.create(invoice=invoice)
+                    counter2 -= 1
+
+            num_users -= 1
 
         self.stdout.write(output_message)
