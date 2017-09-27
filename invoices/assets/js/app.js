@@ -32,6 +32,7 @@ var app = new Vue({
     }
 
     this.calc_total(true);
+    this.total_forms = this.rows.length;
   },
   methods: {
     add: function () {

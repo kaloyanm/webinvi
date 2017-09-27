@@ -12,22 +12,27 @@ from invoices.test.factories import InvoiceFactory, InvoiceItemFactory
 class Command(BaseCommand):
     help = 'Generate application dummy data'
 
-    num_companies = 10
-    num_invoices = 50
-
     def handle(self, *args, **options):
+        num_companies = 10
+        num_invoices = 50
+        output_message = "{} companies created each with {} invoices".format(num_companies, num_invoices)
+
         User = get_user_model()
         User.objects.all().delete()
         Company.objects.all().delete()
 
-        for _ in range(self.num_companies):
-            company = CompanyFactory(language_code=settings.LANGUAGE_CODE)
+        while num_companies > 0:
+            company = CompanyFactory(default=True)
             company.user.set_password("test1234")
             company.user.save()
-            for _ in range(self.num_companies):
+
+            counter = num_invoices
+            while counter > 0:
                 invoice = InvoiceFactory.create(company=company)
                 for _ in range(random.randint(1, 10)):
                     InvoiceItemFactory.create(invoice=invoice)
+                counter -= 1
 
-        self.stdout.write("{} companies created each with {} invoices" \
-                          .format(self.num_companies, self.num_invoices))
+            num_companies -= 1
+
+        self.stdout.write(output_message)

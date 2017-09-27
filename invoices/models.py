@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.db.models import Max
+
 from core.models import Company
 
 
@@ -22,29 +23,34 @@ def get_next_number(company, invoice_type):
 class Invoice(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
-    client_name = models.CharField(max_length=255, db_index=True)
-    client_eik = models.CharField(max_length=255, db_index=True)
-    client_dds = models.CharField(max_length=255, blank=True)
-    client_city = models.CharField(max_length=255)
-    client_address = models.CharField(max_length=255, db_index=True)
-    client_mol = models.CharField(max_length=255)
-
-    invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')
-    number = models.PositiveIntegerField(blank=True, null=True, db_index=True)
-    released_at = models.DateField(blank=True, null=True)
-    taxevent_at = models.DateField(blank=True, null=True)
-
-    payment_type = models.CharField(max_length=255, blank=True)
-    payment_iban = models.CharField(max_length=255, blank=True)
-    payment_swift = models.CharField(max_length=255, blank=True)
-    payment_bank = models.CharField(max_length=255, blank=True)
-
-    dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True, null=True)
+    client_name = models.CharField(max_length=255, db_index=True, default='')
+    client_city = models.CharField(max_length=255, default='')
+    client_address = models.CharField(max_length=255, default='', db_index=True)
+    client_mol = models.CharField(max_length=255, default='')
 
     created_by = models.CharField(max_length=255, blank=True)
     accepted_by = models.CharField(max_length=255, blank=True)
 
-    note = models.TextField()
+    payment_type = models.CharField(max_length=255, blank=True)
+    payment_bank = models.CharField(max_length=255, blank=True)
+
+    client_eik = models.CharField(max_length=255, db_index=True)
+    client_dds = models.CharField(max_length=255, blank=True)
+
+    invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')
+    number = models.PositiveIntegerField(blank=True, null=True, db_index=True)
+
+    released_at = models.DateField(blank=True, null=True)
+    taxevent_at = models.DateField(blank=True, null=True)
+
+    payment_iban = models.CharField(max_length=255, blank=True)
+    payment_swift = models.CharField(max_length=255, blank=True)
+
+    dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True, null=True)
+
+
+
+    note = models.TextField(blank=True, default='')
     no_dds_reason = models.CharField(max_length=255, blank=True)
 
     class Meta:
@@ -80,10 +86,11 @@ class Invoice(models.Model):
 class InvoiceItem(models.Model):
 
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
-    name = models.CharField(max_length=155)
+
+    name = models.CharField(max_length=155, default='')
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.00)
     quantity = models.FloatField(blank=True, default=1)
     measure = models.CharField(max_length=55, blank=True)
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
     discount = models.FloatField(blank=True, null=True)
 
     def __str__(self):

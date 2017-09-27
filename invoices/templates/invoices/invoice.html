@@ -64,6 +64,12 @@
           <div class="column column__title">
             <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
               <small>оригинал</small>
+                {% for field in form %}
+                    <div class="fieldWrapper">
+                        {{ field.errors }}
+                        <p class="help">{{ field.help_text|safe }}</p>
+                    </div>
+                {% endfor %}
             </h1>
           </div><div class="column column__info">
             {{ form.number|as_crispy_field }}

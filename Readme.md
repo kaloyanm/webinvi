@@ -64,7 +64,12 @@ Development
 Dummy data
 ----------
 The platform can generate dummy data for local testing. To seed the db with
-dummy data, run `./manage.py createdummydata`. This will produce 10 companies each one associated with 50 invoices.
+dummy data, run `./manage.py createdummydata`. This will produce 10 companies each one associated with 50 invoices. Each company is associated with one account. All users accounts have the following form:
+
+    username: user[n]@demo.com
+    password: test1234
+
+Where *n* any number from 1 to 10. 
 
 Translations
 ------------
@@ -75,7 +80,7 @@ Once the string literals of an application have been tagged for later translatio
 
     `django-admin makemessages -l en`
     
-2. We use django-rosetta to edit the translations. In order to see them go to ``http://yourdomain.com/rosetta/``. Don't forget to log in into the admin beforehand.
+2. We use *django-rosetta* to edit the translations. In order to see them go to ``http://yourdomain.com/rosetta/``. Don't forget to log in into the admin beforehand.
     
 3. After you create and edit your message file – and each time you make changes to it – you’ll need to compile it into a more efficient form, for use by gettext. Do this with the django-admin compilemessages utility.
     

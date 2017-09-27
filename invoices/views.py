@@ -3,6 +3,7 @@
 import json
 import uuid
 import urllib.request
+import logging
 
 from django.conf import settings
 from django.core.cache import cache
@@ -10,7 +11,6 @@ from django.db import transaction
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.forms.models import model_to_dict
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core.paginator import Paginator
@@ -22,6 +22,9 @@ from invoices.models import Invoice, InvoiceItem, get_next_number
 
 from prices import Price
 from django_prices_openexchangerates import exchange_currency
+
+logger = logging.getLogger(__name__)
+
 
 def django_json_dumps(items):
     return json.dumps(items, cls=DjangoJSONEncoder)
@@ -69,7 +72,7 @@ def _invoice(request, pk=None, invoice_type="invoice",
         "instance": instance,
         "formset": json.dumps([]),
         "invoice_type": invoice_type,
-        "company_form": CompanyForm(model_to_dict(company)),
+        "company_form": CompanyForm(instance=company),
         "pk": pk,
     }
 
@@ -78,13 +81,14 @@ def _invoice(request, pk=None, invoice_type="invoice",
         form_items = InvoiceItemFormSet(request.POST)
 
         if process_invoice(request, form, form_items):
+            logger.info("items:", django_json_dumps(form_items.cleaned_data))
             return redirect(reverse(invoice_type, args=[pk]))
 
         context["form"] = form
     else:
         if instance:
-            context["company_form"] = CompanyForm(initial=model_to_dict(instance.company))
-            context["form"] = InvoiceForm(initial=model_to_dict(instance))
+            context["company_form"] = CompanyForm(instance=instance.company)
+            context["form"] = InvoiceForm(instance=instance)
 
     if instance:
         context["formset"] = django_json_dumps(list(instance.invoiceitem_set.values()))

@@ -7,7 +7,6 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     PasswordChangeForm,
 )
-from hvad.forms import TranslatableModelForm
 from core.mixins import SubmitButtonMixin, TranslateLabelsFormMixin
 from core.models import Company
 
@@ -32,18 +31,7 @@ class LoginForm(SubmitButtonMixin, AuthenticationForm):
     submit_button_label = _('Влез')
 
 
-# class CompanyForm(SubmitButtonMixin, forms.Form):
-#     submit_button_label = _('Запази')
-#
-#     name = forms.CharField(label=_('Има на компанията'))
-#     eik = forms.CharField(label=_('БУЛСТАТ'))
-#     dds = forms.CharField(label=_('Ин по ДДС'), required=False)
-#     city = forms.CharField(label=_('Град'))
-#     address = forms.CharField(label=_('Адрес'))
-#     mol = forms.CharField(label=_('МОЛ'))
-#     default = forms.BooleanField(required=False, label=_('Маркирай като основна'))
-
-class CompanyForm(SubmitButtonMixin, TranslateLabelsFormMixin, TranslatableModelForm):
+class CompanyForm(SubmitButtonMixin, TranslateLabelsFormMixin, forms.ModelForm):
     translate_labels = {
         "name": _('Има на компанията'),
         "eik": _('БУЛСТАТ'),
