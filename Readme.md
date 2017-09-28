@@ -92,7 +92,16 @@ Emails
 -----
 The project uses **mailhog** to capture all outbound emails. Just open `http://182.16.0.5:8025/` to see them.
 
-    
+
+Google Drive integration for development
+----------------------------------------
+
+1. Make sure you have the following line in /etc/hosts
+
+    182.16.0.5 webinvoices-local.dev
+
+2. Make sure you have webinvoices-local.dev present in the allowed URLS when creating client_secrets.json in google console.
+
 Tests
 =====
 Use this command to run the tests:
