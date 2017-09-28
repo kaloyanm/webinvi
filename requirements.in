@@ -29,6 +29,7 @@ google-api-python-client
 jsonpickle
 PyDrive
 transliterate
+raven
 
 # Testing facilities
 pytest

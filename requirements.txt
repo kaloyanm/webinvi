@@ -4,13 +4,16 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
+amqp==2.2.2               # via kombu
 attrs==16.3.0             # via automat, service-identity
 automat==0.5.0            # via twisted
 babel==2.5.1              # via babeldjango, django-prices
 babeldjango==0.2.2        # via django-prices
 beautifulsoup4==4.5.3
+billiard==3.5.0.3         # via celery
 blessings==1.6            # via curtsies
 bpython==0.16
+celery[redis]==4.1.0
 cffi==1.9.1               # via cryptography
 constantly==15.1.0        # via twisted
 coverage==4.4.1           # via pytest-cov
@@ -36,14 +39,19 @@ django==1.11.5
 et-xmlfile==1.0.1         # via openpyxl
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
+google-api-python-client==1.6.4
 greenlet==0.4.12          # via bpython
 hiredis==0.2.0
 honcho==1.0.1
+httplib2==0.10.3          # via google-api-python-client, oauth2client
 idna==2.4                 # via cryptography
 incremental==16.10.1      # via twisted
 jdcal==1.3                # via openpyxl
+jsonpickle==0.9.5
+kombu==4.1.0              # via celery
 lxml==3.7.3               # via parsel, scrapy
 microsofttranslator==0.8  # via django-rosetta
+oauth2client==4.1.2       # via google-api-python-client, pydrive
 odfpy==1.3.5              # via tablib
 openpyxl==2.4.8           # via tablib
 parsel==1.1.0             # via scrapy
@@ -51,10 +59,11 @@ polib==1.0.8              # via django-rosetta
 prices==0.5.9             # via django-prices, django-prices-openexchangerates
 psycopg2==2.7.2
 py==1.4.31
-pyasn1-modules==0.0.8     # via service-identity
-pyasn1==0.2.3             # via cryptography, pyasn1-modules, service-identity
+pyasn1-modules==0.0.8     # via oauth2client, service-identity
+pyasn1==0.2.3             # via cryptography, oauth2client, pyasn1-modules, rsa, service-identity
 pycparser==2.17           # via cffi
 pydispatcher==2.0.5       # via scrapy
+pydrive==1.3.1
 pygments==2.2.0           # via bpython
 pyopenssl==16.2.0         # via scrapy, service-identity
 pytest-cov==2.5.1
@@ -62,21 +71,26 @@ pytest-django==3.1.2
 pytest-mock==1.6.2
 pytest==3.0.2
 python-dateutil==2.6.1    # via faker
-pytz==2017.2              # via babel, django
-pyyaml==3.12              # via tablib
+pytz==2017.2              # via babel, celery, django
+pyyaml==3.12              # via pydrive, tablib
 queuelib==1.4.2           # via scrapy
+raven==6.2.1
 rcssmin==1.0.6            # via django-compressor
 redis==2.10.6
 requests==2.13.0
 rjsmin==1.0.12            # via django-compressor
+rsa==3.4.2                # via oauth2client
 scrapy==1.3.2
 service-identity==16.0.0  # via scrapy
 six==1.10.0
 sqlparse==0.2.0
 tablib==0.11.5            # via django-import-export
+transliterate==1.10
 twisted==17.1.0           # via scrapy
 unicodecsv==0.14.1        # via tablib
+uritemplate==3.0.0        # via google-api-python-client
 uwsgi==2.0.13.1
+vine==1.1.4               # via amqp
 w3lib==1.17.0             # via parsel, scrapy
 wcwidth==0.1.7            # via curtsies
 xlrd==1.0.0               # via tablib
