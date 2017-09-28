@@ -36,3 +36,4 @@ package-lock.json
 /core/static/core/js
 /core/static/core/css
 /invoices/static/invoices/js
+celerybeat-schedule.db
