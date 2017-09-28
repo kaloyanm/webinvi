@@ -4,7 +4,8 @@ from core.views import (
     contact, home, LoginView, RegistrationView,
     logout_view, change_password, company,
     companies, drop_company, export_companies,
-    import_companies, import_invoicepro, thanks)
+    import_companies, import_invoicepro, thanks,
+    google_oath_login, google_auth_return)
 
 urlpatterns = [
     url(r'^contact/', contact, name='contact'),
@@ -21,6 +22,10 @@ urlpatterns = [
     url(r'^import/companies/', import_companies, name='import_companies'),
     url(r'^import/invoicepro/', import_invoicepro, name='import_invoicepro'),
 
+    # Gogle OAuth2 urls
+    url(r'^google_login$', google_oath_login, name='google_login'),
+    url(r'^google_logout$', google_oath_login, name='google_logout'),
+    url(r'^oauth2callback', google_auth_return),
     # Main entry point
     url(r'^$', home, name='home'),
 ]
