@@ -74,6 +74,7 @@ python-dateutil==2.6.1    # via faker
 pytz==2017.2              # via babel, celery, django
 pyyaml==3.12              # via pydrive, tablib
 queuelib==1.4.2           # via scrapy
+raven==6.2.1
 rcssmin==1.0.6            # via django-compressor
 redis==2.10.6
 requests==2.13.0
