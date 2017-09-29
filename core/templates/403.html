@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}page--error{% endblock %}
+
+{% block content %}
+<div class="ui middle aligned center aligned grid">
+  <div class="column _mtxl">
+    <img src="{% static 'core/images/error.jpg' %}" alt="Грешка 403">
+    <h1 class="ui teal header _mt0">403 Отказан достъп!</h1>
+  </div>
+</div>
+{% endblock %}
