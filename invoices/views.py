@@ -79,8 +79,8 @@ def _invoice(request, pk=None, invoice_type="invoice",
 
     default_data = {
         "number": get_next_number(request.company, invoice_type),
-        "released_at": str(timezone.now()),
-        "taxevent_at": str(timezone.now()),
+        "released_at": str(timezone.now().strftime("%Y-%m-%d")),
+        "taxevent_at": str(timezone.now().strftime("%Y-%m-%d")),
     }
 
     context = {
@@ -129,13 +129,9 @@ def invoice(*args, **kwargs):
 
 @login_required
 def delete_invoice(request, pk):
-    context = {"object": get_object_or_404(Invoice, pk=pk)}
-
-    if request.method == "POST":
-        return redirect("list")
-
-    return render(request, template_name="invoices/confirm_delete.html",
-                  context=context)
+    invoice = get_object_or_404(Invoice, pk=pk)
+    invoice.delete()
+    return redirect("list")
 
 
 def search_invoices(company, search_terms):
@@ -198,7 +194,7 @@ def print_preview(request, token):
         raise Http404
 
     return _invoice(request, pk=invoice_pk, base_template="print.html",
-                   print=True)
+                    print=True)
 
 
 @login_required

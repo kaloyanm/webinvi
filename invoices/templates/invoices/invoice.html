@@ -16,19 +16,18 @@
           <h2>Настройки</h2>
         </div>
         <div class="ui attached segment">
-          <select class="ui search dropdown fluid _mbxs">
+          <select class="ui search dropdown fluid _mbxs" {% if not pk %}disabled{% endif %}>
             <option value="1">Български</option>
             <option value="2">English</option>
           </select>
 
-          <select class="ui search dropdown fluid _mbxs" v-model="selected_currency"  @change="currency_selected(selected_currency)">
+          <select class="ui search dropdown fluid _mbxs" v-model="selected_currency"  @change="currency_selected(selected_currency)" {% if not pk %}disabled{% endif %}>
             <option v-for="currency in currencies" :name="currency" :value="currency" >{% verbatim %}{{ currency }}{% endverbatim %}</option>
           </select>
 
           <div class="ui input fluid">
-            <input :name="current_rate" v-model="current_rate" type="text" @change="rate_changed()">
+            <input :name="current_rate" v-model="current_rate" type="text" @change="rate_changed()" {% if not pk %}disabled{% endif %}>
           </div>
-
         </div>
         <div class="ui bottom items attached _oh">
           {% if pk %}
@@ -137,9 +136,9 @@
 
 {% if not print %}
 <div id="delete-invoice-modal" class="ui tiny modal">
-  <div class="header">Изтриване на фактура</div>
+  <div class="header">Изтриване на {{ form.instance.get_invoice_type_display }}</div>
   <div class="content">
-    <p>Сигурни ли сте че искате да изтриете фактура 000</p>
+      <p>Сигурни ли сте че искате да изтриете {{ form.instance.get_invoice_type_display }} с номер <b>{{ form.instance.number }}</b></p>
   </div>
   <div class="actions">
     <div class="ui negative button">Не</div>

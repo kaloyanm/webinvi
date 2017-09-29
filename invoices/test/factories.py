@@ -1,4 +1,5 @@
-import random
+# -*- coding: utf-8 -*-
+
 import factory
 import datetime
 
@@ -17,7 +18,7 @@ class InvoiceFactory(factory.DjangoModelFactory):
     client_address = factory.Faker('address', locale='bg_BG')
     client_mol = factory.Faker('name', locale='bg_BG')
 
-    invoice_type = random.choice(['invoice', 'proforma'])
+    invoice_type = fuzzy.FuzzyChoice(['invoice', 'proforma'])
     released_at = factory.Faker('date_time_between_dates',
         datetime_start = datetime.datetime(2014, 1, 1),
         datetime_end = datetime.datetime(2017, 1, 1, 20)

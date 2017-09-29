@@ -43,8 +43,8 @@
         <tr>
           <th>Клиент</th>
           <th>Тип</th>
-          <th>Издадена на</th>
-          <th>Номер</th>
+           <th>Номер</th>
+           <th>Издадена на</th>
           <th>Сума</th>
         </tr>
       </thead>
@@ -53,8 +53,8 @@
         <tr>
           <td scope="row">{{ inv.client_name }}</td>
           <td>{% if inv.invoice_type == 'invoice' %}Фактура{% else %}Проформа{% endif %}</td>
-          <td><a href="{% url 'invoice' inv.pk %}">{{ inv.released_at }}</a></td>
-          <td>{{ inv.number|nopad }}</td>
+          <td><a href="{% url 'invoice' inv.pk %}">{{ inv.number|nopad }}</a></td>
+          <td>{{ inv.released_at }}</td>
           <td>{{ inv.total }}</td>
         </tr>
       {% endfor %}

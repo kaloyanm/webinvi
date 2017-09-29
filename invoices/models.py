@@ -2,13 +2,14 @@
 
 from django.db import models
 from django.db.models import Max
+from django.utils.translation import ugettext_lazy as _
 
 from core.models import Company
 
 
 INVOICE_TYPES = (
-    ('invoice', 'Invoice'),
-    ('proforma', 'Proforma'),
+    ('invoice', _('Invoice')),
+    ('proforma', _('Proforma')),
 )
 
 
