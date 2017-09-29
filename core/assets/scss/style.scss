@@ -326,3 +326,13 @@ main {
     font-size: 5em;
   }
 }
+
+.page--error {
+  main {
+    background: #eee;
+
+    h1 {
+      font-size: 40px;
+    }
+  }
+}

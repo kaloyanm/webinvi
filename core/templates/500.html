@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}page--error{% endblock %}
+
+{% block content %}
+  <div class="ui middle aligned center aligned grid">
+    <div class="column _mtxl">
+      <img src="{% static 'core/images/error.jpg' %}" alt="Грешка 500">
+      <h1 class="ui teal header _mt0">Опа! Грешка 500</h1>
+      <p class="ui header">Нещо се прецака...</p>
+      <p>Ние следим тези грешки автоматично, но ако проблема не е оправен скоро можеш <a href="{% url 'contact' %}">ни пишеш</a>.</p>
+      <p>Междувременно опитай да презаредиш страницата.</p>
+    </div>
+  </div>
+{% endblock %}
