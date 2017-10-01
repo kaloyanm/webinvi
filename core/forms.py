@@ -47,11 +47,6 @@ class CompanyForm(SubmitButtonMixin, TranslateLabelsFormMixin, forms.ModelForm):
         exclude = ("user", )
 
 
-class CompaniesImportForm(SubmitButtonMixin, forms.Form):
-    file = forms.FileField()
-    wipe_existing = forms.BooleanField(required=False)
-
-
 class InvoiceproImportForm(SubmitButtonMixin, forms.Form):
     file = forms.FileField()
     wipe_existing = forms.BooleanField(required=False)

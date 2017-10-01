@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ImproperlyConfigured
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
+from crispy_forms.layout import Submit, Button
 
 
 class SubmitButtonMixin:
@@ -13,8 +13,10 @@ class SubmitButtonMixin:
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'ui form'
-        self.helper.add_input(Submit('submit', self.submit_button_label,
-                                     css_class='ui button primary'))
+
+        if hasattr(self, 'instance') and self.instance.pk:
+            self.helper.add_input(Button('delete', _('Delete'), css_class='ui button red', css_id='delete-button'))
+        self.helper.add_input(Submit('submit', self.submit_button_label, css_class='ui button primary'))
 
 
 class InlineFieldsMixin:

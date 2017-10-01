@@ -7,6 +7,27 @@
 </div>
 
 <div class="ui basic segment" style="max-width: 500px">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
   {% crispy form %}
+</div>
+
+<div id="delete-modal-window" class="ui tiny modal">
+  <div class="header">Внимание!</div>
+  <div class="content">
+      <p>Сигурни ли сте че искате да изтриете {{ form.instance }} ?</p>
+  </div>
+  <div class="actions">
+    <div class="ui negative button">Не</div>
+    <a href="{% block delete_button_href%}#{% endblock %}" class="ui positive button">Да</a>
+  </div>
 </div>
 {% endblock %}

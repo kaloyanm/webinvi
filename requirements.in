@@ -1,3 +1,13 @@
+# Generic python stuff
+py
+six
+sqlparse
+bpython
+jsonpickle
+transliterate
+honcho
+
+# Django and django plugins
 Django==1.11.5
 django-bower
 django-crispy-forms
@@ -7,29 +17,20 @@ django-hvad
 django-cache-url
 django-redis
 dj-redis-url
-py
-six
-sqlparse
-uWSGI
-django_compressor
-Scrapy
-requests
-beautifulsoup4
 django-rosetta
 django-import-export
-psycopg2
-honcho
 django-crispy-forms
 django-prices-openexchangerates
+whitenoise
+
+# Libs for connection third party software
+google-api-python-client
+raven
+PyDrive
+celery[redis]
 hiredis
 redis
-bpython
-celery[redis]
-google-api-python-client
-jsonpickle
-PyDrive
-transliterate
-raven
+psycopg2
 
 # Testing facilities
 pytest
@@ -37,3 +38,9 @@ pytest-cov
 pytest-django
 pytest-mock
 factory-boy
+
+# Network
+uWSGI
+Scrapy
+requests
+beautifulsoup4

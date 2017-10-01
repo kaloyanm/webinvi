@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% load static compress inv_utils %}
+{% load static inv_utils %}
 {% load crispy_forms_tags crispy_forms_filters %}
 {% block body_class %}body--invoice{% endblock %}
 
@@ -35,7 +35,7 @@
           {% endif %}
 
           {% if pk %}
-            <div id="delete-invoice" class="ui small right floated button red icon" role="button">
+            <div id="delete-button" class="ui small right floated button red icon" role="button">
               <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
             </div>
           {% endif %}
@@ -135,7 +135,7 @@
   </div>
 
 {% if not print %}
-<div id="delete-invoice-modal" class="ui tiny modal">
+<div id="delete-modal-window" class="ui tiny modal">
   <div class="header">Изтриване на {{ form.instance.get_invoice_type_display }}</div>
   <div class="content">
       <p>Сигурни ли сте че искате да изтриете {{ form.instance.get_invoice_type_display }} с номер <b>{{ form.instance.number }}</b></p>

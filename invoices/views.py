@@ -18,7 +18,7 @@ from django.http import HttpResponse, Http404
 
 from core.forms import CompanyForm
 from core.models import Company
-from invoices.forms import InvoiceForm, InvoiceItemFormSet, SearchForm
+from invoices.forms import InvoiceForm, InvoiceItemFormSet
 from invoices.models import Invoice, InvoiceItem, get_next_number
 
 from prices import Price

@@ -28,6 +28,10 @@ class Company(models.Model):
     def get_absolute_url(self):
         return reverse('core.views.company', args=[self.pk])
 
+    @property
+    def has_invoices(self):
+        return self.invoice_set.count() > 0
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.default:

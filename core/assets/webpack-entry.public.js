@@ -15,7 +15,7 @@ import 'semantic-ui-sass/js/checkbox';
 import 'semantic-ui-sass/js/dimmer';
 import 'semantic-ui-sass/js/dropdown';
 //import 'semantic-ui-sass/js/embed';
-//import 'semantic-ui-sass/js/modal';
+import 'semantic-ui-sass/js/modal';
 //import 'semantic-ui-sass/js/nag';
 //import 'semantic-ui-sass/js/popup';
 //import 'semantic-ui-sass/js/progress';
@@ -91,4 +91,9 @@ $('.dropdown').dropdown({
 $('#sticky-settings').sticky({
   offset: 105,
   context: '#invoice-container'
+});
+
+// generic delete modal
+$('#delete-button').on('click', function() {
+  $('#delete-modal-window').modal({duration: 150}).modal('show');
 });

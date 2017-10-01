@@ -1,8 +1,12 @@
+
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.urlresolvers import reverse
 from django.views import generic
 from django.db.models import Q
 from django.conf import settings
@@ -17,9 +21,8 @@ from core.forms import (
     ChangePassForm,
     RegistratiоnForm,
     CompanyForm,
-    CompaniesImportForm,
     InvoiceproImportForm,
-    ContactForm
+    ContactForm,
 )
 
 from core.admin import CompanyResource
@@ -129,14 +132,17 @@ def company(request, pk=None):
             raise Http404
     else:
         instance = None
-    form = CompanyForm(instance=instance)
+
 
     if request.method == "POST":
-        form = CompanyForm(request.POST)
+        form = CompanyForm(request.POST, instance=instance)
         if form.is_valid():
             form.instance.user = request.user
             form.save()
             return redirect("companies")
+    else:
+        form = CompanyForm(instance=instance)
+
 
     return render(request, template_name="core/_company.html",
                   context={"form": form, "pk": pk})
@@ -145,6 +151,10 @@ def company(request, pk=None):
 @login_required
 def drop_company(request, pk):
     company = get_object_or_404(Company, pk=pk)
+    if company.has_invoices:
+        messages.warning(request, _("Please remove your invoices first!"))
+        return redirect(reverse('company', args=[pk]))
+
     company.delete()
     return redirect("companies")
 
@@ -161,70 +171,6 @@ def export_companies(request):
 
 class ImportException(Exception):
     pass
-
-
-def get_import_errors(result):
-    all_errors = []
-    output = []
-    for (index, errors) in result.row_errors():
-        [all_errors.append(suberror) for suberror in errors]
-
-    for err in all_errors:
-        output.append({
-            "error": err.error,
-            "traceback": err.traceback,
-            "row": err.row
-        })
-    return output
-
-
-def import_csv_upload(resource_instance, file_in_memory):
-    import tablib
-
-    file_in_memory.open() # just in case reset the file pointer
-    headers = next(file_in_memory.file).decode("utf-8").strip().split(",")
-    headers = tuple(headers)
-
-    if headers != resource_instance._meta.fields:
-        raise ImportException("Mismatch header")
-
-    content = []
-    while True:
-        try:
-            line = next(file_in_memory.file)
-        except StopIteration:
-            break
-        line = line.decode("utf-8").strip().split(",")
-        content.append(tuple(line))
-
-    dataset = tablib.Dataset()
-    dataset.headers = headers
-    dataset.extend(content)
-
-    result = resource_instance.import_data(dataset, dry_run=False)
-    if result.has_errors():
-        raise ImportException()
-
-    return True
-
-
-@login_required
-def import_companies(request):
-    form = CompaniesImportForm()
-
-    if request.method == "POST":
-        form = CompaniesImportForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            company_resource = CompanyResource(user=request.user)
-            try:
-                import_csv_upload(company_resource, request.FILES["file"])
-                return redirect(reverse_lazy("companies"))
-            except ImportException as e:
-                raise Http404
-
-    return render(request, template_name="core/_import_companies.html",
-                  context={"form": form})
 
 
 @login_required
@@ -257,11 +203,6 @@ def import_invoicepro(request):
 
     return render(request, template_name="core/_import_invoicepro.html",
                   context={"form": form})
-
-
-def test_semantic(request):
-    context = {'form': ExampleSemanticForm}
-    return render(request, 'test/_semantic.html', context)
 
 
 def get_google_oauth_flow():

@@ -5,8 +5,7 @@ from django.conf import settings
 from core.views import (
     contact, home, LoginView, RegistrationView,
     logout_view, change_password, company,
-    companies, drop_company, export_companies,
-    import_companies, import_invoicepro, thanks,
+    companies, drop_company, import_invoicepro, thanks,
     google_oath_login, google_auth_return)
 
 urlpatterns = [
@@ -20,8 +19,6 @@ urlpatterns = [
     url(r'^company/drop/(?P<pk>[0-9]+)/', drop_company, name='drop_company'),
     url(r'^company/(?P<pk>[0-9]+)/', company, name='company'),
     url(r'^company/', company, name='company'),
-    url(r'^export/companies/', export_companies, name='export_companies'),
-    url(r'^import/companies/', import_companies, name='import_companies'),
     url(r'^import/invoicepro/', import_invoicepro, name='import_invoicepro'),
 
     # Gogle OAuth2 urls

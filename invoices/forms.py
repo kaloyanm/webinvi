@@ -49,7 +49,3 @@ class InvoiceForm(TranslateLabelsFormMixin, forms.ModelForm):
     class Meta:
         model = Invoice
         exclude = ('company', )
-
-
-class SearchForm(forms.Form):
-    terms = forms.CharField(min_length=4)

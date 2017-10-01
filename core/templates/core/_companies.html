@@ -7,9 +7,8 @@
       </div>
       <div class="column right aligned">
         <a href="{% url 'google_login' %}" class="ui button primary tiny" role="button">Google Drive Sync ({% if request.user.settings.gdrive_sync %}Включен{% else %}Изключен{% endif %})</a>
-        <a href="{% url 'import_companies' %}" class="ui button primary tiny" role="button">Импорт</a>
-        <a href="{% url 'export_companies' %}" class="ui button primary tiny" role="button">Експорт</a>
         <a href="{% url 'company' %}" class="ui button primary tiny" role="button">+ Добави нова</a>
+        <a href="{% url 'import_invoicepro' %}" class="ui button primary tiny" role="button">Импорт от InvoicePro</a>
       </div>
     </div>
   </div>

@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '21n1@2(k39!%e$yf4$j14rda--df%*7f_zn04^^w@3xke4l-^%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
 HOSTNAME = os.environ.get('HOSTNAME', socket.gethostname())
 ALLOWED_HOSTS = [
@@ -42,13 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'debug_toolbar',
     'crispy_forms',
     'django_prices_openexchangerates',
     'rosetta',
-    'compressor',
     'django_extensions',
     'import_export',
     'core',
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -94,7 +95,6 @@ WSGI_APPLICATION = 'src.wsgi.application'
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder'
 ]
 
 
@@ -219,8 +219,6 @@ LOCALE_PATHS = [
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 # Business logic
-COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', True)
-
 BASICAUTH = os.environ.get('BASICAUTH', True)
 BASICAUTH_USERNAME = os.environ.get('BASICAUTH_USERNAME', 'demo')
 BASICAUTH_PASSWORD = os.environ.get('BASICAUTH_PASSWORD', 'demo')
@@ -250,3 +248,6 @@ RAVEN_CONFIG = {
     # release based on the git info.
     'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
 }
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
