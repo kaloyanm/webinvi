@@ -69,6 +69,7 @@ def _invoice(request, pk=None, invoice_type="invoice",
             base_template="base.html", print=None):
     if pk:
         instance = get_object_or_404(Invoice, pk=pk)
+        invoice_type = instance.invoice_type
         company = instance.company
     else:
         instance = None
