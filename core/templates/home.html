@@ -2,109 +2,61 @@
 {% load static %}
 {% block body_class %}page--home{% endblock %}
 {% block content %}
-  <div class="ui inverted vertical masthead center aligned segment">
+  <section class="ui inverted vertical masthead center aligned segment">
     <div class="ui container">
       <div class="ui inverted huge header">Писнало ти е от бумащина?</div>
       <h1 class="ui inverted huge header _mtm">По-добри e-фактури</h1>
       <p class="ui inverted header _mtxs"><span class="_plxs _prxs">Европейски стандарт</span>&middot; <span class="_plxs _prxs">Многоезичност</span> &middot; <span class="_plxs _prxs">Различни валути</span> &middot; <span class="_plxs _prxs">Интеграция с ...</span></p>
       <a href="{% url 'registration' %}" class="ui large inverted button _mtm">Тествай безплатно</a>
     </div>
-  </div>
-  <div id="section-features" class="_bg-gray-lighter _ptl _pbl">
-    <h2 class="ui center aligned header _mbm">Функционалности</h2>
-    <div class="ui three column stackable grid container">
-      <div class="column">
-        <div class="ui items unstackable segment">
-          <div class="item">
-            <div class="ui tiny image">
-              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
-            </div>
-            <div class="content">
-              <a class="ui medium header">Фукнционалнот функцион 111</a>
-              <div class="description">
-                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
-              </div>
-            </div>
-          </div>
+  </section>
+
+  <section id="section-features" class="_bg-gray-lighter _ptl _pbl">
+    <h1 class="ui center aligned header _mbm">Функционалности</h1>
+    <div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="eight wide column">
+          <h2 class="ui header">Многоезичност</h2>
+          <p>Поддръжка на  различни езици както за интерфейса така и за данните на самите фактури.</p>
+        </div>
+        <div class="six wide right floated column">
+          <img src="https://semantic-ui.com/examples/assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
         </div>
       </div>
-      <div class="column">
-        <div class="ui items unstackable segment">
-          <div class="item">
-            <div class="ui tiny image">
-              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
-            </div>
-            <div class="content">
-              <a class="ui medium header">Фукнционалнот функцион 111</a>
-              <div class="description">
-                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
-              </div>
-            </div>
-          </div>
+
+      <div class="row">
+        <div class="six wide left floated column">
+          <img src="https://semantic-ui.com/examples/assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
+        </div>
+        <div class="eight wide column">
+          <h2 class="ui header">Синхронизация с Google Drive</h2>
+          <p>Възможност за архивиране и синхронизация на обновените документи. Копия от документите могат да бъдат запазени на Google Drive към посочен от вас Google профил. Не се изискват технически познания, освен да имате профил в Google (G-mail).</p>
         </div>
       </div>
-      <div class="column">
-        <div class="ui items unstackable segment">
-          <div class="item">
-            <div class="ui tiny image">
-              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
-            </div>
-            <div class="content">
-              <a class="ui medium header">Фукнционалнот функцион 111</a>
-              <div class="description">
-                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
-              </div>
-            </div>
-          </div>
+
+      <div class="row">
+        <div class="eight wide column">
+          <h2 class="ui header">Генериране на PDF файл</h2>
+          <p>Експорт на фактурата като PDF файл позволява лесно пращане по електронна поща и безпроблемна разпечтка на принтер.</p>
+        </div>
+        <div class="six wide right floated column">
+          <img src="https://semantic-ui.com/examples/assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
         </div>
       </div>
-      <div class="column">
-        <div class="ui items unstackable segment">
-          <div class="item">
-            <div class="ui tiny image">
-              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
-            </div>
-            <div class="content">
-              <a class="ui medium header">Фукнционалнот функцион 111</a>
-              <div class="description">
-                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
-              </div>
-            </div>
-          </div>
+
+      <div class="row">
+        <div class="six wide left floated column">
+          <img src="https://semantic-ui.com/examples/assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
+        </div>
+        <div class="eight wide column">
+          <h2 class="ui header">Валутен курс</h2>
+          <p>Възможност за ръчно и автоматично задаване на валутен курс.</p>
         </div>
       </div>
-      <div class="column">
-        <div class="ui items unstackable segment">
-          <div class="item">
-            <div class="ui tiny image">
-              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
-            </div>
-            <div class="content">
-              <a class="ui medium header">Фукнционалнот функцион 111</a>
-              <div class="description">
-                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="ui items unstackable segment">
-          <div class="item">
-            <div class="ui tiny image">
-              <i class="icon _mr0"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-check"></use></svg></i>
-            </div>
-            <div class="content">
-              <a class="ui medium header">Фукнционалнот функцион 111</a>
-              <div class="description">
-                <p>Cute dogs come in a variety of shapes and sizes. Some cute dogs are cute for their adorable faces, others for their tiny stature, and even others for their massive size.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
-  </div>
+
+  </section>
   <div style="display: none" class="_ptl _pbl">
     <div class="ui vertical stripe segment center aligned">
       <h2 class="ui center aligned header _mbm">Пакети</h2>

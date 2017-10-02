@@ -21,13 +21,22 @@
             <option value="2">English</option>
           </select>
 
-          <select class="ui search dropdown fluid _mbxs" v-model="selected_currency"  @change="currency_selected(selected_currency)" {% if not pk %}disabled{% endif %}>
-            <option v-for="currency in currencies" :name="currency" :value="currency" >{% verbatim %}{{ currency }}{% endverbatim %}</option>
-          </select>
-
-          <div class="ui input fluid">
-            <input :name="current_rate" v-model="current_rate" type="text" @change="rate_changed()" {% if not pk %}disabled{% endif %}>
+          <div class="ui grid">
+            <div class="equal width row">
+              <div class="column">
+                <select class="ui search dropdown fluid _mbxs" v-model="selected_currency"  @change="currency_selected(selected_currency)" {% if not pk %}disabled{% endif %}>
+                  <option v-for="currency in currencies" :name="currency" :value="currency" >{% verbatim %}{{ currency }}{% endverbatim %}</option>
+                </select>
+              </div>
+              <div class="column">
+                <div class="ui input labeled fluid">
+                  <label for="current_rate" class="ui label">&#36;</label>
+                  <input :name="current_rate" v-model="current_rate" type="text" @change="rate_changed()" {% if not pk %}disabled{% endif %}>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
         <div class="ui bottom items attached _oh">
           {% if pk %}

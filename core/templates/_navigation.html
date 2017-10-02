@@ -17,7 +17,7 @@
     <i class="dropdown icon"></i>
     <div class="menu">
       {% for lang_code, lang_name in LANGUAGES %}
-          <div class="item" data-value="af"><a class="link" href="/{{ lang_code }}"><i class="{{ lang_code }} flag"></i> {{ lang_name }}</a></div>
+        <a class="item" href="/{{ lang_code }}"><i class="{{ lang_code }} flag"></i> {{ lang_name }}</a>
       {% endfor %}
     </div>
   </div>

@@ -124,18 +124,34 @@ main {
   box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
   margin-left: 450px!important;
 
-  label {
-    margin: 0;
-    font-size: 12px;
-    padding: 3px 5px;
-  }
-
-  .field {
-    margin-bottom: .5em;
+  .form {
+    label {
+      margin: 0;
+      font-size: 12px;
+      padding: 3px 5px;
+    }
 
     input {
       padding-left: 5px;
       font-size: 12px;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      border-bottom: 1px solid #ccc;
+      background: transparent;
+
+      &[disabled] {
+        border: 0;
+        background: transparent;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .field {
+      margin-bottom: .5em;
     }
   }
 
@@ -151,24 +167,6 @@ main {
     color: #fff;
   }
 
-}
-
-#invoice-container input {
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  border-bottom: 1px solid #ccc;
-  padding-left: 0;
-  background: transparent;
-
-  &[disabled] {
-    border: 0;
-    background: transparent;
-  }
-
-  &:focus {
-    box-shadow: none;
-  }
 }
 
 #mobile-menu {
@@ -318,12 +316,6 @@ main {
 
   .column {
     max-width: 450px;
-  }
-}
-
-#section-features {
-  .icon {
-    font-size: 5em;
   }
 }
 
