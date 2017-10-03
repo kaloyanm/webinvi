@@ -52,6 +52,12 @@ main {
   }
 }
 
+#section-features {
+  h1, h2 {
+    font-size: 2.2rem;
+  }
+}
+
 #main-menu {
   &.menu--transparent {
     background-color: transparent;
