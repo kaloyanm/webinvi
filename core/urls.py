@@ -6,12 +6,13 @@ from core.views import (
     contact, home, LoginView, RegistrationView,
     logout_view, change_password, company,
     companies, drop_company, import_invoicepro, thanks,
-    google_oath_login, google_auth_return)
+    google_oath_login, google_auth_return, reset_password)
 
 urlpatterns = [
     url(r'^contact/', contact, name='contact'),
     url(r'^thanks/', thanks, name='thanks'),
     url(r'^login/', LoginView.as_view(), name='login'),
+    url(r'^reset-password/', reset_password, name='reset-password'),
     url(r'^logout/', logout_view, name='logout'),
     url(r'^registration/', RegistrationView.as_view(), name='registration'),
     url(r'^password/', change_password, name='password'),

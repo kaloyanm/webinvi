@@ -18,7 +18,7 @@
       <th>Мярка</th>
       <th>Ед. Цена</th>
       <th>% Отстъпка</th>
-      <th>Цена</th>
+      <th class="col-price">Цена</th>
     </tr>
   </thead>
   <tbody>
@@ -44,7 +44,7 @@
       <td>
         <input type="text" :name="'form-'+index+'-discount'" v-model="row.discount" @keyup="calc_row(index); calc_total();">
       </td>
-      <td>
+      <td class="col-price">
         <input type="text" :name="'form-'+index+'-total'" v-model="row.gross" disabled>
       </td>
     </tr>

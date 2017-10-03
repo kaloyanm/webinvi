@@ -837,6 +837,27 @@
   flex-direction: column;
 }
 
+._dir-row {
+  flex-direction: row;
+}
+
+._left-row {
+  flex-direction: row;
+}
+
+._flex.center,
+._flex.center-center {
+  align-items: center;
+}
+._flex.center-justified,
+._flex.center-center {
+  justify-content: center;
+}
+
 ._oh {
   overflow: hidden;
+}
+
+._img-pixel {
+  image-rendering: pixelated;
 }

@@ -97,3 +97,7 @@ $('#sticky-settings').sticky({
 $('#delete-button').on('click', function() {
   $('#delete-modal-window').modal({duration: 150}).modal('show');
 });
+
+$('.message .close').on('click', function() {
+  $(this).closest('.message').transition('fade');
+});
