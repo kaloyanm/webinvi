@@ -88,7 +88,7 @@ main {
   font-size: 1.1em;
   position: absolute;
   left: -17px;
-  margin-top: -8px;
+  margin-top: -10px;
 }
 
 #invoice-table {
@@ -98,6 +98,13 @@ main {
     border-radius: 0;
     padding-top: 3px;
     padding-bottom: 3px;
+  }
+  .col-price {
+    text-align: right;
+
+    input {
+      text-align: right;
+    }
   }
 }
 
@@ -115,6 +122,11 @@ main {
   top: 0;
 }
 
+#div_id_dds_percent input {
+  text-align: right;
+  padding-right: 7px;
+}
+
 #invoice-container {
   max-width: 720px!important;
   margin-bottom: 3rem;
@@ -123,6 +135,17 @@ main {
   padding: 40px;
   box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
   margin-left: 450px!important;
+
+  .field__text {
+    text-align: right;
+    padding: 6px 7px 6px 0;
+    display: block;
+  }
+
+  .field__currency {
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
   .form {
     label {
@@ -148,10 +171,23 @@ main {
       &:focus {
         box-shadow: none;
       }
+
+      &[type=number]::-webkit-inner-spin-button,
+      &[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
     }
 
     .field {
       margin-bottom: .5em;
+    }
+  }
+
+  .column__table {
+    input {
+      padding-right: 0;
+      padding-left: 0;
     }
   }
 

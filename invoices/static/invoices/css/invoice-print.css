@@ -33,7 +33,7 @@ h1 {
 }
 
 th,td {
-  padding: 5px 0;
+  padding: 5px 7px;
 }
 
 .column {
@@ -53,11 +53,6 @@ tr:nth-child(2n) {
 th {
   background: #777;
   color: #fff;
-}
-
-th:first-child,
-td:first-child {
-  padding-left: 5px;
 }
 
 .column__payment label {
@@ -120,4 +115,24 @@ input {
 
 h1 small {
   color: #888;
+}
+
+.col-price {
+  text-align: right;
+}
+
+.field__text {
+  text-align: right;
+  padding: 0 7px 0 0;
+  display: block;
+}
+
+.field__currency {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+#div_id_dds_percent input {
+  text-align: right;
+  padding-right: 7px;
 }

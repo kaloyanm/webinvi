@@ -131,12 +131,24 @@
             {{ form.payment_bank|as_crispy_field }}
 
           </div><div class="column column__total">
-            <div>
-              <span>$</span>
-              {{ form.tax_base|as_crispy_field }}
+            <div class="field">
+              <label>Данъчна основа</label>
+              <div class="field__text">
+                <span class="field__currency">BGN</span>
+                <span>{{ form.tax_base.value }}</span>
+              </div>
             </div>
+
             {{ form.dds_percent|as_crispy_field }}
-            {{ form.total|as_crispy_field }}
+
+            <div class="field">
+              <label>Крайна цена</label>
+              <div class="field__text">
+                <span class="field__currency">BGN</span>
+                <span>{{ form.total.value }}</span>
+              </div>
+            </div>
+
             {{ form.verbally|as_crispy_field }}
           </div>
         </div>
