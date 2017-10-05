@@ -5,8 +5,9 @@ from django.conf import settings
 from core.views import (
     contact, home, LoginView, RegistrationView,
     logout_view, change_password, company,
-    companies, drop_company, import_invoicepro, thanks,
+    companies, drop_company, thanks,
     google_oath_login, google_auth_return, reset_password)
+from core.invoicepro import import_invoicepro
 
 urlpatterns = [
     url(r'^contact/', contact, name='contact'),

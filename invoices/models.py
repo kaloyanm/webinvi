@@ -29,14 +29,14 @@ class Invoice(models.Model):
     client_address = models.CharField(max_length=255, default='', db_index=True)
     client_mol = models.CharField(max_length=255, default='')
 
-    created_by = models.CharField(max_length=255, blank=True)
-    accepted_by = models.CharField(max_length=255, blank=True)
+    created_by = models.CharField(max_length=255, null=True)
+    accepted_by = models.CharField(max_length=255, null=True)
 
     payment_type = models.CharField(max_length=255, blank=True)
-    payment_bank = models.CharField(max_length=255, blank=True)
+    payment_bank = models.CharField(max_length=255, null=True)
 
     client_eik = models.CharField(max_length=255, db_index=True)
-    client_dds = models.CharField(max_length=255, blank=True)
+    client_dds = models.CharField(max_length=255, null=True)
 
     invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')
     number = models.PositiveIntegerField(blank=True, null=True, db_index=True)
@@ -44,15 +44,15 @@ class Invoice(models.Model):
     released_at = models.DateField(blank=True, null=True)
     taxevent_at = models.DateField(blank=True, null=True)
 
-    payment_iban = models.CharField(max_length=255, blank=True)
-    payment_swift = models.CharField(max_length=255, blank=True)
+    payment_iban = models.CharField(max_length=255, null=True)
+    payment_swift = models.CharField(max_length=255, null=True)
 
     dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True, null=True)
 
 
 
-    note = models.TextField(blank=True, default='')
-    no_dds_reason = models.CharField(max_length=255, blank=True)
+    note = models.TextField(null=True, default=None)
+    no_dds_reason = models.CharField(max_length=255, null=True)
 
     class Meta:
         ordering = ("-released_at", "-invoice_type", "-number")
@@ -87,6 +87,7 @@ class Invoice(models.Model):
 class InvoiceItem(models.Model):
 
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
+    order_no = models.SmallIntegerField(blank=True)
 
     name = models.CharField(max_length=155, default='')
     unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.00)
@@ -104,3 +105,8 @@ class InvoiceItem(models.Model):
         unit_price = float(unit_price)
         total = self.quantity * unit_price if self.quantity and unit_price else unit_price
         return total
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            self.order_no = (self.invoice.invoiceitem_set.aggregate(max=Max('order_no'))['max'] or 0) + 1
+        super().save(*args, **kwargs)

@@ -49,6 +49,10 @@ class CompanyForm(SubmitButtonMixin, TranslateLabelsFormMixin, forms.ModelForm):
 
 class InvoiceproImportForm(SubmitButtonMixin, forms.Form):
     file = forms.FileField()
+    import_type = forms.ChoiceField(required=True, choices=(
+        ('invoices', _('Компании и фактури')),
+        ('companies', _('Компании')),
+    ))
     wipe_existing = forms.BooleanField(required=False)
 
 

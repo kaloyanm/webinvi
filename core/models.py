@@ -17,7 +17,7 @@ class Company(models.Model):
     address = models.CharField(max_length=255, default='')
     mol = models.CharField(max_length=255, default='')
     eik = models.CharField(max_length=255, unique=True)
-    dds = models.CharField(max_length=255, blank=True)
+    dds = models.CharField(max_length=255, null=True)
     default = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 

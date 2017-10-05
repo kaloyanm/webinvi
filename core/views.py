@@ -15,18 +15,15 @@ from django.template import Context
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
-from core.models import Company, UserSettings
+from core.models import Company
 from core.forms import (
     LoginForm,
     ChangePassForm,
     RegistratiоnForm,
     CompanyForm,
-    InvoiceproImportForm,
     ContactForm,
 )
-
 from core.admin import CompanyResource
-from core.import_export.invoicepro import read_invoicepro_file
 
 from googleapiclient.discovery import build
 from django.http import HttpResponseBadRequest
@@ -170,42 +167,6 @@ def export_companies(request):
     response = HttpResponse(dataset.csv, content_type="text/csv")
     response["Content-Disposition"] = 'attachment; filename=companies.csv'
     return response
-
-
-class ImportException(Exception):
-    pass
-
-
-@login_required
-def import_invoicepro(request):
-    form = InvoiceproImportForm()
-
-    if request.method == "POST":
-        form = InvoiceproImportForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            company_resource = CompanyResource(user=request.user)
-            try:
-                invoicepro_file = read_invoicepro_file(request.FILES["file"])
-                companies_dataset = invoicepro_file['companies'].as_dataset({
-                    'id': 'id',
-                    'Name_bg': 'name',
-                    'Bulstat': 'eik',
-                    'VatId': 'dds',
-                    'Address_bg': 'address',
-                    'City_bg': 'city',
-                    'Mol_bg': 'mol',
-                })
-                result = company_resource.import_data(companies_dataset, dry_run=False)
-                if result.has_errors():
-                    raise ImportException()
-
-                return redirect(reverse_lazy("companies"))
-            except ImportException as e:
-                raise Http404
-
-    return render(request, template_name="core/_import_invoicepro.html",
-                  context={"form": form})
 
 
 def get_google_oauth_flow():
