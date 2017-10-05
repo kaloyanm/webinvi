@@ -139,7 +139,12 @@
               </div>
             </div>
 
-            {{ form.dds_percent|as_crispy_field }}
+            <div class="field"><label for="">ДДС</label>
+                <div class="ui labeled input">
+                    <label for="dds_percent" class="ui label"><b>%</b></label>
+                    <input name="dds_percent" value="{{ form.dds_percent.value }}" class="numberinput" type="number" dir="rtl" @keyup="calc_total()" min="0" max="100" step="1">
+                </div>
+            </div>
 
             <div class="field"><label for="">Крайна цена</label>
                 <div class="ui labeled input">
