@@ -204,7 +204,7 @@ def print_preview(request, token):
 @login_required
 def print_invoice(request, pk):
     pdf_generator_url = get_pdf_generator_url(pk)
-    instance = get_object_or_404(Invoice, pk)
+    instance = get_object_or_404(Invoice, pk=pk)
 
     req = urllib.request.Request(pdf_generator_url)
     with urllib.request.urlopen(req) as res:
