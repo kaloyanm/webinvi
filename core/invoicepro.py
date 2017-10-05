@@ -119,7 +119,7 @@ def import_invoicepro(request):
                             if invoice_items_import_result.has_errors():
                                 dump_import_errors(invoice_items_import_result)
                                 raise ImportException()
-                return redirect(reverse_lazy("companies"))
+                return redirect(reverse_lazy("list"))
             except ImportException as e:
                 logger.exception('Import Exception')
                 raise Http404
