@@ -7,16 +7,16 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     PasswordChangeForm,
 )
-from core.mixins import SubmitButtonMixin, TranslateLabelsFormMixin
+from core.mixins import SemanticUIFormMixin, TranslateLabelsFormMixin
 from core.models import Company
 
 User = get_user_model()
 
-class ChangePassForm(SubmitButtonMixin, PasswordChangeForm):
+class ChangePassForm(SemanticUIFormMixin, PasswordChangeForm):
     submit_button_label = _('Обнови')
 
 
-class RegistratiоnForm(SubmitButtonMixin, UserCreationForm):
+class RegistratiоnForm(SemanticUIFormMixin, UserCreationForm):
     submit_button_label = _('Влез')
 
     # Simple and elegant solution to use email as username
@@ -27,11 +27,11 @@ class RegistratiоnForm(SubmitButtonMixin, UserCreationForm):
     username = forms.EmailField(max_length=64)
 
 
-class LoginForm(SubmitButtonMixin, AuthenticationForm):
+class LoginForm(SemanticUIFormMixin, AuthenticationForm):
     submit_button_label = _('Влез')
 
 
-class CompanyForm(SubmitButtonMixin, TranslateLabelsFormMixin, forms.ModelForm):
+class CompanyForm(SemanticUIFormMixin, TranslateLabelsFormMixin, forms.ModelForm):
     translate_labels = {
         "name": _('Има на компанията'),
         "eik": _('БУЛСТАТ'),
@@ -47,7 +47,7 @@ class CompanyForm(SubmitButtonMixin, TranslateLabelsFormMixin, forms.ModelForm):
         exclude = ("user", )
 
 
-class InvoiceproImportForm(SubmitButtonMixin, forms.Form):
+class InvoiceproImportForm(SemanticUIFormMixin, forms.Form):
     file = forms.FileField()
     import_type = forms.ChoiceField(required=True, choices=(
         ('invoices', _('Компании и фактури')),
@@ -56,7 +56,7 @@ class InvoiceproImportForm(SubmitButtonMixin, forms.Form):
     wipe_existing = forms.BooleanField(required=False)
 
 
-class ContactForm(SubmitButtonMixin, forms.Form):
+class ContactForm(SemanticUIFormMixin, forms.Form):
     submit_button_label = _('Изпрати')
 
     name = forms.CharField(label=_(u'Име'), max_length=100)

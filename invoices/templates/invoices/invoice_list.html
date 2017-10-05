@@ -52,7 +52,7 @@
       {% for inv in objects %}
         <tr>
           <td scope="row">{{ inv.client_name }}</td>
-          <td>{% if inv.invoice_type == 'invoice' %}Фактура{% else %}Проформа{% endif %}</td>
+          <td>{% if not inv.is_proforma %}Фактура{% else %}Проформа{% endif %}</td>
           <td><a href="{% url 'invoice' inv.pk %}">{{ inv.number|nopad }}</a></td>
           <td>{{ inv.released_at }}</td>
           <td>{{ inv.total }}</td>

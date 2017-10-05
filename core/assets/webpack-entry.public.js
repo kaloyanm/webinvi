@@ -20,7 +20,7 @@ import 'semantic-ui-sass/js/modal';
 //import 'semantic-ui-sass/js/popup';
 //import 'semantic-ui-sass/js/progress';
 //import 'semantic-ui-sass/js/rating';
-//import 'semantic-ui-sass/js/search';
+import 'semantic-ui-sass/js/search';
 //import 'semantic-ui-sass/js/shape';
 import 'semantic-ui-sass/js/sidebar';
 import 'semantic-ui-sass/js/sticky';

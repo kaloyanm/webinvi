@@ -36,7 +36,7 @@ var app = new Vue({
   },
   methods: {
     add: function () {
-      this.rows.push({name: "", quantity: 1, unit: "", unit_price:0, discount: "", gross: 0, id: 0});
+      this.rows.push({name: "", quantity: 1, unit: "", unit_price:0, discount: 0, gross: 0, id: 0});
       this.total_forms = this.rows.length;
     },
 
@@ -59,13 +59,11 @@ var app = new Vue({
 
     calc_row: function (index) {
       var row = this.rows[index];
-      console.log(JSON.stringify(row));
       row.gross = round(row.unit_price * row.quantity, 2);
 
       if (row.discount) {
         row.gross = row.gross - row.gross * row.discount / 100;
       }
-      console.log(JSON.stringify(row));
       this.rows[index] = row;
     },
 

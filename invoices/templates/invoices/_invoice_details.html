@@ -30,7 +30,7 @@
         </a>
       </td>
       <td>
-        <input type="text" :name="'form-'+index+'-name'" v-model="row.name">
+        <input type="text" :name="'form-'+index+'-name'" v-model="row.name"></div>
       </td>
       <td>
         <input type="number" :name="'form-'+index+'-quantity'" v-model="row.quantity" @keyup="calc_row(index); calc_total();" @click="calc_row(index);calc_total();">

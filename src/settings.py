@@ -31,7 +31,7 @@ DEBUG = os.environ.get('DEBUG', False)
 HOSTNAME = os.environ.get('HOSTNAME', socket.gethostname())
 ALLOWED_HOSTS = [
     '182.16.0.5', 'vagrant', 'webinvoices.eu', 'webinvoices.foggly.net',
-    'webinvoices-local.dev']
+    'webinvoices-local.dev', 'localhost']
 
 
 # Application definition
@@ -175,7 +175,7 @@ LOGGING = {
     },
     'handlers': {
         'sentry': {
-            'level': 'ERROR', # To capture more than ERROR, change to WARNING, INFO, etc.
+            'level': 'ERROR',  # To capture more than ERROR, change to WARNING, INFO, etc.
             'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
             'tags': {'custom-tag': 'x'},
         },
@@ -183,7 +183,10 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
-        }
+        },
+        'null': {
+            'class': 'logging.NullHandler',
+        },
     },
     'loggers': {
         'django.db.backends': {
@@ -203,6 +206,12 @@ LOGGING = {
         },
     },
 }
+
+if DEBUG:
+    LOGGING['loggers']['raven'] = {
+        'handlers': ['null'],
+        'level': 'ERROR',
+    }
 
 from django.utils.translation import ugettext_lazy as _
 

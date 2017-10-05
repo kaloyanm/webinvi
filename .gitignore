@@ -20,9 +20,11 @@ node_modules/
 uploads/
 
 # MAC
+*.swp
 .DS_Store
 src/static/*
 tags
+.ropeproject/
 .vscode/
 .direnv
 .vagrant
