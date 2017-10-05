@@ -7,10 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from core.models import Company
 
 
-INVOICE_TYPES = (
-    ('invoice', _('Invoice')),
-    ('proforma', _('Proforma')),
-)
 
 
 def get_next_number(company, invoice_type):
@@ -22,6 +18,18 @@ def get_next_number(company, invoice_type):
 
 # Create your models here.
 class Invoice(models.Model):
+
+    INVOICE_TYPE_INVOICE = 'invoice'
+    INVOICE_TYPE_PROFORMA = 'proforma'
+    INVOICE_TYPE_CREDIT = 'credit'
+    INVOICE_TYPE_DEBIT = 'debit'
+    INVOICE_TYPES = (
+        (INVOICE_TYPE_INVOICE, _('Invoice')),
+        (INVOICE_TYPE_PROFORMA, _('Proforma')),
+        (INVOICE_TYPE_CREDIT, _('Credit')),
+        (INVOICE_TYPE_DEBIT, _('Debit')),
+    )
+
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
     client_name = models.CharField(max_length=255, db_index=True, default='')
@@ -49,8 +57,6 @@ class Invoice(models.Model):
 
     dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True, null=True)
 
-
-
     note = models.TextField(blank=True, default='')
     no_dds_reason = models.CharField(max_length=255, blank=True)
 
@@ -64,6 +70,10 @@ class Invoice(models.Model):
 
     def __pre__(self):
         return self.client_name
+
+    @property
+    def is_proforma(self):
+        return self.invoice_type == self.INVOICE_TYPE_PROFORMA
 
     @property
     def gross(self):

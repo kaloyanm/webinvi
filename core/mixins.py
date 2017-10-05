@@ -6,8 +6,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Button
 
 
-class SubmitButtonMixin:
-    submit_button_label =  _('Запази')
+class SemanticUIFormMixin:
+    submit_button_label = _('Запази')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -40,3 +40,14 @@ class TranslateLabelsFormMixin:
             if field not in self.fields.keys():
                 raise ImproperlyConfigured
             self.fields[field].label = label
+
+
+class AttrsFormMixin:
+    fields_attrs = {}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field, attrs in self.fields_attrs.items():
+            if field not in self.fields.keys():
+                raise ImproperlyConfigured
+            self.fields[field].widget.attrs.update(attrs)

@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from invoices.views import (
-    list_invoices, invoice, delete_invoice, print_preview, print_invoice
+    list_invoices, invoice, delete_invoice, print_preview, print_invoice,
+    autocomplete_field, autocomplete_client
 )
 
 
@@ -14,4 +15,6 @@ urlpatterns = [
     url(r'^delete/(?P<pk>[0-9]+)/', delete_invoice, name='delete'),
     url(r'^list/(?P<company_pk>[0-9]+)/', list_invoices, name='list'),
     url(r'^list/', list_invoices, name='list'),
+    url(r'^autocomplete/client/', autocomplete_client, name='autocomplete_client'),
+    url(r'^autocomplete/', autocomplete_field, name='autocomplete'),
 ]
