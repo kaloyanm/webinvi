@@ -1,0 +1,41 @@
+---
+- name: Add node.js repo
+  shell: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+
+- name: Add Python3.6 repo
+  apt_repository: repo='ppa:fkrull/deadsnakes'
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install required packages
+  with_items:
+    - apt-transport-https
+    - git
+    - unzip
+    - postgresql-client
+    - postgresql-client-common
+    - postgresql
+    - libpq-dev
+    - nodejs
+    - libffi-dev
+    - libfontconfig
+    - libfontconfig1
+    - libssl-dev
+    - build-essential
+    - htop
+    - links
+  apt: name={{item}}
+
+- name: Create /opt/
+  file:
+    path: /opt/
+    state: directory
+
+- name: No automatic CRLF for git checkout
+  git_config:
+    scope: global
+    name: core.autocrlf
+    value: input

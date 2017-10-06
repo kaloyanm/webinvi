@@ -8,11 +8,11 @@ Vagrant.configure(2) do |config|
 
     # Every Vagrant development environment requires a box. You can search for
     # boxes at https://atlas.hashicorp.com/search.
-    config.vm.box = "bento/ubuntu-16.04"
+    config.vm.box = "ubuntu/xenial64"
 
     # Forward a port from the guest to the host, which allows for outside
-	# computers to access the VM, whereas host only networking does not.
-	config.vm.network :private_network, ip: "182.16.0.5"
+    # computers to access the VM, whereas host only networking does not.
+    config.vm.network :private_network, ip: "182.16.0.5"
     config.vm.network :forwarded_port, guest: 22, host: 2235, id: 'ssh'
 
     config.vm.provider "virtualbox" do |v|
@@ -21,8 +21,33 @@ Vagrant.configure(2) do |config|
         v.name = "webinvoices"
     end
 
-    config.vm.synced_folder ".", "/home/vagrant/webinvoices"
-    config.vm.provision :shell, path: "scripts/install.sh"
-    config.vm.provision :shell, run: "always", :path => "scripts/update.sh", privileged: false
-    config.vm.provision :shell, run: "always", :path => "scripts/startup.sh"
+    config.vm.synced_folder ".", "/opt/webinvoices"
+
+    config.vm.provision :ansible do |ansible|
+      ansible.verbose = "v"
+      ansible.playbook = "ansible/install_web_app.yml"
+      ansible.host_vars = { "default" => {
+        "ansible_python_interpreter" => "/usr/bin/python3" ,
+        "webinvoices_domain" => "webinvoices-local.dev"
+      }}
+    end
+
+    config.vm.provision :ansible do |ansible|
+      ansible.verbose = "v"
+      ansible.playbook = "ansible/create_database.yml"
+      ansible.host_vars = { "default" => {
+        "ansible_python_interpreter" => "/usr/bin/python3" ,
+        "webinvoices_domain" => "webinvoices-local.dev"
+      }}
+    end
+
+    config.vm.provision :ansible do |ansible|
+      ansible.verbose = "v"
+      ansible.playbook = "ansible/web_app.yml"
+      ansible.host_vars = { "default" => {
+        "ansible_python_interpreter" => "/usr/bin/python3" ,
+        "webinvoices_domain" => "webinvoices-local.dev"
+      }}
+    end
+
 end

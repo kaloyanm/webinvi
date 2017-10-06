@@ -1,0 +1,10 @@
+[all:vars]
+ansible_connection=ssh
+ansible_user=root
+ansible_python_interpreter=/usr/bin/python3
+# ansible_ssh_user=root
+# ansible_ssh_pass=vagrant
+# skip_chekout=1
+
+[default]
+45.32.187.100 webinvoices_domain=webinvoices-local.dev # vultr vps

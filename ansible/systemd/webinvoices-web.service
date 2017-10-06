@@ -1,0 +1,15 @@
+[Unit]
+Description=Webinvoices
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/uwsgi --ini /opt/webinvoices/uwsgi.ini
+WorkingDirectory=/opt/webinvoices
+Restart=always
+User=www-data
+Group=www-data
+
+
+[Install]
+WantedBy=multi-user.target

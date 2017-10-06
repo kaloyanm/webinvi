@@ -1,0 +1,19 @@
+- name: Install systemd service - {{ name }}
+  template:
+    src: systemd/{{ name }}.service
+    dest: /etc/systemd/system/
+  when: ansible_service_mgr == 'systemd'
+
+- name: Install systemd timer - {{ name }}
+  template:
+    src: systemd/{{ name }}.timer
+    dest: /etc/systemd/system/
+  when: ansible_service_mgr == 'systemd'
+
+- name: Enable systemd timer - {{ name }}
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    state: started
+    name: "{{ name }}.timer"
+  when: ansible_service_mgr == 'systemd'

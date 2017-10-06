@@ -1,0 +1,4 @@
+---
+- hosts: default
+  tasks:
+    - include: install_web_app.yml

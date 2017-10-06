@@ -1,0 +1,29 @@
+- hosts: default
+  become: yes
+  become_user: postgres
+  gather_facts: no
+
+  vars:
+    db: fakturi
+    dbuser: vagrant
+    dbpassword: vagrant
+
+  tasks:
+  - name: Create webinvoices DB user
+    postgresql_user: name={{dbuser}} password={{dbpassword}}
+
+  - name: ensure databases are created
+    postgresql_db: name={{ item }}
+    with_items: "{{ db }}"
+
+  - name: ensure user has access to database
+    postgresql_user: db={{ item }} name={{dbuser}} password={{dbpassword}} priv=ALL
+    with_items: "{{ db }}"
+
+  - name: ensure user does not have unnecessary privilege
+    postgresql_user: name={{ item }} role_attr_flags=NOSUPERUSER,NOCREATEDB
+    with_items: "{{ db }}"
+
+  - name: ensure no other user can access the database
+    postgresql_privs: db={{ item }} role=PUBLIC type=database priv=ALL state=absent
+    with_items: "{{ db }}"
