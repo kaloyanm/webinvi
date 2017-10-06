@@ -144,13 +144,22 @@ main {
 
   .field__text {
     text-align: right;
-    padding: 6px 7px 6px 0;
     display: block;
   }
 
   .field__currency {
+    line-height: 31px;
     font-weight: bold;
     margin-right: 5px;
+  }
+
+  .field__input {
+    width: auto!important;
+    padding-right: 7px!important;
+
+    &[readonly] {
+      border-color: #fff!important;
+    }
   }
 
   .form {

@@ -133,24 +133,26 @@
           </div><div class="column column__total">
             <div class="field">
               <label>Данъчна основа</label>
-              <div class="ui labeled input">
-                <label for="gross" class="ui label">BGN</label>
-                <input name="gross" v-model="gross" class="numberinput" type="number" dir="rtl" disabled>
+              <div class="field__text">
+                <span class="field__currency">BGN</span>
+                <input class="field__input" name="gross" v-model="gross" class="numberinput" type="number" dir="rtl" readonly>
               </div>
             </div>
 
-            <div class="field"><label for="">ДДС</label>
-                <div class="ui labeled input">
-                    <label for="dds_percent" class="ui label"><b>%</b></label>
-                    <input name="dds_percent" value="{{ form.dds_percent.value }}" class="numberinput" type="number" dir="rtl" @keyup="calc_total()" min="0" max="100" step="1">
-                </div>
+            <div class="field">
+              <label for="dds_percent">ДДС</label>
+              <div class="field__text">
+                <span class="field__currency">%</span>
+                <input class="field__input" name="dds_percent" value="{{ form.dds_percent.value }}" type="number" @keyup="calc_total()" min="0" max="100" step="1">
+              </div>
             </div>
 
-            <div class="field"><label for="">Крайна цена</label>
-                <div class="ui labeled input">
-                    <label for="gross" class="ui label">BGN</label>
-                    <input name="total" v-model="total" class="numberinput" type="number" dir="rtl" disabled>
-                </div>
+            <div class="field">
+              <label for="total">Крайна цена</label>
+              <div class="field__text">
+                <span class="field__currency">BGN</span>
+                <input id="total" class="field__input" dir="rtl" name="total" v-model="total" type="number" readonly>
+              </div>
             </div>
             {{ form.verbally|as_crispy_field }}
           </div>
@@ -192,5 +194,12 @@
 
 <script type="text/javascript">window.formset = {{ formset|safe }};</script>
 <script src="{% static "invoices/js/app.js" %}"></script>
+{#  <script>#}
+{#    var totalField = $('#total');#}
+{#    totalField.css('width', (totalField.val().length) * 8);#}
+{#    totalField.on('change', function() {#}
+{#      totalField.css('width', (totalField.val().length + 1) * 8);#}
+{#    });#}
+{#  </script>#}
 {% endif %}
 {% endblock %}
