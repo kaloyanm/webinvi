@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import $ from 'jquery';
 
 var round = function (number, precision) {
   var factor = Math.pow(10, precision);
@@ -21,7 +22,7 @@ var app = new Vue({
     dds_percent: 0
   },
   mounted: function () {
-    this.rows = window.formset.map(function(row){ return row });
+    this.rows = window.INVOICE_ITEMS.map(function(row){ return row });
     for(var row_idx in this.rows) {
       var row = this.rows[row_idx];
       row.unit_price_original = row.unit_price;
@@ -33,10 +34,11 @@ var app = new Vue({
 
     this.calc_total(true);
     this.total_forms = this.rows.length;
+    this.initial_forms = this.rows.length;
   },
   methods: {
     add: function () {
-      this.rows.push({name: "", quantity: 1, unit: "", unit_price:0, discount: 0, gross: 0, id: 0});
+      this.rows.push($.extend({}, window.INVOICE_ITEM_TEMPLATE));
       this.total_forms = this.rows.length;
     },
 

@@ -3,30 +3,37 @@ from django import forms
 from django.forms import formset_factory
 from django.utils.translation import ugettext_lazy as _
 
-from core.mixins import TranslateLabelsFormMixin, AttrsFormMixin
+from core.mixins import TranslateLabelsFormMixin, AttrsFormMixin, OffRequiredFieldsMixin
 from invoices.models import Invoice
 
 
 class InvoiceItemForm(forms.Form):
 
-    name = forms.CharField(required=True)
+    id = forms.IntegerField(required=False, widget=forms.HiddenInput())
+    name = forms.CharField(required=False)
+    name_tr = forms.CharField(required=False)
     quantity = forms.IntegerField(required=False)
     measure = forms.CharField(required=False)
+    measure_tr = forms.CharField(required=False)
     unit_price = forms.DecimalField(required=False)
     discount = forms.FloatField(required=False)
 
-InvoiceItemFormSet = formset_factory(InvoiceItemForm)
+InvoiceItemFormSet = formset_factory(InvoiceItemForm, can_delete=True)
 
-
-class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin, forms.ModelForm):
+class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
+                  OffRequiredFieldsMixin, forms.ModelForm):
 
     translate_labels = {
         "client_name": _("Получател"),
+        "client_name_tr": _("Получател"),
         "client_city": _("Град"),
+        "client_city_tr": _("Град"),
         "client_eik": _("Булстат"),
         "client_dds": _("Ин по ДДС"),
         "client_address": _("Адрес"),
+        "client_address_tr": _("Адрес"),
         "client_mol": _("МОЛ"),
+        "client_mol_tr": _("МОЛ"),
         "number": _("Номер"),
         "payment_type": _("Начин на плащане"),
         "payment_iban": _("IBAN"),
@@ -36,7 +43,9 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin, forms.ModelForm):
         "dds_percent": _("ДДС"),
         "total": _("Крайна цена"),
         "accepted_by": _("Приел"),
+        "accepted_by_tr": _("Приел"),
         "created_by": _("Съставил"),
+        "created_by_tr": _("Съставил"),
         "verbally": _("Словом"),
         "taxevent_at": _("Данъчно събитие"),
         "released_at": _("Дата на издаване"),
@@ -57,6 +66,20 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin, forms.ModelForm):
         "created_by": {"class": "searchable-invoice"},
     }
 
+    off_required_fields = [
+        'client_name_tr',
+        'client_address_tr',
+        'client_city_tr',
+        'client_mol_tr',
+        'payment_type_tr',
+        'payment_bank_tr',
+        'created_by_tr',
+        'accepted_by_tr',
+        'note_tr',
+        'no_dds_reason_tr',
+    ]
+
+    no_dds_reason = forms.CharField(required=False)
     tax_base = forms.DecimalField(disabled=True, required=False)
     total = forms.DecimalField(disabled=True, required=False)
     verbally = forms.CharField(max_length=255, required=False)

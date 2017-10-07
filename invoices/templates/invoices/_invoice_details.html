@@ -13,7 +13,7 @@
       </th>
       {% endblock %}
 
-      <th width="30%">Продукт / Услуга</th>
+      <th width="30%">Продукт / Услуга ({{ use_tr }})</th>
       <th width="10%">Кол.</th>
       <th>Мярка</th>
       <th>Ед. Цена</th>
@@ -30,13 +30,13 @@
         </a>
       </td>
       <td>
-        <input type="text" :name="'form-'+index+'-name'" v-model="row.name"></div>
+        <input type="text" :name="'form-'+index+'-name{% if use_tr %}_tr{% endif %}'" v-model="row.name{% if use_tr %}_tr{% endif %}"></div>
       </td>
       <td>
         <input type="number" :name="'form-'+index+'-quantity'" v-model="row.quantity" @keyup="calc_row(index); calc_total();" @click="calc_row(index);calc_total();">
       </td>
       <td>
-        <input type="text" :name="'form-'+index+'-unit'" v-model="row.unit">
+        <input type="text" :name="'form-'+index+'-measure{% if use_tr %}_tr{% endif %}'" v-model="row.measure{% if use_tr %}_tr{% endif %}">
       </td>
       <td>
         <input type="number" :disabled="selected_currency !== 'BGN'" :name="'form-'+index+'-unit_price'" v-model="row.unit_price" @keyup="unit_price_changed(index); calc_row(index); calc_total();">
@@ -46,6 +46,7 @@
       </td>
       <td class="col-price">
         <input type="text" :name="'form-'+index+'-total'" v-model="row.gross" disabled>
+        <input type="hidden" :name="'form-'+index+'-id'" v-model="row.id">
       </td>
     </tr>
     {% endblock %}
