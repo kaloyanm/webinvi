@@ -5,7 +5,9 @@ import urllib.request
 import logging
 import urllib
 
+from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.contrib import messages
 from django.core.cache import cache
 from django.db import transaction
 from django.utils import timezone
@@ -49,10 +51,10 @@ def get_company_or_404(request, company_pk=None):
 def process_invoice(company, form, form_items):
     pk = None
     if form.is_valid() and form_items.is_valid():
-        with transaction.atomic():
-            form.instance.company = company
-            instance = form.save()
+        form.instance.company = company
+        instance = form.save()
 
+        with transaction.atomic():
             existing_pks = []
             for form in form_items:
                 logger.debug(form.cleaned_data)
@@ -306,3 +308,22 @@ def change_invoice_language(request, pk, lang):
     if lang in allowed_langs:
         request.session['current_lang'] = lang
     return redirect(reverse('invoice', args=[pk]))
+
+
+@login_required
+def proforma2invoice(request, pk):
+    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_PROFORMA)
+    items = instance.invoiceitem_set.all()
+
+    instance.pk = None
+    instance.invoice_type = Invoice.INVOICE_TYPE_INVOICE
+    instance.released_at = timezone.now().strftime("%Y-%m-%d")
+    instance.save()
+
+    with transaction.atomic():
+        for item in items:
+            item.pk = None
+            item.invoice = instance
+            item.save()
+        messages.success(request, _("The invoice has been created successfully."))
+    return redirect(reverse('invoice', args=[instance.pk]))

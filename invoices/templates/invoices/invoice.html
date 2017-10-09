@@ -49,7 +49,7 @@
             </div>
           {% endif %}
 
-          {% if invoice_type == 'proforma' %}
+          {% if invoice_type == 'proforma' and pk %}
           <div class="ui green right floated small buttons">
             <button type="submit" onclick="document.forms.invoice_form.submit()" href="{% url 'list' %}" class="ui button" role="button">
               <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
@@ -58,7 +58,7 @@
             <div class="ui floating dropdown icon button">
               <i class="dropdown icon"></i>
               <div class="menu">
-                <div class="item">Запази като фактура</div>
+                <div class="item"><a href="{% url 'convert_proforma' pk %}">Запази като фактура</a></div>
               </div>
             </div>
           </div>
