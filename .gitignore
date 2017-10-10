@@ -33,9 +33,15 @@ yarn.lock
 .idea/
 package-lock.json
 
+# Vagrant logs
+*.log
+
 # App generated files
 /semantic/
 /core/static/core/js
 /core/static/core/css
 /invoices/static/invoices/js
 celerybeat-schedule.db
+
+# Deploy configs
+.productionenv

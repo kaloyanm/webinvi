@@ -28,7 +28,7 @@ are on windows, you need to run this cmd with admin privileges.
 4. Run `vagrant up`.
 5. Wait :). This might take up to 20 minutes. Meanwhile don't do anything
 and let it finish
-6. Enter into the container with `vagrant ssh`. You will find a folder named `webinvoices`. This is your project root's 
+6. Enter into the container with `vagrant ssh`. You will find a folder named `webinvoices`. This is your project root's
 directory. To run the application go inside `webinvoices` and run `honcho start`.
 7. Create a default user to work with by calling `./manage.py createsuperuser`
 
@@ -69,7 +69,7 @@ dummy data, run `./manage.py createdummydata`. This will produce 10 companies ea
     username: user[n]@demo.com
     password: test1234
 
-Where *n* any number from 1 to 10. 
+Where *n* any number from 1 to 10.
 
 Translations
 ------------
@@ -79,13 +79,13 @@ Once the string literals of an application have been tagged for later translatio
 1. The first step is to create a message file for a new language.
 
     `django-admin makemessages -l en`
-    
+
 2. We use *django-rosetta* to edit the translations. In order to see them go to ``http://yourdomain.com/rosetta/``. Don't forget to log in into the admin beforehand.
-    
+
 3. After you create and edit your message file – and each time you make changes to it – you’ll need to compile it into a more efficient form, for use by gettext. Do this with the django-admin compilemessages utility.
-    
+
     `django-admin compilemessages`
-    
+
 That’s it. Your translations are ready for use.
 
 Emails
@@ -101,6 +101,33 @@ Google Drive integration for development
     182.16.0.5 webinvoices-local.dev
 
 2. Make sure you have webinvoices-local.dev present in the allowed URLS when creating client_secrets.json in google console.
+
+
+Deployment
+==========
+
+## Configuration
+Configuration is stored in ansible inventory under ansible/inventory dir and the template for production config is in ansible/inventory/productionenv. Edit ansible/inventory/productionenv and ansible/inventory/group_vars/default.yml with the correct setting.
+
+NOTE: Do not change the value of **deploy_in_vagrant**, it must be false.
+
+## First time install:
+
+```shell
+cd ansible
+ansible-playbook -i inventory/hosts install_web_app.yml
+ansible-playbook -i inventory/hosts create_database.yml
+ansible-playbook -i inventory/hosts html2pdf.yml
+ansible-playbook -i inventory/hosts web_app.yml
+```
+
+## Deploy changes
+
+```shell
+cd ansible
+ansible-playbook -i inventory/hosts web_app.yml
+```
+
 
 Tests
 =====

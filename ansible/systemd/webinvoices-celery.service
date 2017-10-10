@@ -1,0 +1,20 @@
+[Unit]
+Description=Webinvoices
+After=network.target
+
+[Service]
+Type=simple
+{% if deploy_in_vagrant %}
+EnvironmentFile=-/opt/webinvoices/.vagrantenv
+{% else %}
+EnvironmentFile=-/opt/webinvoices/.productionenv
+{% endif %}
+ExecStart=/usr/local/bin/celery -A src worker -l info -B
+WorkingDirectory=/opt/webinvoices
+Restart=always
+User=www-data
+Group=www-data
+
+
+[Install]
+WantedBy=multi-user.target

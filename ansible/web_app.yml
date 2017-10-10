@@ -1,0 +1,5 @@
+---
+- hosts: default
+  become: yes
+  tasks:
+    - include: tasks/deploy_web_app.yml
