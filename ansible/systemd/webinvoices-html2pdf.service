@@ -1,0 +1,15 @@
+[Unit]
+Description=Webinvoices
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node open.js
+WorkingDirectory=/opt/html2pdf
+Restart=always
+User=www-data
+Group=www-data
+
+
+[Install]
+WantedBy=multi-user.target

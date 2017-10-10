@@ -1,0 +1,111 @@
+---
+- hosts: default
+  become: yes
+  tasks:
+    - name: Install base server requirements
+      include: tasks/install_base.yml
+
+    - name: Install packages
+      with_items:
+        - nginx
+        - python3.6
+        - python3.6-dev
+        - python3.6-examples
+        - python3-cffi
+        - python3-cryptography
+        - python3-simplejson
+        - python3-anyjson
+        - python3-psycopg2
+        - python3-mysqldb
+        - python3-crypto
+        - redis-server
+        - gettext
+      apt: name={{item}}
+
+    - name: Download pip installer
+      get_url:
+        url: https://bootstrap.pypa.io/get-pip.py
+        dest: /tmp/get-pip.py
+        mode: 0755
+
+    - name: Install pip
+      shell: python3.6 /tmp/get-pip.py
+
+    - name: Install pip packages
+      shell: pip3.6 install virtualenv virtualenvwrapper stevedore virtualenv-clone
+
+    - name: Increase tcp connection backlog
+      sysctl:
+        name: net.core.somaxconn
+        value: 4096
+        state: present
+
+    - name: Create uwsgi log dir
+      file:
+        path: /var/log/uwsgi/
+        state: directory
+        mode: 0755
+        owner: www-data
+        group: www-data
+
+    - name: Get postgres configuration directories
+      command: ls -1 /etc/postgresql/
+      register: postgres_cfg
+
+    - name: Make postgres listen on 0.0.0.0
+      lineinfile:
+        line: "listen_addresses = '*'"
+        dest: "/etc/postgresql/{{ postgres_cfg.stdout_lines[0] }}/main/postgresql.conf"
+
+    - name: Postgres client encoding
+      lineinfile:
+        line: "client_encoding = utf8"
+        dest: "/etc/postgresql/{{ postgres_cfg.stdout_lines[0] }}/main/postgresql.conf"
+
+    - name: Postgres client access
+      lineinfile:
+        regexp: "local\\s+all\\s+all"
+        line: "local   all             all                                     md5"
+        dest: "/etc/postgresql/{{ postgres_cfg.stdout_lines[0] }}/main/pg_hba.conf"
+
+    - name: Restart postgresql
+      service:
+        name: postgresql
+        state: restarted
+        enabled: yes
+
+    - name: Make ~/webinvoices symlink
+      file:
+        src: /opt/webinvoices
+        dest: /home/ubuntu/webinvoices
+        state: link
+        owner: ubuntu
+        group: ubuntu
+      when: deploy_in_vagrant
+
+    - name: Add {{ webinvoices_domain }} -> 127.0.0.1 to /etc/hosts
+      lineinfile:
+        dest: /etc/hosts
+        regexp: '.*{{ webinvoices_domain }}$'
+        line: "127.0.0.1 {{webinvoices_domain}}"
+        state: present
+      when: deploy_in_vagrant
+
+    - name: Add nginx /etc/nginx/.htpasswd
+      file: path=/etc/nginx/.htpasswd state=touch owner=root group=root mode=0644
+
+    - name: Add nginx http users
+      command: htpasswd -b /etc/nginx/.htpasswd {{ item.key }} {{ item.value }}
+      with_dict: "{{ nginx_users }}"
+
+
+    - name: Stop nginx
+      service:
+        name: nginx
+        state: stopped
+
+    - name: Generate SSL certificate
+      shell: certbot certonly --agree-tos -m {{ letsencrypt_email }} --standalone -n -d {{ webinvoices_domain }}
+      when: not deploy_in_vagrant
+
+    - include: tasks/install_timer.yml name=letsencrypt

@@ -165,7 +165,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'root': {
-        'level': 'WARNING',
+        'level': 'DEBUG' if DEBUG else 'INFO',
         'handlers': ['sentry'],
     },
     'formatters': {
@@ -181,7 +181,6 @@ LOGGING = {
             'tags': {'custom-tag': 'x'},
         },
         'console': {
-            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
@@ -190,6 +189,10 @@ LOGGING = {
         },
     },
     'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
         'django.db.backends': {
             'level': 'ERROR',
             'handlers': ['console'],

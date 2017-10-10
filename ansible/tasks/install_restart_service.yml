@@ -1,0 +1,17 @@
+- name: Install systemd service - {{ name }}
+  template:
+    src: systemd/{{ name }}.service
+    dest: /etc/systemd/system/
+
+- name: Enable systemd service - {{ name }}
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: "{{ name }}"
+  when: ansible_service_mgr == 'systemd'
+
+- name: Restart service - {{ name }}
+  service:
+    name: "{{ name }}"
+    state: restarted
+    enabled: yes
