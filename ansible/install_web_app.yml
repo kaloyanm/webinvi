@@ -107,3 +107,5 @@
     - name: Generate SSL certificate
       shell: certbot certonly --agree-tos -m {{ letsencrypt_email }} --standalone -n -d {{ webinvoices_domain }}
       when: not deploy_in_vagrant
+
+    - include: tasks/install_timer.yml name=letsencrypt
