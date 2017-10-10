@@ -3,11 +3,6 @@
   become_user: postgres
   gather_facts: no
 
-  vars:
-    db: fakturi
-    dbuser: vagrant
-    dbpassword: vagrant
-
   tasks:
   - name: Create webinvoices DB user
     postgresql_user: name={{dbuser}} password={{dbpassword}}
