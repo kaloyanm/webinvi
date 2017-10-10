@@ -73,3 +73,12 @@
         name: postgresql
         state: restarted
         enabled: yes
+
+    - name: Make ~/webinvoices symlink
+      file:
+        src: /opt/webinvoices
+        dest: /home/ubuntu/webinvoices
+        state: link
+        owner: ubuntu
+        group: ubuntu
+      when: deploy_in_vagrant
