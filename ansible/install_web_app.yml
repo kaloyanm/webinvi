@@ -97,5 +97,5 @@
         state: stopped
 
     - name: Generate SSL certificate
-      shell: certbot certonly --agree-tos -m {{ letsencrypt_email }} --standalone -d {{ webinvoices_domain }}
+      shell: certbot certonly --agree-tos -m {{ letsencrypt_email }} --standalone -n -d {{ webinvoices_domain }}
       when: not deploy_in_vagrant

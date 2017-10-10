@@ -1,4 +1,9 @@
 ---
+- name: Install required packages
+  with_items:
+    - curl
+  apt: name={{item}}
+
 - name: Add node.js repo
   shell: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 
@@ -38,15 +43,6 @@
   file:
     path: /opt/
     state: directory
-
-- name: Create /opt/.well-known
-  file:
-    path: /opt/.well-known
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: 0755
-
 
 - name: No automatic CRLF for git checkout
   git_config:

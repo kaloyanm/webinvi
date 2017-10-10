@@ -28,27 +28,28 @@ Vagrant.configure(2) do |config|
       "webinvoices_domain" => "webinvoices-local.dev",
       "deploy_in_vagrant" => true,
     }}
+    provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
 
-    config.vm.provision :ansible do |ansible|
-      ansible.verbose = "v"
+    config.vm.provision provisioner do |ansible|
+      # ansible.verbose = "v"
       ansible.playbook = "ansible/install_web_app.yml"
       ansible.host_vars = ANSIBLE_HOST_VARS
     end
 
-    config.vm.provision :ansible do |ansible|
-      ansible.verbose = "v"
+    config.vm.provision provisioner do |ansible|
+      # ansible.verbose = "v"
       ansible.playbook = "ansible/create_database.yml"
       ansible.host_vars = ANSIBLE_HOST_VARS
     end
 
-    config.vm.provision :ansible do |ansible|
-      ansible.verbose = "v"
+    config.vm.provision provisioner do |ansible|
+      # ansible.verbose = "v"
       ansible.playbook = "ansible/web_app.yml"
       ansible.host_vars = ANSIBLE_HOST_VARS
     end
 
-    config.vm.provision :ansible do |ansible|
-      ansible.verbose = "v"
+    config.vm.provision provisioner do |ansible|
+      # ansible.verbose = "v"
       ansible.playbook = "ansible/html2pdf.yml"
       ansible.host_vars = ANSIBLE_HOST_VARS
     end

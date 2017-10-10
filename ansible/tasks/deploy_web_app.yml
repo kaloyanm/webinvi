@@ -10,12 +10,18 @@
     executable: pip3
     requirements: /opt/webinvoices/requirements.txt
 
+- name: npm install
+  shell: cd /opt/webinvoices ; npm install
+
+- name: Webpack build
+  shell: cd /opt/webinvoices ; npm run build:prod
+
 - name: Django migrate & collect static
   shell: cd /opt/webinvoices ; ./manage.py migrate --no-input && ./manage.py collectstatic --no-input
 
 - name: Generate production config
   template:
-    src: .productionenv
+    src: inventory/productionenv
     dest: /opt/webinvoices/.productionenv
     owner: www-data
     group: www-data
