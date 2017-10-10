@@ -5,6 +5,10 @@
 - name: Add Python3.6 repo
   apt_repository: repo='ppa:fkrull/deadsnakes'
 
+- name: Add certbot PPA
+  apt_repository:
+    repo: 'ppa:certbot/certbot'
+
 - name: Update apt cache
   apt:
     update_cache: yes
@@ -27,12 +31,22 @@
     - build-essential
     - htop
     - links
+    - python-certbot-nginx
   apt: name={{item}}
 
 - name: Create /opt/
   file:
     path: /opt/
     state: directory
+
+- name: Create /opt/.well-known
+  file:
+    path: /opt/.well-known
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+
 
 - name: No automatic CRLF for git checkout
   git_config:

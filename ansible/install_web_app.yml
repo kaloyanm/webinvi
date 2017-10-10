@@ -82,3 +82,9 @@
         owner: ubuntu
         group: ubuntu
       when: deploy_in_vagrant
+
+    - include: deploy_nginx_config.yml
+
+    - name: Generate SSL certificate
+      shell: certbot certonly --webroot -w /opt -d {{ webinvoices_domain }}
+      when: not deploy_in_vagrant
