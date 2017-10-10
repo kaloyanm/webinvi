@@ -1,4 +1,3 @@
 web: ./manage.py runserver 0.0.0.0:8000
-html2pdf: cd external/html2pdf && node open.js
 webpack: npm run watch
 celery: celery -A src worker -l info -B

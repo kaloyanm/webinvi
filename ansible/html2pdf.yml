@@ -3,7 +3,11 @@
   become: yes
   tasks:
     - name: Checkout html2pdf app
-      git: repo=https://github.com/ebdrup/html2pdf.it.git dest=/opt/html2pdf accept_hostkey=yes
+      git:
+        repo: https://github.com/ebdrup/html2pdf.it.git
+        dest: /opt/html2pdf
+        accept_hostkey: yes
+        update: no
 
     - name: chown /opt/html2pdf to www-data
       file:
