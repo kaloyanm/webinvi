@@ -91,6 +91,14 @@
         state: present
       when: deploy_in_vagrant
 
+    - name: Add nginx /etc/nginx/.htpasswd
+      file: path=/etc/nginx/.htpasswd state=touch owner=root group=root mode=0644
+
+    - name: Add nginx http users
+      command: htpasswd -b /etc/nginx/.htpasswd {{ item.key }} {{ item.value }}
+      with_dict: "{{ nginx_users }}"
+
+
     - name: Stop nginx
       service:
         name: nginx

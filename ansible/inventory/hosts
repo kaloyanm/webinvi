@@ -7,4 +7,4 @@ ansible_python_interpreter=/usr/bin/python3
 # skip_chekout=1
 
 [default]
-176.126.245.87 webinvoices_domain=webinvoices.eu letsencrypt_email=kaloyan.mir4ev@gmail.com deploy_in_vagrant=
+176.126.245.87
