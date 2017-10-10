@@ -91,8 +91,11 @@
         state: present
       when: deploy_in_vagrant
 
-    - include: tasks/deploy_nginx_config.yml
+    - name: Stop nginx
+      service:
+        name: nginx
+        state: stopped
 
     - name: Generate SSL certificate
-      shell: certbot certonly --webroot -w /opt -d {{ webinvoices_domain }}
+      shell: certbot certonly --agree-tos -m {{ letsencrypt_email }} --standalone -d {{ webinvoices_domain }}
       when: not deploy_in_vagrant
