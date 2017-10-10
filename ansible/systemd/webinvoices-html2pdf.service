@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 ExecStart=/usr/bin/node open.js
-WorkingDirectory=/opt/webinvoices/external/html2pdf
+WorkingDirectory=/opt/html2pdf
 Restart=always
 User=www-data
 Group=www-data

@@ -1,0 +1,20 @@
+---
+- hosts: default
+  become: yes
+  tasks:
+    - name: Checkout html2pdf app
+      git: repo=https://github.com/ebdrup/html2pdf.it.git dest=/opt/html2pdf accept_hostkey=yes
+
+    - name: chown /opt/html2pdf to www-data
+      file:
+        path: /opt/html2pdf
+        recurse: yes
+        owner: www-data
+        group: www-data
+
+    - name: npm install
+      shell: npm install
+      args:
+        chdir: /opt/html2pdf
+
+    - include: tasks/install_restart_service.yml name=webinvoices-html2pdf

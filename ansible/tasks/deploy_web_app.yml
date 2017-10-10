@@ -25,7 +25,15 @@
 - name: Django migrate & collect static
   shell: cd /opt/webinvoices ; ./manage.py migrate --no-input && ./manage.py collectstatic --no-input
 
+- name: Generate production config
+  template:
+    src: .productionenv
+    dest: /opt/webinvoices/.productionenv
+    owner: www-data
+    group: www-data
+    mode: 0640
+  when: not deploy_in_vagrant
+
 - include: install_restart_service.yml name=webinvoices-web
 - include: install_restart_service.yml name=webinvoices-celery
-- include: install_restart_service.yml name=webinvoices-html2pdf
 - include: tasks/install_timer.yml name=webinvoices-currency-rates

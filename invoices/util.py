@@ -10,5 +10,5 @@ def get_pdf_generator_url(pk):
 
     print_preview_url = "{}{}".format(settings.HOSTNAME, reverse("printpreview", kwargs=dict(token=access_token)))
     pdf_generator_url = "{}/?url={}".format(settings.PDF_SERVER, print_preview_url)
-
+    print(pdf_generator_url)
     return pdf_generator_url

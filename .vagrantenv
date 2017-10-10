@@ -1,0 +1,7 @@
+PROCFILE=Procfile.dev
+HOSTNAME=http://webinvoices-local.dev
+PDF_SERVER=http://webinvoices-local.dev:8080
+PORT=7980
+EMAIL_PORT=1025
+SENTRY_DSN=
+DEBUG=True

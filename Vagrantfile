@@ -47,4 +47,10 @@ Vagrant.configure(2) do |config|
       ansible.host_vars = ANSIBLE_HOST_VARS
     end
 
+    config.vm.provision :ansible do |ansible|
+      ansible.verbose = "v"
+      ansible.playbook = "ansible/html2pdf.yml"
+      ansible.host_vars = ANSIBLE_HOST_VARS
+    end
+
 end
