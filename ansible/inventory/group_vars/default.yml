@@ -1,6 +1,6 @@
 ---
-nginx_users:
-  demo-client: demo-pass
+nginx_user: demo-client
+nginx_pass: demo-pass
 webinvoices_domain: webinvoices.eu
 letsencrypt_email: kaloyan.mir4ev@gmail.com
 deploy_in_vagrant: false
