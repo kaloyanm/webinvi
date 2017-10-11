@@ -22,6 +22,7 @@ Vagrant.configure(2) do |config|
     end
 
     config.vm.synced_folder ".", "/opt/webinvoices"
+    config.vm.synced_folder ".", "/vagrant"
 
     ANSIBLE_HOST_VARS = { "default" => {
       "ansible_python_interpreter" => "/usr/bin/python3" ,
@@ -33,7 +34,7 @@ Vagrant.configure(2) do |config|
       "dbuser" => "vagrant",
       "dbpassword" => "vagrant",
     }}
-    provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
+    provisioner = :ansible_local
 
     config.vm.provision provisioner do |ansible|
       # ansible.verbose = "v"
