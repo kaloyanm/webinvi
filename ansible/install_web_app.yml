@@ -20,6 +20,7 @@
         - python3-crypto
         - redis-server
         - gettext
+        - apache2-utils
       apt: name={{item}}
 
     - name: Download pip installer
