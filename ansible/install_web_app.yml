@@ -109,3 +109,6 @@
       when: not deploy_in_vagrant
 
     - include: tasks/install_timer.yml name=letsencrypt
+
+    - name: install yarn & webpack & gulp
+      command: npm install -g yarn webpack
