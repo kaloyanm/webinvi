@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
     # Forward a port from the guest to the host, which allows for outside
     # computers to access the VM, whereas host only networking does not.
-    config.vm.network :private_network, ip: "182.16.0.5"
+    config.vm.network :private_network, ip: "172.16.0.5"
     config.vm.network :forwarded_port, guest: 22, host: 2235, id: 'ssh'
 
     config.vm.provider "virtualbox" do |v|
