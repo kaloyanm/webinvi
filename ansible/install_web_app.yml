@@ -76,14 +76,14 @@
         state: restarted
         enabled: yes
 
-    - name: Make ~/webinvoices symlink
-      file:
-        src: /opt/webinvoices
-        dest: /home/ubuntu/webinvoices
-        state: link
-        owner: ubuntu
-        group: ubuntu
-      when: deploy_in_vagrant
+    # - name: Make ~/webinvoices symlink
+    #   file:
+    #     src: /opt/webinvoices
+    #     dest: /home/ubuntu/webinvoices
+    #     state: link
+    #     owner: ubuntu
+    #     group: ubuntu
+    #   when: deploy_in_vagrant
 
     - name: Add {{ webinvoices_domain }} -> 127.0.0.1 to /etc/hosts
       lineinfile:

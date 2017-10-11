@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
 
     # Every Vagrant development environment requires a box. You can search for
     # boxes at https://atlas.hashicorp.com/search.
-    config.vm.box = "ubuntu/xenial64"
+    config.vm.box = Vagrant::Util::Platform.windows? "vccw-team/xenial64" : "ubuntu/xenial64"
 
     # Forward a port from the guest to the host, which allows for outside
     # computers to access the VM, whereas host only networking does not.
