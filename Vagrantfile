@@ -27,6 +27,11 @@ Vagrant.configure(2) do |config|
       "ansible_python_interpreter" => "/usr/bin/python3" ,
       "webinvoices_domain" => "webinvoices-local.dev",
       "deploy_in_vagrant" => true,
+      "nginx_user" => "demo-client",
+      "nginx_pass" => "demo-pass",
+      "db" => "fakturi",
+      "dbuser" => "vagrant",
+      "dbpassword" => "vagrant",
     }}
     provisioner = Vagrant::Util::Platform.windows? ? :guest_ansible : :ansible
 

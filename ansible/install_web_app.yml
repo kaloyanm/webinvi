@@ -56,6 +56,7 @@
       lineinfile:
         line: "listen_addresses = '*'"
         dest: "/etc/postgresql/{{ postgres_cfg.stdout_lines[0] }}/main/postgresql.conf"
+      when: deploy_in_vagrant
 
     - name: Postgres client encoding
       lineinfile:
@@ -95,9 +96,7 @@
       file: path=/etc/nginx/.htpasswd state=touch owner=root group=root mode=0644
 
     - name: Add nginx http users
-      command: htpasswd -b /etc/nginx/.htpasswd {{ item.key }} {{ item.value }}
-      with_dict: "{{ nginx_users }}"
-
+      command: htpasswd -b /etc/nginx/.htpasswd {{ nginx_user }} {{ nginx_pass }}
 
     - name: Stop nginx
       service:
