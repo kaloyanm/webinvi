@@ -11,8 +11,8 @@
     requirements: /opt/webinvoices/requirements.txt
 
 - name: npm install
-  shell: cd /opt/webinvoices ; yarn install
-
+  shell: cd /opt/webinvoices ; yarn install --no-bin-links
+·
 - name: Webpack build
   shell: cd /opt/webinvoices ; yarn run build:prod
 
