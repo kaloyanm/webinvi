@@ -4,4 +4,5 @@
     Фирмена регистрация
 {% endblock %}
 
-{% block delete_button_href %}{% url 'drop_company' form.instance.pk %}{% endblock %}
+
+{% block delete_button_href %}{% if form.instance.pk %}{% url 'drop_company' form.instance.pk %}{% endif %}{% endblock %}
