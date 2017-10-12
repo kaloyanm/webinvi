@@ -436,11 +436,11 @@
 .ui.form .field.error label,
 .ui.form .fields.error .field .input,
 .ui.form .field.error .input {
-  color: #9F3A38;
+  color: #db2828;
 }
 .ui.form .fields.error .field .corner.label,
 .ui.form .field.error .corner.label {
-  border-color: #9F3A38;
+  border-color: #db2828;
   color: #FFFFFF;
 }
 .ui.form .fields.error .field textarea,
@@ -473,7 +473,7 @@
 .ui.form .field.error input[type="url"] {
   background: #FFF6F6;
   border-color: #E0B4B4;
-  color: #9F3A38;
+  color: #db2828;
   border-radius: '';
   box-shadow: none;
 }
@@ -493,7 +493,7 @@
 .ui.form .field.error input[type="url"]:focus {
   background: #FFF6F6;
   border-color: #E0B4B4;
-  color: #9F3A38;
+  color: #db2828;
   -webkit-appearance: none;
   box-shadow: none;
 }

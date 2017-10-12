@@ -124,12 +124,20 @@ h1 small {
 .field__text {
   text-align: right;
   padding: 0 7px 0 0;
-  display: block;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .field__currency {
   font-weight: bold;
-  margin-right: 5px;
+  margin: 0 5px;
+  float: left;
+}
+
+.field__input {
+  float: right;
+  width: 150px!important;
 }
 
 #div_id_dds_percent input {

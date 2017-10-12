@@ -142,6 +142,11 @@ main {
   box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
   margin-left: 450px!important;
 
+  .error-msg {
+    font-size: 90%;
+    margin-left: 5px;
+  }
+
   .field__text {
     text-align: right;
     justify-content: space-between;
@@ -150,7 +155,7 @@ main {
   .field__currency {
     line-height: 31px;
     font-weight: bold;
-    margin-right: 5px;
+    margin: 0 5px;
   }
 
   .field__input {
@@ -227,7 +232,7 @@ main {
   display: none;
 }
 .error-msg{
-  color: #9f3a38;
+  color: #db2828;
 }
 .field:not(.error) .error-msg {
   display: none;
@@ -378,4 +383,8 @@ main {
       font-size: 40px;
     }
   }
+}
+
+#invoice-error:not(.hidden) {
+  display: block;
 }
