@@ -1,0 +1,9 @@
+. ./.vagrantenv
+
+export PROCFILE
+export HOSTNAME
+export PDF_SERVER
+export PORT
+export EMAIL_PORT
+export SENTRY_DSN
+export DEBUG

@@ -120,4 +120,10 @@
           mode: 0755
       when: deploy_in_vagrant
 
+    - name: Add honcho alias
+      lineinfile:
+        line: "alias honcho='honcho -e /opt/webinvoices/.vagrantenv -f /opt/webinvoices/Procfile.dev'"
+        dest: "/home/vagrant/.bashrc"
+      when: deploy_in_vagrant
+
     - include: tasks/install_restart_service.yml name=webinvoices-mailhog
