@@ -112,3 +112,12 @@
 
     - name: install yarn & webpack & gulp
       command: npm install -g yarn webpack
+
+    - name: install mailhog
+      get_url:
+          url: https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64
+          dest: /usr/local/bin/mailhog
+          mode: 0755
+      when: deploy_in_vagrant
+
+    - include: tasks/install_restart_service.yml name=webinvoices-mailhog
