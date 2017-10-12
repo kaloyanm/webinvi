@@ -10,7 +10,12 @@ def get_pdf_generator_url(pk):
     cache.set(access_token, pk)
 
     u = urlparse(settings.HOSTNAME)
-    u = u._replace(scheme='http', netloc='localhost')
+    if u.port != 80:
+        port = ':' + str(u.port)
+    else:
+        port = ''
+    u = u._replace(scheme='http', netloc='localhost' + port)
+
     print_preview_url = "{}{}".format(urlunparse(u), reverse("printpreview", kwargs=dict(token=access_token)))
     pdf_generator_url = "{}/?url={}".format(settings.PDF_SERVER, print_preview_url)
     print(pdf_generator_url)
