@@ -240,7 +240,7 @@ def print_preview(request, token):
 def print_invoice(request, pk):
     pdf_generator_url = get_pdf_generator_url(pk)
     instance = get_object_or_404(Invoice, pk=pk)
-    print(pdf_generator_url)
+
     req = urllib.request.Request(pdf_generator_url)
     with urllib.request.urlopen(req) as res:
         if res.status == 200:
