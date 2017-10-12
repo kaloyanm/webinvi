@@ -2,7 +2,7 @@
 - include: deploy_nginx_config.yml
 
 - name: Checkout webinvoices app
-  git: repo=git@github.com:kaloyanm/invoiceapp.git dest=/opt/webinvoices accept_hostkey=yes version=ansible
+  git: repo=git@github.com:kaloyanm/invoiceapp.git dest=/opt/webinvoices accept_hostkey=yes version=master
   when: not deploy_in_vagrant
 
 - name: Install webinvoices requirements.txt
