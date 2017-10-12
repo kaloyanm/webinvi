@@ -34,11 +34,15 @@ class LoginForm(SemanticUIFormMixin, AuthenticationForm):
 class CompanyForm(SemanticUIFormMixin, TranslateLabelsFormMixin, forms.ModelForm):
     translate_labels = {
         "name": _('Има на компанията'),
+        "name_tr": _('Има на компанията'),
         "eik": _('БУЛСТАТ'),
         "dds": _('Ин по ДДС'),
         "city": _('Град'),
+        "city_tr": _('Град'),
         "address": _('Адрес'),
+        "address_tr": _('Адрес'),
         "mol": _('МОЛ'),
+        "mol_tr": _('МОЛ'),
         "default": _('Маркирай като основна'),
     }
 

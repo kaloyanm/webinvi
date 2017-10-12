@@ -1,0 +1,17 @@
+{% load static %}
+{% if messages %}
+<div class="ui error message">
+<i class="close icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-close"></use></svg></i>
+<div class="header">
+  Действието не може да бъде изпълнено
+</div>
+<ul class="list">
+  {% for message in messages %}
+    <li>
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+      {{ message }}
+    </li>
+  {% endfor %}
+</ul>
+</div>
+{% endif %}

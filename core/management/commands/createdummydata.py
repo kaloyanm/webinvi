@@ -13,8 +13,8 @@ class Command(BaseCommand):
     help = 'Generate application dummy data'
 
     def handle(self, *args, **options):
-        comp_per_user = 10
-        inv_per_company = 50
+        comp_per_user = 5
+        inv_per_company = 25
         num_users = 10
         output_message = "{} users created each with {} companies each with {} invoices"\
             .format(num_users, comp_per_user, inv_per_company)

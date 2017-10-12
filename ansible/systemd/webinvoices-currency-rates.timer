@@ -1,0 +1,9 @@
+[Unit]
+Description=Import currency rates in webinvoices
+
+[Timer]
+OnCalendar=hourly
+Persistent=false
+
+[Install]
+WantedBy=timers.target

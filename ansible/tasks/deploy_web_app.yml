@@ -1,0 +1,33 @@
+---
+- include: deploy_nginx_config.yml
+
+- name: Checkout webinvoices app
+  git: repo=git@github.com:kaloyanm/invoiceapp.git dest=/opt/webinvoices accept_hostkey=yes version=master
+  when: not deploy_in_vagrant
+
+- name: Install webinvoices requirements.txt
+  pip:
+    executable: pip3
+    requirements: /opt/webinvoices/requirements.txt
+
+- name: npm install
+  shell: cd /opt/webinvoices ; yarn install --no-bin-links
+
+- name: Webpack build
+  shell: cd /opt/webinvoices ; yarn run build:prod
+
+- name: Django migrate & collect static
+  shell: cd /opt/webinvoices ; ./manage.py migrate --no-input && ./manage.py collectstatic --no-input
+
+- name: Generate production config
+  template:
+    src: inventory/productionenv
+    dest: /opt/webinvoices/.productionenv
+    owner: www-data
+    group: www-data
+    mode: 0640
+  when: not deploy_in_vagrant
+
+- include: install_restart_service.yml name=webinvoices-web
+- include: install_restart_service.yml name=webinvoices-celery
+- include: install_timer.yml name=webinvoices-currency-rates

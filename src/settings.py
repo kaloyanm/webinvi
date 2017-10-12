@@ -30,7 +30,7 @@ DEBUG = os.environ.get('DEBUG', False)
 
 HOSTNAME = os.environ.get('HOSTNAME', socket.gethostname())
 ALLOWED_HOSTS = [
-    '182.16.0.5', 'vagrant', 'webinvoices.eu', 'webinvoices.foggly.net',
+    '172.16.0.5', 'vagrant', 'webinvoices.eu', 'webinvoices.foggly.net',
     'webinvoices-local.dev', 'localhost']
 
 
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rosetta',
     'django_extensions',
     'import_export',
+    'password_reset',
     'core',
     'invoices',
     'raven.contrib.django.raven_compat',
@@ -65,6 +66,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'core.middleware.ForceUsernameEmail',
     'core.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -83,6 +85,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ]
@@ -150,9 +153,11 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 
 # Email
+NO_REPLY_EMAIL = 'noreply@webinvoices.eu'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
-EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
-
+EMAIL_PORT = os.environ.get('EMAIL_PORT', 1025)
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', NO_REPLY_EMAIL)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -164,7 +169,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'root': {
-        'level': 'WARNING',
+        'level': 'DEBUG' if DEBUG else 'INFO',
         'handlers': ['sentry'],
     },
     'formatters': {
@@ -180,7 +185,6 @@ LOGGING = {
             'tags': {'custom-tag': 'x'},
         },
         'console': {
-            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         },
@@ -189,6 +193,10 @@ LOGGING = {
         },
     },
     'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
         'django.db.backends': {
             'level': 'ERROR',
             'handlers': ['console'],

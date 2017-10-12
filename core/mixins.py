@@ -51,3 +51,23 @@ class AttrsFormMixin:
             if field not in self.fields.keys():
                 raise ImproperlyConfigured
             self.fields[field].widget.attrs.update(attrs)
+
+
+class FillEmptyTranslationsMixin:
+    def save(self, *args, **kwargs):
+        # update the second language from the base if it is empty
+        for _field in self._meta.get_fields():
+            if _field.name.endswith('_tr') and not getattr(self, _field.name):
+                setattr(self, _field.name, getattr(self, _field.name.replace('_tr', '')))
+        super(FillEmptyTranslationsMixin, self).save(*args, **kwargs)
+
+
+class OffRequiredFieldsMixin:
+    off_required_fields = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.off_required_fields:
+            if field not in self.fields.keys():
+                raise ImproperlyConfigured
+            self.fields[field].required = False

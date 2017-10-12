@@ -21,6 +21,7 @@ django-rosetta
 django-import-export
 django-crispy-forms
 django-prices-openexchangerates
+django-password-reset
 whitenoise
 
 # Libs for connection third party software

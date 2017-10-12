@@ -1,12 +1,14 @@
 {% extends base_template %}
-{% load static inv_utils %}
-{% load crispy_forms_tags crispy_forms_filters %}
+{% load i18n static %}
+{% load inv_utils crispy_forms_tags crispy_forms_filters crispy_custom %}
+{% get_available_languages as LANGUAGES %}
 {% block body_class %}body--invoice{% endblock %}
 
 {% block content %}
   <script>
     var EXCHANGE_RATES = {{ rates_json|safe }};
   </script>
+  {% language selected_language %}
   <div id="sticky-target"></div>
   <div id="invoice-container" class="ui basic segment" >
     {% if not print %}
@@ -16,11 +18,13 @@
           <h2>Настройки</h2>
         </div>
         <div class="ui attached segment">
-          <select class="ui search dropdown fluid _mbxs" {% if not pk %}disabled{% endif %}>
-            <option value="1">Български</option>
-            <option value="2">English</option>
+          <select class="ui dropdown fluid _mbxs" {% if not pk %}disabled{% endif %} onchange="window.location.href=this.options[this.selectedIndex].value">
+          {% if pk %}
+            {% for lang_code, lang_name in LANGUAGES %}
+            <option {% if selected_language == lang_code %}selected{% endif %} value="{% url 'change_lang' pk lang_code %}">{{ lang_name }}</option>
+            {% endfor %}
+          {% endif %}
           </select>
-
           <div class="ui grid">
             <div class="equal width row">
               <div class="column">
@@ -35,7 +39,6 @@
               </div>
             </div>
           </div>
-
         </div>
         <div class="ui bottom items attached">
           {% if pk %}
@@ -46,7 +49,7 @@
             </div>
           {% endif %}
 
-          {% if invoice_type == 'proforma' %}
+          {% if invoice_type == 'proforma' and pk %}
           <div class="ui green right floated small buttons">
             <button type="submit" onclick="document.forms.invoice_form.submit()" href="{% url 'list' %}" class="ui button" role="button">
               <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
@@ -55,7 +58,7 @@
             <div class="ui floating dropdown icon button">
               <i class="dropdown icon"></i>
               <div class="menu">
-                <div class="item">Запази като фактура</div>
+                <div class="item"><a href="{% url 'convert_proforma' pk %}">Запази като фактура</a></div>
               </div>
             </div>
           </div>
@@ -81,6 +84,10 @@
         {% endfor %}
       {% endfor %}
 
+    {% for form in form_items %}
+        {{ form.errors }}
+    {% endfor %}
+
       <div class="ui grid">
 
         <div class="equal width row _pb0">
@@ -103,19 +110,28 @@
 
         <div class="equal width row _pb0">
           <div class="column column__client">
-            {{ form.client_name|as_crispy_field }}
+            {% if use_tr %}{{ form.client_name_tr|as_crispy_field }}{{ form.client_name|set_hidden|as_crispy_field }}
+            {% else %}{{ form.client_name|as_crispy_field }}{{ form.client_name_tr|set_hidden|as_crispy_field }}{% endif %}
+
             {{ form.client_eik|as_crispy_field }}
             {{ form.client_dds|as_crispy_field }}
-            {{ form.client_city|as_crispy_field }}
-            {{ form.client_address|as_crispy_field }}
-            {{ form.client_mol|as_crispy_field }}
+
+            {% if use_tr %}{{ form.client_city_tr|as_crispy_field }}{{ form.client_city|set_hidden|as_crispy_field }}
+            {% else %}{{ form.client_city|as_crispy_field }}{{ form.client_city_tr|set_hidden|as_crispy_field }}{% endif %}
+
+            {% if use_tr %}{{ form.client_address_tr|as_crispy_field }}{{ form.client_address|set_hidden|as_crispy_field }}
+            {% else %}{{ form.client_address|as_crispy_field }}{{ form.client_address_tr|set_hidden|as_crispy_field }}{% endif %}
+
+            {% if use_tr %}{{ form.client_mol_tr|as_crispy_field }}{{ form.client_mol|set_hidden|as_crispy_field }}
+            {% else %}{{ form.client_mol|as_crispy_field }}{{ form.client_mol_tr|set_hidden|as_crispy_field }}{% endif %}
+
           </div><div class="column column__company">
-            {{company_form.name|as_crispy_field}}
+            {% if use_tr %}{{company_form.name_tr|as_crispy_field}}{% else %}{{company_form.name|as_crispy_field}}{% endif %}
             {{company_form.eik|as_crispy_field}}
             {{company_form.dds|as_crispy_field}}
-            {{company_form.city|as_crispy_field}}
-            {{company_form.address|as_crispy_field}}
-            {{company_form.mol|as_crispy_field}}
+            {% if use_tr %}{{company_form.city_tr|as_crispy_field}}{% else %}{{company_form.city|as_crispy_field}}{% endif %}
+            {% if use_tr %}{{company_form.address_tr|as_crispy_field}}{% else %}{{company_form.address|as_crispy_field}}{% endif %}
+            {% if use_tr %}{{company_form.mol_tr|as_crispy_field}}{% else %}{{company_form.mol|as_crispy_field}}{% endif %}
           </div>
         </div>
 
@@ -160,9 +176,11 @@
 
         <div class="equal width row row__accepted">
           <div class="column">
-            {{ form.accepted_by|as_crispy_field }}
+            {% if use_tr %}{{ form.accepted_by_tr|as_crispy_field }}{{ form.accepted_by|set_hidden|as_crispy_field }}
+            {% else %}{{ form.accepted_by|as_crispy_field }}{{ form.accepted_by_tr|set_hidden|as_crispy_field }}{% endif %}
           </div><div class="column">
-            {{ form.created_by|as_crispy_field }}
+            {% if use_tr %}{{ form.created_by_tr|as_crispy_field }}{{ form.created_by|set_hidden|as_crispy_field }}
+            {% else %}{{ form.created_by|as_crispy_field }}{{ form.created_by_tr|set_hidden|as_crispy_field }}{% endif %}
           </div>
         </div>
 
@@ -191,15 +209,11 @@
     {% endif %}
   </div>
 </div>
-
-<script type="text/javascript">window.formset = {{ formset|safe }};</script>
-<script src="{% static "invoices/js/app.js" %}"></script>
-{#  <script>#}
-{#    var totalField = $('#total');#}
-{#    totalField.css('width', (totalField.val().length) * 8);#}
-{#    totalField.on('change', function() {#}
-{#      totalField.css('width', (totalField.val().length + 1) * 8);#}
-{#    });#}
-{#  </script>#}
 {% endif %}
+{% endlanguage %}
+<script type="text/javascript">
+    window.INVOICE_ITEMS = {{ items|safe }};
+    window.INVOICE_ITEM_TEMPLATE = {name{% if use_tr %}_tr{% endif %}: "", quantity: 1, measure{% if use_tr %}_tr{% endif %}: "", unit_price:0, discount: 0, gross: 0, id: 0, invoice_id:0};
+</script>
+<script src="{% static "invoices/js/app.js" %}"></script>
 {% endblock %}

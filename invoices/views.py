@@ -5,7 +5,9 @@ import urllib.request
 import logging
 import urllib
 
+from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.contrib import messages
 from django.core.cache import cache
 from django.db import transaction
 from django.utils import timezone
@@ -33,21 +35,43 @@ def django_json_dumps(items):
     return json.dumps(items, cls=DjangoJSONEncoder)
 
 
-def process_invoice(request, form, form_items):
+def get_company_or_404(request, company_pk=None):
+    company_pk = company_pk if company_pk else request.session.get('company_pk')
+    if company_pk:
+        try:
+            company = Company.objects.get(pk=company_pk)
+            request.session['company_pk'] = company_pk
+        except Company.DoesNotExist:
+            raise Http404
+    else:
+        company = request.company
+    return company
+
+
+def process_invoice(company, form, form_items):
+    pk = None
     if form.is_valid() and form_items.is_valid():
+        form.instance.company = company
         instance = form.save()
-        instance.company = request.company
-        instance.save()
 
         with transaction.atomic():
-            instance.invoiceitem_set.all().delete()
+            existing_pks = []
             for form in form_items:
-                invoiceitem = InvoiceItem(**form.cleaned_data)
-                invoiceitem.invoice = instance
-                invoiceitem.company = request.company
-                invoiceitem.save()
-        return True
-    return False
+                logger.debug(form.cleaned_data)
+                item_pk = form.cleaned_data['id']
+                del form.cleaned_data['id']
+                del form.cleaned_data['DELETE']
+
+
+                form.cleaned_data['invoice'] = instance
+                obj, created = InvoiceItem.objects.update_or_create(pk=item_pk, defaults=form.cleaned_data)
+                existing_pks.append(obj.pk)
+
+            deleted_pks = set(instance.invoiceitem_set.all().values_list('pk', flat=True)).difference(set(existing_pks))
+            instance.invoiceitem_set.filter(pk__in=deleted_pks).delete()
+
+        return True, instance.pk
+    return False, pk
 
 
 def sync_invoice_to_external(instance, user):
@@ -73,7 +97,7 @@ def _invoice(request, pk=None, invoice_type="invoice",
         company = instance.company
     else:
         instance = None
-        company = request.company
+        company = get_company_or_404(request)
 
     if not company:
         return redirect(reverse("company"))
@@ -84,33 +108,44 @@ def _invoice(request, pk=None, invoice_type="invoice",
         "taxevent_at": str(timezone.now().strftime("%Y-%m-%d")),
     }
 
+    if pk:
+        selected_language = request.session.get('current_lang', settings.LANGUAGE_CODE)
+    else:
+        selected_language = settings.LANGUAGE_CODE
+        request.session['current_lang'] = settings.LANGUAGE_CODE  # restore the default lang in case of editing recorded translation
+
     context = {
         "print": print,
         "base_template": base_template,
         "form": InvoiceForm(initial=default_data),
         "instance": instance,
-        "formset": json.dumps([]),
+        "items": json.dumps([]),
         "invoice_type": invoice_type,
         "company_form": CompanyForm(instance=company),
         "pk": pk,
+        "selected_language": selected_language,
+        "use_tr": pk and selected_language != settings.LANGUAGE_CODE,
     }
 
     if request.method == "POST":
         form = InvoiceForm(request.POST, instance=instance)
-        form_items = InvoiceItemFormSet(request.POST)
 
-        if process_invoice(request, form, form_items):
+        initial_items = list(instance.invoiceitem_set.all().values()) if instance else []
+        form_items = InvoiceItemFormSet(request.POST, initial=initial_items)
+
+        is_ok, pk = process_invoice(company, form, form_items)
+        if is_ok:
             sync_invoice_to_external(instance, request.user)
             return redirect(reverse(invoice_type, args=[pk]))
 
+        context["form_items"] = form_items
         context["form"] = form
-    else:
-        if instance:
-            context["company_form"] = CompanyForm(instance=instance.company)
-            context["form"] = InvoiceForm(instance=instance)
+    elif instance:
+        context["company_form"] = CompanyForm(instance=instance.company)
+        context["form"] = InvoiceForm(instance=instance)
 
     if instance:
-        context["formset"] = django_json_dumps(list(instance.invoiceitem_set.values()))
+        context["items"] = django_json_dumps(list(instance.invoiceitem_set.values()))
 
     rates = {}
     for from_c in settings.ALLOWED_CURRENCIES:
@@ -134,7 +169,7 @@ def delete_invoice(request, pk):
     return redirect("list")
 
 
-def search_invoices(company, search_terms):
+def search_invoices_queryset(company, search_terms):
     from django.contrib.postgres.search import SearchQuery, SearchVector
     queryset = Invoice.objects.filter(company=company)
 
@@ -170,7 +205,7 @@ def get_company_or_404(request, company_pk=None):
 def list_invoices(request, company_pk=None):
     company = get_company_or_404(request, company_pk)
     search_terms = request.GET.get("query", "")
-    queryset = search_invoices(company, search_terms)
+    queryset = search_invoices_queryset(company, search_terms)
 
     pager = Paginator(queryset, 15)
     page = pager.page(request.GET.get("page", 1))
@@ -204,7 +239,7 @@ def print_preview(request, token):
 @login_required
 def print_invoice(request, pk):
     pdf_generator_url = get_pdf_generator_url(pk)
-    instance = get_object_or_404(Invoice, pk)
+    instance = get_object_or_404(Invoice, pk=pk)
 
     req = urllib.request.Request(pdf_generator_url)
     with urllib.request.urlopen(req) as res:
@@ -247,9 +282,16 @@ def autocomplete_client(request):
     company = get_company_or_404(request, company_pk=None)
     keyword = request.GET.get('k')
 
+    selected_language = request.session.get('current_lang', settings.LANGUAGE_CODE)
+    use_tr = selected_language != settings.LANGUAGE_CODE
+
+    fields = ['client_city', 'client_address', 'client_mol', 'client_name']
+    if use_tr:
+        fields = ["{}_tr".format(field) for field in fields]
+    fields += ['client_eik', 'client_dds']
+
     queryset = get_searchfield_queryset(company, 'client_name', keyword)
-    raw_data = queryset.values('client_city', 'client_address', 'client_eik', 'client_dds',
-                               'client_mol', 'client_name')
+    raw_data = queryset.values(*fields)
 
     data = []
     for entry in raw_data[:10]:
@@ -258,3 +300,30 @@ def autocomplete_client(request):
 
     response = {"results": data}
     return JsonResponse(response)
+
+
+@login_required
+def change_invoice_language(request, pk, lang):
+    allowed_langs = [code for code, _ in settings.LANGUAGES]
+    if lang in allowed_langs:
+        request.session['current_lang'] = lang
+    return redirect(reverse('invoice', args=[pk]))
+
+
+@login_required
+def proforma2invoice(request, pk):
+    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_PROFORMA)
+    items = instance.invoiceitem_set.all()
+
+    instance.pk = None
+    instance.invoice_type = Invoice.INVOICE_TYPE_INVOICE
+    instance.released_at = timezone.now().strftime("%Y-%m-%d")
+    instance.save()
+
+    with transaction.atomic():
+        for item in items:
+            item.pk = None
+            item.invoice = instance
+            item.save()
+        messages.success(request, _("The invoice has been created successfully."))
+    return redirect(reverse('invoice', args=[instance.pk]))

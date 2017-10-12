@@ -1,0 +1,13 @@
+[Unit]
+Description=MailHog
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/mailhog
+Restart=always
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target

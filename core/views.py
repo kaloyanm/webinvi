@@ -15,6 +15,7 @@ from django.template import Context
 from django.core.mail import EmailMessage
 from django.template.loader import get_template
 
+from core.mixins import SemanticUIFormMixin
 from core.models import Company
 from core.forms import (
     LoginForm,
@@ -79,11 +80,10 @@ def contact(request):
 def home(request):
     return render(request, 'home.html')
 
-def reset_password(request):
-    return render(request, 'reset_password.html')
 
 def thanks(request):
     return render(request, 'thanks.html')
+
 
 class LoginView(generic.FormView):
     form_class = LoginForm
@@ -215,3 +215,37 @@ def google_auth_return(request):
     request.user.settings.gdrive_sync = not request.user.settings.gdrive_sync
     request.user.settings.save()
     return HttpResponseRedirect("companies/")
+
+
+from password_reset.forms import PasswordResetForm, PasswordRecoveryForm
+from password_reset.views import Recover, RecoverDone, Reset, ResetDone
+
+class AppPasswordResetForm(SemanticUIFormMixin, PasswordResetForm):
+    submit_button_label = _("Смени")
+
+
+class ResetView(Reset):
+    form_class = AppPasswordResetForm
+    template_name = "_password_recover.html"
+
+
+class AppPasswordRecoveryForm(SemanticUIFormMixin, PasswordRecoveryForm):
+    submit_button_label = _("Възстанови")
+
+
+class RecoverView(Recover):
+    form_class = AppPasswordRecoveryForm
+    template_name = "_password_recover.html"
+    search_fields = ['username']
+
+    def form_valid(self, form):
+        form.cleaned_data['user'].email = form.cleaned_data['user'].username # hacky
+        return super().form_valid(form)
+
+
+class RecoverDoneView(RecoverDone):
+    template_name = "_password_sent.html"
+
+
+class ResetDoneView(ResetDone):
+    template_name = "_password_reset_done.html"

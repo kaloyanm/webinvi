@@ -6,22 +6,30 @@ from core.views import (
     contact, home, LoginView, RegistrationView,
     logout_view, change_password, company,
     companies, drop_company, thanks,
-    google_oath_login, google_auth_return, reset_password)
+    google_oath_login, google_auth_return,
+    ResetView, ResetDoneView, RecoverView, RecoverDoneView)
 from core.invoicepro import import_invoicepro
 
 urlpatterns = [
     url(r'^contact/', contact, name='contact'),
     url(r'^thanks/', thanks, name='thanks'),
     url(r'^login/', LoginView.as_view(), name='login'),
-    url(r'^reset-password/', reset_password, name='reset-password'),
     url(r'^logout/', logout_view, name='logout'),
     url(r'^registration/', RegistrationView.as_view(), name='registration'),
-    url(r'^password/', change_password, name='password'),
     url(r'^companies/', companies, name='companies'),
     url(r'^company/drop/(?P<pk>[0-9]+)/', drop_company, name='drop_company'),
     url(r'^company/(?P<pk>[0-9]+)/', company, name='company'),
     url(r'^company/', company, name='company'),
     url(r'^import/invoicepro/', import_invoicepro, name='import_invoicepro'),
+
+    # recover password
+    url(r'^password/recover/done/(?P<signature>.+)/$', RecoverDoneView.as_view(), name='password_reset_sent'),
+    url(r'^password/recover/$', RecoverView.as_view(), name='password_reset_recover'),
+    url(r'^password/reset/done/$', ResetDoneView.as_view(), name='password_reset_done'),
+    url(r'^password/reset/(?P<token>[\w:-]+)/$', ResetView.as_view(), name='password_reset_reset'),
+
+    # when logged in
+    url(r'^password/', change_password, name='password'),
 
     # Gogle OAuth2 urls
     url(r'^google_login$', google_oath_login, name='google_login'),

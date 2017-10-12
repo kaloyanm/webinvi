@@ -5,7 +5,7 @@ from django.db.models import Max
 from django.utils.translation import ugettext_lazy as _
 
 from core.models import Company
-
+from core.mixins import FillEmptyTranslationsMixin
 
 
 
@@ -17,7 +17,7 @@ def get_next_number(company, invoice_type):
 
 
 # Create your models here.
-class Invoice(models.Model):
+class Invoice(FillEmptyTranslationsMixin, models.Model):
 
     INVOICE_TYPE_INVOICE = 'invoice'
     INVOICE_TYPE_PROFORMA = 'proforma'
@@ -33,18 +33,30 @@ class Invoice(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
 
     client_name = models.CharField(max_length=255, db_index=True, default='')
+    client_name_tr = models.CharField(max_length=255, db_index=True, null=True)
+
     client_city = models.CharField(max_length=255, default='')
+    client_city_tr = models.CharField(max_length=255, null=True)
+
     client_address = models.CharField(max_length=255, default='', db_index=True)
+    client_address_tr = models.CharField(max_length=255, db_index=True, null=True)
+
     client_mol = models.CharField(max_length=255, default='')
+    client_mol_tr = models.CharField(max_length=255, null=True)
 
     created_by = models.CharField(max_length=255, null=True)
+    created_by_tr = models.CharField(max_length=255, null=True)
+
     accepted_by = models.CharField(max_length=255, null=True)
+    accepted_by_tr = models.CharField(max_length=255, null=True)
 
     payment_type = models.CharField(max_length=255, blank=True)
+    payment_type_tr = models.CharField(max_length=255, null=True)
     payment_bank = models.CharField(max_length=255, null=True)
+    payment_bank_tr = models.CharField(max_length=255, null=True)
 
     client_eik = models.CharField(max_length=255, db_index=True)
-    client_dds = models.CharField(max_length=255, null=True)
+    client_dds = models.CharField(max_length=255, null=True, blank=True)
 
     invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')
     number = models.PositiveIntegerField(blank=True, null=True, db_index=True)
@@ -57,8 +69,10 @@ class Invoice(models.Model):
 
     dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True, null=True)
 
-    note = models.TextField(null=True, default=None)
+    note = models.TextField(null=True)
+    note_tr = models.TextField(null=True)
     no_dds_reason = models.CharField(max_length=255, null=True)
+    no_dds_reason_tr = models.CharField(max_length=255, null=True)
 
 
     class Meta:
@@ -95,15 +109,17 @@ class Invoice(models.Model):
         super(Invoice, self).save(*args, **kwargs)
 
 
-class InvoiceItem(models.Model):
+class InvoiceItem(FillEmptyTranslationsMixin, models.Model):
 
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
     order_no = models.SmallIntegerField(blank=True)
 
     name = models.CharField(max_length=155, default='')
+    name_tr = models.CharField(max_length=155, null=True)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.00)
     quantity = models.FloatField(blank=True, default=1)
     measure = models.CharField(max_length=55, blank=True)
+    measure_tr = models.CharField(max_length=55, null=True)
     discount = models.FloatField(blank=True, null=True)
 
     def __str__(self):
@@ -111,13 +127,17 @@ class InvoiceItem(models.Model):
 
     @property
     def total(self):
-        unit_price = self.unit_price if not self.discount else \
-            self.unit_price - self.unit_price * self.discount * 100
-        unit_price = float(unit_price)
-        total = self.quantity * unit_price if self.quantity and unit_price else unit_price
+        unit_price = float(self.unit_price)
+        unit_price = unit_price if not self.discount else\
+            unit_price * self.discount * 100 - unit_price
+
+        if self.quantity:
+            total = unit_price * self.quantity
+        else:
+            total = unit_price
         return total
 
     def save(self, *args, **kwargs):
-        if self.pk is None:
+        if not self.pk:
             self.order_no = (self.invoice.invoiceitem_set.aggregate(max=Max('order_no'))['max'] or 0) + 1
         super().save(*args, **kwargs)

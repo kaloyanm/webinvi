@@ -7,20 +7,30 @@ from django.contrib.auth.models import User
 
 from django.db.models.signals import post_save
 from oauth2client.contrib.django_util.models import CredentialsField
+from core.mixins import FillEmptyTranslationsMixin
+
 
 # Create your models here.
-class Company(models.Model):
+class Company(FillEmptyTranslationsMixin, models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     name = models.CharField(max_length=255, default='')
+    name_tr = models.CharField(max_length=255, null=True)
+
     city = models.CharField(max_length=255, default='')
+    city_tr = models.CharField(max_length=255, null=True)
+
     address = models.CharField(max_length=255, default='')
+    address_tr = models.CharField(max_length=255, null=True)
+
     mol = models.CharField(max_length=255, default='')
+    mol_tr = models.CharField(max_length=255, null=True)
+
     eik = models.CharField(max_length=255, unique=True)
-    dds = models.CharField(max_length=255, null=True)
+    dds = models.CharField(max_length=255, null=True, blank=True)
+
     default = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-
 
     def __str__(self):
         return "{} ({})".format(self.name, self.eik)
