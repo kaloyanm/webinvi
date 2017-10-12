@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.conf import settings
 
 
-class ForceDefaultLanguageMiddleware(object):
+class ForceDefaultLanguageMiddleware:
     """
     Ignore Accept-Language HTTP headers
 
@@ -17,3 +17,12 @@ class ForceDefaultLanguageMiddleware(object):
     def process_request(self, request):
         if 'HTTP_ACCEPT_LANGUAGE' in request.META:
             del request.META['HTTP_ACCEPT_LANGUAGE']
+
+
+class ForceUsernameEmail:
+    """
+    The system uses username to keep the mail so the real email field is not much used
+    """
+    def process_request(self, request):
+        if hasattr(request, 'user') and request.user:
+            request.user.email = request.user.username

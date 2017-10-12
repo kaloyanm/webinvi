@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rosetta',
     'django_extensions',
     'import_export',
+    'password_reset',
     'core',
     'invoices',
     'raven.contrib.django.raven_compat',
@@ -65,6 +66,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'core.middleware.ForceUsernameEmail',
     'core.middleware.ForceDefaultLanguageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -151,9 +153,11 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 
 # Email
+NO_REPLY_EMAIL = 'noreply@webinvoices.eu'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
-EMAIL_PORT = os.environ.get('EMAIL_PORT', 25)
-
+EMAIL_PORT = os.environ.get('EMAIL_PORT', 1025)
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', NO_REPLY_EMAIL)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
