@@ -144,7 +144,7 @@ main {
 
   .field__text {
     text-align: right;
-    display: block;
+    justify-content: space-between;
   }
 
   .field__currency {
@@ -154,7 +154,7 @@ main {
   }
 
   .field__input {
-    width: auto!important;
+    width: 150px!important;
     padding-right: 7px!important;
 
     &[readonly] {

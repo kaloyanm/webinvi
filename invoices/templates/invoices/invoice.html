@@ -149,7 +149,7 @@
           </div><div class="column column__total">
             <div class="field">
               <label>Данъчна основа</label>
-              <div class="field__text">
+              <div class="field__text _flex center">
                 <span class="field__currency">BGN</span>
                 <input class="field__input" name="gross" v-model="gross" class="numberinput" type="number" dir="rtl" readonly>
               </div>
@@ -157,15 +157,15 @@
 
             <div class="field">
               <label for="dds_percent">ДДС</label>
-              <div class="field__text">
+              <div class="field__text _flex center">
                 <span class="field__currency">%</span>
-                <input class="field__input" name="dds_percent" value="{{ form.dds_percent.value }}" type="number" @keyup="calc_total()" min="0" max="100" step="1">
+                <input class="field__input " name="dds_percent" value="{{ form.dds_percent.value }}" type="number" @keyup="calc_total()" min="0" max="100" step="1" dir="rtl">
               </div>
             </div>
 
             <div class="field">
               <label for="total">Крайна цена</label>
-              <div class="field__text">
+              <div class="field__text _flex center">
                 <span class="field__currency">BGN</span>
                 <input id="total" class="field__input" dir="rtl" name="total" v-model="total" type="number" readonly>
               </div>
