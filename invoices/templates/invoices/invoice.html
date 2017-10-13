@@ -37,7 +37,7 @@
               </div>
               <div class="column">
                 <div class="ui input fluid">
-                  <input name="currency_rate" v-model="currency_rate" type="text" @change="rate_changed()" {% if not pk %}disabled{% endif %}>
+                  <input name="currency_rate" v-model="currency_rate" type="number" @change="rate_changed()" {% if not pk %}disabled{% endif %}>
                 </div>
               </div>
             </div>

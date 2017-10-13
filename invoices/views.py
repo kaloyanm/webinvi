@@ -150,6 +150,9 @@ def _invoice(request, pk=None, invoice_type="invoice",
     rates = {}
     for from_c in settings.ALLOWED_CURRENCIES:
         rates[from_c] = round(exchange_currency(Price(1, currency=from_c), 'BGN').net, 5)
+    if instance and instance.currency:
+        rates[instance.currency] = instance.currency_rate
+
     context['rates'] = rates
     context['rates_json'] = django_json_dumps(rates)
 

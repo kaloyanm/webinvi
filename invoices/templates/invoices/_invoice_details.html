@@ -43,10 +43,10 @@
         <input type="hidden" :name="'form-'+index+'-unit_price'" v-model="row.unit_price" @keyup="unit_price_changed(index); calc_row(index); calc_total();">
       </td>
       <td>
-        <input type="text" :name="'form-'+index+'-discount'" v-model="row.discount" @keyup="calc_row(index); calc_total();">
+        <input type="number" :name="'form-'+index+'-discount'" v-model="row.discount" @keyup="calc_row(index); calc_total();">
       </td>
       <td class="col-price">
-        <input type="text" :name="'form-'+index+'-total'" v-model="row.gross" disabled>
+        <input type="number" :name="'form-'+index+'-total'" v-model="row.gross" dir="rtl" disabled>
         <input type="hidden" :name="'form-'+index+'-id'" v-model="row.id">
       </td>
     </tr>
