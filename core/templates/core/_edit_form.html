@@ -11,14 +11,5 @@
   {% crispy form %}
 </div>
 
-<div id="delete-modal-window" class="ui tiny modal">
-  <div class="header">Внимание!</div>
-  <div class="content">
-      <p>Сигурни ли сте че искате да изтриете {{ form.instance }} ?</p>
-  </div>
-  <div class="actions">
-    <div class="ui negative button">Не</div>
-    <a href="{% block delete_button_href%}#{% endblock %}" class="ui positive button">Да</a>
-  </div>
-</div>
+{% include 'core/_delete_message.html' %}
 {% endblock %}

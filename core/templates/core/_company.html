@@ -1,7 +1,43 @@
-{% extends "core/_edit_form.html" %}
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags crispy_forms_filters crispy_custom %}
 
-{% block edit_title %}
-    Фирмена регистрация
+{% block content %}
+  <div class="ui basic segment">
+    <h2 class="left floated">Фирмена регистрация</h2>
+  </div>
+  <form method="post" class="ui form _m0">
+    {% csrf_token %}
+
+    <div id="edit-company" class="ui basic segment _flex">
+      {% include "_flash_messages.html" %}
+      <div class="_flex-1 _mrs">
+        {{ form.name|as_crispy_field }}
+        {{ form.city|as_crispy_field }}
+        {{ form.address|as_crispy_field }}
+        {{ form.mol|as_crispy_field }}
+        {{ form.eik|as_crispy_field }}
+
+        {{ form.default|as_crispy_field }}
+        <div class="buttonHolder">
+          <button type="submit" name="submit" class="btn btn-primary ui button green" id="submit-id-submit">
+            <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
+            Запази
+          </button>
+          <button type="submit" name="delete" class="btn ui button red" id="delete-button">
+            <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
+            Изтрий</button>
+        </div>
+      </div>
+      <div class="_flex-1">
+        {{ form.name_tr|as_crispy_field }}
+        {{ form.city_tr|as_crispy_field }}
+        {{ form.address_tr|as_crispy_field }}
+        {{ form.mol_tr|as_crispy_field }}
+        {{ form.dds|as_crispy_field }}
+      </div>
+    </div>
+  </form>
+
 {% endblock %}
 
 {% block delete_button_href %}{% url 'drop_company' form.instance.pk %}{% endblock %}
