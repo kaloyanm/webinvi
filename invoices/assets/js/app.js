@@ -13,8 +13,8 @@ var app = new Vue({
   data: {
     rows: [],
     currencies: [],
-    selected_currency: 'BGN',
-    current_rate: 1,
+    selected_currency: window.INVOICE_CURRENCY,
+    currency_rate: window.INVOICE_CURRENCY_RATE,
     total_forms: 0,
     initial_forms: 0,
     total: 0,
@@ -22,6 +22,7 @@ var app = new Vue({
     dds_percent: window.INVOICE_DDS_DEFAULT
   },
   mounted: function () {
+    console.log("currency rate:", window.INVOICE_CURRENCY_RATE);
     this.rows = window.INVOICE_ITEMS.map(function(row){ return row });
     for(var row_idx in this.rows) {
       var row = this.rows[row_idx];
@@ -31,10 +32,11 @@ var app = new Vue({
     if (this.rows.length == 0) {
       this.add();
     }
-
+    console.log("currency rate1:", this.currency_rate);
     this.calc_total(true);
     this.total_forms = this.rows.length;
     this.initial_forms = this.rows.length;
+    console.log("currency rate2:", this.currency_rate);
   },
   methods: {
     add: function () {
@@ -94,20 +96,21 @@ var app = new Vue({
     },
 
     update_unit_prices: function(){
-      var r = this.current_rate;
+      var r = this.currency_rate;
       for(var row_idx in this.rows) {
         var row = this.rows[row_idx];
         if(row.unit_price_original == null || row.unit_price_original == undefined) {
           continue;
         }
-        row.unit_price = row.unit_price_original * r;
+        row.unit_price = row.unit_price_original / r;
       }
       this.calc_total(true);
     },
 
     currency_selected: function (selected_currency){
-      this.current_rate = EXCHANGE_RATES[selected_currency];
+      this.currency_rate = EXCHANGE_RATES[selected_currency];
       this.update_unit_prices();
+      console.log(this.currency_rate);
     },
 
     rate_changed: function() {

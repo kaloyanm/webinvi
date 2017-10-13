@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import decimal
 from django.db import models
 from django.db.models import Max
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -75,6 +76,9 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     no_dds_reason = models.CharField(max_length=255, null=True)
     no_dds_reason_tr = models.CharField(max_length=255, null=True)
 
+    currency = models.CharField(max_length=3, null=True)
+    currency_rate = models.DecimalField(max_digits=10, decimal_places=6, null=True)
+
 
     class Meta:
         ordering = ("-released_at", "-invoice_type", "-number")
@@ -99,7 +103,7 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     @property
     def total(self):
         if self.dds_percent:
-            return round(self.gross - (self.gross * self.dds_percent / 100), 2)
+            return round(self.gross - (self.gross * float(self.dds_percent) / 100), 2)
         else:
             return round(self.gross, 2)
 
@@ -131,7 +135,7 @@ class InvoiceItem(FillEmptyTranslationsMixin, models.Model):
     def total(self):
         unit_price = float(self.unit_price)
         unit_price = unit_price if not self.discount else\
-            unit_price * self.discount * 100 - unit_price
+            unit_price * self.discount * decimal.Decimal(100) - unit_price
 
         if self.quantity:
             total = unit_price * self.quantity
