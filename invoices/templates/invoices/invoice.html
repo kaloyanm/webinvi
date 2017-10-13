@@ -78,23 +78,22 @@
 
       <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
 
-      {% for field, errors in form.errors.items %}
+      {% if form.errors %}
       <div id="invoice-error" class="ui error message _mt0 _mbs">
         <i class="close icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-close"></use></svg></i>
         <div class="header">Грешка!</div>
+
         <ul class="list">
+          {% for field, errors in form.errors.items %}
           {% for error in errors %}
-            <li>
-              {{ field }}: {{ error }}
-            </li>
+          <li>
+            {{ field }}: {{ error }}
+          </li>
+          {% endfor %}
           {% endfor %}
         </ul>
       </div>
-      {% endfor %}
-
-      {% for form in form_items %}
-          {{ form.errors }}
-      {% endfor %}
+      {% endif %}
 
       <div class="ui grid">
 
