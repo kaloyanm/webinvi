@@ -2,11 +2,11 @@
 
 from django.db import models
 from django.db.models import Max
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
 
 from core.models import Company
 from core.mixins import FillEmptyTranslationsMixin
-
 
 
 def get_next_number(company, invoice_type):
@@ -67,7 +67,8 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     payment_iban = models.CharField(max_length=255, null=True)
     payment_swift = models.CharField(max_length=255, null=True)
 
-    dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True, null=True)
+    dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True,
+                                      null=True, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     note = models.TextField(null=True)
     note_tr = models.TextField(null=True)
@@ -98,9 +99,10 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     @property
     def total(self):
         if self.dds_percent:
-            return self.gross - (self.gross * self.dds_percent / 100)
+            return round(self.gross - (self.gross * self.dds_percent / 100), 2)
         else:
-            return self.gross
+            return round(self.gross, 2)
+
 
     def save(self, *args, **kwargs):
         if not self.number:
@@ -135,7 +137,7 @@ class InvoiceItem(FillEmptyTranslationsMixin, models.Model):
             total = unit_price * self.quantity
         else:
             total = unit_price
-        return total
+        return round(total, 2)
 
     def save(self, *args, **kwargs):
         if not self.pk:

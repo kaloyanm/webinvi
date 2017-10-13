@@ -4,6 +4,7 @@ from django.forms import formset_factory
 from django.utils.translation import ugettext_lazy as _
 
 from core.mixins import TranslateLabelsFormMixin, AttrsFormMixin, OffRequiredFieldsMixin
+from core.business_settings import NO_DDS_REASONS
 from invoices.models import Invoice
 
 
@@ -39,9 +40,7 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         "payment_iban": _("IBAN"),
         "payment_swift": _("SWIFT"),
         "payment_bank": _("Банка"),
-        "tax_base": _("Данъчна основа"),
         "dds_percent": _("ДДС"),
-        "total": _("Крайна цена"),
         "accepted_by": _("Приел"),
         "accepted_by_tr": _("Приел"),
         "created_by": _("Съставил"),
@@ -64,6 +63,7 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         "payment_swift": {"class": "searchable-invoice"},
         "accepted_by": {"class": "searchable-invoice"},
         "created_by": {"class": "searchable-invoice"},
+        "no_dds_reason": {"class": "ui search dropdown"}
     }
 
     off_required_fields = [
@@ -79,9 +79,7 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         'no_dds_reason_tr',
     ]
 
-    no_dds_reason = forms.CharField(required=False)
-    tax_base = forms.DecimalField(disabled=True, required=False)
-    total = forms.DecimalField(disabled=True, required=False)
+    no_dds_reason = forms.ChoiceField(required=False, choices=NO_DDS_REASONS)
     verbally = forms.CharField(max_length=255, required=False)
 
     class Meta:

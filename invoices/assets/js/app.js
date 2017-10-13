@@ -19,7 +19,7 @@ var app = new Vue({
     initial_forms: 0,
     total: 0,
     gross: 0,
-    dds_percent: 0
+    dds_percent: window.INVOICE_DDS_DEFAULT
   },
   mounted: function () {
     this.rows = window.INVOICE_ITEMS.map(function(row){ return row });
@@ -61,11 +61,12 @@ var app = new Vue({
 
     calc_row: function (index) {
       var row = this.rows[index];
-      row.gross = round(row.unit_price * row.quantity, 2);
+      row.gross = row.unit_price * row.quantity;
 
       if (row.discount) {
         row.gross = row.gross - row.gross * row.discount / 100;
       }
+      row.gross = round(row.gross, 2)
       this.rows[index] = row;
     },
 
@@ -81,9 +82,9 @@ var app = new Vue({
       }
 
       if (this.dds_percent) {
-        this.total = this.gross + this.gross * this.dds_percent / 100;
+        this.total = round(this.gross - this.gross * this.dds_percent / 100, 2);
       } else {
-        this.total = this.gross;
+        this.total = round(this.gross, 2);
       }
     },
 

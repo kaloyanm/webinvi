@@ -26,7 +26,7 @@ class Company(FillEmptyTranslationsMixin, models.Model):
     mol = models.CharField(max_length=255, default='')
     mol_tr = models.CharField(max_length=255, null=True)
 
-    eik = models.CharField(max_length=255, unique=True)
+    eik = models.CharField(max_length=255)
     dds = models.CharField(max_length=255, null=True, blank=True)
 
     default = models.BooleanField(default=False)

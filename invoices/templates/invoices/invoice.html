@@ -78,23 +78,6 @@
 
       <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
 
-      {% if form.errors %}
-      <div id="invoice-error" class="ui error message _mt0 _mbs">
-        <i class="close icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-close"></use></svg></i>
-        <div class="header">Грешка!</div>
-
-        <ul class="list">
-          {% for field, errors in form.errors.items %}
-          {% for error in errors %}
-          <li>
-            {{ field }}: {{ error }}
-          </li>
-          {% endfor %}
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
-
       <div class="ui grid">
 
         <div class="equal width row _pb0">
@@ -160,7 +143,7 @@
               <label for="dds_percent">ДДС</label>
               <div class="field__text _flex center">
                 <span class="field__currency">%</span>
-                <input class="field__input " name="dds_percent" value="{{ form.dds_percent.value }}" type="number" @keyup="calc_total()" min="0" max="100" step="1" dir="rtl">
+                <input class="field__input " name="dds_percent" v-model="dds_percent" value="{{ form.dds_percent.value }}" type="number" @keyup="calc_total()" min="0" max="100" step="5" dir="rtl">
               </div>
             </div>
 
@@ -172,6 +155,14 @@
               </div>
             </div>
             {{ form.verbally|as_crispy_field }}
+          </div>
+        </div>
+
+        <div class="equal width row">
+          <div class="column">
+            <div class="ui fluid search">
+                {{ form.no_dds_reason|as_crispy_field }}
+            </div>
           </div>
         </div>
 
@@ -215,6 +206,7 @@
 <script type="text/javascript">
     window.INVOICE_ITEMS = {{ items|safe }};
     window.INVOICE_ITEM_TEMPLATE = {name{% if use_tr %}_tr{% endif %}: "", quantity: 1, measure{% if use_tr %}_tr{% endif %}: "", unit_price:0, discount: 0, gross: 0, id: 0, invoice_id:0};
+    window.INVOICE_DDS_DEFAULT = {{ form.dds_percent.value|default:0 }};
 </script>
 <script src="{% static "invoices/js/app.js" %}"></script>
 {% endblock %}
