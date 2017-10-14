@@ -2,20 +2,24 @@
 {% load static i18n crispy_forms_tags crispy_forms_filters crispy_custom %}
 
 {% block content %}
-  <div class="ui basic segment">
-    <h2 class="left floated">Фирмена регистрация</h2>
-  </div>
+<div class="ui basic segment">
+  <h2 class="left floated">Фирмена регистрация</h2>
+</div>
+
+<div class="ui basic segment _pt0">
   <form method="post" class="ui form _m0">
     {% csrf_token %}
 
-    <div id="edit-company" class="ui basic segment _flex">
+    <div id="edit-company" class="_flex">
       {% include "_flash_messages.html" %}
-      <div class="_flex-1 _mrs">
+      <div class="_flex-1 _mrs _ptxs">
+        <h3>Основен език</h3>
         {{ form.name|as_crispy_field }}
         {{ form.city|as_crispy_field }}
         {{ form.address|as_crispy_field }}
         {{ form.mol|as_crispy_field }}
         {{ form.eik|as_crispy_field }}
+        {{ form.dds|as_crispy_field }}
 
         {{ form.default|as_crispy_field }}
         <div class="buttonHolder">
@@ -29,14 +33,17 @@
         </div>
       </div>
       <div class="_flex-1">
-        {{ form.name_tr|as_crispy_field }}
-        {{ form.city_tr|as_crispy_field }}
-        {{ form.address_tr|as_crispy_field }}
-        {{ form.mol_tr|as_crispy_field }}
-        {{ form.dds|as_crispy_field }}
+        <div class="_pxs _bg-state-muted">
+          <h3>Чужд език</h3>
+          {{ form.name_tr|as_crispy_field }}
+          {{ form.city_tr|as_crispy_field }}
+          {{ form.address_tr|as_crispy_field }}
+          {{ form.mol_tr|as_crispy_field }}
+        </div>
       </div>
     </div>
   </form>
+</div>
 
 {% endblock %}
 

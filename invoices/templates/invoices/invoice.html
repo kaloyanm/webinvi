@@ -10,8 +10,9 @@
   </script>
   {% language selected_language %}
   <div id="sticky-target"></div>
-  <div id="invoice-container" class="ui basic segment" >
-  <form name="invoice_form" class="ui tiny form" method="POST" action="">
+  <form id="invoice-container" name="invoice_form" class="ui basic segment" method="POST" action="">
+    {% csrf_token %}
+
     {% if not print %}
     <div id="settings-rail" class="left ui rail">
       <div id="sticky-settings" class="ui sticky">
@@ -76,119 +77,117 @@
       </div>
     </div>
     {% endif %}
-      {% csrf_token %}
 
-      <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
+    <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
 
-      <div class="ui grid">
+    <div class="ui grid tiny form">
 
-        <div class="equal width row _pb0">
-          <div class="column column__title">
-            <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
-              <small>оригинал</small>
-            </h1>
-          </div><div class="column column__info">
-            {{ form.number|as_crispy_field }}
-            {{ form.released_at|as_crispy_field }}
-            {{ form.taxevent_at|as_crispy_field }}
-          </div>
+      <div class="equal width row _pb0">
+        <div class="column column__title">
+          <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
+            <small>оригинал</small>
+          </h1>
+        </div><div class="column column__info">
+          {{ form.number|as_crispy_field }}
+          {{ form.released_at|as_crispy_field }}
+          {{ form.taxevent_at|as_crispy_field }}
         </div>
+      </div>
 
-        <div class="equal width row _pb0">
-          <div class="column column__client">
-            {% if use_tr %}{{ form.client_name_tr|as_crispy_field }}{{ form.client_name|set_hidden|as_crispy_field }}
-            {% else %}{{ form.client_name|as_crispy_field }}{{ form.client_name_tr|set_hidden|as_crispy_field }}{% endif %}
+      <div class="equal width row _pb0">
+        <div class="column column__client">
+          {% if use_tr %}{{ form.client_name_tr|as_crispy_field }}{{ form.client_name|set_hidden|as_crispy_field }}
+          {% else %}{{ form.client_name|as_crispy_field }}{{ form.client_name_tr|set_hidden|as_crispy_field }}{% endif %}
 
-            {{ form.client_eik|as_crispy_field }}
-            {{ form.client_dds|as_crispy_field }}
+          {{ form.client_eik|as_crispy_field }}
+          {{ form.client_dds|as_crispy_field }}
 
-            {% if use_tr %}{{ form.client_city_tr|as_crispy_field }}{{ form.client_city|set_hidden|as_crispy_field }}
-            {% else %}{{ form.client_city|as_crispy_field }}{{ form.client_city_tr|set_hidden|as_crispy_field }}{% endif %}
+          {% if use_tr %}{{ form.client_city_tr|as_crispy_field }}{{ form.client_city|set_hidden|as_crispy_field }}
+          {% else %}{{ form.client_city|as_crispy_field }}{{ form.client_city_tr|set_hidden|as_crispy_field }}{% endif %}
 
-            {% if use_tr %}{{ form.client_address_tr|as_crispy_field }}{{ form.client_address|set_hidden|as_crispy_field }}
-            {% else %}{{ form.client_address|as_crispy_field }}{{ form.client_address_tr|set_hidden|as_crispy_field }}{% endif %}
+          {% if use_tr %}{{ form.client_address_tr|as_crispy_field }}{{ form.client_address|set_hidden|as_crispy_field }}
+          {% else %}{{ form.client_address|as_crispy_field }}{{ form.client_address_tr|set_hidden|as_crispy_field }}{% endif %}
 
-            {% if use_tr %}{{ form.client_mol_tr|as_crispy_field }}{{ form.client_mol|set_hidden|as_crispy_field }}
-            {% else %}{{ form.client_mol|as_crispy_field }}{{ form.client_mol_tr|set_hidden|as_crispy_field }}{% endif %}
+          {% if use_tr %}{{ form.client_mol_tr|as_crispy_field }}{{ form.client_mol|set_hidden|as_crispy_field }}
+          {% else %}{{ form.client_mol|as_crispy_field }}{{ form.client_mol_tr|set_hidden|as_crispy_field }}{% endif %}
 
-          </div><div class="column column__company">
-            {% if use_tr %}{{company_form.name_tr|as_crispy_field}}{% else %}{{company_form.name|as_crispy_field}}{% endif %}
-            {{company_form.eik|as_crispy_field}}
-            {{company_form.dds|as_crispy_field}}
-            {% if use_tr %}{{company_form.city_tr|as_crispy_field}}{% else %}{{company_form.city|as_crispy_field}}{% endif %}
-            {% if use_tr %}{{company_form.address_tr|as_crispy_field}}{% else %}{{company_form.address|as_crispy_field}}{% endif %}
-            {% if use_tr %}{{company_form.mol_tr|as_crispy_field}}{% else %}{{company_form.mol|as_crispy_field}}{% endif %}
-          </div>
+        </div><div class="column column__company">
+          {% if use_tr %}{{company_form.name_tr|as_crispy_field}}{% else %}{{company_form.name|as_crispy_field}}{% endif %}
+          {{company_form.eik|as_crispy_field}}
+          {{company_form.dds|as_crispy_field}}
+          {% if use_tr %}{{company_form.city_tr|as_crispy_field}}{% else %}{{company_form.city|as_crispy_field}}{% endif %}
+          {% if use_tr %}{{company_form.address_tr|as_crispy_field}}{% else %}{{company_form.address|as_crispy_field}}{% endif %}
+          {% if use_tr %}{{company_form.mol_tr|as_crispy_field}}{% else %}{{company_form.mol|as_crispy_field}}{% endif %}
         </div>
+      </div>
 
-        <div class="equal width row _pb0">
-          <div class="column column__table">{% if print %}{% include "invoices/_invoice_details_print.html" %}{% else %}{% include "invoices/_invoice_details.html" %}{% endif %}</div>
-        </div>
+      <div class="equal width row _pb0">
+        <div class="column column__table">{% if print %}{% include "invoices/_invoice_details_print.html" %}{% else %}{% include "invoices/_invoice_details.html" %}{% endif %}</div>
+      </div>
 
-        <div class="equal width row _pb0">
-          <div class="column column__payment">
-            {{ form.payment_type|as_crispy_field }}
-            {{ form.payment_iban|as_crispy_field }}
-            {{ form.payment_swift|as_crispy_field }}
-            {{ form.payment_bank|as_crispy_field }}
+      <div class="equal width row _pb0">
+        <div class="column column__payment">
+          {{ form.payment_type|as_crispy_field }}
+          {{ form.payment_iban|as_crispy_field }}
+          {{ form.payment_swift|as_crispy_field }}
+          {{ form.payment_bank|as_crispy_field }}
 
-          </div><div class="column column__total">
-            <div class="field">
-              <label>Данъчна основа</label>
-              <div class="field__text _flex center">
-                <span class="field__currency">{% verbatim %}{{ selected_currency }}{% endverbatim %}</span>
-                <input class="field__input" name="gross" v-model="gross" class="numberinput" type="number" dir="rtl" readonly>
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="dds_percent">ДДС</label>
-              <div class="field__text _flex center">
-                <span class="field__currency">%</span>
-                <input class="field__input " name="dds_percent" v-model="dds_percent" value="{{ form.dds_percent.value }}" type="number" @keyup="calc_total()" min="0" max="100" step="5" dir="rtl">
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="total">Крайна цена</label>
-              <div class="field__text _flex center">
-                <span class="field__currency">{% verbatim %}{{ selected_currency }}{% endverbatim %}</span>
-                <input id="total" class="field__input" dir="rtl" name="total" v-model="total" type="number" readonly>
-              </div>
-            </div>
-            {{ form.verbally|as_crispy_field }}
-          </div>
-        </div>
-
-        <div class="equal width row">
-          <div class="column">
-            <div class="ui fluid search">
-                {{ form.no_dds_reason|as_crispy_field }}
+        </div><div class="column column__total">
+          <div class="field">
+            <label>Данъчна основа</label>
+            <div class="field__text _flex center">
+              <span class="field__currency">{% verbatim %}{{ selected_currency }}{% endverbatim %}</span>
+              <input class="field__input" name="gross" v-model="gross" class="numberinput" type="number" dir="rtl" readonly>
             </div>
           </div>
-        </div>
 
-        <div class="equal width row row__accepted">
-          <div class="column">
-            {% if use_tr %}{{ form.accepted_by_tr|as_crispy_field }}{{ form.accepted_by|set_hidden|as_crispy_field }}
-            {% else %}{{ form.accepted_by|as_crispy_field }}{{ form.accepted_by_tr|set_hidden|as_crispy_field }}{% endif %}
-          </div><div class="column">
-            {% if use_tr %}{{ form.created_by_tr|as_crispy_field }}{{ form.created_by|set_hidden|as_crispy_field }}
-            {% else %}{{ form.created_by|as_crispy_field }}{{ form.created_by_tr|set_hidden|as_crispy_field }}{% endif %}
-          </div>
-        </div>
-
-        <div class="equal width row">
-          <div class="column">
-            <div class="field">
-              <label>Бележка</label>
-              <input name="note" value="{{ form.note.value }}" type="text">
+          <div class="field">
+            <label for="dds_percent">ДДС</label>
+            <div class="field__text _flex center">
+              <span class="field__currency">%</span>
+              <input class="field__input " name="dds_percent" v-model="dds_percent" value="{{ form.dds_percent.value }}" type="number" @keyup="calc_total()" min="0" max="100" step="5" dir="rtl">
             </div>
+          </div>
+
+          <div class="field">
+            <label for="total">Крайна цена</label>
+            <div class="field__text _flex center">
+              <span class="field__currency">{% verbatim %}{{ selected_currency }}{% endverbatim %}</span>
+              <input id="total" class="field__input" dir="rtl" name="total" v-model="total" type="number" readonly>
+            </div>
+          </div>
+          {{ form.verbally|as_crispy_field }}
+        </div>
+      </div>
+
+      <div class="equal width row">
+        <div class="column column__no-dds">
+          <div class="ui fluid search">
+              {{ form.no_dds_reason|as_crispy_field }}
           </div>
         </div>
       </div>
+
+      <div class="equal width row row__accepted">
+        <div class="column">
+          {% if use_tr %}{{ form.accepted_by_tr|as_crispy_field }}{{ form.accepted_by|set_hidden|as_crispy_field }}
+          {% else %}{{ form.accepted_by|as_crispy_field }}{{ form.accepted_by_tr|set_hidden|as_crispy_field }}{% endif %}
+        </div><div class="column">
+          {% if use_tr %}{{ form.created_by_tr|as_crispy_field }}{{ form.created_by|set_hidden|as_crispy_field }}
+          {% else %}{{ form.created_by|as_crispy_field }}{{ form.created_by_tr|set_hidden|as_crispy_field }}{% endif %}
+        </div>
+      </div>
+
+      <div class="equal width row">
+        <div class="column">
+          <div class="field">
+            <label>Бележка</label>
+            <input name="note" value="{{ form.note.value }}" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
   </form>
-  </div>
 
 {% if not print %}
 <div id="delete-modal-window" class="ui tiny modal">

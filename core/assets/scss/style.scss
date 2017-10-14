@@ -168,6 +168,10 @@ main {
   }
 
   .form {
+    h1 small {
+      color: #888;
+    }
+
     label {
       margin: 0;
       font-size: 12px;
