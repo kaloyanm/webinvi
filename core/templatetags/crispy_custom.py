@@ -14,3 +14,9 @@ def is_inline(field):
 def set_hidden(field):
     setattr(field.field, 'widget', HiddenInput())
     return field
+
+
+@register.filter
+def disable_field(field):
+    field.field.widget.attrs['readonly'] = ''
+    return field

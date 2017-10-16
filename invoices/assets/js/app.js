@@ -13,8 +13,8 @@ var app = new Vue({
   data: {
     rows: [],
     currencies: [],
-    selected_currency: window.INVOICE_CURRENCY,
-    currency_rate: window.INVOICE_CURRENCY_RATE,
+    selected_currency: window.USE_TR ? window.INVOICE_CURRENCY: 'BGN',
+    currency_rate: window.USE_TR ? window.INVOICE_CURRENCY_RATE: 1.0000,
     total_forms: 0,
     initial_forms: 0,
     total: 0,
@@ -32,7 +32,7 @@ var app = new Vue({
       this.add();
     }
 
-    this.calc_total(true);
+    this.update_unit_prices();
     this.total_forms = this.rows.length;
     this.initial_forms = this.rows.length;
   },
@@ -70,7 +70,8 @@ var app = new Vue({
       this.rows[index] = row;
     },
 
-    calc_total: function (force_update_rows) {
+
+      calc_total: function (force_update_rows) {
       force_update_rows = force_update_rows || false;
       this.gross = 0;
       for (var i = 0; i < this.rows.length; i++) {

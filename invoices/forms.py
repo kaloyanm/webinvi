@@ -81,6 +81,8 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
 
     no_dds_reason = forms.ChoiceField(required=False, choices=NO_DDS_REASONS)
     verbally = forms.CharField(max_length=255, required=False)
+    currency = forms.CharField(required=False)
+    currency_rate = forms.DecimalField(required=False)
 
     class Meta:
         model = Invoice
@@ -89,6 +91,13 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
 
     def clean(self):
         cleaned_data = super().clean()
+
+        if 'currency' in cleaned_data and not cleaned_data['currency']:
+            del cleaned_data['currency']
+
+        if 'currency_rate' in cleaned_data and not cleaned_data['currency_rate']:
+            del cleaned_data['currency_rate']
+
         invoice_number = cleaned_data.get('number')
         company = cleaned_data.get('company')
         invoice_type = cleaned_data.get('invoice_type')

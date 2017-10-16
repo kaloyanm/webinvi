@@ -113,12 +113,12 @@
 
         </div><div class="column column__company">
           <input type="hidden" name="company" value="{{ company_form.instance.pk}}" />
-          {% if use_tr %}{{company_form.name_tr|as_crispy_field}}{% else %}{{company_form.name|as_crispy_field}}{% endif %}
-          {{company_form.eik|as_crispy_field}}
-          {{company_form.dds|as_crispy_field}}
-          {% if use_tr %}{{company_form.city_tr|as_crispy_field}}{% else %}{{company_form.city|as_crispy_field}}{% endif %}
-          {% if use_tr %}{{company_form.address_tr|as_crispy_field}}{% else %}{{company_form.address|as_crispy_field}}{% endif %}
-          {% if use_tr %}{{company_form.mol_tr|as_crispy_field}}{% else %}{{company_form.mol|as_crispy_field}}{% endif %}
+          {% if use_tr %}{{company_form.name_tr|disable_field|as_crispy_field}}{% else %}{{company_form.name|disable_field|as_crispy_field}}{% endif %}
+          {{company_form.eik|disable_field|as_crispy_field}}
+          {{company_form.dds|disable_field|as_crispy_field}}
+          {% if use_tr %}{{company_form.city_tr|disable_field|as_crispy_field}}{% else %}{{company_form.city|disable_field|as_crispy_field}}{% endif %}
+          {% if use_tr %}{{company_form.address_tr|disable_field|as_crispy_field}}{% else %}{{company_form.address|disable_field|as_crispy_field}}{% endif %}
+          {% if use_tr %}{{company_form.mol_tr|disable_field|as_crispy_field}}{% else %}{{company_form.mol|disable_field|as_crispy_field}}{% endif %}
         </div>
       </div>
 
@@ -209,6 +209,7 @@
     window.INVOICE_ITEMS = {{ items|safe }};
     window.INVOICE_ITEM_TEMPLATE = {name{% if use_tr %}_tr{% endif %}: "", quantity: 1, measure{% if use_tr %}_tr{% endif %}: "", unit_price:0, discount: 0, gross: 0, id: 0, invoice_id:0};
     window.INVOICE_CURRENCY = '{{ form.currency.value|default:'BGN' }}';
+    window.USE_TR = {% if use_tr %}true {% else %}false{% endif %};
     {% language 'en' %}
     window.INVOICE_DDS_DEFAULT = {{ form.dds_percent.value|default:0 }};
     window.INVOICE_CURRENCY_RATE = {{ form.currency_rate.value|default:1.0000 }};
