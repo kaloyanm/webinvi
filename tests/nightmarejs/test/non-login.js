@@ -8,7 +8,7 @@ describe('Non login tests', function() {
 
   let nightmare = null
   beforeEach(() => {
-    nightmare = new Nightmare()
+    nightmare = new Nightmare(Config.nightmareOptions)
   })
 
   describe('/ (Home Page)', () => {

@@ -8,7 +8,7 @@ describe('User registration', function() {
 
   let nightmare = null
   beforeEach(() => {
-    nightmare = new Nightmare({show: true})
+    nightmare = new Nightmare(Config.nightmareOptions)
   })
 
   describe('Register a new user', () => {
