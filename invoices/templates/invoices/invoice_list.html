@@ -1,18 +1,18 @@
 {% extends "base.html" %}
-{% load inv_utils %}
+{% load inv_utils i18n %}
 
 {% block content %}
 
   <div class="ui grid basic segment">
     <div class="two column row">
       <div class="column">
-        <h2 class="left floated">Фактури</h2>
+        <h2 class="left floated">{% trans 'Фактури' %}</h2>
       </div>
       <div class="column right aligned">
 
-        <span class="_mrs">Добави фактура:</span>
-        <a href="{% url 'invoice' %}" class="ui button primary tiny" role="button">+ Данъчна</a>
-        <a href="{% url 'proforma' %}" class="ui button primary tiny" role="button">+ Проформа</a>
+        <span class="_mrs">{% trans 'Добави фактура:' %}</span>
+        <a href="{% url 'invoice' %}" class="ui button primary tiny" role="button">{% trans '+ Данъчна' %}</a>
+        <a href="{% url 'proforma' %}" class="ui button primary tiny" role="button">{% trans '+ Проформа' %}</a>
       </div>
     </div>
   </div>
@@ -29,8 +29,8 @@
       <div class="column">
         <form method="GET">
           <div class="ui action fluid input">
-            <input type="text" name="query" value="{{ query }}" placeholder="Намери клиент">
-            <button class="ui button" type="submit">Търси</button>
+            <input type="text" name="query" value="{{ query }}" placeholder="{% trans 'Намери клиент' %}">
+            <button class="ui button" type="submit">{% trans 'Търси' %}</button>
           </div>
         </form>
       </div>
@@ -41,18 +41,18 @@
     <table class="ui celled table">
       <thead>
         <tr>
-          <th>Клиент</th>
-          <th>Тип</th>
-           <th>Номер</th>
-           <th>Издадена на</th>
-          <th>Сума</th>
+          <th>{% trans 'Клиент' %}</th>
+          <th>{% trans 'Тип' %}</th>
+           <th>{% trans 'Номер' %}</th>
+           <th>{% trans 'Издадена на' %}</th>
+          <th>{% trans 'Сума' %}</th>
         </tr>
       </thead>
       <tbody>
       {% for inv in objects %}
         <tr>
           <td scope="row">{{ inv.client_name }}</td>
-          <td>{% if not inv.is_proforma %}Фактура{% else %}Проформа{% endif %}</td>
+          <td>{% if not inv.is_proforma %}{% trans 'Фактура' %}{% else %}{% trans 'Проформа' %}{% endif %}</td>
           <td><a href="{% url 'invoice' inv.pk %}">{{ inv.number|nopad }}</a></td>
           <td>{{ inv.released_at }}</td>
           <td>{{ inv.total }}</td>
@@ -66,12 +66,12 @@
           <div class="ui right floated pagination menu">
             {% if page.has_previous %}
               <a href="{% url 'list' %}?page={{ page.previous_page_number }}&query={{ query }}" class="icon item">
-                &larr; По-нови
+                &larr; {% trans 'По-нови' %}
               </a>
             {% endif %}
             {% if page.has_next %}
               <a href="{% url 'list' %}?page={{ page.next_page_number }}&query={{ query }}" class="icon item">
-                По-стари &rarr;
+                {% trans 'По-стари' %} &rarr;
               </a>
             {% endif %}
           </div>

@@ -71,7 +71,7 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True,
                                       null=True, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
-    note = models.TextField(null=True)
+    note = models.TextField(blank=True, default='')
     note_tr = models.TextField(null=True)
     no_dds_reason = models.CharField(max_length=255, null=True)
     no_dds_reason_tr = models.CharField(max_length=255, null=True)

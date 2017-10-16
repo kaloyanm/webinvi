@@ -268,3 +268,5 @@ RAVEN_CONFIG = {
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+INVOICES_PER_PAGE = 15

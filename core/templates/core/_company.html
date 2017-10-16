@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="ui basic segment">
-  <h2 class="left floated">Фирмена регистрация</h2>
+  <h2 class="left floated">{% trans 'Фирмена регистрация' %}</h2>
 </div>
 
 <div class="ui basic segment _pt0">
@@ -13,7 +13,7 @@
     <div id="edit-company" class="_flex">
       {% include "_flash_messages.html" %}
       <div class="_flex-1 _mrs _ptxs">
-        <h3>Основен език</h3>
+        <h3>{% trans 'Основен език' %}</h3>
         {{ form.name|as_crispy_field }}
         {{ form.city|as_crispy_field }}
         {{ form.address|as_crispy_field }}
@@ -25,16 +25,18 @@
         <div class="buttonHolder">
           <button type="submit" name="submit" class="btn btn-primary ui button green" id="submit-id-submit">
             <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
-            Запази
+            {% trans 'Запази' %}
           </button>
-          <button type="submit" name="delete" class="btn ui button red" id="delete-button">
+          {% if form.instance.pk %}
+          <a href="{% url 'drop_company' form.instance.pk %}" class="btn ui button red" id="delete-button">
             <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
-            Изтрий</button>
+            {% trans 'Изтрий' %}</a>
+          {% endif %}
         </div>
       </div>
       <div class="_flex-1">
         <div class="_pxs _bg-state-muted">
-          <h3>Чужд език</h3>
+          <h3>{% trans 'Втори език' %}</h3>
           {{ form.name_tr|as_crispy_field }}
           {{ form.city_tr|as_crispy_field }}
           {{ form.address_tr|as_crispy_field }}
@@ -46,6 +48,3 @@
 </div>
 
 {% endblock %}
-
-
-{% block delete_button_href %}{% if form.instance.pk %}{% url 'drop_company' form.instance.pk %}{% endif %}{% endblock %}

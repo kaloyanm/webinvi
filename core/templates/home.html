@@ -1,26 +1,26 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 {% block body_class %}page--home{% endblock %}
 {% block content %}
   <section class="ui inverted vertical masthead center aligned segment">
     <div class="ui container">
-      <div class="ui inverted huge header">Писнало ти е от бумащина?</div>
-      <h1 class="ui inverted huge header _mtm">По-добри e-фактури</h1>
-      <p class="ui inverted header _mtxs"><span class="_plxs _prxs">Европейски стандарт</span>&middot; <span class="_plxs _prxs">Многоезичност</span> &middot; <span class="_plxs _prxs">Различни валути</span></p>
-      <a href="{% url 'registration' %}" class="ui large inverted button _mtm">Тествай безплатно</a>
+      <div class="ui inverted huge header">{% trans 'Писнало ти е от бумащина?' %}</div>
+      <h1 class="ui inverted huge header _mtm">{% trans 'По-добри e-фактури' %}</h1>
+      <p class="ui inverted header _mtxs"><span class="_plxs _prxs">{% trans 'Европейски стандарт' %}</span>&middot; <span class="_plxs _prxs">{% trans 'Многоезичност' %}</span> &middot; <span class="_plxs _prxs">{% trans 'Различни валути' %}</span></p>
+      <a href="{% url 'registration' %}" class="ui large inverted button _mtm">{% trans 'Тествай безплатно' %}</a>
     </div>
   </section>
 
   <section id="section-features">
     <div class="_bg-gray-lighter _ptm _pbm">
-      <h1 class="ui center aligned header _mb0">Функционалности</h1>
+      <h1 class="ui center aligned header _mb0">{% trans 'Функционалности' %}</h1>
     </div>
 
     <div class="ui middle aligned stackable grid container">
       <div class="row _mtm _mbm">
         <div class="eight wide column">
-          <h2 class="ui header">Многоезичност</h2>
-          <p>Поддръжка на  различни езици както за интерфейса така и за данните на самите фактури.</p>
+          <h2 class="ui header">{% trans 'Многоезичност' %}</h2>
+          <p>{% trans 'Поддръжка на  различни езици както за интерфейса така и за данните на самите фактури.' %}</p>
         </div>
         <div class="six wide right floated column">
           <img src="{% static 'core/images/1.jpg' %}" alt="Многоезичност" class="ui large bordered rounded image _img-pixel">
@@ -32,16 +32,16 @@
           <img src="{% static 'core/images/2.jpg' %}" alt="Google Drive Синхронизация" class="ui large rounded image">
         </div>
         <div class="eight wide column">
-          <h2 class="ui header">Google Drive Синхронизация</h2>
-          <p>Възможност за архивиране и синхронизация на обновените документи. Копия от документите могат да бъдат запазени на Google Drive към посочен от вас Google профил.</p>
-          <p>Не се изискват технически познания, освен да имате профил в Google (G-mail).</p>
+          <h2 class="ui header">{% trans 'Google Drive Синхронизация' %}</h2>
+          <p>{% trans 'Възможност за архивиране и синхронизация на обновените документи. Копия от документите могат да бъдат запазени на Google Drive към посочен от вас Google профил.' %}</p>
+          <p>{% trans 'Не се изискват технически познания, освен да имате профил в Google (G-mail).' %}</p>
         </div>
       </div>
 
       <div class="row _mtm _mbm">
         <div class="eight wide column">
-          <h2 class="ui header">Генериране на PDF файл</h2>
-          <p>Експорт на фактурата като PDF файл позволява лесно пращане по електронна поща и безпроблемна разпечтка на принтер.</p>
+          <h2 class="ui header">{% trans 'Генериране на PDF файл' %}</h2>
+          <p>{% trans 'Експорт на фактурата като PDF файл позволява лесно пращане по електронна поща и безпроблемна разпечтка на принтер.' %}</p>
         </div>
         <div class="six wide right floated column">
           <img src="{% static 'core/images/3.jpg' %}" alt="PDF файл" class="ui large bordered rounded image _img-pixel">
@@ -53,39 +53,11 @@
           <img src="{% static 'core/images/4.jpg' %}" alt="Валутен курс" class="ui large bordered rounded image _img-pixel">
         </div>
         <div class="eight wide column">
-          <h2 class="ui header">Валутен курс</h2>
-          <p>Възможност за ръчно и автоматично задаване на валутен курс.</p>
+          <h2 class="ui header">{% trans 'Валутен курс' %}</h2>
+          <p>{% trans 'Възможност за ръчно и автоматично задаване на валутен курс.' %}</p>
         </div>
       </div>
 
     </div>
-
   </section>
-  <div style="display: none" class="_ptl _pbl">
-    <div class="ui vertical stripe segment center aligned">
-      <h2 class="ui center aligned header _mbm">Пакети</h2>
-    </div>
-
-    <div class="ui vertical stripe quote segment">
-      <div class="ui equal width stackable internally celled grid">
-        <div class="center aligned row">
-          <div class="column">
-            <h2>Фрийлансър</h2>
-            <p>За свободни професии.</p>
-            <div class="ui primary button">Вземи</div>
-          </div>
-          <div class="column">
-            <h2>Малък бизнес</h2>
-            <p>Фирми до 10 човека.</p>
-            <div class="ui primary button">Вземи</div>
-          </div>
-          <div class="column">
-            <h2>АД</h2>
-            <p>Организации и кооперативи.</p>
-            <div class="ui primary button">Вземи</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 {% endblock %}

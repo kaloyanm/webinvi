@@ -30,7 +30,7 @@
           <div class="ui grid">
             <div class="equal width row">
               <div class="column">
-                <select class="ui search dropdown fluid _mbxs" name="currency" v-model="selected_currency"  @change="currency_selected(selected_currency)" {% if not pk %}disabled{% endif %}>
+                <select class="ui search dropdown fluid _mbxs" name="currency" v-model="selected_currency"  @change="currency_selected(selected_currency)" {% if not pk or not use_tr %}disabled{% endif %}>
                     {% for currency, rate in rates.items %}
                     <option value="{{ currency }}" >{{ currency }}</option>
                     {% endfor %}
@@ -38,7 +38,7 @@
               </div>
               <div class="column">
                 <div class="ui input fluid">
-                  <input name="currency_rate" v-model="currency_rate" type="number" @change="rate_changed()" {% if not pk %}disabled{% endif %}>
+                  <input name="currency_rate" v-model="currency_rate" type="number" step=any @change="rate_changed()" {% if not pk or not use_tr %}disabled{% endif %}>
                 </div>
               </div>
             </div>
@@ -57,12 +57,12 @@
           <div class="ui green right floated small buttons">
             <button type="submit" onclick="document.forms.invoice_form.submit()" href="{% url 'list' %}" class="ui button" role="button">
               <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
-              Запази
+              {% trans 'Запази' %}
             </button>
             <div class="ui floating dropdown icon button">
               <i class="dropdown icon"></i>
               <div class="menu">
-                <div class="item"><a href="{% url 'convert_proforma' pk %}">Запази като фактура</a></div>
+                <div class="item"><a href="{% url 'convert_proforma' pk %}">{% trans 'Запази като фактура' %}</a></div>
               </div>
             </div>
           </div>
@@ -84,8 +84,8 @@
 
       <div class="equal width row _pb0">
         <div class="column column__title">
-          <h1>{% if invoice_type == 'proforma' %}Проформа{% else %}Фактура{% endif %}
-            <small>оригинал</small>
+          <h1>{% if invoice_type == 'proforma' %}{% trans 'Проформа' %}{% else %}{% trans 'Фактура' %}{% endif %}
+            <small>{% trans 'оригинал' %}</small>
           </h1>
         </div><div class="column column__info">
           {{ form.number|as_crispy_field }}
@@ -112,6 +112,7 @@
           {% else %}{{ form.client_mol|as_crispy_field }}{{ form.client_mol_tr|set_hidden|as_crispy_field }}{% endif %}
 
         </div><div class="column column__company">
+          <input type="hidden" name="company" value="{{ company_form.instance.pk}}" />
           {% if use_tr %}{{company_form.name_tr|as_crispy_field}}{% else %}{{company_form.name|as_crispy_field}}{% endif %}
           {{company_form.eik|as_crispy_field}}
           {{company_form.dds|as_crispy_field}}
@@ -134,26 +135,26 @@
 
         </div><div class="column column__total">
           <div class="field">
-            <label>Данъчна основа</label>
+            <label>{% trans 'Данъчна основа' %}</label>
             <div class="field__text _flex center">
               <span class="field__currency">{% verbatim %}{{ selected_currency }}{% endverbatim %}</span>
-              <input class="field__input" name="gross" v-model="gross" class="numberinput" type="number" dir="rtl" readonly>
+              <input class="field__input" name="gross" v-model="gross" class="numberinput" type="number" dir="rtl" step=any readonly>
             </div>
           </div>
 
           <div class="field">
-            <label for="dds_percent">ДДС</label>
+            <label for="dds_percent">{% trans 'ДДС' %}</label>
             <div class="field__text _flex center">
               <span class="field__currency">%</span>
-              <input class="field__input " name="dds_percent" v-model="dds_percent" value="{{ form.dds_percent.value }}" type="number" @keyup="calc_total()" min="0" max="100" step="5" dir="rtl">
+              <input class="field__input " name="dds_percent" v-model="dds_percent" value="{{ form.dds_percent.value }}" type="number" step=any @keyup="calc_total()" min="0" max="100" step="5" dir="rtl">
             </div>
           </div>
 
           <div class="field">
-            <label for="total">Крайна цена</label>
+            <label for="total">{% trans 'Крайна цена' %}</label>
             <div class="field__text _flex center">
               <span class="field__currency">{% verbatim %}{{ selected_currency }}{% endverbatim %}</span>
-              <input id="total" class="field__input" dir="rtl" name="total" v-model="total" type="number" readonly>
+              <input id="total" class="field__input" dir="rtl" name="total" v-model="total" type="number" step=any readonly>
             </div>
           </div>
           {{ form.verbally|as_crispy_field }}
@@ -191,14 +192,14 @@
 
 {% if not print %}
 <div id="delete-modal-window" class="ui tiny modal">
-  <div class="header">Изтриване на {{ form.instance.get_invoice_type_display }}</div>
+  <div class="header">{% trans 'Изтриване на' %} {{ form.instance.get_invoice_type_display }}</div>
   <div class="content">
-      <p>Сигурни ли сте че искате да изтриете {{ form.instance.get_invoice_type_display }} с номер <b>{{ form.instance.number }}</b></p>
+      <p>{% trans 'Сигурни ли сте че искате да изтриете' %} {{ form.instance.get_invoice_type_display }} {% trans 'с номер' %} <b>{{ form.instance.number }}</b></p>
   </div>
   <div class="actions">
-    <div class="ui negative button">Не</div>
+    <div class="ui negative button">{% trans 'Не' %}</div>
     {% if pk %}
-    <a href="{% url 'delete' pk %}" class="ui positive button">Да</a>
+    <a href="{% url 'delete' pk %}" class="ui positive button">{% trans 'Да' %}</a>
     {% endif %}
   </div>
 </div>
@@ -210,7 +211,7 @@
     window.INVOICE_CURRENCY = '{{ form.currency.value|default:'BGN' }}';
     {% language 'en' %}
     window.INVOICE_DDS_DEFAULT = {{ form.dds_percent.value|default:0 }};
-    window.INVOICE_CURRENCY_RATE = {{ form.currency_rate.value|default:1 }};
+    window.INVOICE_CURRENCY_RATE = {{ form.currency_rate.value|default:1.0000 }};
     {% endlanguage %}
 </script>
 <script src="{% static "invoices/js/app.js" %}"></script>

@@ -152,7 +152,7 @@ def company(request, pk=None):
 def drop_company(request, pk):
     company = get_object_or_404(Company, pk=pk)
     if company.has_invoices:
-        messages.warning(request, _("Please remove your invoices first!"))
+        messages.warning(request, _("Моля първо си изтрийте фактурите към тази фирма!"))
         return redirect(reverse('company', args=[pk]))
 
     company.delete()

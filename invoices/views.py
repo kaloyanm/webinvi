@@ -39,7 +39,7 @@ def get_company_or_404(request, company_pk=None):
     company_pk = company_pk if company_pk else request.session.get('company_pk')
     if company_pk:
         try:
-            company = Company.objects.get(pk=company_pk)
+            company = Company.objects.get(pk=company_pk, user=request.user)
             request.session['company_pk'] = company_pk
         except Company.DoesNotExist:
             raise Http404
@@ -48,20 +48,17 @@ def get_company_or_404(request, company_pk=None):
     return company
 
 
-def process_invoice(company, form, form_items):
+def process_invoice(form, form_items):
     pk = None
     if form.is_valid() and form_items.is_valid():
-        form.instance.company = company
         instance = form.save()
 
         with transaction.atomic():
             existing_pks = []
             for form in form_items:
-                logger.debug(form.cleaned_data)
                 item_pk = form.cleaned_data['id']
                 del form.cleaned_data['id']
                 del form.cleaned_data['DELETE']
-
 
                 form.cleaned_data['invoice'] = instance
                 obj, created = InvoiceItem.objects.update_or_create(pk=item_pk, defaults=form.cleaned_data)
@@ -129,11 +126,10 @@ def _invoice(request, pk=None, invoice_type="invoice",
 
     if request.method == "POST":
         form = InvoiceForm(request.POST, instance=instance)
-
         initial_items = list(instance.invoiceitem_set.all().values()) if instance else []
         form_items = InvoiceItemFormSet(request.POST, initial=initial_items)
 
-        is_ok, pk = process_invoice(company, form, form_items)
+        is_ok, pk = process_invoice(form, form_items)
         if is_ok:
             sync_invoice_to_external(instance, request.user)
             return redirect(reverse(invoice_type, args=[pk]))
@@ -149,7 +145,7 @@ def _invoice(request, pk=None, invoice_type="invoice",
 
     rates = {}
     for from_c in settings.ALLOWED_CURRENCIES:
-        rates[from_c] = round(exchange_currency(Price(1, currency=from_c), 'BGN').net, 5)
+        rates[from_c] = round(exchange_currency(Price(1.0000, currency=from_c), 'BGN').net, 5)
     if instance and instance.currency:
         rates[instance.currency] = instance.currency_rate
 
@@ -210,7 +206,7 @@ def list_invoices(request, company_pk=None):
     search_terms = request.GET.get("query", "")
     queryset = search_invoices_queryset(company, search_terms)
 
-    pager = Paginator(queryset, 15)
+    pager = Paginator(queryset, settings.INVOICES_PER_PAGE)
     page = pager.page(request.GET.get("page", 1))
 
     context = {
@@ -248,7 +244,6 @@ def print_invoice(request, pk):
     with urllib.request.urlopen(req) as res:
         if res.status == 200:
             response = HttpResponse(res.read(), content_type="application/pdf")
-            response["Content-Disposition"] = "attachment; filename='{}.pdf'".format(str(instance))
             return response
         else:
             raise Http404
@@ -315,7 +310,9 @@ def change_invoice_language(request, pk, lang):
 
 @login_required
 def proforma2invoice(request, pk):
-    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_PROFORMA)
+    company = get_company_or_404(request)
+    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_PROFORMA,
+                                 company=company)
     items = instance.invoiceitem_set.all()
 
     instance.pk = None

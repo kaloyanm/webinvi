@@ -22,7 +22,6 @@ var app = new Vue({
     dds_percent: window.INVOICE_DDS_DEFAULT
   },
   mounted: function () {
-    console.log("currency rate:", window.INVOICE_CURRENCY_RATE);
     this.rows = window.INVOICE_ITEMS.map(function(row){ return row });
     for(var row_idx in this.rows) {
       var row = this.rows[row_idx];
@@ -32,11 +31,10 @@ var app = new Vue({
     if (this.rows.length == 0) {
       this.add();
     }
-    console.log("currency rate1:", this.currency_rate);
+
     this.calc_total(true);
     this.total_forms = this.rows.length;
     this.initial_forms = this.rows.length;
-    console.log("currency rate2:", this.currency_rate);
   },
   methods: {
     add: function () {

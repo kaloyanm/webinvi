@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-16 15:18+0300\n"
+"POT-Creation-Date: 2017-10-15 17:28+0000\n"
 "PO-Revision-Date: 2017-07-16 12:03+0000\n"
 "Last-Translator: b'  <>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,40 +19,477 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.13\n"
 
-#: config/settings.py:153
-msgid "Испански"
+#: core/forms.py:16
+msgid "Обнови"
 msgstr ""
 
-#: config/settings.py:154
-msgid "Английски"
+#: core/forms.py:20 core/forms.py:31 core/templates/_registration.html:19
+msgid "Влез"
 msgstr ""
 
-#: core/forms.py:6
+#: core/forms.py:36 core/forms.py:37
 msgid "Има на компанията"
 msgstr ""
 
-#: core/forms.py:7
+#: core/forms.py:38
 msgid "БУЛСТАТ"
 msgstr ""
 
-#: core/forms.py:8
+#: core/forms.py:39 invoices/forms.py:33
 msgid "Ин по ДДС"
 msgstr ""
 
-#: core/forms.py:9
+#: core/forms.py:40 core/forms.py:41 core/templates/core/_companies.html:23
+#: invoices/forms.py:30 invoices/forms.py:31
 msgid "Град"
 msgstr ""
 
-#: core/forms.py:10
+#: core/forms.py:42 core/forms.py:43 core/templates/core/_companies.html:24
+#: invoices/forms.py:34 invoices/forms.py:35
 msgid "Адрес"
 msgstr ""
 
-#: core/forms.py:11
+#: core/forms.py:44 core/forms.py:45 core/templates/core/_companies.html:22
+#: invoices/forms.py:36 invoices/forms.py:37
 msgid "МОЛ"
 msgstr ""
 
-#: core/forms.py:12
+#: core/forms.py:46
 msgid "Маркирай като основна"
+msgstr ""
+
+#: core/forms.py:57
+msgid "Компании и фактури"
+msgstr ""
+
+#: core/forms.py:58
+msgid "Компании"
+msgstr ""
+
+#: core/forms.py:64
+msgid "Изпрати"
+msgstr ""
+
+#: core/forms.py:66 core/templates/core/_companies.html:20
+msgid "Име"
+msgstr ""
+
+#: core/forms.py:67
+msgid "Емейл"
+msgstr ""
+
+#: core/forms.py:68
+msgid "Телефон"
+msgstr ""
+
+#: core/forms.py:69
+msgid "Съобщение"
+msgstr ""
+
+#: core/mixins.py:10 core/templates/core/_company.html:28
+#: invoices/templates/invoices/invoice.html:60
+msgid "Запази"
+msgstr ""
+
+#: core/mixins.py:18
+msgid "Delete"
+msgstr ""
+
+#: core/templates/_navigation.html:8
+msgid "Лого"
+msgstr ""
+
+#: core/templates/_navigation.html:9
+msgid "BETA"
+msgstr ""
+
+#: core/templates/_navigation.html:27 core/templates/login.html:4
+msgid "Вход"
+msgstr ""
+
+#: core/templates/_navigation.html:28 core/templates/_registration.html:4
+msgid "Регистрация"
+msgstr ""
+
+#: core/templates/_navigation.html:32
+#: invoices/templates/invoices/invoice_list.html:9
+msgid "Фактури"
+msgstr ""
+
+#: core/templates/_navigation.html:33 core/templates/core/_companies.html:7
+msgid "Фирми"
+msgstr ""
+
+#: core/templates/_navigation.html:38
+msgid "Смяна на паролата"
+msgstr ""
+
+#: core/templates/_navigation.html:39
+msgid "Импорт от InvoicePro"
+msgstr ""
+
+#: core/templates/_navigation.html:43
+msgid "Изход"
+msgstr ""
+
+#: core/templates/_password_recover.html:4
+#: core/templates/_password_recover.html:14
+#: core/templates/_password_reset_done.html:4
+#: core/templates/_password_reset_done.html:14
+#: core/templates/_password_sent.html:4 core/templates/_password_sent.html:14
+msgid "Забравена парола"
+msgstr ""
+
+#: core/templates/_password_recover.html:20
+#: core/templates/_password_reset_done.html:19
+#: core/templates/_password_sent.html:20 core/templates/login.html:19
+msgid "Нямаш профил?"
+msgstr ""
+
+#: core/templates/_password_recover.html:20
+#: core/templates/_password_reset_done.html:19
+#: core/templates/_password_sent.html:20 core/templates/login.html:19
+msgid "Регистрирай се"
+msgstr ""
+
+#: core/templates/_password_reset_done.html:15
+msgid ""
+"Паролата ви беше успешно сменена. Сега може да се върнете на страницата за "
+"вход и да влезнете."
+msgstr ""
+
+#: core/templates/_password_sent.html:15
+#, python-format
+msgid ""
+"Съобщение беше изпратено на <strong>%(email)s</strong> преди %(ago)s.\n"
+"            Последвайте линка вътре за да си промените паролата."
+msgstr ""
+
+#: core/templates/_registration.html:14
+msgid "Нов профил"
+msgstr ""
+
+#: core/templates/_registration.html:19
+msgid "Имаш профил?"
+msgstr ""
+
+#: core/templates/contact.html:6
+msgid "Контакти"
+msgstr ""
+
+#: core/templates/core/_companies.html:10
+msgid "Google Drive Sync"
+msgstr ""
+
+#: core/templates/core/_companies.html:10
+msgid "Включен"
+msgstr ""
+
+#: core/templates/core/_companies.html:10
+msgid "Изключен"
+msgstr ""
+
+#: core/templates/core/_companies.html:11
+msgid "+ Добави нова"
+msgstr ""
+
+#: core/templates/core/_companies.html:21 invoices/forms.py:32
+msgid "Булстат"
+msgstr ""
+
+#: core/templates/core/_company.html:6
+msgid "Фирмена регистрация"
+msgstr ""
+
+#: core/templates/core/_company.html:16
+msgid "Основен език"
+msgstr ""
+
+#: core/templates/core/_company.html:33
+msgid "Изтрий"
+msgstr ""
+
+#: core/templates/core/_company.html:39
+msgid "Втори език"
+msgstr ""
+
+#: core/templates/home.html:7
+msgid "Писнало ти е от бумащина?"
+msgstr ""
+
+#: core/templates/home.html:8
+msgid "По-добри e-фактури"
+msgstr ""
+
+#: core/templates/home.html:9
+msgid "Европейски стандарт"
+msgstr ""
+
+#: core/templates/home.html:9 core/templates/home.html:22
+msgid "Многоезичност"
+msgstr ""
+
+#: core/templates/home.html:9
+msgid "Различни валути"
+msgstr ""
+
+#: core/templates/home.html:10
+msgid "Тествай безплатно"
+msgstr ""
+
+#: core/templates/home.html:16
+msgid "Функционалности"
+msgstr ""
+
+#: core/templates/home.html:23
+msgid ""
+"Поддръжка на  различни езици както за интерфейса така и за данните на самите "
+"фактури."
+msgstr ""
+
+#: core/templates/home.html:35
+msgid "Google Drive Синхронизация"
+msgstr ""
+
+#: core/templates/home.html:36
+msgid ""
+"Възможност за архивиране и синхронизация на обновените документи. Копия от "
+"документите могат да бъдат запазени на Google Drive към посочен от вас "
+"Google профил."
+msgstr ""
+
+#: core/templates/home.html:37
+msgid ""
+"Не се изискват технически познания, освен да имате профил в Google (G-mail)."
+msgstr ""
+
+#: core/templates/home.html:43
+msgid "Генериране на PDF файл"
+msgstr ""
+
+#: core/templates/home.html:44
+msgid ""
+"Експорт на фактурата като PDF файл позволява лесно пращане по електронна "
+"поща и безпроблемна разпечтка на принтер."
+msgstr ""
+
+#: core/templates/home.html:56
+msgid "Валутен курс"
+msgstr ""
+
+#: core/templates/home.html:57
+msgid "Възможност за ръчно и автоматично задаване на валутен курс."
+msgstr ""
+
+#: core/templates/login.html:20
+msgid "Забравена парола?"
+msgstr ""
+
+#: core/views.py:155
+msgid "Please remove your invoices first!"
+msgstr ""
+
+#: core/views.py:224
+msgid "Смени"
+msgstr ""
+
+#: core/views.py:233
+msgid "Възстанови"
+msgstr ""
+
+#: invoices/forms.py:28 invoices/forms.py:29
+msgid "Получател"
+msgstr ""
+
+#: invoices/forms.py:38 invoices/templates/invoices/invoice_list.html:46
+msgid "Номер"
+msgstr ""
+
+#: invoices/forms.py:39
+msgid "Начин на плащане"
+msgstr ""
+
+#: invoices/forms.py:40
+msgid "IBAN"
+msgstr ""
+
+#: invoices/forms.py:41
+msgid "SWIFT"
+msgstr ""
+
+#: invoices/forms.py:42
+msgid "Банка"
+msgstr ""
+
+#: invoices/forms.py:43 invoices/templates/invoices/invoice.html:146
+msgid "ДДС"
+msgstr ""
+
+#: invoices/forms.py:44 invoices/forms.py:45
+msgid "Приел"
+msgstr ""
+
+#: invoices/forms.py:46 invoices/forms.py:47
+msgid "Съставил"
+msgstr ""
+
+#: invoices/forms.py:48
+msgid "Словом"
+msgstr ""
+
+#: invoices/forms.py:49
+msgid "Данъчно събитие"
+msgstr ""
+
+#: invoices/forms.py:50
+msgid "Дата на издаване"
+msgstr ""
+
+#: invoices/forms.py:101
+msgid "The number already exists."
+msgstr ""
+
+#: invoices/models.py:28
+msgid "Invoice"
+msgstr ""
+
+#: invoices/models.py:29
+msgid "Proforma"
+msgstr ""
+
+#: invoices/models.py:30
+msgid "Credit"
+msgstr ""
+
+#: invoices/models.py:31
+msgid "Debit"
+msgstr ""
+
+#: invoices/templates/invoices/_invoice_details.html:16
+msgid "Продукт / Услуга"
+msgstr ""
+
+#: invoices/templates/invoices/_invoice_details.html:17
+msgid "Кол."
+msgstr ""
+
+#: invoices/templates/invoices/_invoice_details.html:18
+msgid "Мярка"
+msgstr ""
+
+#: invoices/templates/invoices/_invoice_details.html:19
+msgid "Ед. Цена"
+msgstr ""
+
+#: invoices/templates/invoices/_invoice_details.html:20
+#, python-format
+msgid "%% Отстъпка"
+msgstr ""
+
+#: invoices/templates/invoices/_invoice_details.html:21
+msgid "Цена"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:65
+msgid "Запази като фактура"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:87
+#: invoices/templates/invoices/invoice_list.html:55
+msgid "Проформа"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:87
+#: invoices/templates/invoices/invoice_list.html:55
+msgid "Фактура"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:88
+msgid "оригинал"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:138
+msgid "Данъчна основа"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:154
+msgid "Крайна цена"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:195
+msgid "Изтриване на"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:197
+msgid "Сигурни ли сте че искате да изтриете"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:197
+msgid "с номер"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:200
+msgid "Не"
+msgstr ""
+
+#: invoices/templates/invoices/invoice.html:202
+msgid "Да"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:13
+msgid "Добави фактура:"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:14
+msgid "+ Данъчна"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:15
+msgid "+ Проформа"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:32
+msgid "Намери клиент"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:33
+msgid "Търси"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:44
+msgid "Клиент"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:45
+msgid "Тип"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:47
+msgid "Издадена на"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:48
+msgid "Сума"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:69
+msgid "По-нови"
+msgstr ""
+
+#: invoices/templates/invoices/invoice_list.html:74
+msgid "По-стари"
+msgstr ""
+
+#: invoices/views.py:328
+msgid "The invoice has been created successfully."
+msgstr ""
+
+#: src/settings.py:227
+msgid "Български"
+msgstr ""
+
+#: src/settings.py:228
+msgid "Английски"
 msgstr ""
 
 #~ msgid "Spain"

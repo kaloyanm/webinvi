@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <input type="hidden" name="form-TOTAL_FORMS" v-model="total_forms"/>
 <input type="hidden" name="form-INITIAL_FORMS" v-model="initial_forms"/>
 <input type="hidden" name="form-MAX_NUM_FORMS" value="1000"/>
@@ -13,12 +13,12 @@
       </th>
       {% endblock %}
 
-      <th width="30%">Продукт / Услуга ({{ use_tr }})</th>
-      <th width="10%">Кол.</th>
-      <th>Мярка</th>
-      <th>Ед. Цена</th>
-      <th>% Отстъпка</th>
-      <th class="col-price">Цена</th>
+      <th width="30%">{% trans 'Продукт / Услуга' %}</th>
+      <th width="10%">{% trans 'Кол.' %}</th>
+      <th>{% trans 'Мярка' %}</th>
+      <th>{% trans 'Ед. Цена' %}</th>
+      <th>{% trans '% Отстъпка' %}</th>
+      <th class="col-price">{% trans 'Цена' %}</th>
     </tr>
   </thead>
   <tbody>
@@ -39,7 +39,7 @@
         <input type="text" :name="'form-'+index+'-measure{% if use_tr %}_tr{% endif %}'" v-model="row.measure{% if use_tr %}_tr{% endif %}">
       </td>
       <td>
-        <input type="number" :disabled="selected_currency !== 'BGN'" :name="'form-'+index+'-unit_price'" v-model="row.unit_price" @keyup="unit_price_changed(index); calc_row(index); calc_total();">
+        <input type="number" step=any :disabled="selected_currency !== 'BGN'" :name="'form-'+index+'-unit_price'" v-model="row.unit_price" @keyup="unit_price_changed(index); calc_row(index); calc_total();">
         <input type="hidden" :name="'form-'+index+'-unit_price'" v-model="row.unit_price" @keyup="unit_price_changed(index); calc_row(index); calc_total();">
       </td>
       <td>

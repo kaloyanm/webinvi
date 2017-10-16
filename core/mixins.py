@@ -15,7 +15,7 @@ class SemanticUIFormMixin:
         self.helper.form_class = 'ui form'
 
         if hasattr(self, 'instance') and self.instance.pk:
-            self.helper.add_input(Button('delete', _('Delete'), css_class='ui button red', css_id='delete-button'))
+            self.helper.add_input(Button('delete', _('Изтрий'), css_class='ui button red', css_id='delete-button'))
         self.helper.add_input(Submit('submit', self.submit_button_label, css_class='ui button primary'))
 
 

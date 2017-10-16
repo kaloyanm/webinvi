@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block content %}
   <div class="ui grid basic segment">
     <div class="two column row">
       <div class="column">
-        <h2 class="left floated">Фирми</h2>
+        <h2 class="left floated">{% trans 'Фирми' %}</h2>
       </div>
       <div class="column right aligned">
-        <a href="{% url 'google_login' %}" class="ui button primary tiny" role="button">Google Drive Sync ({% if request.user.settings.gdrive_sync %}Включен{% else %}Изключен{% endif %})</a>
-        <a href="{% url 'company' %}" class="ui button primary tiny" role="button">+ Добави нова</a>
+        <a href="{% url 'google_login' %}" class="ui button primary tiny" role="button">{% trans 'Google Drive Sync' %} ({% if request.user.settings.gdrive_sync %}{% trans 'Включен' %}{% else %}{% trans 'Изключен' %}{% endif %})</a>
+        <a href="{% url 'company' %}" class="ui button primary tiny" role="button">{% trans '+ Добави нова' %}</a>
       </div>
     </div>
   </div>
@@ -16,11 +17,11 @@
     <table class="ui table">
       <thead>
       <tr>
-        <th>Име</th>
-        <th>Булстат</th>
-        <th>МОЛ</th>
-        <th>Град</th>
-        <th>Адрес</th>
+        <th>{% trans 'Име' %}</th>
+        <th>{% trans 'Булстат' %}</th>
+        <th>{% trans 'МОЛ' %}</th>
+        <th>{% trans 'Град' %}</th>
+        <th>{% trans 'Адрес' %}</th>
       </tr>
       </thead>
       <tbody>

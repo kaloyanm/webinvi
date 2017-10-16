@@ -84,4 +84,18 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
 
     class Meta:
         model = Invoice
-        exclude = ('company', )
+        exclude = []
+
+
+    def clean(self):
+        cleaned_data = super().clean()
+        invoice_number = cleaned_data.get('number')
+        company = cleaned_data.get('company')
+        invoice_type = cleaned_data.get('invoice_type')
+        qry = Invoice.objects.filter(company=company, number=invoice_number, invoice_type=invoice_type)
+
+        if self.instance and self.instance.pk:
+            qry = qry.exclude(pk=self.instance.pk)
+
+        if qry.exists():
+            self.add_error("number", _("The number already exists.".format(invoice_number)))
