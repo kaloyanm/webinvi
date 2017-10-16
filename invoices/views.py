@@ -316,6 +316,7 @@ def proforma2invoice(request, pk):
     items = instance.invoiceitem_set.all()
 
     instance.pk = None
+    instance.number = None
     instance.invoice_type = Invoice.INVOICE_TYPE_INVOICE
     instance.released_at = timezone.now().strftime("%Y-%m-%d")
     instance.save()
