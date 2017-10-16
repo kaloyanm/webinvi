@@ -20,7 +20,7 @@ from core.models import Company
 from core.forms import (
     LoginForm,
     ChangePassForm,
-    RegistratiоnForm,
+    RegistrationForm,
     CompanyForm,
     ContactForm,
 )

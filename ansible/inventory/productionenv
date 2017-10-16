@@ -1,9 +1,8 @@
-PROCFILE=Procfile.dev
 HOSTNAME=http://{{ webinvoices_domain }}
 PDF_SERVER=http://localhost:8080
 PORT=7980
-EMAIL_BACKEND=django_mailgun.MailgunBackend
-MAILGUN_ACCESS_KEY=
-MAILGUN_SERVER_NAME=
+EMAIL_BACKEND='django_mailgun.MailgunBackend'
+MAILGUN_ACCESS_KEY='key-529536a5105620864e5f19901dc2547f'
+MAILGUN_SERVER_NAME='sandbox8ffe879c1c864ea6a87d79ab937bdf62.mailgun.org'
 EMAIL_PORT=1025
 SENTRY_DSN='https://0055ba1a58cb4ac3a38c84cffd44d6d8:6acd4d4847c4464a8c0100a10db4ff96@sentry.io/223590'

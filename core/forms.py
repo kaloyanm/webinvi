@@ -16,7 +16,7 @@ class ChangePassForm(SemanticUIFormMixin, PasswordChangeForm):
     submit_button_label = _('Обнови')
 
 
-class RegistratiоnForm(SemanticUIFormMixin, UserCreationForm):
+class RegistrationForm(SemanticUIFormMixin, UserCreationForm):
     submit_button_label = _('Влез')
 
     # Simple and elegant solution to use email as username
