@@ -14,6 +14,7 @@ module.exports = {
   testPass: 'test1234',
 
   getUrl: function(path) {
+    path = path.replace(/^\/bg\//, '')
     return this.url + path;
   },
 }
