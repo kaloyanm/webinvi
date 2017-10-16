@@ -10,7 +10,7 @@ def get_pdf_generator_url(pk):
     cache.set(access_token, pk)
 
     u = urlparse(settings.HOSTNAME)
-    if u.port != 80:
+    if u.port and u.port != 80:
         port = ':' + str(u.port)
     else:
         port = ''
