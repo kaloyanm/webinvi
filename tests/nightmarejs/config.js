@@ -1,9 +1,11 @@
 module.exports = {
   nightmareOptions: {
-    show: true,
+    show: false,
     typeInterval: 20,
+    width: 1024,
+    height: 768,
   },
-  timeout: '30s',
+  timeout: '10s',
 
   url: 'http://demo-client:demo-pass@webinvoices-local.dev/bg/',
 
@@ -14,6 +16,9 @@ module.exports = {
   testPass: 'test1234',
 
   getUrl: function(path) {
+    if (path.match(/^https?:\/\//)){
+      return path;
+    }
     path = path.replace(/^\/bg\//, '')
     return this.url + path;
   },

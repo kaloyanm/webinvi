@@ -2,6 +2,7 @@ const Nightmare = require('nightmare')
 const assert = require('chai').assert
 const Config = require('../config')
 
+console.log(assert);
 describe('Non login tests', function() {
   // Recommended: 5s locally, 10s to remote server, 30s from airplane ¯\_(ツ)_/¯
   this.timeout(Config.timeout)
@@ -59,11 +60,10 @@ describe('Non login tests', function() {
         .wait(link).click(link)
         .wait(input).type(input, Config.testUser)
         .click('#submit-id-submit')
-        .wait('#forgotten-pass-segment')
-        .wait(el).exists(el)
+        .wait(2000).exists(el)
         .end()
         .then((element) => {
-          assert(element, 'element exists');
+          assert.isOk(element, 'element exists');
           done();
         })
         .catch(done)
