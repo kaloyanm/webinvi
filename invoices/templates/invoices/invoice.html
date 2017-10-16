@@ -207,7 +207,7 @@
 {% endlanguage %}
 <script type="text/javascript">
     window.INVOICE_ITEMS = {{ items|safe }};
-    window.INVOICE_ITEM_TEMPLATE = {name{% if use_tr %}_tr{% endif %}: "", quantity: 1, measure{% if use_tr %}_tr{% endif %}: "", unit_price:0, discount: 0, gross: 0, id: 0, invoice_id:0};
+    window.INVOICE_ITEM_TEMPLATE = {name{% if use_tr %}_tr{% endif %}: "", quantity: 1, measure{% if use_tr %}_tr{% endif %}: "", unit_price:0.00, discount: 0, gross: 0, id: 0, invoice_id:0};
     window.INVOICE_CURRENCY = '{{ form.currency.value|default:'BGN' }}';
     window.USE_TR = {% if use_tr %}true {% else %}false{% endif %};
     {% language 'en' %}

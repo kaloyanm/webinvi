@@ -1,8 +1,9 @@
 
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth import login, logout, update_session_auth_hash, authenticate
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
@@ -12,7 +13,7 @@ from django.db.models import Q
 from django.conf import settings
 
 from django.template import Context
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, send_mail
 from django.template.loader import get_template
 
 from core.mixins import SemanticUIFormMixin
@@ -110,9 +111,22 @@ def change_password(request):
     return render(request, template_name="change_password.html", context=context)
 
 
-class RegistrationView(generic.FormView):
-    form_class = RegistrationForm
-    template_name = '_registration.html'
+def registration(request):
+    form = RegistrationForm()
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            User = get_user_model()
+            user, created = User.objects.get_or_create(username=form.cleaned_data['username'])
+            if created:
+                user.set_password(form.clean_password2())
+                user.save()
+                send_mail(_("{}: Нов потребител").format(settings.HOSTNAME), _("Регистрация"), settings.NO_REPLY_EMAIL, [user.username])
+
+                user = authenticate(username=user.username, password=form.clean_password2())
+                login(request, user)
+                return redirect(reverse_lazy('company'))
+    return render(request, template_name='_registration.html', context={"form": form})
 
 
 @login_required

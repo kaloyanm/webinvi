@@ -1,6 +1,7 @@
 const Nightmare = require('nightmare')
 const assert = require('assert')
 const Config = require('../config')
+const uniqueString = require('unique-string');
 
 describe('User registration', function() {
   // Recommended: 5s locally, 10s to remote server, 30s from airplane ¯\_(ツ)_/¯
@@ -15,7 +16,7 @@ describe('User registration', function() {
     it('should register a new user', done => {
       nightmare.goto(Config.getUrl('registration/'))
         .wait(1000)
-        .type('#id_username', Config.registerUser)
+        .type('#id_username', uniqueString() + "@test.com")
         .type('#id_password1', Config.registerPass)
         .type('#id_password2', Config.registerPass)
         .click('#submit-id-submit')

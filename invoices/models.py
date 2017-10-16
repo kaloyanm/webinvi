@@ -122,7 +122,7 @@ class InvoiceItem(FillEmptyTranslationsMixin, models.Model):
 
     name = models.CharField(max_length=155, default='')
     name_tr = models.CharField(max_length=155, null=True)
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.00)
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0.00)
     quantity = models.FloatField(blank=True, default=1)
     measure = models.CharField(max_length=55, blank=True)
     measure_tr = models.CharField(max_length=55, null=True)
