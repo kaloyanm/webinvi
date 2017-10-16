@@ -111,7 +111,7 @@ def change_password(request):
 
 
 class RegistrationView(generic.FormView):
-    form_class = RegistratiоnForm
+    form_class = RegistrationForm
     template_name = '_registration.html'
 
 
