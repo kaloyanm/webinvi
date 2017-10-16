@@ -57,12 +57,17 @@ def process_invoice(form, form_items):
             existing_pks = []
             for form in form_items:
                 item_pk = form.cleaned_data['id']
-                del form.cleaned_data['id']
                 del form.cleaned_data['DELETE']
-
+                del form.cleaned_data['id']
                 form.cleaned_data['invoice'] = instance
-                obj, created = InvoiceItem.objects.update_or_create(pk=item_pk, defaults=form.cleaned_data)
-                existing_pks.append(obj.pk)
+
+                if item_pk:
+                    InvoiceItem.objects.filter(pk=item_pk).update(**form.cleaned_data)
+                    existing_pks.append(item_pk)
+                else:
+                    obj = InvoiceItem(**form.cleaned_data)
+                    obj.save()
+                    existing_pks.append(obj.pk)
 
             deleted_pks = set(instance.invoiceitem_set.all().values_list('pk', flat=True)).difference(set(existing_pks))
             instance.invoiceitem_set.filter(pk__in=deleted_pks).delete()

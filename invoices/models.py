@@ -128,6 +128,9 @@ class InvoiceItem(FillEmptyTranslationsMixin, models.Model):
     measure_tr = models.CharField(max_length=55, null=True)
     discount = models.FloatField(blank=True, null=True)
 
+    class Meta:
+        ordering = ('pk',)
+
     def __str__(self):
         return "{} - {} {}".format(self.name, self.unit_price, self.measure)
 
