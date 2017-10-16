@@ -1,5 +1,5 @@
 const Nightmare = require('nightmare')
-const assert = require('assert')
+const assert = require('chai').assert
 const Config = require('../config')
 
 describe('Non login tests', function() {
@@ -44,6 +44,28 @@ describe('Non login tests', function() {
       nightmare.goto(Config.getUrl('contact/'))
         .end()
         .then(function (result) { assert.equal(200, result.code); done() })
+        .catch(done)
+    })
+  })
+
+  describe('/login (Forgotten password)', () => {
+    it('should try to recover password', done => {
+      let link = '.message ._flex-1:nth-child(2) a';
+      let input = '#id_username_or_email';
+      let el = '#pass-link-sent';
+
+      nightmare
+        .goto(Config.getUrl('login/'))
+        .wait(link).click(link)
+        .wait(input).type(input, Config.testUser)
+        .click('#submit-id-submit')
+        .wait('#forgotten-pass-segment')
+        .wait(el).exists(el)
+        .end()
+        .then((element) => {
+          assert(element, 'element exists');
+          done();
+        })
         .catch(done)
     })
   })
