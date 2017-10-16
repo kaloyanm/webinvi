@@ -2,6 +2,7 @@ const Nightmare = require('nightmare')
 const assert = require('chai').assert
 const Config = require('../config')
 
+console.log(assert);
 describe('Non login tests', function() {
   // Recommended: 5s locally, 10s to remote server, 30s from airplane ¯\_(ツ)_/¯
   this.timeout(Config.timeout)
