@@ -2,11 +2,15 @@ const Nightmare = require('nightmare')
 const assert = require('chai').assert
 const Config = require('../config')
 
-describe('User registration', function() {
+describe('Company Add/Edit/Delete', function() {
   // Recommended: 5s locally, 10s to remote server, 30s from airplane ¯\_(ツ)_/¯
   this.timeout(Config.timeout)
 
   let nightmare = new Nightmare(Config.nightmareOptions)
+  after(function() {
+    nightmare.halt()
+  });
+
 
   describe('Test company functionality', () => {
     it('login with existing user', done => {
@@ -92,7 +96,6 @@ describe('User registration', function() {
           // }
           return links.attr('href') ;
         })
-        .end()
         .then(link => {
           assert.notExists(link, 'Delete company failed');
           done();
