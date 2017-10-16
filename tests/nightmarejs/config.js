@@ -1,9 +1,9 @@
 module.exports = {
   nightmareOptions: {
-    show: true,
+    show: false,
     typeInterval: 20,
   },
-  timeout: '30s',
+  timeout: '10s',
 
   url: 'http://demo-client:demo-pass@webinvoices-local.dev/bg/',
 

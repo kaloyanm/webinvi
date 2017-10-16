@@ -1,5 +1,5 @@
 const Nightmare = require('nightmare')
-const assert = require('assert')
+const assert = require('chai').assert
 const Config = require('../config')
 
 describe('User registration', function() {

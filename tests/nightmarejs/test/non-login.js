@@ -59,11 +59,10 @@ describe('Non login tests', function() {
         .wait(link).click(link)
         .wait(input).type(input, Config.testUser)
         .click('#submit-id-submit')
-        .wait('#forgotten-pass-segment')
-        .wait(el).exists(el)
+        .wait(2000).exists(el)
         .end()
         .then((element) => {
-          assert(element, 'element exists');
+          assert.isOk(element, 'element exists');
           done();
         })
         .catch(done)
