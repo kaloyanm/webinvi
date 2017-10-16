@@ -154,7 +154,7 @@ LOGIN_URL = '/login/'
 
 # Email
 NO_REPLY_EMAIL = 'noreply@webinvoices.eu'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 1025)
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', NO_REPLY_EMAIL)
