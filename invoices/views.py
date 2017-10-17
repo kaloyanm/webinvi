@@ -92,7 +92,7 @@ def sync_invoice_to_external(instance, user):
 
 
 def _invoice(request, pk=None, invoice_type="invoice",
-            base_template="base.html", print=None):
+            base_template="base.html", print=None, lang_code=None):
     if pk:
         instance = get_object_or_404(Invoice, pk=pk)
         invoice_type = instance.invoice_type
@@ -111,7 +111,8 @@ def _invoice(request, pk=None, invoice_type="invoice",
     }
 
     if pk:
-        selected_language = request.session.get('current_lang', settings.LANGUAGE_CODE)
+        selected_language = request.session.get('current_lang', lang_code)
+        selected_language = selected_language if selected_language else settings.LANGUAGE_CODE
     else:
         selected_language = settings.LANGUAGE_CODE
         request.session['current_lang'] = settings.LANGUAGE_CODE  # restore the default lang in case of editing recorded translation
@@ -224,7 +225,7 @@ def list_invoices(request, company_pk=None):
                   context=context)
 
 
-def print_preview(request, token):
+def print_preview(request, token, lang_code):
     try:
         invoice_pk = cache.get(token)
         invoice = Invoice.objects.get(pk=invoice_pk)
@@ -234,13 +235,14 @@ def print_preview(request, token):
         raise Http404
 
     return _invoice(request, pk=invoice_pk, base_template="print.html",
-                    print=True)
+                    print=True, lang_code=lang_code)
 
 
 @login_required
 def print_invoice(request, pk):
-    pdf_generator_url = get_pdf_generator_url(pk)
-    instance = get_object_or_404(Invoice, pk=pk)
+    lang_code = request.session.get('current_lang', settings.LANGUAGE_CODE)
+    pdf_generator_url = get_pdf_generator_url(pk, lang_code)
+    get_object_or_404(Invoice, pk=pk, company=get_company_or_404(request))
 
     req = urllib.request.Request(pdf_generator_url)
     with urllib.request.urlopen(req) as res:
