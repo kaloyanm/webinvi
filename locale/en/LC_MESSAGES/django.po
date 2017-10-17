@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-17 12:45+0000\n"
-"PO-Revision-Date: 2017-10-17 15:47+0300\n"
+"POT-Creation-Date: 2017-10-17 13:07+0000\n"
+"PO-Revision-Date: 2017-10-17 16:10+0300\n"
 "Last-Translator: b'  <demo>'\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -32,11 +32,11 @@ msgstr "Company name"
 
 #: core/forms.py:38 core/templates/core/_companies.html:21 invoices/forms.py:32
 msgid "БУЛСТАТ"
-msgstr "BULSTAT ???"
+msgstr "BULSTAT"
 
 #: core/forms.py:39 invoices/forms.py:33
 msgid "Ин по ДДС"
-msgstr "VAT Number ???"
+msgstr "VAT Number"
 
 #: core/forms.py:40 core/forms.py:41 core/templates/core/_companies.html:23
 #: invoices/forms.py:30 invoices/forms.py:31
@@ -296,7 +296,7 @@ msgstr "Forgotten password?"
 
 #: core/views.py:124
 msgid "{}: Нов потребител"
-msgstr "{}: New user ???"
+msgstr "{}: New user"
 
 #: core/views.py:169
 msgid "Моля първо си изтрийте фактурите към тази фирма!"
@@ -362,21 +362,23 @@ msgstr "Release date"
 msgid "Номерът вече съществува."
 msgstr "The number already exists."
 
-#: invoices/models.py:29
-msgid "Invoice"
-msgstr ""
+#: invoices/models.py:29 invoices/templates/invoices/invoice.html:87
+#: invoices/templates/invoices/invoice_list.html:53
+msgid "Фактура"
+msgstr "Invoice"
 
-#: invoices/models.py:30
-msgid "Proforma"
-msgstr ""
+#: invoices/models.py:30 invoices/templates/invoices/invoice.html:87
+#: invoices/templates/invoices/invoice_list.html:53
+msgid "Проформа"
+msgstr "Proforma"
 
 #: invoices/models.py:31
-msgid "Credit"
-msgstr ""
+msgid "Кредит"
+msgstr "Credit"
 
 #: invoices/models.py:32
-msgid "Debit"
-msgstr ""
+msgid "Дебит"
+msgstr "Debit"
 
 #: invoices/templates/invoices/_invoice_details.html:16
 msgid "Продукт / Услуга"
@@ -388,7 +390,7 @@ msgstr "Qty."
 
 #: invoices/templates/invoices/_invoice_details.html:18
 msgid "Мярка"
-msgstr "Measure ???"
+msgstr "Measure"
 
 #: invoices/templates/invoices/_invoice_details.html:19
 msgid "Ед. Цена"
@@ -414,16 +416,6 @@ msgstr "Save as PDF"
 #: invoices/templates/invoices/invoice.html:65
 msgid "Запази като фактура"
 msgstr "Save as invoice"
-
-#: invoices/templates/invoices/invoice.html:87
-#: invoices/templates/invoices/invoice_list.html:53
-msgid "Проформа"
-msgstr "Proforma"
-
-#: invoices/templates/invoices/invoice.html:87
-#: invoices/templates/invoices/invoice_list.html:53
-msgid "Фактура"
-msgstr "Invoice"
 
 #: invoices/templates/invoices/invoice.html:88
 msgid "оригинал"
