@@ -45,14 +45,14 @@
           <div class="ui container">
             <div class="ui stackable inverted divided equal height stackable grid">
               <div class="three wide column">
-                <h4 class="ui inverted header">За нас</h4>
+                <h4 class="ui inverted header">{% trans 'За нас' %}</h4>
                 <div class="ui inverted link list">
-                  <a href="{% url 'contact' %}" class="item">Контакти</a>
-                  <a href="#" class="item">Общи условия</a>
+                  <a href="{% url 'contact' %}" class="item">{% trans 'Контакти' %}</a>
+                  <a href="#" class="item">{% trans 'Общи условия' %}</a>
                 </div>
               </div>
               <div class="seven wide column">
-                <h4 class="ui inverted header">Разработено от</h4>
+                <h4 class="ui inverted header">{% trans 'Разработено от' %}</h4>
                 <a href="https://wemakeweb.today/" target="_blank"><img class="logo" src="{% static 'core/images/wemakeweb-logo.svg' %}" alt="WeMakweWeb Лого"></a>
               </div>
             </div>

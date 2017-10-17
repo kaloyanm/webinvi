@@ -3,7 +3,7 @@ from django.conf.urls import url
 from django.views import defaults as default_views
 from django.conf import settings
 from core.views import (
-    contact, home, LoginView, RegistrationView,
+    contact, home, LoginView, registration,
     logout_view, change_password, company,
     companies, drop_company, thanks,
     google_oath_login, google_auth_return,
@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^thanks/', thanks, name='thanks'),
     url(r'^login/', LoginView.as_view(), name='login'),
     url(r'^logout/', logout_view, name='logout'),
-    url(r'^registration/', RegistrationView.as_view(), name='registration'),
+    url(r'^registration/', registration, name='registration'),
     url(r'^companies/', companies, name='companies'),
     url(r'^company/drop/(?P<pk>[0-9]+)/', drop_company, name='drop_company'),
     url(r'^company/(?P<pk>[0-9]+)/', company, name='company'),

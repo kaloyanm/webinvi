@@ -7,8 +7,8 @@
         <h2 class="left floated">{% trans 'Фирми' %}</h2>
       </div>
       <div class="column right aligned">
-        <a href="{% url 'google_login' %}" class="ui button primary tiny" role="button">{% trans 'Google Drive Sync' %} ({% if request.user.settings.gdrive_sync %}{% trans 'Включен' %}{% else %}{% trans 'Изключен' %}{% endif %})</a>
-        <a href="{% url 'company' %}" class="ui button primary tiny" role="button">{% trans '+ Добави нова' %}</a>
+        <a href="{% url 'company' %}" class="ui button primary tiny" role="button">{% trans 'Нова компания' %}</a>
+        <a href="{% url 'google_login' %}" class="ui button primary tiny" role="button">{% trans 'Архив с Google Drive' %} ({% if request.user.settings.gdrive_sync %}{% trans 'Включен' %}{% else %}{% trans 'Изключен' %}{% endif %})</a>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
       <thead>
       <tr>
         <th>{% trans 'Име' %}</th>
-        <th>{% trans 'Булстат' %}</th>
+        <th>{% trans 'БУЛСТАТ' %}</th>
         <th>{% trans 'МОЛ' %}</th>
         <th>{% trans 'Град' %}</th>
         <th>{% trans 'Адрес' %}</th>

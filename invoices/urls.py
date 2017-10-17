@@ -7,7 +7,7 @@ from invoices.views import (
 
 
 urlpatterns = [
-    url(r'^printpreview/(?P<token>[a-zA-Z0-9\-]+)/', print_preview, name='printpreview'),
+    url(r'^printpreview/(?P<token>[a-zA-Z0-9\-]+)/(?P<lang_code>[a-zA-Z]+)/', print_preview, name='printpreview'),
     url(r'^print/(?P<pk>[0-9]+)/', print_invoice, name='print'),
     url(r'^invoice/(?P<pk>[0-9]+)/', invoice, name='invoice'),
     url(r'^invoice/', invoice, name='invoice'),

@@ -57,12 +57,17 @@ def process_invoice(form, form_items):
             existing_pks = []
             for form in form_items:
                 item_pk = form.cleaned_data['id']
-                del form.cleaned_data['id']
                 del form.cleaned_data['DELETE']
-
+                del form.cleaned_data['id']
                 form.cleaned_data['invoice'] = instance
-                obj, created = InvoiceItem.objects.update_or_create(pk=item_pk, defaults=form.cleaned_data)
-                existing_pks.append(obj.pk)
+
+                if item_pk:
+                    InvoiceItem.objects.filter(pk=item_pk).update(**form.cleaned_data)
+                    existing_pks.append(item_pk)
+                else:
+                    obj = InvoiceItem(**form.cleaned_data)
+                    obj.save()
+                    existing_pks.append(obj.pk)
 
             deleted_pks = set(instance.invoiceitem_set.all().values_list('pk', flat=True)).difference(set(existing_pks))
             instance.invoiceitem_set.filter(pk__in=deleted_pks).delete()
@@ -87,7 +92,7 @@ def sync_invoice_to_external(instance, user):
 
 
 def _invoice(request, pk=None, invoice_type="invoice",
-            base_template="base.html", print=None):
+            base_template="base.html", print=None, lang_code=None):
     if pk:
         instance = get_object_or_404(Invoice, pk=pk)
         invoice_type = instance.invoice_type
@@ -106,7 +111,8 @@ def _invoice(request, pk=None, invoice_type="invoice",
     }
 
     if pk:
-        selected_language = request.session.get('current_lang', settings.LANGUAGE_CODE)
+        selected_language = request.session.get('current_lang', lang_code)
+        selected_language = selected_language if selected_language else settings.LANGUAGE_CODE
     else:
         selected_language = settings.LANGUAGE_CODE
         request.session['current_lang'] = settings.LANGUAGE_CODE  # restore the default lang in case of editing recorded translation
@@ -169,21 +175,18 @@ def delete_invoice(request, pk):
 
 
 def search_invoices_queryset(company, search_terms):
-    from django.contrib.postgres.search import SearchQuery, SearchVector
+    from django.contrib.postgres.search import SearchQuery
+    from django.db.models import Q
     queryset = Invoice.objects.filter(company=company)
 
-    def terms2query(search_terms):
-        terms = search_terms.split(" ")
-        out = SearchQuery(terms.pop())
-        for term in terms:
-            out = out | SearchQuery(term)
-        return out
-
     if search_terms:
-        search_vector_fields = ['client_name', 'client_city',
-                                'client_mol', 'client_address']
-        queryset = queryset.annotate(search=SearchVector(*search_vector_fields))\
-            .filter(search=terms2query(search_terms))
+        query = SearchQuery(search_terms)
+        conditions = Q(search_vector=query)
+        try:
+            conditions = conditions | Q(number=int(search_terms))
+        except ValueError:
+            pass
+        queryset = queryset.filter(conditions)
     return queryset
 
 
@@ -222,7 +225,7 @@ def list_invoices(request, company_pk=None):
                   context=context)
 
 
-def print_preview(request, token):
+def print_preview(request, token, lang_code):
     try:
         invoice_pk = cache.get(token)
         invoice = Invoice.objects.get(pk=invoice_pk)
@@ -232,13 +235,14 @@ def print_preview(request, token):
         raise Http404
 
     return _invoice(request, pk=invoice_pk, base_template="print.html",
-                    print=True)
+                    print=True, lang_code=lang_code)
 
 
 @login_required
 def print_invoice(request, pk):
-    pdf_generator_url = get_pdf_generator_url(pk)
-    instance = get_object_or_404(Invoice, pk=pk)
+    lang_code = request.session.get('current_lang', settings.LANGUAGE_CODE)
+    pdf_generator_url = get_pdf_generator_url(pk, lang_code)
+    get_object_or_404(Invoice, pk=pk, company=get_company_or_404(request))
 
     req = urllib.request.Request(pdf_generator_url)
     with urllib.request.urlopen(req) as res:
@@ -326,5 +330,5 @@ def proforma2invoice(request, pk):
             item.pk = None
             item.invoice = instance
             item.save()
-        messages.success(request, _("The invoice has been created successfully."))
+        messages.success(request, _("Фактурата беше създадена успешно."))
     return redirect(reverse('invoice', args=[instance.pk]))

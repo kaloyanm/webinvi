@@ -22,6 +22,7 @@ django-import-export
 django-crispy-forms
 django-prices-openexchangerates
 django-password-reset
+django-mailgun
 whitenoise
 
 # Libs for connection third party software

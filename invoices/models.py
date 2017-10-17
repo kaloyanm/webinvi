@@ -5,7 +5,8 @@ from django.db import models
 from django.db.models import Max
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
-
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres import search as pg_search
 from core.models import Company
 from core.mixins import FillEmptyTranslationsMixin
 
@@ -25,10 +26,10 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     INVOICE_TYPE_CREDIT = 'credit'
     INVOICE_TYPE_DEBIT = 'debit'
     INVOICE_TYPES = (
-        (INVOICE_TYPE_INVOICE, _('Invoice')),
-        (INVOICE_TYPE_PROFORMA, _('Proforma')),
-        (INVOICE_TYPE_CREDIT, _('Credit')),
-        (INVOICE_TYPE_DEBIT, _('Debit')),
+        (INVOICE_TYPE_INVOICE, _('Фактура')),
+        (INVOICE_TYPE_PROFORMA, _('Проформа')),
+        (INVOICE_TYPE_CREDIT, _('Кредит')),
+        (INVOICE_TYPE_DEBIT, _('Дебит')),
     )
 
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -60,7 +61,7 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     client_dds = models.CharField(max_length=255, null=True, blank=True)
 
     invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')
-    number = models.PositiveIntegerField(blank=True, null=True, db_index=True)
+    number = models.PositiveIntegerField(db_index=True)
 
     released_at = models.DateField(blank=True, null=True)
     taxevent_at = models.DateField(blank=True, null=True)
@@ -79,10 +80,11 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     currency = models.CharField(max_length=3, null=True)
     currency_rate = models.DecimalField(max_digits=10, decimal_places=6, null=True)
 
-
+    search_vector = pg_search.SearchVectorField(null=True)
     class Meta:
         ordering = ("-released_at", "-invoice_type", "-number")
-        unique_together = ("company", "invoice_type", "number"),
+        unique_together = ("company", "invoice_type", "number")
+        indexes = [GinIndex(fields=['search_vector'])]
 
 
     def __str__(self):
@@ -122,11 +124,14 @@ class InvoiceItem(FillEmptyTranslationsMixin, models.Model):
 
     name = models.CharField(max_length=155, default='')
     name_tr = models.CharField(max_length=155, null=True)
-    unit_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, default=0.00)
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0.00)
     quantity = models.FloatField(blank=True, default=1)
     measure = models.CharField(max_length=55, blank=True)
     measure_tr = models.CharField(max_length=55, null=True)
     discount = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        ordering = ('pk',)
 
     def __str__(self):
         return "{} - {} {}".format(self.name, self.unit_price, self.measure)

@@ -1,6 +1,6 @@
 module.exports = {
   nightmareOptions: {
-    show: false,
+    show: true,
     typeInterval: 20,
     width: 1024,
     height: 768,

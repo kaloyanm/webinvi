@@ -17,7 +17,7 @@
     <div id="settings-rail" class="left ui rail">
       <div id="sticky-settings" class="ui sticky">
         <div class="ui top attached block header">
-          <h2>Настройки</h2>
+          <h2>{% trans 'Настройки' %}</h2>
         </div>
         <div class="ui attached segment">
           <select class="ui dropdown fluid _mbxs" {% if not pk %}disabled{% endif %} onchange="window.location.href=this.options[this.selectedIndex].value">
@@ -46,7 +46,7 @@
         </div>
         <div class="ui bottom items attached">
           {% if pk %}
-            <a href="{% url 'print' pk %}" target="_blank" class="ui small left floated button primary" role="button"><i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-libreoffice"></use></svg></i>Генерирай PDF</a>
+            <a href="{% url 'print' pk %}" target="_blank" class="ui small left floated button primary" role="button"><i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-libreoffice"></use></svg></i>{% trans 'Генерирай PDF' %}</a>
 
             <div id="delete-button" class="ui small right floated button red icon" role="button">
               <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
@@ -69,7 +69,7 @@
           {% else %}
           <button type="submit" onclick="document.forms.invoice_form.submit()" href="{% url 'list' %}" class="ui small right floated button green" role="button">
             <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
-            Запази
+            {% trans 'Запази' %}
           </button>
           {% endif %}
 
@@ -80,7 +80,7 @@
 
     <input name="invoice_type" type="hidden" value="{{ invoice_type }}"/>
 
-    <div class="ui grid tiny form">
+    <div class="ui grid tiny form _m0">
 
       <div class="equal width row _pb0">
         <div class="column column__title">
@@ -182,7 +182,7 @@
       <div class="equal width row">
         <div class="column">
           <div class="field">
-            <label>Бележка</label>
+            <label>{% trans 'Бележка' %}</label>
             <input name="note" value="{{ form.note.value }}" type="text">
           </div>
         </div>
@@ -207,7 +207,7 @@
 {% endlanguage %}
 <script type="text/javascript">
     window.INVOICE_ITEMS = {{ items|safe }};
-    window.INVOICE_ITEM_TEMPLATE = {name{% if use_tr %}_tr{% endif %}: "", quantity: 1, measure{% if use_tr %}_tr{% endif %}: "", unit_price:0, discount: 0, gross: 0, id: 0, invoice_id:0};
+    window.INVOICE_ITEM_TEMPLATE = {name{% if use_tr %}_tr{% endif %}: "", quantity: 1, measure{% if use_tr %}_tr{% endif %}: "", unit_price:0.00, discount: 0, gross: 0, id: 0, invoice_id:0};
     window.INVOICE_CURRENCY = '{{ form.currency.value|default:'BGN' }}';
     window.USE_TR = {% if use_tr %}true {% else %}false{% endif %};
     {% language 'en' %}
