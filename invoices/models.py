@@ -5,7 +5,8 @@ from django.db import models
 from django.db.models import Max
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
-
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres import search as pg_search
 from core.models import Company
 from core.mixins import FillEmptyTranslationsMixin
 
@@ -60,7 +61,7 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     client_dds = models.CharField(max_length=255, null=True, blank=True)
 
     invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')
-    number = models.PositiveIntegerField(blank=True, null=True, db_index=True)
+    number = models.PositiveIntegerField(db_index=True)
 
     released_at = models.DateField(blank=True, null=True)
     taxevent_at = models.DateField(blank=True, null=True)
@@ -79,10 +80,11 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     currency = models.CharField(max_length=3, null=True)
     currency_rate = models.DecimalField(max_digits=10, decimal_places=6, null=True)
 
-
+    search_vector = pg_search.SearchVectorField(null=True)
     class Meta:
         ordering = ("-released_at", "-invoice_type", "-number")
-        unique_together = ("company", "invoice_type", "number"),
+        unique_together = ("company", "invoice_type", "number")
+        indexes = [GinIndex(fields=['search_vector'])]
 
 
     def __str__(self):

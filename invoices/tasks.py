@@ -1,14 +1,19 @@
-from celery import shared_task
-from core.models import CredentialsModel
+import requests
+import io
+
 from django.contrib.auth.models import User
-from invoices.util import get_pdf_generator_url
+from django.contrib.postgres.search import SearchVector
+
+from celery import shared_task, task
 from oauth2client.contrib.django_util.storage import DjangoORMStorage
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 from pydrive.files import GoogleDriveFile
-import requests
-import io
 from transliterate import translit
+
+from invoices.util import get_pdf_generator_url
+from invoices.models import Invoice
+from core.models import CredentialsModel
 
 class GoogleAuthDjango(GoogleAuth):
 
@@ -99,3 +104,13 @@ def save_invoice_to_google_drive(user_id, settings):
     f.SetContentFileBinary(r.content)
     f.Upload()
     #print('Export PDF Done!')
+
+
+@task
+def update_search_vector():
+    vector= SearchVector('client_name') + SearchVector('client_city') + SearchVector('client_mol') +\
+        SearchVector('client_address')
+
+    for inv in Invoice.objects.annotate(document=vector):
+        inv.search_vector = inv.document
+        inv.save(update_fields=['search_vector'])

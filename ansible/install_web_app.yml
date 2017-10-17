@@ -49,6 +49,14 @@
         owner: www-data
         group: www-data
 
+    - name: Create new celery scheduler dir
+      file:
+        path: /var/lib/celery/
+        state: directory
+        mode: 0755
+        owner: www-data
+        group: www-data
+
     - name: Get postgres configuration directories
       command: ls -1 /etc/postgresql/
       register: postgres_cfg

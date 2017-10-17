@@ -174,21 +174,18 @@ def delete_invoice(request, pk):
 
 
 def search_invoices_queryset(company, search_terms):
-    from django.contrib.postgres.search import SearchQuery, SearchVector
+    from django.contrib.postgres.search import SearchQuery
+    from django.db.models import Q
     queryset = Invoice.objects.filter(company=company)
 
-    def terms2query(search_terms):
-        terms = search_terms.split(" ")
-        out = SearchQuery(terms.pop())
-        for term in terms:
-            out = out | SearchQuery(term)
-        return out
-
     if search_terms:
-        search_vector_fields = ['client_name', 'client_city',
-                                'client_mol', 'client_address']
-        queryset = queryset.annotate(search=SearchVector(*search_vector_fields))\
-            .filter(search=terms2query(search_terms))
+        query = SearchQuery(search_terms)
+        conditions = Q(search_vector=query)
+        try:
+            conditions = conditions | Q(number=int(search_terms))
+        except ValueError:
+            pass
+        queryset = queryset.filter(conditions)
     return queryset
 
 

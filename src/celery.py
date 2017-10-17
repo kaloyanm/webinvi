@@ -29,6 +29,14 @@ register_signal(client, ignore_expected=True)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'src.settings')
 
 app = Celery('invoiceapp')
+app.conf.timezone = 'UTC'
+app.conf.beat_schedule = {
+    'search-vector-every-10-minutes': {
+        'task': 'invoices.tasks.update_search_vector',
+        'schedule': 60 * 10,
+        'args': [],
+    }
+}
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
