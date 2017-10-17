@@ -26,10 +26,10 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     INVOICE_TYPE_CREDIT = 'credit'
     INVOICE_TYPE_DEBIT = 'debit'
     INVOICE_TYPES = (
-        (INVOICE_TYPE_INVOICE, _('Invoice')),
-        (INVOICE_TYPE_PROFORMA, _('Proforma')),
-        (INVOICE_TYPE_CREDIT, _('Credit')),
-        (INVOICE_TYPE_DEBIT, _('Debit')),
+        (INVOICE_TYPE_INVOICE, _('Фактура')),
+        (INVOICE_TYPE_PROFORMA, _('Проформа')),
+        (INVOICE_TYPE_CREDIT, _('Кредит')),
+        (INVOICE_TYPE_DEBIT, _('Дебит')),
     )
 
     company = models.ForeignKey(Company, on_delete=models.CASCADE)

@@ -328,5 +328,5 @@ def proforma2invoice(request, pk):
             item.pk = None
             item.invoice = instance
             item.save()
-        messages.success(request, _("The invoice has been created successfully."))
+        messages.success(request, _("Фактурата беше създадена успешно."))
     return redirect(reverse('invoice', args=[instance.pk]))
