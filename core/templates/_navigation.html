@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load i18n static thirdparty %}
 {% get_available_languages as LANGUAGES %}
 {% get_current_language as LANGUAGE_CODE %}
 {% get_language_info for LANGUAGE_CODE as lang %}
@@ -17,7 +17,7 @@
     <i class="dropdown icon"></i>
     <div class="menu">
       {% for lang_code, lang_name in LANGUAGES %}
-        <a class="item" id="lang-{{ lang_code }}-btn" href="/{{ lang_code }}"><i class="{{ lang_code }} flag"></i> {{ lang_name }}</a>
+        <a class="item" id="lang-{{ lang_code }}-btn" href="{% change_lang lang_code %}"><i class="{{ lang_code }} flag"></i> {{ lang_name }}</a>
       {% endfor %}
     </div>
   </div>
