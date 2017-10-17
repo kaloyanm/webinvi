@@ -14,7 +14,7 @@
   shell: cd /opt/webinvoices ; yarn install --no-bin-links
 
 - name: update for nightmare.js
-  shell: cd /opt/webinvoices/tests/nightmarejs ; yarn install
+  shell: cd /opt/webinvoices/tests/nightmarejs ; yarn install --no-bin-links
   when: deploy_in_vagrant
 
 - name: Django migrate & collect static
