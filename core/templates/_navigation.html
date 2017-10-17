@@ -6,37 +6,37 @@
 <div class="left item">
   <a href="{% url 'home' %}">
     <img class="logo" src="{% static 'core/images/logo.svg' %}" alt="{% trans 'Лого' %}">
-    <small>{% trans 'BETA' %}</small>
+    <small>BETA</small>
   </a>
 </div>
 
 <div class="right item">
-  <div href="#" class="ui dropdown item" role="button" aria-haspopup="true">
+  <div href="#" id="lang-dropdown" class="ui dropdown item" role="button" aria-haspopup="true">
     <input type="hidden" name="language">
     <div class="text"><i class="{{ lang.code }} flag"></i> {{ lang.name }}</div>
     <i class="dropdown icon"></i>
     <div class="menu">
       {% for lang_code, lang_name in LANGUAGES %}
-        <a class="item" href="/{{ lang_code }}"><i class="{{ lang_code }} flag"></i> {{ lang_name }}</a>
+        <a class="item" id="lang-{{ lang_code }}-btn" href="/{{ lang_code }}"><i class="{{ lang_code }} flag"></i> {{ lang_name }}</a>
       {% endfor %}
     </div>
   </div>
 
   {% if not user.is_active %}
 
-  <a class="ui inverted button" href="{% url 'login' %}">{% trans 'Вход' %}</a>
-  <a class="ui inverted button" href="{% url 'registration' %}">{% trans 'Регистрация' %}</a>
+  <a class="ui inverted button" id="sign-in-btn" href="{% url 'login' %}">{% trans 'Вход' %}</a>
+  <a class="ui inverted button" id="sign-up-btn" href="{% url 'registration' %}">{% trans 'Регистрация' %}</a>
 
   {% else %}
 
-  <a class="item" href="{% url 'list' %}">{% trans 'Фактури' %}</a>
-  <a class="item" href="{% url 'companies' %}">{% trans 'Фирми' %}</a>
+  <a class="item" id="invoices-btn" href="{% url 'list' %}">{% trans 'Фактури' %}</a>
+  <a class="item" id="companies-btn" href="{% url 'companies' %}">{% trans 'Фирми' %}</a>
 
   <div class="ui dropdown item" role="button" aria-haspopup="true">
     {{ request.user.username }} <i class="dropdown icon"></i>
     <div class="menu">
-      <a href="{% url 'password' %}" class="item">{% trans 'Смяна на паролата' %}</a>
-      <a href="{% url 'import_invoicepro' %}" class="item">{% trans 'Импорт от InvoicePro' %}</a>
+      <a id="change-pass-btn" href="{% url 'password' %}" class="item">{% trans 'Смяна на паролата' %}</a>
+      <a id="import-invoicepro-btn" href="{% url 'import_invoicepro' %}" class="item">{% trans 'Импорт от InvoicePro' %}</a>
     </div>
   </div>
 

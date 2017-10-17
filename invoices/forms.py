@@ -29,7 +29,7 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         "client_name_tr": _("Получател"),
         "client_city": _("Град"),
         "client_city_tr": _("Град"),
-        "client_eik": _("Булстат"),
+        "client_eik": _("БУЛСТАТ"),
         "client_dds": _("Ин по ДДС"),
         "client_address": _("Адрес"),
         "client_address_tr": _("Адрес"),
@@ -107,4 +107,4 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
             qry = qry.exclude(pk=self.instance.pk)
 
         if qry.exists():
-            self.add_error("number", _("The number already exists.".format(invoice_number)))
+            self.add_error("number", _("Номерът вече съществува.".format(invoice_number)))
