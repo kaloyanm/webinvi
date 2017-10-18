@@ -249,6 +249,10 @@ class ResetView(Reset):
 class AppPasswordRecoveryForm(SemanticUIFormMixin, PasswordRecoveryForm):
     submit_button_label = _("Възстанови")
 
+    def __init__(self, *args, **kwars):
+        super().__init__(*args, **kwars)
+        self.fields['username_or_email'].label = _("Email")
+
 
 class RecoverView(Recover):
     form_class = AppPasswordRecoveryForm
