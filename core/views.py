@@ -1,4 +1,4 @@
-
+import logging
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, update_session_auth_hash, authenticate
@@ -9,12 +9,12 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.views import generic
-from django.db.models import Q
 from django.conf import settings
 
 from django.template import Context
 from django.core.mail import EmailMessage, send_mail
 from django.template.loader import get_template
+from django_mailgun import MailgunAPIError
 
 from core.mixins import SemanticUIFormMixin
 from core.models import Company
@@ -35,6 +35,7 @@ from oauth2client.contrib import xsrfutil
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.contrib.django_util.storage import DjangoORMStorage
 
+logger = logging.Logger(__name__)
 
 def logout_view(request):
     logout(request)
@@ -121,7 +122,11 @@ def registration(request):
             if created:
                 user.set_password(form.clean_password2())
                 user.save()
-                send_mail(_("{}: Нов потребител").format(settings.HOSTNAME), _("Регистрация"), settings.NO_REPLY_EMAIL, [user.username])
+                try:
+                    send_mail(_("{}: Нов потребител").format(settings.HOSTNAME), [_("Регистрация")],
+                              settings.NO_REPLY_EMAIL, [user.username])
+                except MailgunAPIError as e:
+                    logger.error("mailgun error", e, e.args[0].text)
 
                 user = authenticate(username=user.username, password=form.clean_password2())
                 login(request, user)
@@ -131,10 +136,8 @@ def registration(request):
 
 @login_required
 def companies(request):
-    clauses = Q(user=request.user) or Q(companyaccess__user=request.user, companyaccess__verified=True)
-    objects = Company.objects.filter(clauses)
-    context = {"objects": objects}
-    return render(request, template_name="core/_companies.html", context=context)
+    objects = Company.objects.filter(user=request.user)
+    return render(request, template_name="core/_companies.html", context={"objects": objects})
 
 
 @login_required

@@ -70,8 +70,7 @@ var app = new Vue({
       this.rows[index] = row;
     },
 
-
-      calc_total: function (force_update_rows) {
+    calc_total: function (force_update_rows) {
       force_update_rows = force_update_rows || false;
       this.gross = 0;
       for (var i = 0; i < this.rows.length; i++) {
