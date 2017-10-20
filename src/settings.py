@@ -30,7 +30,7 @@ DEBUG = os.environ.get('DEBUG', False)
 
 HOSTNAME = os.environ.get('HOSTNAME', socket.gethostname())
 ALLOWED_HOSTS = [
-    '172.16.0.5', 'vagrant', 'webinvoices.eu', 'webinvoices.foggly.net',
+    '172.16.0.5', '176.126.245.87', 'vagrant', 'webinvoices.eu', 'webinvoices.foggly.net',
     'webinvoices-local.dev', 'localhost']
 
 

@@ -24,7 +24,7 @@ class RegistrationForm(SemanticUIFormMixin, UserCreationForm):
         model = User
         fields = ["username"]
         exclude = ["email"]
-    username = forms.EmailField(max_length=64)
+    username = forms.EmailField(max_length=64, label=_("Email"))
 
 
 class LoginForm(SemanticUIFormMixin, AuthenticationForm):

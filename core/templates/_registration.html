@@ -15,9 +15,11 @@
       {% crispy form %}
     </div>
 
-    <div class="ui message">
-      {%  trans 'Имаш профил?' %}&nbsp;<a href="{% url 'login' %}">{%  trans 'Влез' %}</a>
+    <div class="ui message _flex center-center">
+      <div class="_flex-1">{%  trans 'Имаш профил?' %}<br/><a href="{% url 'login' %}">{%  trans 'Влез' %}</a></div>
+      <div class="_flex-1"><a href="{% url 'password_reset_recover' %}">{%  trans 'Забравена парола?' %}</a></div>
     </div>
+
   </div>
 </div>
 {% endblock %}

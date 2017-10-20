@@ -19,7 +19,7 @@ from django.contrib import admin
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^private_zone/', admin.site.urls),
     url(r'^rosetta/', include('rosetta.urls')),
 ]
 
