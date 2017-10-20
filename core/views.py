@@ -260,7 +260,7 @@ class RecoverView(Recover):
     search_fields = ['username']
 
     def form_valid(self, form):
-        form.cleaned_data['user'].email = form.cleaned_data['user'].username # hacky
+        form.cleaned_data['user'].email = form.cleaned_data['user'].username  # hacky
         return super().form_valid(form)
 
 

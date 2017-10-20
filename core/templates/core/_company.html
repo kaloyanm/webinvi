@@ -5,8 +5,8 @@
 <div class="ui basic segment">
   <h2 class="left floated">{% trans 'Фирмена регистрация' %}</h2>
 </div>
-
 <div class="ui basic segment _pt0">
+{% include "_flash_messages.html" %}
   <form method="post" class="ui form _m0">
     {% csrf_token %}
 
@@ -20,23 +20,21 @@
         {{ form.mol|as_crispy_field }}
         {{ form.eik|as_crispy_field }}
         {{ form.dds|as_crispy_field }}
-
-        {{ form.default|as_crispy_field }}
         <div class="buttonHolder">
           <button type="submit" name="submit" class="btn btn-primary ui button green" id="submit-id-submit">
             <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
             {% trans 'Запази' %}
           </button>
           {% if form.instance.pk %}
-          <a href="{% url 'drop_company' form.instance.pk %}" class="btn ui button red" id="delete-button">
-            <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
-            {% trans 'Изтрий' %}</a>
+            <button type="button" class="btn ui button red" id="delete-button">
+                <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
+                {% trans 'Изтрий' %}</button>
           {% endif %}
         </div>
       </div>
       <div class="_flex-1">
         <div class="_pxs _bg-state-muted">
-          <h3>{% trans 'Втори език' %}</h3>
+          <h3>{% trans 'Втори език (латиница)' %}</h3>
           {{ form.name_tr|as_crispy_field }}
           {{ form.city_tr|as_crispy_field }}
           {{ form.address_tr|as_crispy_field }}
@@ -46,5 +44,5 @@
     </div>
   </form>
 </div>
-
+{% if form.instance.pk %}{% include 'core/_delete_message.html' %}{% endif %}
 {% endblock %}

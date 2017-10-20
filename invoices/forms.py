@@ -79,14 +79,14 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         'no_dds_reason_tr',
     ]
 
-    no_dds_reason = forms.ChoiceField(required=False, choices=NO_DDS_REASONS)
+    no_dds_reason = forms.ChoiceField(required=False, choices=NO_DDS_REASONS, initial='Чл. 113, ал.9 от ЗДДС')
     verbally = forms.CharField(max_length=255, required=False)
     currency = forms.CharField(required=False)
     currency_rate = forms.DecimalField(required=False)
 
     class Meta:
         model = Invoice
-        exclude = []
+        exclude = ['search_vector']
 
 
     def clean(self):

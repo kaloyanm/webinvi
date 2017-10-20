@@ -29,14 +29,17 @@ class Company(FillEmptyTranslationsMixin, models.Model):
     eik = models.CharField(max_length=255)
     dds = models.CharField(max_length=255, null=True, blank=True)
 
-    default = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
         return "{} ({})".format(self.name, self.eik)
 
     def get_absolute_url(self):
-        return reverse('core.views.company', args=[self.pk])
+        return reverse('company', args=[self.pk])
+
+    @property
+    def delete_url(self):
+        return reverse('drop_company', args=[self.pk])
 
     @property
     def has_invoices(self):

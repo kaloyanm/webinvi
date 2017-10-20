@@ -160,7 +160,7 @@
           {{ form.verbally|as_crispy_field }}
         </div>
       </div>
-
+      {% if not use_tr %}
       <div class="equal width row">
         <div class="column column__no-dds">
           <div class="ui fluid search">
@@ -168,6 +168,7 @@
           </div>
         </div>
       </div>
+      {% endif %}
 
       <div class="equal width row row__accepted">
         <div class="column">
