@@ -129,6 +129,8 @@ class InvoiceItem(FillEmptyTranslationsMixin, models.Model):
     measure = models.CharField(max_length=55, blank=True)
     measure_tr = models.CharField(max_length=55, null=True)
     discount = models.FloatField(blank=True, null=True)
+    dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True,
+                                      null=True, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     class Meta:
         ordering = ('pk',)

@@ -45,13 +45,6 @@ class Company(FillEmptyTranslationsMixin, models.Model):
     def has_invoices(self):
         return self.invoice_set.count() > 0
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if self.default:
-            Company.objects.filter(user=self.user).exclude(pk=self.pk).update(default=False)
-        elif not Company.objects.filter(user=self.user, default=True).exists():
-            Company.objects.filter(pk=self.pk).update(default=True)
-
 
 class UserSettings(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='settings')

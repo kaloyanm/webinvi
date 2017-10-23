@@ -1,5 +1,6 @@
 import xml.dom.minidom
 import tablib
+import re
 from collections import OrderedDict
 
 
@@ -64,16 +65,37 @@ class InvoiceProDocumentType(InvoiceProChoice):
     }
 
 
+class InvoiceProDate(InvoiceProChoice):
+    def __call__(self, v):
+        # '2017-10-16T14:12:58.093'
+        mo = re.match(r'(\d{4}-\d{2}-\d{2})', v)
+        if mo:
+            return mo.group(1)
+        return v
+
+
+def document_type_name_to_document_type(document_type_name):
+    dt = document_type_name.lower()
+    if dt.find('проформа') >= 0:
+        return 'proforma'
+    elif dt.find('фактура') >= 0:
+        return 'invoice'
+    else:
+        raise IgnoreRecord()
+
+
 class InvoiceProForeignKey:
 
-    def __init__(self, table, field, link_field, value_field):
+    def __init__(self, table, field, link_field, value_field, value_filer=None):
         self.table = table
         self.field = field
         self.link_field = link_field
         self.value_field = value_field
+        self.value_filter = value_filer or (lambda x: x)
 
     def __call__(self, fk):
-        return self.table.filter(**{self.link_field: fk}).get_value(self.value_field, 0)
+        v = self.table.filter(**{self.link_field: fk}).get_value(self.value_field, 0)
+        return self.value_filter(v)
 
 
 class InvoiceproTable:
@@ -146,7 +168,6 @@ class InvoiceproTable:
         return InvoiceproTable(self.name, self.columns, filtered_rows)
 
 
-
 def get_document_type(invoicepro_id):
     invoicepro_id = str(invoicepro_id)
     if invoicepro_id == "1":
@@ -155,6 +176,7 @@ def get_document_type(invoicepro_id):
         return "proforma"
     # Rest are unsupported for now
     raise ImportException('Unsupported document type: {}'.format(invoicepro_id))
+
 
 def getText(node):
     t = ''
@@ -180,21 +202,57 @@ def read_table(table):
     return InvoiceproTable(name, columns, rows)
 
 
+def read_section(section):
+    name = section.nodeName
+    columns = OrderedDict()
+    rows_data = []
+    for record in section.childNodes:
+        if record.nodeType == record.TEXT_NODE:
+            continue
+        row_data = {}
+        for field in record.childNodes:
+            if field.nodeType == field.TEXT_NODE:
+                continue
+            columns[field.nodeName] = True
+            row_data[field.nodeName] = getText(field)
+        rows_data.append(row_data)
+    rows = []
+    for row_data in rows_data:
+        rows.append([
+            row_data.get(key, '') for key in columns.keys()
+        ])
+    return InvoiceproTable(name, [k for k in columns.keys()], rows)
+
+
 def read_invoicepro_file(inovoicepro_file):
     tables_dict = {}
+    file_type = None
     dom = xml.dom.minidom.parse(inovoicepro_file)
-    tables = dom.getElementsByTagName('tables')
-    for table in tables[0].childNodes:
-        if table.nodeType == table.TEXT_NODE:
-            continue
-        t = read_table(table)
-        tables_dict[t.name] = t
-    return tables_dict
+    if dom.documentElement.nodeName == 'InvoiceProDataContextState':
+        # desktop version of invoice pro
+        file_type = 'desktop'
+        for section in dom.documentElement.childNodes:
+            if section.nodeType == section.TEXT_NODE:
+                continue
+            s = read_section(section)
+            tables_dict[s.name] = s
+    elif dom.documentElement.nodeName == 'document':
+        # online version of invoice pro
+        file_type = 'online'
+        tables = dom.getElementsByTagName('tables')
+        for table in tables[0].childNodes:
+            if table.nodeType == table.TEXT_NODE:
+                continue
+            t = read_table(table)
+            tables_dict[t.name] = t
+    return tables_dict, file_type
+
+
 
 
 if __name__ == '__main__':
     import sys
-    f = read_invoicepro_file(sys.argv[1])
+    f, ft = read_invoicepro_file(sys.argv[1])
     for name, table in f.items():
         print(name)
         print(table.as_dataset())
