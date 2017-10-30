@@ -32,7 +32,7 @@ def dump_import_errors(result):
 
 
 def import_invoicepro_online(request, invoicepro_file, import_type):
-    companies_dataset = invoicepro_file['companies'].as_dataset({
+    companies_dataset = invoicepro_file['companies'].append_column({'user': request.user.id}).as_dataset({
         'Name_bg': 'name',
         'Bulstat': 'eik',
         'VatId': 'dds',
@@ -121,7 +121,7 @@ def import_invoicepro_online(request, invoicepro_file, import_type):
 
 
 def import_invoicepro_desktop(request, invoicepro_file, import_type):
-    companies_dataset = invoicepro_file['MyCompany'].as_dataset({
+    companies_dataset = invoicepro_file['MyCompany'].append_column({'user': request.user.id}).as_dataset({
         'Name': 'name',
         'Bulstat': 'eik',
         'VatId': 'dds',
@@ -129,7 +129,7 @@ def import_invoicepro_desktop(request, invoicepro_file, import_type):
         'City': 'city',
         'ContactName': 'mol',
     })
-    company_resource = CompanyResource(user=request.user)
+    company_resource = CompanyResource()
     company_import_result = company_resource.import_data(companies_dataset, dry_run=False)
     if company_import_result.has_errors():
         dump_import_errors(company_import_result)

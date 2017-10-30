@@ -10,18 +10,7 @@ class CompanyResource(resources.ModelResource):
     class Meta:
         model = Company
         import_id_fields = ('eik', )
-        fields = ('name', 'eik', 'dds', 'address', 'city', 'mol')
-
-    def __init__(self, *args, **kwargs):
-        if "user" in kwargs:
-            self.user = kwargs["user"]
-            del kwargs["user"]
-        super().__init__(*args, **kwargs)
-
-    def init_instance(self, row=None):
-        instance = super().init_instance(row)
-        instance.user = self.user
-        return instance
+        fields = ('name', 'eik', 'dds', 'address', 'city', 'mol', 'user')
 
 
 class InvoiceResource(resources.ModelResource):
