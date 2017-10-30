@@ -150,7 +150,6 @@ def company(request, pk=None):
     else:
         instance = None
 
-
     if request.method == "POST":
         form = CompanyForm(request.POST, instance=instance)
         if form.is_valid():
@@ -159,7 +158,6 @@ def company(request, pk=None):
             return redirect("companies")
     else:
         form = CompanyForm(instance=instance)
-
 
     return render(request, template_name="core/_company.html",
                   context={"form": form, "pk": pk})

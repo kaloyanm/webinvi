@@ -38,7 +38,7 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         "number": _("Номер"),
         "payment_type": _("Начин на плащане"),
         "payment_iban": _("IBAN"),
-        "payment_swift": _("SWIFT"),
+        "payment_swift": _("SWIFT/BIC"),
         "payment_bank": _("Банка"),
         "dds_percent": _("ДДС"),
         "accepted_by": _("Приел"),
@@ -73,13 +73,16 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         'client_mol_tr',
         'payment_type_tr',
         'payment_bank_tr',
+        'payment_swift',
+        'payment_bank',
+        'payment_iban',
         'created_by_tr',
         'accepted_by_tr',
         'note_tr',
         'no_dds_reason_tr',
     ]
 
-    no_dds_reason = forms.ChoiceField(required=False, choices=NO_DDS_REASONS, initial='Чл. 113, ал.9 от ЗДДС')
+    no_dds_reason = forms.ChoiceField(required=True, choices=NO_DDS_REASONS, initial='Чл. 113, ал.9 от ЗДДС')
     verbally = forms.CharField(max_length=255, required=False)
     currency = forms.CharField(required=False)
     currency_rate = forms.DecimalField(required=False)

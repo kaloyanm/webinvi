@@ -42,9 +42,12 @@ def get_company_or_404(request, company_pk=None):
             company = Company.objects.get(pk=company_pk, user=request.user)
             request.session['company_pk'] = company_pk
         except Company.DoesNotExist:
-            raise Http404
+            company = request.company
     else:
         company = request.company
+    print("company", company)
+    if not company:
+        raise Http404
     return company
 
 
@@ -146,6 +149,14 @@ def _invoice(request, pk=None, invoice_type="invoice",
         context["company_form"] = CompanyForm(instance=instance.company)
         context["form"] = InvoiceForm(instance=instance)
 
+    if not pk and company.payment_iban:
+        context["form"]["payment_type"].value = context["company_form"]["payment_type"].value
+        context["form"]["payment_type_tr"].value = context["company_form"]["payment_type_tr"].value
+        context["form"]["payment_iban"].value = context["company_form"]["payment_iban"].value
+        context["form"]["payment_swift"].value = context["company_form"]["payment_swift"].value
+        context["form"]["payment_bank"].value = context["company_form"]["payment_bank"].value
+        context["form"]["payment_bank_tr"].value = context["company_form"]["payment_bank_tr"].value
+
     if instance:
         context["items"] = django_json_dumps(list(instance.invoiceitem_set.values()))
 
@@ -174,10 +185,13 @@ def delete_invoice(request, pk):
     return redirect("list")
 
 
-def search_invoices_queryset(company, search_terms):
+def search_invoices_queryset(company, search_terms, invoice_type=None):
     from django.contrib.postgres.search import SearchQuery
     from django.db.models import Q
+
     queryset = Invoice.objects.filter(company=company)
+    if invoice_type:
+        queryset = queryset.filter(invoice_type=invoice_type)
 
     if search_terms:
         query = SearchQuery(search_terms)
@@ -194,12 +208,15 @@ def get_company_or_404(request, company_pk=None):
     company_pk = company_pk if company_pk else request.session.get('company_pk')
     if company_pk:
         try:
-            company = Company.objects.get(pk=company_pk)
+            company = Company.objects.get(pk=company_pk, user=request.user)
             request.session['company_pk'] = company_pk
         except Company.DoesNotExist:
-            raise Http404
+            company = request.company
     else:
         company = request.company
+
+    if not company:
+        raise Http404
     return company
 
 
@@ -207,7 +224,11 @@ def get_company_or_404(request, company_pk=None):
 def list_invoices(request, company_pk=None):
     company = get_company_or_404(request, company_pk)
     search_terms = request.GET.get("query", "")
-    queryset = search_invoices_queryset(company, search_terms)
+    selected_type = request.GET.get("t")
+
+    queryset = search_invoices_queryset(company, search_terms, invoice_type=selected_type)
+    invoice_types = list(Invoice.INVOICE_TYPES)
+    invoice_types.insert(0, ('', _('Всички')))
 
     pager = Paginator(queryset, settings.INVOICES_PER_PAGE)
     page = pager.page(request.GET.get("page", 1))
@@ -218,6 +239,8 @@ def list_invoices(request, company_pk=None):
         "page": page,
         "query": search_terms,
         "company": company,
+        "invoice_types": invoice_types,
+        "selected_type": selected_type,
         "companies": request.user.company_set.all().values_list('id', 'name', 'eik'),
     }
 
@@ -268,6 +291,9 @@ def get_searchfield_queryset(company, field_name, keyword):
 
 @login_required
 def autocomplete_field(request):
+    from core.business_settings import PAYMENT_TYPES
+    default_values = {"payment_type": PAYMENT_TYPES, "payment_type_tr": PAYMENT_TYPES}
+
     company = get_company_or_404(request, company_pk=None)
     field_name = request.GET.get('f')
     keyword = request.GET.get('k')
@@ -275,7 +301,12 @@ def autocomplete_field(request):
     queryset = get_searchfield_queryset(company, field_name, keyword)
     data = queryset.values_list(field_name, flat=True)[:10]
 
-    response = {"results": [{"title": item} for item in data]}
+    if field_name in default_values:
+        result = [{"title": item} for item in default_values.get(field_name)]
+    else:
+        result = [{"title": item} for item in data]
+
+    response = {"results": result}
     return JsonResponse(response)
 
 
@@ -312,16 +343,14 @@ def change_invoice_language(request, pk, lang):
     return redirect(reverse('invoice', args=[pk]))
 
 
-@login_required
-def proforma2invoice(request, pk):
-    company = get_company_or_404(request)
-    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_PROFORMA,
-                                 company=company)
+def copy_invoice(instance, invoice_type, save_ref=False):
     items = instance.invoiceitem_set.all()
+    ref_number = instance.number
 
     instance.pk = None
     instance.number = None
-    instance.invoice_type = Invoice.INVOICE_TYPE_INVOICE
+    instance.ref_number = ref_number if save_ref else None
+    instance.invoice_type = invoice_type
     instance.released_at = timezone.now().strftime("%Y-%m-%d")
     instance.save()
 
@@ -330,5 +359,28 @@ def proforma2invoice(request, pk):
             item.pk = None
             item.invoice = instance
             item.save()
+    return instance.pk
+
+
+@login_required
+def proforma2invoice(request, pk):
+    company = get_company_or_404(request)
+    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_PROFORMA,
+                                 company=company)
+
+    new_pk = copy_invoice(instance, Invoice.INVOICE_TYPE_INVOICE)
+    if new_pk:
         messages.success(request, _("Фактурата беше създадена успешно."))
     return redirect(reverse('invoice', args=[instance.pk]))
+
+
+@login_required
+def invoice2announce(request, pk, announce_type):
+    if announce_type not in [Invoice.INVOICE_TYPE_CREDIT, Invoice.INVOICE_TYPE_DEBIT]:
+        raise Http404
+
+    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_INVOICE)
+    get_company_or_404(request, company_pk=instance.company.pk) # just make sure the user in session owns the invoice
+
+    new_instance = copy_invoice(instance, announce_type, save_ref=True)
+    return redirect(reverse(announce_type, args=[new_instance.pk]))

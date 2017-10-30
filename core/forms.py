@@ -7,7 +7,7 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     PasswordChangeForm,
 )
-from core.mixins import SemanticUIFormMixin, TranslateLabelsFormMixin
+from core.mixins import SemanticUIFormMixin, TranslateLabelsFormMixin, OffRequiredFieldsMixin
 from core.models import Company
 
 User = get_user_model()
@@ -31,7 +31,8 @@ class LoginForm(SemanticUIFormMixin, AuthenticationForm):
     submit_button_label = _('Влез')
 
 
-class CompanyForm(SemanticUIFormMixin, TranslateLabelsFormMixin, forms.ModelForm):
+class CompanyForm(SemanticUIFormMixin, TranslateLabelsFormMixin, OffRequiredFieldsMixin,
+                  forms.ModelForm):
     translate_labels = {
         "name": _('Имe на компанията'),
         "name_tr": _('Имe на компанията'),
@@ -43,16 +44,20 @@ class CompanyForm(SemanticUIFormMixin, TranslateLabelsFormMixin, forms.ModelForm
         "address_tr": _('Адрес'),
         "mol": _('МОЛ'),
         "mol_tr": _('МОЛ'),
+        "payment_type": _("Начин на плащане"),
+        "payment_type_tr": _("Начин на плащане"),
+        "payment_iban": _("IBAN"),
+        "payment_swift": _("SWIFT/BIC"),
+        "payment_bank": _("Банка"),
+        "payment_bank_tr": _("Банка"),
     }
 
-    name_tr = forms.CharField(required=False)
-    city_tr = forms.CharField(required=False)
-    address_tr = forms.CharField(required=False)
-    mol_tr = forms.CharField(required=False)
+    off_required_fields = ['payment_type', 'payment_type_tr', 'payment_iban', 'payment_swift', 'payment_bank', 'payment_bank_tr',
+                           'name_tr', 'city_tr', 'address_tr', 'mol_tr']
 
     class Meta:
         model = Company
-        exclude = ("user", )
+        exclude = ("user",)
 
 
 class InvoiceproImportForm(SemanticUIFormMixin, forms.Form):
@@ -61,7 +66,7 @@ class InvoiceproImportForm(SemanticUIFormMixin, forms.Form):
         ('invoices', _('Компании и фактури')),
         ('companies', _('Компании')),
     ))
-    wipe_existing = forms.BooleanField(required=False)
+    wipe_existing = forms.BooleanField(required=False, label=_("Изтрий съществуващите"))
 
 
 class ContactForm(SemanticUIFormMixin, forms.Form):

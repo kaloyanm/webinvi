@@ -1,7 +1,6 @@
 
 import random
 
-from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 from core.test.factories import CompanyFactory, UserFactory
@@ -18,10 +17,6 @@ class Command(BaseCommand):
         num_users = 10
         output_message = "{} users created each with {} companies each with {} invoices"\
             .format(num_users, comp_per_user, inv_per_company)
-
-        User = get_user_model()
-        User.objects.all().delete()
-        Company.objects.all().delete()
 
         while num_users > 0:
             user = UserFactory.create()
