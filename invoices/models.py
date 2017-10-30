@@ -121,8 +121,8 @@ class InvoiceItem(FillEmptyTranslationsMixin, models.Model):
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
     order_no = models.SmallIntegerField(blank=True)
 
-    name = models.CharField(max_length=155, default='')
-    name_tr = models.CharField(max_length=155, null=True)
+    name = models.CharField(max_length=255, default='')
+    name_tr = models.CharField(max_length=255, null=True)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0.00)
     quantity = models.FloatField(blank=True, default=1)
     measure = models.CharField(max_length=55, blank=True)
