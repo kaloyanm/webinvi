@@ -1,4 +1,4 @@
-§---
+---
 - name: Generate nginx config
   template:
     src: nginx/webinvoices.conf
