@@ -39,8 +39,9 @@ def import_invoicepro_online(request, invoicepro_file, import_type):
         'Address_bg': 'address',
         'City_bg': 'city',
         'Mol_bg': 'mol',
+        'user': 'user',
     })
-    company_resource = CompanyResource(user=request.user)
+    company_resource = CompanyResource()
     company_import_result = company_resource.import_data(companies_dataset, dry_run=False)
     if company_import_result.has_errors():
         dump_import_errors(company_import_result)
@@ -128,6 +129,7 @@ def import_invoicepro_desktop(request, invoicepro_file, import_type):
         'Address': 'address',
         'City': 'city',
         'ContactName': 'mol',
+        'user': 'user',
     })
     company_resource = CompanyResource()
     company_import_result = company_resource.import_data(companies_dataset, dry_run=False)
