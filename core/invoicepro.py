@@ -165,7 +165,7 @@ def import_invoicepro_desktop(request, invoicepro_file, import_type):
             InvoiceProForeignKey(invoicepro_file['BankAccounts'], 'BankAccountID', 'BankAccountID', 'BankAcct'): 'payment_iban',
             InvoiceProForeignKey(invoicepro_file['BankAccounts'], 'BankAccountID', 'BankAccountID', 'BankCode'): 'payment_swift',
             #
-            # InvoiceProForeignKey(invoicepro_file['Partners'], 'DocumentID', 'DocumentID', 'VatId'): 'dds_percent',
+            InvoiceProForeignKey(invoicepro_file['DocumentDetails'], 'DocumentID', 'DocumentID', 'VAT'): 'dds_percent',
             #
             # 'DealDescription': 'note',
             'DealTerms': 'no_dds_reason',
