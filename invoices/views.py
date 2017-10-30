@@ -232,7 +232,7 @@ def list_invoices(request, company_pk=None):
     search_form.is_valid()
     search_terms = search_form.cleaned_data.get("query", "")
     selected_type = search_form.cleaned_data.get("t", "")
-    
+
     queryset = search_invoices_queryset(company, search_terms, invoice_type=selected_type)
     invoice_types = list(Invoice.INVOICE_TYPES)
     invoice_types.insert(0, ('', _('Всички')))
@@ -389,5 +389,5 @@ def invoice2announce(request, pk, announce_type):
     instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_INVOICE)
     get_company_or_404(request, company_pk=instance.company.pk) # just make sure the user in session owns the invoice
 
-    new_instance = copy_invoice(instance, announce_type, save_ref=True)
-    return redirect(reverse(announce_type, args=[new_instance.pk]))
+    new_pk = copy_invoice(instance, announce_type, save_ref=True)
+    return redirect(reverse(announce_type, args=[new_pk]))
