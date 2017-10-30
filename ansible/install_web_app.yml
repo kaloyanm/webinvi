@@ -23,6 +23,16 @@
         - apache2-utils
       apt: name={{item}}
 
+    - name: Add locale C.UTF-8
+      locale_gen:
+        name: C.UTF-8
+        state: present
+
+    - name: Add locale en_US.UTF-8
+      locale_gen:
+        name: en_US.UTF-8
+        state: present
+
     - name: Download pip installer
       get_url:
         url: https://bootstrap.pypa.io/get-pip.py
