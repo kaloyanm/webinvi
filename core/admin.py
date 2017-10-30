@@ -9,7 +9,7 @@ class CompanyResource(resources.ModelResource):
 
     class Meta:
         model = Company
-        import_id_fields = ('eik', )
+        import_id_fields = ('user', 'eik', 'name')
         fields = ('name', 'eik', 'dds', 'address', 'city', 'mol', 'user')
 
 
