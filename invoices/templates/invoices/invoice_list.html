@@ -9,7 +9,16 @@
         <h2 class="left floated">{% trans 'Фактури' %}</h2>
       </div>
       <div class="column right aligned">
-        <a href="{% url 'invoice' %}" class="ui button primary tiny" role="button">{% trans 'Нова Фактура' %}</a>
+        <div class="ui teal buttons primary tiny" role="button">
+            <div class="ui button" onclick="window.location.href='{% url 'invoice' %}'">{% trans 'Нова Фактура' %}</div>
+            <div class="ui floating dropdown icon button">
+              <i class="dropdown icon"></i>
+              <div class="menu">
+                <div class="item" onclick="window.location.href='{% url 'credit' %}'">{% trans 'Кредитно известие' %}</div>
+                <div class="item" onclick="window.location.href='{% url 'debit' %}'">{% trans 'Дебитно известие' %}</div>
+              </div>
+            </div>
+        </div>
         <a href="{% url 'proforma' %}" class="ui button primary tiny" role="button">{% trans 'Нова Проформа' %}</a>
       </div>
     </div>
@@ -25,9 +34,17 @@
         </select>
       </div>
       <div class="column">
+        <select class="ui search dropdown fluid" onchange="window.location.href=this.options[this.selectedIndex].value;">
+            {% for short_name, verbose in invoice_types %}
+            <option value="{% url 'list' company.pk %}?t={{short_name}}" {% if selected_type == short_name %}selected{% endif %}>{{ verbose }}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="column">
         <form method="GET">
           <div class="ui action fluid input">
             <input type="text" name="query" value="{{ query }}" placeholder="{% trans 'Намери клиент' %}">
+            <input type="hidden" name="t" value="{{ selected_type }}">
             <button class="ui button" type="submit">{% trans 'Търси' %}</button>
           </div>
         </form>
@@ -50,7 +67,7 @@
       {% for inv in objects %}
         <tr>
           <td scope="row">{{ inv.client_name }}</td>
-          <td>{% if not inv.is_proforma %}{% trans 'Фактура' %}{% else %}{% trans 'Проформа' %}{% endif %}</td>
+          <td>{% trans inv.get_invoice_type_display %}</td>
           <td><a href="{% url 'invoice' inv.pk %}">{{ inv.number|nopad }}</a></td>
           <td>{{ inv.released_at }}</td>
           <td>{{ inv.total }}</td>
@@ -63,12 +80,12 @@
           <th colspan="5">
           <div class="ui right floated pagination menu">
             {% if page.has_previous %}
-              <a href="{% url 'list' %}?page={{ page.previous_page_number }}&query={{ query }}" class="icon item">
+              <a href="{% url 'list' %}?page={{ page.previous_page_number }}&query={{ query }}&t={{selected_type}}" class="icon item">
                 &larr; {% trans 'По-нови' %}
               </a>
             {% endif %}
             {% if page.has_next %}
-              <a href="{% url 'list' %}?page={{ page.next_page_number }}&query={{ query }}" class="icon item">
+              <a href="{% url 'list' %}?page={{ page.next_page_number }}&query={{ query }}&t={{selected_type}}" class="icon item">
                 {% trans 'По-стари' %} &rarr;
               </a>
             {% endif %}

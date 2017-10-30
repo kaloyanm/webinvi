@@ -12,7 +12,6 @@ class UserCompanyMiddleware(object):
             if company_pk:
                 clause['pk'] = company_pk
 
-            try:
-                request.company = Company.objects.filter(**clause).first()
-            except Company.DoesNotExist:
-                request.company = None
+            request.company = Company.objects.filter(**clause).first()
+            if not request.company:
+                request.company = Company.objects.filter(user=request.user).first()

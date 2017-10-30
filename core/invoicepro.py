@@ -11,7 +11,7 @@ from core.import_export.invoicepro import (
     document_type_name_to_document_type,
     InvoiceProForeignKey, InvoiceProPaymentType, InvoiceProDocumentType,
     InvoiceProDate,
-    ImportException,·
+    ImportException,
 )
 from core.admin import CompanyResource, InvoiceResource, InvoiceItemResource
 import logging

@@ -4,14 +4,27 @@ from django.db import models
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth.models import User
-
+from django.utils.translation import ugettext_lazy as _
 from django.db.models.signals import post_save
+
 from oauth2client.contrib.django_util.models import CredentialsField
 from core.mixins import FillEmptyTranslationsMixin
 
 
-# Create your models here.
-class Company(FillEmptyTranslationsMixin, models.Model):
+class PaymentModel(models.Model):
+
+    payment_iban = models.CharField(max_length=255, null=True)
+    payment_swift = models.CharField(max_length=255, null=True)
+    payment_type = models.CharField(max_length=155, null=True)
+    payment_type_tr = models.CharField(max_length=155, null=True)
+    payment_bank = models.CharField(max_length=255, null=True)
+    payment_bank_tr = models.CharField(max_length=255, null=True)
+
+    class Meta:
+        abstract = True
+
+
+class Company(FillEmptyTranslationsMixin, PaymentModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     name = models.CharField(max_length=255, default='')

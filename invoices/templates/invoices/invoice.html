@@ -67,10 +67,21 @@
             </div>
           </div>
           {% else %}
-          <button type="submit" onclick="document.forms.invoice_form.submit()" href="{% url 'list' %}" class="ui small right floated button green" role="button">
-            <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
-            {% trans 'Запази' %}
-          </button>
+          <div class="ui green right floated small buttons">
+              <button type="submit" onclick="document.forms.invoice_form.submit()" href="{% url 'list' %}" class="ui small right floated button green" role="button">
+                <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
+                {% trans 'Запази' %}
+              </button>
+              {% if pk and invoice_type == 'invoice' %}
+                <div class="ui floating dropdown icon button">
+                  <i class="dropdown icon"></i>
+                  <div class="menu">
+                      <div class="item"><a href="{% url 'announce' pk 'credit' %}">{% trans 'Добави кредитно известие' %}</a></div>
+                      <div class="item"><a href="{% url 'announce' pk 'debit' %}">{% trans 'Добави дебитно известие' %}</a></div>
+                  </div>
+                </div>
+              {% endif %}
+          </div>
           {% endif %}
 
         </div>
@@ -84,9 +95,17 @@
 
       <div class="equal width row _pb0">
         <div class="column column__title">
+        {% if invoice_type == 'proforma' or invoice_type == 'invoice' %}
           <h1>{% if invoice_type == 'proforma' %}{% trans 'Проформа' %}{% else %}{% trans 'Фактура' %}{% endif %}
             <small>{% trans 'оригинал' %}</small>
           </h1>
+        {% endif %}
+        {% if invoice_type == 'debit' or invoice_type == 'credit' %}
+          <h1>{% if invoice_type == 'debit' %}{% trans 'Дебитно' %}{% else %}{% trans 'Кредитно' %}{% endif %}
+            <small>{% trans 'известие' %}</small><br />
+            <small>{% trans 'фактура:' %}{{ form.instance.ref_number|nopad }}</small>
+          </h1>
+        {% endif %}
         </div><div class="column column__info">
           {{ form.number|as_crispy_field }}
           {{ form.released_at|as_crispy_field }}
@@ -132,7 +151,6 @@
           {{ form.payment_iban|as_crispy_field }}
           {{ form.payment_swift|as_crispy_field }}
           {{ form.payment_bank|as_crispy_field }}
-
         </div><div class="column column__total">
           <div class="field">
             <label>{% trans 'Данъчна основа' %}</label>

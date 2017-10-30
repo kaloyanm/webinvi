@@ -4,6 +4,7 @@
 {% block content %}
 <div class="ui basic segment">
   <h2 class="left floated">{% trans 'Фирмена регистрация' %}</h2>
+{{ form.errors }}
 </div>
 <div class="ui basic segment _pt0">
 {% include "_flash_messages.html" %}
@@ -20,6 +21,12 @@
         {{ form.mol|as_crispy_field }}
         {{ form.eik|as_crispy_field }}
         {{ form.dds|as_crispy_field }}
+
+        {{ form.payment_type|as_crispy_field }}
+        {{ form.payment_iban|as_crispy_field }}
+        {{ form.payment_swift|as_crispy_field }}
+        {{ form.payment_bank|as_crispy_field }}
+
         <div class="buttonHolder">
           <button type="submit" name="submit" class="btn btn-primary ui button green" id="submit-id-submit">
             <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
@@ -39,6 +46,7 @@
           {{ form.city_tr|as_crispy_field }}
           {{ form.address_tr|as_crispy_field }}
           {{ form.mol_tr|as_crispy_field }}
+          {{ form.payment_bank_tr|as_crispy_field }}
         </div>
       </div>
     </div>

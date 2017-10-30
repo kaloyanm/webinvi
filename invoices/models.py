@@ -2,24 +2,30 @@
 
 import decimal
 from django.db import models
-from django.db.models import Max
+from django.db.models import Max, Q
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres import search as pg_search
-from core.models import Company
+from core.models import Company, PaymentModel
 from core.mixins import FillEmptyTranslationsMixin
 
 
 def get_next_number(company, invoice_type):
-    max_no = Invoice.objects.filter(company=company, invoice_type=invoice_type) \
-                 .aggregate(Max('number')) \
+    clauses = {"company": company}
+    if invoice_type == Invoice.INVOICE_TYPE_PROFORMA:
+        clauses["invoice_type"] = invoice_type
+    else:
+        clauses["invoice_type__in"] = [Invoice.INVOICE_TYPE_INVOICE, Invoice.INVOICE_TYPE_DEBIT,
+                                       Invoice.INVOICE_TYPE_CREDIT]
+
+    max_no = Invoice.objects.filter(**clauses).aggregate(Max('number'))\
                  .get('number__max') or 0
     return max_no + 1
 
 
 # Create your models here.
-class Invoice(FillEmptyTranslationsMixin, models.Model):
+class Invoice(FillEmptyTranslationsMixin, PaymentModel):
 
     INVOICE_TYPE_INVOICE = 'invoice'
     INVOICE_TYPE_PROFORMA = 'proforma'
@@ -52,35 +58,29 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
     accepted_by = models.CharField(max_length=255, null=True)
     accepted_by_tr = models.CharField(max_length=255, null=True)
 
-    payment_type = models.CharField(max_length=255, blank=True)
-    payment_type_tr = models.CharField(max_length=255, null=True)
-    payment_bank = models.CharField(max_length=255, null=True)
-    payment_bank_tr = models.CharField(max_length=255, null=True)
-
     client_eik = models.CharField(max_length=255, db_index=True)
     client_dds = models.CharField(max_length=255, null=True, blank=True)
 
-    invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, blank=False, default='invoice')
+    invoice_type = models.CharField(max_length=10, choices=INVOICE_TYPES, db_index=True, blank=False, default='invoice')
     number = models.PositiveIntegerField(db_index=True)
+    ref_number = models.PositiveIntegerField(blank=True, null=True)
 
     released_at = models.DateField(blank=True, null=True)
     taxevent_at = models.DateField(blank=True, null=True)
-
-    payment_iban = models.CharField(max_length=255, null=True)
-    payment_swift = models.CharField(max_length=255, null=True)
 
     dds_percent = models.DecimalField(max_digits=10, decimal_places=2, default=0.0, blank=True,
                                       null=True, validators=[MinValueValidator(0), MaxValueValidator(100)])
 
     note = models.TextField(blank=True, default='')
     note_tr = models.TextField(null=True)
-    no_dds_reason = models.CharField(max_length=255, null=True)
-    no_dds_reason_tr = models.CharField(max_length=255, null=True)
+    no_dds_reason = models.CharField(max_length=255, default='')
+    no_dds_reason_tr = models.CharField(max_length=255, default='')
 
     currency = models.CharField(max_length=3, null=True)
     currency_rate = models.DecimalField(max_digits=10, decimal_places=6, null=True)
 
     search_vector = pg_search.SearchVectorField(null=True)
+
     class Meta:
         ordering = ("-released_at", "-invoice_type", "-number")
         unique_together = ("company", "invoice_type", "number")
@@ -108,7 +108,6 @@ class Invoice(FillEmptyTranslationsMixin, models.Model):
             return round(self.gross - (self.gross * float(self.dds_percent) / 100), 2)
         else:
             return round(self.gross, 2)
-
 
     def save(self, *args, **kwargs):
         if not self.number:
