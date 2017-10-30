@@ -147,7 +147,7 @@ def import_invoicepro_desktop(request, invoicepro_file, import_type):
             InvoiceProForeignKey(invoicepro_file['Partners'], 'PartnerID', 'PartnerID', 'Address'): 'client_address',
             InvoiceProForeignKey(invoicepro_file['Partners'], 'PartnerID', 'PartnerID', 'ContactName'): 'client_mol',
             #
-            'Compiler': 'created_by',
+            'Publisher': 'created_by',
             'Recipient': 'accepted_by',
             #
             InvoiceProForeignKey(invoicepro_file['PaymentTypes'], 'PaymentTypeID', 'PaymentTypeID', 'Name'): 'payment_type',
