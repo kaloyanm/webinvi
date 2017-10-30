@@ -5,6 +5,7 @@ import urllib.request
 import logging
 import urllib
 
+from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.contrib import messages
@@ -223,9 +224,15 @@ def get_company_or_404(request, company_pk=None):
 @login_required
 def list_invoices(request, company_pk=None):
     company = get_company_or_404(request, company_pk)
-    search_terms = request.GET.get("query", "")
-    selected_type = request.GET.get("t")
 
+    class SearchForm(forms.Form):
+        query = forms.CharField(max_length=200, required=False)
+        t = forms.CharField(max_length=55, required=False)
+    search_form = SearchForm(request.GET)
+    search_form.is_valid()
+    search_terms = search_form.cleaned_data.get("query", "")
+    selected_type = search_form.cleaned_data.get("t", "")
+    
     queryset = search_invoices_queryset(company, search_terms, invoice_type=selected_type)
     invoice_types = list(Invoice.INVOICE_TYPES)
     invoice_types.insert(0, ('', _('Всички')))
