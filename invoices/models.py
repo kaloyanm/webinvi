@@ -139,7 +139,7 @@ class InvoiceItem(FillEmptyTranslationsMixin, models.Model):
 
     @property
     def total(self):
-        unit_price = float(self.unit_price)
+        unit_price = float(self.unit_price or 0.00)
         unit_price = unit_price if not self.discount else\
             unit_price * self.discount * decimal.Decimal(100) - unit_price
 
