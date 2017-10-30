@@ -214,6 +214,11 @@ LOGGING = {
             'handlers': ['console'],
             'propagate': False,
         },
+        'core.invoicepro': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': True,
+        },
     },
 }
 
