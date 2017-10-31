@@ -183,9 +183,8 @@
       {% if not use_tr %}
       <div class="equal width row">
         <div class="column column__no-dds">
-          <div class="ui fluid search">
-              {{ form.no_dds_reason|as_crispy_field }}
-          </div>
+          {% if use_tr %}{{ form.no_dds_reason_tr|as_crispy_field }}{{ form.no_dds_reason|set_hidden|as_crispy_field }}
+          {% else %}{{ form.no_dds_reason|as_crispy_field }}{{ form.no_dds_reason_tr|set_hidden|as_crispy_field }}{% endif %}
         </div>
       </div>
       {% endif %}

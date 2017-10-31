@@ -306,9 +306,14 @@ def get_searchfield_queryset(company, field_name, keyword):
 
 @login_required
 def autocomplete_field(request):
-    from core.business_settings import PAYMENT_TYPES
+    from core.business_settings import PAYMENT_TYPES, NO_DDS_REASONS
 
-    default_values = {"payment_type": (PAYMENT_TYPES, 'bg'), "payment_type_tr": (PAYMENT_TYPES, 'en')}
+    default_values = {
+        "payment_type": (PAYMENT_TYPES, 'bg'),
+        "payment_type_tr": (PAYMENT_TYPES, 'en'),
+        "no_dds_reason": (NO_DDS_REASONS, 'bg'),
+        "no_dds_reason_tr": (NO_DDS_REASONS, 'en'),
+    }
 
     company = get_company_or_404(request, company_pk=None)
     field_name = request.GET.get('f')
@@ -318,8 +323,10 @@ def autocomplete_field(request):
     data = queryset.values_list(field_name, flat=True)[:10]
 
     if field_name in default_values:
-        strings, locale = default_values.get(field_name)
-        result = [{"title": get_translation_in(item, locale)} for item in strings]
+        choices, locale = default_values.get(field_name)
+        if keyword:
+            choices = filter(lambda s: s.find(keyword)!=-1, choices)
+        result = [{"title": get_translation_in(item, locale)} for item in choices]
     else:
         result = [{"title": item} for item in data]
 

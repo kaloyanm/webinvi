@@ -49,7 +49,8 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         "created_by_tr": _("Съставил"),
         "verbally": _("Словом"),
         "taxevent_at": _("Данъчно събитие"),
-        "released_at": _("Дата на издаване"),
+        "no_dds_reason": _("Основание за неначисляване на ДДС"),
+        "no_dds_reason_tr": _("Основание за неначисляване на ДДС"),
     }
 
     fields_attrs = {
@@ -60,14 +61,15 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         "client_dds": {"class": "searchable-client-fill"},
         "client_address": {"class": "searchable-client-fill"},
         "client_mol": {"class": "searchable-client-fill"},
+        "no_dds_reason": {"class": "searchable-invoice"},
+        "no_dds_reason_tr": {"class": "searchable-invoice"},
+        "payment_bank": {"class": "searchable-invoice"},
         "payment_type": {"class": "searchable-invoice"},
         "payment_type_tr": {"class": "searchable-invoice"},
-        "payment_bank": {"class": "searchable-invoice"},
         "payment_iban": {"class": "searchable-invoice"},
         "payment_swift": {"class": "searchable-invoice"},
         "accepted_by": {"class": "searchable-invoice"},
         "created_by": {"class": "searchable-invoice"},
-        "no_dds_reason": {"class": "ui search dropdown"}
     }
 
     off_required_fields = [
@@ -86,7 +88,7 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         'no_dds_reason_tr',
     ]
 
-    no_dds_reason = forms.ChoiceField(required=True, choices=NO_DDS_REASONS, initial='Чл. 113, ал.9 от ЗДДС')
+    no_dds_reason = forms.CharField(required=False, initial='Чл. 113, ал.9 от ЗДДС')
     verbally = forms.CharField(max_length=255, required=False)
     currency = forms.CharField(required=False)
     currency_rate = forms.DecimalField(required=False)
@@ -114,4 +116,4 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
             qry = qry.exclude(pk=self.instance.pk)
 
         if qry.exists():
-            self.add_error("number", _("Номерът вече съществува.".format(invoice_number)))
+            self.add_error("number", _("Номерът вече съществува."))
