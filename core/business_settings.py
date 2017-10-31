@@ -1,6 +1,4 @@
 
-_ = lambda s: s
-
 no_dds_reasons = [
     'Чл.28 ЗДДС',
     'Чл.29 ал.1 ЗДДС',
@@ -80,7 +78,7 @@ no_dds_reasons = [
 
 NO_DDS_REASONS = [(reason, reason) for reason in no_dds_reasons]
 
-PAYMENT_TYPES = (
-    _("Банков превод"),
-    _("В брой"),
-)
+PAYMENT_TYPES = [
+    "Банков превод",
+    "В брой",
+]

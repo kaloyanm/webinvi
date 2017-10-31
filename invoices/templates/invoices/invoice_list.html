@@ -66,10 +66,10 @@
       <tbody>
       {% for inv in objects %}
         <tr>
-          <td scope="row">{{ inv.client_name }}</td>
-          <td>{% trans inv.get_invoice_type_display %}</td>
+          <td scope="row">{{ inv.client_name|strike:inv.deleted }}</td>
+          <td>{% trans inv.get_invoice_type_display|strike:inv.deleted %}</td>
           <td><a href="{% url 'invoice' inv.pk %}">{{ inv.number|nopad }}</a></td>
-          <td>{{ inv.released_at }}</td>
+          <td>{{ inv.released_at|strike:inv.deleted }}</td>
           <td>{{ inv.total }}</td>
         </tr>
       {% endfor %}

@@ -37,9 +37,11 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
         "client_mol_tr": _("МОЛ"),
         "number": _("Номер"),
         "payment_type": _("Начин на плащане"),
+        "payment_type_tr": _("Начин на плащане"),
         "payment_iban": _("IBAN"),
         "payment_swift": _("SWIFT/BIC"),
         "payment_bank": _("Банка"),
+        "payment_bank_tr": _("Банка"),
         "dds_percent": _("ДДС"),
         "accepted_by": _("Приел"),
         "accepted_by_tr": _("Приел"),
@@ -52,12 +54,14 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
 
     fields_attrs = {
         "client_name": {"class": "searchable-client"},
+        "client_name_tr": {"class": "searchable-client"},
         "client_city": {"class": "searchable-client-fill"},
         "client_eik": {"class": "searchable-client-fill"},
         "client_dds": {"class": "searchable-client-fill"},
         "client_address": {"class": "searchable-client-fill"},
         "client_mol": {"class": "searchable-client-fill"},
         "payment_type": {"class": "searchable-invoice"},
+        "payment_type_tr": {"class": "searchable-invoice"},
         "payment_bank": {"class": "searchable-invoice"},
         "payment_iban": {"class": "searchable-invoice"},
         "payment_swift": {"class": "searchable-invoice"},
@@ -89,7 +93,7 @@ class InvoiceForm(TranslateLabelsFormMixin, AttrsFormMixin,
 
     class Meta:
         model = Invoice
-        exclude = ['search_vector']
+        exclude = ['search_vector', 'deleted']
 
 
     def clean(self):

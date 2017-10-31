@@ -16,11 +16,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.core.serializers.json import DjangoJSONEncoder
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse, Http404, JsonResponse
 
 from core.forms import CompanyForm
 from core.models import Company
+from core.utils import get_translation_in
 from invoices.forms import InvoiceForm, InvoiceItemFormSet
 from invoices.models import Invoice, InvoiceItem, get_next_number
 
@@ -181,8 +182,10 @@ def invoice(*args, **kwargs):
 
 @login_required
 def delete_invoice(request, pk):
-    invoice = get_object_or_404(Invoice, pk=pk)
-    invoice.delete()
+    invoice = get_object_or_404(Invoice, pk=pk, deleted=False)
+    get_company_or_404(request, invoice.company.pk) # make sure it belongs to the same user
+    invoice.deleted = True
+    invoice.save()
     return redirect("list")
 
 
@@ -228,7 +231,9 @@ def list_invoices(request, company_pk=None):
     class SearchForm(forms.Form):
         query = forms.CharField(max_length=200, required=False)
         t = forms.CharField(max_length=55, required=False)
-    search_form = SearchForm(request.GET)
+        page = forms.IntegerField(required=False)
+
+    search_form = SearchForm(request.GET, initial={"page": 1})
     search_form.is_valid()
     search_terms = search_form.cleaned_data.get("query", "")
     selected_type = search_form.cleaned_data.get("t", "")
@@ -238,7 +243,10 @@ def list_invoices(request, company_pk=None):
     invoice_types.insert(0, ('', _('Всички')))
 
     pager = Paginator(queryset, settings.INVOICES_PER_PAGE)
-    page = pager.page(request.GET.get("page", 1))
+    try:
+        page = pager.page(search_form.cleaned_data.get("page") or 1)
+    except EmptyPage:
+        page = pager.page(1)
 
     context = {
         "objects": page.object_list,
@@ -299,7 +307,8 @@ def get_searchfield_queryset(company, field_name, keyword):
 @login_required
 def autocomplete_field(request):
     from core.business_settings import PAYMENT_TYPES
-    default_values = {"payment_type": PAYMENT_TYPES, "payment_type_tr": PAYMENT_TYPES}
+
+    default_values = {"payment_type": (PAYMENT_TYPES, 'bg'), "payment_type_tr": (PAYMENT_TYPES, 'en')}
 
     company = get_company_or_404(request, company_pk=None)
     field_name = request.GET.get('f')
@@ -309,7 +318,8 @@ def autocomplete_field(request):
     data = queryset.values_list(field_name, flat=True)[:10]
 
     if field_name in default_values:
-        result = [{"title": item} for item in default_values.get(field_name)]
+        strings, locale = default_values.get(field_name)
+        result = [{"title": get_translation_in(item, locale)} for item in strings]
     else:
         result = [{"title": item} for item in data]
 
@@ -335,7 +345,7 @@ def autocomplete_client(request):
 
     data = []
     for entry in raw_data[:10]:
-        entry["title"] = entry["client_name"]
+        entry["title"] = entry["client_name_tr" if use_tr else "client_name"]
         data.append(entry)
 
     response = {"results": data}

@@ -80,6 +80,7 @@ class Invoice(FillEmptyTranslationsMixin, PaymentModel):
     currency_rate = models.DecimalField(max_digits=10, decimal_places=6, null=True)
 
     search_vector = pg_search.SearchVectorField(null=True)
+    deleted = models.BooleanField(null=False, default=False)
 
     class Meta:
         ordering = ("-released_at", "-invoice_type", "-number")
@@ -92,6 +93,10 @@ class Invoice(FillEmptyTranslationsMixin, PaymentModel):
 
     def __pre__(self):
         return self.client_name
+
+    @property
+    def is_last(self):
+        return self.pk and (self.number == (get_next_number(self.company, self.invoice_type) - 1))
 
     @property
     def is_proforma(self):
