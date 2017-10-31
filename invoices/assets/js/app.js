@@ -82,7 +82,7 @@ var app = new Vue({
       }
 
       if (this.dds_percent) {
-        this.total = round(this.gross - this.gross * this.dds_percent / 100, 2);
+        this.total = round(this.gross + this.gross * this.dds_percent / 100, 2);
       } else {
         this.total = round(this.gross, 2);
       }

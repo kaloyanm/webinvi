@@ -11,13 +11,6 @@
       <div class="column right aligned">
         <div class="ui teal buttons primary tiny" role="button">
             <div class="ui button" onclick="window.location.href='{% url 'invoice' %}'">{% trans 'Нова Фактура' %}</div>
-            <div class="ui floating dropdown icon button">
-              <i class="dropdown icon"></i>
-              <div class="menu">
-                <div class="item" onclick="window.location.href='{% url 'credit' %}'">{% trans 'Кредитно известие' %}</div>
-                <div class="item" onclick="window.location.href='{% url 'debit' %}'">{% trans 'Дебитно известие' %}</div>
-              </div>
-            </div>
         </div>
         <a href="{% url 'proforma' %}" class="ui button primary tiny" role="button">{% trans 'Нова Проформа' %}</a>
       </div>

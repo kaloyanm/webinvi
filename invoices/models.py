@@ -110,7 +110,7 @@ class Invoice(FillEmptyTranslationsMixin, PaymentModel):
     @property
     def total(self):
         if self.dds_percent:
-            return round(self.gross - (self.gross * float(self.dds_percent) / 100), 2)
+            return round(self.gross + (self.gross * float(self.dds_percent) / 100), 2)
         else:
             return round(self.gross, 2)
 
