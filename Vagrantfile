@@ -14,6 +14,7 @@ Vagrant.configure(2) do |config|
     # computers to access the VM, whereas host only networking does not.
     config.vm.network :private_network, ip: "172.16.0.5"
     config.vm.network :forwarded_port, guest: 22, host: 2235, id: 'ssh'
+    config.vm.network :forwarded_port, guest: 8000, host: 80, id: 'web'
 
     config.vm.provider "virtualbox" do |v|
         v.memory = 1024
@@ -37,25 +38,21 @@ Vagrant.configure(2) do |config|
     provisioner = :ansible_local
 
     config.vm.provision provisioner do |ansible|
-      # ansible.verbose = "v"
       ansible.playbook = "ansible/install_web_app.yml"
       ansible.host_vars = ANSIBLE_HOST_VARS
     end
 
     config.vm.provision provisioner do |ansible|
-      # ansible.verbose = "v"
       ansible.playbook = "ansible/create_database.yml"
       ansible.host_vars = ANSIBLE_HOST_VARS
     end
 
     config.vm.provision provisioner do |ansible|
-      # ansible.verbose = "v"
       ansible.playbook = "ansible/web_app.yml"
       ansible.host_vars = ANSIBLE_HOST_VARS
     end
 
     config.vm.provision provisioner do |ansible|
-      # ansible.verbose = "v"
       ansible.playbook = "ansible/html2pdf.yml"
       ansible.host_vars = ANSIBLE_HOST_VARS
     end

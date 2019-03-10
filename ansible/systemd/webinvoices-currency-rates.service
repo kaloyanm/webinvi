@@ -3,5 +3,5 @@ Description=Import currency rates in webinvoices
 
 [Service]
 Type=oneshot
-ExecStart=/opt/webinvoices/manage.py update_exchange_rates --all
+ExecStart=/opt/webinvoices.env/bin/python /opt/webinvoices/manage.py update_exchange_rates --all
 WorkingDirectory=/opt/webinvoices

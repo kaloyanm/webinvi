@@ -9,7 +9,7 @@ EnvironmentFile=-/opt/webinvoices/.vagrantenv
 {% else %}
 EnvironmentFile=-/opt/webinvoices/.productionenv
 {% endif %}
-ExecStart=/usr/local/bin/uwsgi --ini /opt/webinvoices/uwsgi.ini
+ExecStart=/opt/webinvoices.env/bin/uwsgi --ini /opt/webinvoices/uwsgi.ini
 WorkingDirectory=/opt/webinvoices
 Restart=always
 User=www-data

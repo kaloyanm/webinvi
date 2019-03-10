@@ -9,7 +9,7 @@ EnvironmentFile=-/opt/webinvoices/.vagrantenv
 {% else %}
 EnvironmentFile=-/opt/webinvoices/.productionenv
 {% endif %}
-ExecStart=/usr/local/bin/celery -A src worker -l info -B -s /var/lib/celery/celerybeat-schedule.db
+ExecStart=/opt/webinvoices.env/bin/celery -A src worker -l info -B -s /var/lib/celery/celerybeat-schedule.db
 WorkingDirectory=/opt/webinvoices
 Restart=always
 User=www-data

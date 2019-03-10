@@ -6,9 +6,7 @@
   when: not deploy_in_vagrant
 
 - name: Install webinvoices requirements.txt
-  pip:
-    executable: pip3
-    requirements: /opt/webinvoices/requirements.txt
+  shell: /opt/webinvoices.env/bin/pip install -r /opt/webinvoices/requirements.txt
 
 - name: npm install
   shell: cd /opt/webinvoices ; yarn install --no-bin-links
@@ -18,7 +16,7 @@
   when: deploy_in_vagrant
 
 - name: Django migrate & collect static
-  shell: cd /opt/webinvoices ; ./manage.py migrate --no-input && ./manage.py collectstatic --no-input
+  shell: cd /opt/webinvoices ; /opt/webinvoices.env/bin/python manage.py migrate --no-input && /opt/webinvoices.env/bin/python manage.py collectstatic --no-input
 
 - name: Generate production config
   template:
@@ -30,5 +28,3 @@
   when: not deploy_in_vagrant
 
 - include: install_restart_service.yml name=webinvoices-web
-- include: install_restart_service.yml name=webinvoices-celery
-- include: install_timer.yml name=webinvoices-currency-rates

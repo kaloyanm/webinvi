@@ -23,11 +23,6 @@
         - apache2-utils
       apt: name={{item}}
 
-    - name: Add locale C.UTF-8
-      locale_gen:
-        name: C.UTF-8
-        state: present
-
     - name: Add locale en_US.UTF-8
       locale_gen:
         name: en_US.UTF-8
@@ -44,6 +39,9 @@
 
     - name: Install pip packages
       shell: pip3.6 install virtualenv virtualenvwrapper stevedore virtualenv-clone
+      
+    - name: Create python environment
+      shell: python3.6 -m virtualenv /opt/webinvoices.env
 
     - name: Increase tcp connection backlog
       sysctl:
@@ -93,15 +91,6 @@
         name: postgresql
         state: restarted
         enabled: yes
-
-    # - name: Make ~/webinvoices symlink
-    #   file:
-    #     src: /opt/webinvoices
-    #     dest: /home/ubuntu/webinvoices
-    #     state: link
-    #     owner: ubuntu
-    #     group: ubuntu
-    #   when: deploy_in_vagrant
 
     - name: Add {{ webinvoices_domain }} -> 127.0.0.1 to /etc/hosts
       lineinfile:

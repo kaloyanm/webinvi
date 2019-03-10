@@ -58,7 +58,6 @@ module.exports = function(env){
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(environment)
       }),
-      //new BundleTracker({filename: './webpack-stats.json'}),
       new ExtractTextPlugin({
         filename:'./core/static/core/css/style.css',
         allChunks: true}),
