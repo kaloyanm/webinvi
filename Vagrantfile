@@ -14,7 +14,6 @@ Vagrant.configure(2) do |config|
     # computers to access the VM, whereas host only networking does not.
     config.vm.network :private_network, ip: "172.16.0.5"
     config.vm.network :forwarded_port, guest: 22, host: 2235, id: 'ssh'
-    config.vm.network :forwarded_port, guest: 8000, host: 80, id: 'web'
 
     config.vm.provider "virtualbox" do |v|
         v.memory = 1024
@@ -22,7 +21,7 @@ Vagrant.configure(2) do |config|
         v.name = "webinvoices"
     end
 
-    config.vm.synced_folder ".", "/opt/webinvoices"
+    config.vm.synced_folder ".", "/home/vagrant/webinvoices"
     config.vm.synced_folder ".", "/vagrant"
 
     ANSIBLE_HOST_VARS = { "default" => {

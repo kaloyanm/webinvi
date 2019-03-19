@@ -2,26 +2,35 @@
 - include: deploy_nginx_config.yml
 
 - name: Checkout webinvoices app
-  git: repo=git@github.com:kaloyanm/invoiceapp.git dest=/opt/webinvoices accept_hostkey=yes version=master
+  git: repo=git@github.com:kaloyanm/invoiceapp.git dest=/home/vagrant/webinvoices accept_hostkey=yes version=master
   when: not deploy_in_vagrant
 
+- name: Activate python virtual environment on login
+  become_user: vagrant
+  blockinfile:
+    path: /home/vagrant/.config/fish/config.fish
+    block: |
+      . $HOME/.virtualenvs/bin/activate.fish
+
 - name: Install webinvoices requirements.txt
-  shell: /opt/webinvoices.env/bin/pip install -r /opt/webinvoices/requirements.txt
+  become_user: vagrant
+  shell: /home/vagrant/.virtualenvs/bin/pip install -r /home/vagrant/webinvoices/requirements.txt
 
 - name: npm install
-  shell: cd /opt/webinvoices ; yarn install --no-bin-links
+  become_user: vagrant
+  shell: cd /home/vagrant/webinvoices ; yarn install --no-bin-links
 
 - name: update for nightmare.js
-  shell: cd /opt/webinvoices/tests/nightmarejs ; yarn install --no-bin-links
+  shell: cd /home/vagrant/webinvoices/tests/nightmarejs ; yarn install --no-bin-links
   when: deploy_in_vagrant
 
 - name: Django migrate & collect static
-  shell: cd /opt/webinvoices ; /opt/webinvoices.env/bin/python manage.py migrate --no-input && /opt/webinvoices.env/bin/python manage.py collectstatic --no-input
+  shell: cd /home/vagrant/webinvoices ; /home/vagrant/.virtualenvs/bin/python manage.py migrate --no-input && /home/vagrant/.virtualenvs/bin/python manage.py collectstatic --no-input
 
 - name: Generate production config
   template:
     src: inventory/productionenv
-    dest: /opt/webinvoices/.productionenv
+    dest: /home/vagrant/webinvoices/.productionenv
     owner: www-data
     group: www-data
     mode: 0640

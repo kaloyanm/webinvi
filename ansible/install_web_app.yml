@@ -23,11 +23,6 @@
         - apache2-utils
       apt: name={{item}}
 
-    - name: Add locale en_US.UTF-8
-      locale_gen:
-        name: en_US.UTF-8
-        state: present
-
     - name: Download pip installer
       get_url:
         url: https://bootstrap.pypa.io/get-pip.py
@@ -39,15 +34,6 @@
 
     - name: Install pip packages
       shell: pip3.6 install virtualenv virtualenvwrapper stevedore virtualenv-clone
-      
-    - name: Create python environment
-      shell: python3.6 -m virtualenv /opt/webinvoices.env
-
-    - name: Increase tcp connection backlog
-      sysctl:
-        name: net.core.somaxconn
-        value: 4096
-        state: present
 
     - name: Create uwsgi log dir
       file:
@@ -127,10 +113,13 @@
           mode: 0755
       when: deploy_in_vagrant
 
-    - name: Add honcho alias
-      lineinfile:
-        line: "alias honcho='honcho -e /opt/webinvoices/.vagrantenv -f /opt/webinvoices/Procfile.dev'"
-        dest: "/home/vagrant/.bashrc"
-      when: deploy_in_vagrant
+    - name: Create python environment
+      shell: python3.6 -m virtualenv /home/vagrant/.virtualenvs
+      become_user: vagrant
+
+    - name: Change the default shell to fish shell
+      user:
+        name: vagrant
+        shell: /usr/bin/fish
 
     - include: tasks/install_restart_service.yml name=webinvoices-mailhog

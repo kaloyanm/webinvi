@@ -13,5 +13,5 @@
 - name: Restart service - {{ name }}
   service:
     name: "{{ name }}"
-    state: restarted
+    state: stopped
     enabled: yes

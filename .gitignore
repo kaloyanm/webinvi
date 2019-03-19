@@ -35,6 +35,7 @@ package-lock.json
 
 # Vagrant logs
 *.log
+.env
 
 # App generated files
 /semantic/

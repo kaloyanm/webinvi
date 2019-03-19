@@ -5,12 +5,12 @@ After=network.target
 [Service]
 Type=simple
 {% if deploy_in_vagrant %}
-EnvironmentFile=-/opt/webinvoices/.vagrantenv
+EnvironmentFile=-/home/vagrant/webinvoices/.vagrantenv
 {% else %}
-EnvironmentFile=-/opt/webinvoices/.productionenv
+EnvironmentFile=-/home/vagrant/webinvoices/.productionenv
 {% endif %}
-ExecStart=/opt/webinvoices.env/bin/uwsgi --ini /opt/webinvoices/uwsgi.ini
-WorkingDirectory=/opt/webinvoices
+ExecStart=/home/vagrant/.virtualenvs/bin/uwsgi --ini /opt/webinvoices/uwsgi.ini
+WorkingDirectory=/home/vagrant/webinvoices
 Restart=always
 User=www-data
 Group=www-data
