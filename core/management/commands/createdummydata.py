@@ -1,10 +1,8 @@
-
 import random
 
-from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
 from core.test.factories import CompanyFactory, UserFactory
-from core.models import Company
 from invoices.test.factories import InvoiceFactory, InvoiceItemFactory
 
 
@@ -12,30 +10,22 @@ class Command(BaseCommand):
     help = 'Generate application dummy data'
 
     def handle(self, *args, **options):
-        comp_per_user = 5
-        inv_per_company = 25
-        num_users = 10
-        output_message = "{} users created each with {} companies each with {} invoices"\
-            .format(num_users, comp_per_user, inv_per_company)
+        User = get_user_model()
+        User.objects.all().delete()
 
-        while num_users > 0:
+        num_of_invoices = 25
+        num_of_users = 10
+        output_message = "{} users created each with {} invoices"\
+            .format(num_of_users, num_of_invoices)
+
+        for _ in range(num_of_users):
             user = UserFactory.create()
             user.set_password("test1234")
             user.save()
 
-            counter = comp_per_user
-            while counter > 0:
-                company = CompanyFactory(user=user)
-                company.save()
-                counter -= 1
-
-                counter2 = inv_per_company
-                while counter2 > 0:
-                    invoice = InvoiceFactory.create(company=company)
-                    for _ in range(random.randint(1, 10)):
-                        InvoiceItemFactory.create(invoice=invoice)
-                    counter2 -= 1
-
-            num_users -= 1
+            for _ in range(num_of_invoices):
+                invoice = InvoiceFactory.create(user=user)
+                for _ in range(random.randint(1, 10)):
+                    InvoiceItemFactory.create(invoice=invoice)
 
         self.stdout.write(output_message)

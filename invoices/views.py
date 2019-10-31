@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import json
 import urllib.request
 import logging
@@ -27,7 +25,6 @@ from invoices.models import Invoice, InvoiceItem, get_next_number
 
 from prices import Price
 from django_prices_openexchangerates import exchange_currency
-from invoices.tasks import save_invoice_to_google_drive
 from invoices.util import get_pdf_generator_url
 
 logger = logging.getLogger(__name__)
@@ -47,7 +44,7 @@ def get_company_or_404(request, company_pk=None):
             company = request.company
     else:
         company = request.company
-    print("company", company)
+
     if not company:
         raise Http404
     return company
@@ -57,9 +54,9 @@ def process_invoice(form, form_items):
     pk = None
     if form.is_valid() and form_items.is_valid():
         instance = form.save()
+        existing_pks = []
 
         with transaction.atomic():
-            existing_pks = []
             for form in form_items:
                 item_pk = form.cleaned_data['id']
                 del form.cleaned_data['DELETE']
@@ -81,36 +78,16 @@ def process_invoice(form, form_items):
     return False, pk
 
 
-def sync_invoice_to_external(instance, user):
-    # Store in Google Drive Here
-    if user.settings.gdrive_sync:
-        sync_settings = {
-            'gdrive_sync': user.settings.gdrive_sync,
-            'invoice_id': instance.id,
-            'filename': "{}-{}-{}.pdf".format(
-                instance.company.name,
-                instance.invoice_type,
-                instance.number
-            ),
-        }
-        save_invoice_to_google_drive.delay(user.id, sync_settings)
-
-
 def _invoice(request, pk=None, invoice_type="invoice",
-            base_template="base.html", print=None, lang_code=None):
+             base_template="base.html", to_print=None, lang_code=None):
     if pk:
         instance = get_object_or_404(Invoice, pk=pk)
         invoice_type = instance.invoice_type
-        company = instance.company
     else:
         instance = None
-        company = get_company_or_404(request)
-
-    if not company:
-        return redirect(reverse("company"))
 
     default_data = {
-        "number": get_next_number(request.company, invoice_type),
+        "number": get_next_number(request.user, invoice_type),
         "released_at": str(timezone.now().strftime("%Y-%m-%d")),
         "taxevent_at": str(timezone.now().strftime("%Y-%m-%d")),
     }
@@ -123,16 +100,15 @@ def _invoice(request, pk=None, invoice_type="invoice",
         request.session['current_lang'] = settings.LANGUAGE_CODE  # restore the default lang in case of editing recorded translation
 
     context = {
-        "print": print,
+        "print": to_print,
         "base_template": base_template,
         "form": InvoiceForm(initial=default_data),
         "instance": instance,
         "items": json.dumps([]),
         "invoice_type": invoice_type,
-        "company_form": CompanyForm(instance=company),
+        "company_form": CompanyForm(instance=request.user.settings),
         "pk": pk,
         "selected_language": selected_language,
-        "use_tr": pk and selected_language != settings.LANGUAGE_CODE,
     }
 
     if request.method == "POST":
@@ -142,58 +118,54 @@ def _invoice(request, pk=None, invoice_type="invoice",
 
         is_ok, pk = process_invoice(form, form_items)
         if is_ok:
-            sync_invoice_to_external(instance, request.user)
             return redirect(reverse(invoice_type, args=[pk]))
 
         context["form_items"] = form_items
         context["form"] = form
     elif instance:
-        context["company_form"] = CompanyForm(instance=instance.company)
+        context["company_form"] = CompanyForm(instance=instance.user.settings)
         context["form"] = InvoiceForm(instance=instance)
 
-    if not pk and company.payment_iban:
+    if not pk and request.user.settings.payment_iban:
         context["form"]["payment_type"].value = context["company_form"]["payment_type"].value
-        context["form"]["payment_type_tr"].value = context["company_form"]["payment_type_tr"].value
         context["form"]["payment_iban"].value = context["company_form"]["payment_iban"].value
         context["form"]["payment_swift"].value = context["company_form"]["payment_swift"].value
         context["form"]["payment_bank"].value = context["company_form"]["payment_bank"].value
-        context["form"]["payment_bank_tr"].value = context["company_form"]["payment_bank_tr"].value
 
     if instance:
         context["items"] = django_json_dumps(list(instance.invoiceitem_set.values()))
 
-    rates = {}
-    for from_c in settings.ALLOWED_CURRENCIES:
-        rates[from_c] = round(exchange_currency(Price(1.0000, currency=from_c), 'BGN').net, 5)
-    if instance and instance.currency:
-        rates[instance.currency] = instance.currency_rate
+    # rates = {}
+    # for from_c in settings.ALLOWED_CURRENCIES:
+    #     rates[from_c] = round(exchange_currency(Price(1.0000, currency=from_c), 'BGN').net, 5)
+    # if instance and instance.currency:
+    #     rates[instance.currency] = instance.currency_rate
 
-    context['rates'] = rates
-    context['rates_json'] = django_json_dumps(rates)
+    # context['rates'] = rates
+    # context['rates_json'] = django_json_dumps(rates)
 
-    return render(request, template_name="invoices/invoice.html",
+    return render(request, template_name="invoices/_invoice.html",
                   context=context)
 
 
 @login_required
-def invoice(*args, **kwargs):
+def invoice_details(*args, **kwargs):
     return _invoice(*args, **kwargs)
 
 
 @login_required
 def delete_invoice(request, pk):
     invoice = get_object_or_404(Invoice, pk=pk, deleted=False)
-    get_company_or_404(request, invoice.company.pk) # make sure it belongs to the same user
     invoice.deleted = True
     invoice.save()
     return redirect("list")
 
 
-def search_invoices_queryset(company, search_terms, invoice_type=None):
+def search_invoices_queryset(user, search_terms, invoice_type=None):
     from django.contrib.postgres.search import SearchQuery
     from django.db.models import Q
 
-    queryset = Invoice.objects.filter(company=company)
+    queryset = Invoice.objects.filter(user=user)
     if invoice_type:
         queryset = queryset.filter(invoice_type=invoice_type)
 
@@ -226,8 +198,6 @@ def get_company_or_404(request, company_pk=None):
 
 @login_required
 def list_invoices(request, company_pk=None):
-    company = get_company_or_404(request, company_pk)
-
     class SearchForm(forms.Form):
         query = forms.CharField(max_length=200, required=False)
         t = forms.CharField(max_length=55, required=False)
@@ -238,7 +208,7 @@ def list_invoices(request, company_pk=None):
     search_terms = search_form.cleaned_data.get("query", "")
     selected_type = search_form.cleaned_data.get("t", "")
 
-    queryset = search_invoices_queryset(company, search_terms, invoice_type=selected_type)
+    queryset = search_invoices_queryset(request.user, search_terms, invoice_type=selected_type)
     invoice_types = list(Invoice.INVOICE_TYPES)
     invoice_types.insert(0, ('', _('Всички')))
 
@@ -253,10 +223,10 @@ def list_invoices(request, company_pk=None):
         "pager": pager,
         "page": page,
         "query": search_terms,
-        "company": company,
+        "company": request.user.settings,
         "invoice_types": invoice_types,
         "selected_type": selected_type,
-        "companies": request.user.company_set.all().values_list('id', 'name', 'eik'),
+        "companies": [],
     }
 
     return render(request, template_name='invoices/invoice_list.html',
@@ -267,20 +237,19 @@ def print_preview(request, token, lang_code):
     try:
         invoice_pk = cache.get(token)
         invoice = Invoice.objects.get(pk=invoice_pk)
-        request.user = invoice.company.user
-        request.company = invoice.company
+        request.user = invoice.user
     except Invoice.DoesNotExist:
         raise Http404
 
     return _invoice(request, pk=invoice_pk, base_template="print.html",
-                    print=True, lang_code=lang_code)
+                    to_print=True, lang_code=lang_code)
 
 
 @login_required
 def print_invoice(request, pk):
     lang_code = request.session.get('current_lang', settings.LANGUAGE_CODE)
     pdf_generator_url = get_pdf_generator_url(pk, lang_code)
-    get_object_or_404(Invoice, pk=pk, company=get_company_or_404(request))
+    get_object_or_404(Invoice, pk=pk)
 
     req = urllib.request.Request(pdf_generator_url)
     with urllib.request.urlopen(req) as res:
@@ -291,15 +260,16 @@ def print_invoice(request, pk):
             raise Http404
 
 
-def get_searchfield_queryset(company, field_name, keyword):
+def get_searchfield_queryset(user, field_name, keyword):
     try:
-        queryset = Invoice.objects.filter(company=company)
         kwargs = {
             "{}__{}".format(field_name, "gt"): '',
+            "user": user,
         }
         if keyword:
             kwargs["{}__{}".format(field_name, "icontains")] = keyword
-        return queryset.filter(**kwargs).order_by(field_name).distinct(field_name)
+
+        return Invoice.objects.filter(**kwargs).order_by(field_name).distinct(field_name)
     except Exception:
         raise Http404
 
@@ -310,16 +280,13 @@ def autocomplete_field(request):
 
     default_values = {
         "payment_type": (PAYMENT_TYPES, 'bg'),
-        "payment_type_tr": (PAYMENT_TYPES, 'en'),
         "no_dds_reason": (NO_DDS_REASONS, 'bg'),
-        "no_dds_reason_tr": (NO_DDS_REASONS, 'en'),
     }
 
-    company = get_company_or_404(request, company_pk=None)
     field_name = request.GET.get('f')
     keyword = request.GET.get('k')
 
-    queryset = get_searchfield_queryset(company, field_name, keyword)
+    queryset = get_searchfield_queryset(request.user, field_name, keyword)
     data = queryset.values_list(field_name, flat=True)[:10]
 
     if field_name in default_values:
@@ -336,23 +303,14 @@ def autocomplete_field(request):
 
 @login_required
 def autocomplete_client(request):
-    company = get_company_or_404(request, company_pk=None)
     keyword = request.GET.get('k')
-
-    selected_language = request.session.get('current_lang', settings.LANGUAGE_CODE)
-    use_tr = selected_language != settings.LANGUAGE_CODE
-
-    fields = ['client_city', 'client_address', 'client_mol', 'client_name']
-    if use_tr:
-        fields = ["{}_tr".format(field) for field in fields]
-    fields += ['client_eik', 'client_dds']
-
-    queryset = get_searchfield_queryset(company, 'client_name', keyword)
+    fields = ['client_city', 'client_address', 'client_mol', 'client_name', 'client_eik', 'client_dds']
+    queryset = get_searchfield_queryset(request.user, 'client_name', keyword)
     raw_data = queryset.values(*fields)
 
     data = []
     for entry in raw_data[:10]:
-        entry["title"] = entry["client_name_tr" if use_tr else "client_name"]
+        entry["title"] = entry['client_name']
         data.append(entry)
 
     response = {"results": data}
@@ -388,10 +346,7 @@ def copy_invoice(instance, invoice_type, save_ref=False):
 
 @login_required
 def proforma2invoice(request, pk):
-    company = get_company_or_404(request)
-    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_PROFORMA,
-                                 company=company)
-
+    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_PROFORMA)
     new_pk = copy_invoice(instance, Invoice.INVOICE_TYPE_INVOICE)
     if new_pk:
         messages.success(request, _("Фактурата беше създадена успешно."))
@@ -403,8 +358,8 @@ def invoice2announce(request, pk, announce_type):
     if announce_type not in [Invoice.INVOICE_TYPE_CREDIT, Invoice.INVOICE_TYPE_DEBIT]:
         raise Http404
 
-    instance = get_object_or_404(Invoice, pk=pk, invoice_type=Invoice.INVOICE_TYPE_INVOICE)
-    get_company_or_404(request, company_pk=instance.company.pk) # just make sure the user in session owns the invoice
+    instance = get_object_or_404(Invoice, pk=pk, user=request.user,
+                                 invoice_type=Invoice.INVOICE_TYPE_INVOICE)
 
     new_pk = copy_invoice(instance, announce_type, save_ref=True)
     return redirect(reverse(announce_type, args=[new_pk]))

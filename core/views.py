@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, Http404
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, redirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.conf import settings
@@ -15,6 +15,9 @@ from django.template import Context
 from django.core.mail import EmailMessage, send_mail
 from django.template.loader import get_template
 from django_mailgun import MailgunAPIError
+
+from password_reset.forms import PasswordResetForm, PasswordRecoveryForm
+from password_reset.views import Recover, RecoverDone, Reset, ResetDone
 
 from core.mixins import SemanticUIFormMixin
 from core.models import Company
@@ -27,15 +30,8 @@ from core.forms import (
 )
 from core.admin import CompanyResource
 
-from googleapiclient.discovery import build
-from django.http import HttpResponseBadRequest
-from django.http import HttpResponseRedirect
-from core.models import CredentialsModel
-from oauth2client.contrib import xsrfutil
-from oauth2client.client import flow_from_clientsecrets
-from oauth2client.contrib.django_util.storage import DjangoORMStorage
-
 logger = logging.Logger(__name__)
+
 
 def logout_view(request):
     logout(request)
@@ -44,8 +40,6 @@ def logout_view(request):
 
 def contact(request):
     form_class = ContactForm
-
-    # new logic!
     if request.method == 'POST':
         form = form_class(data=request.POST)
 
@@ -65,14 +59,14 @@ def contact(request):
 
             content = template.render(context)
 
-            emailMessage = EmailMessage(
+            email_message = EmailMessage(
                 'Email from WebInvoices',
                 content,
-                'hello@webinvoices.eu',
-                ['yshterev@gmail.com'],
-                headers = {'Reply-To': email }
+                'support@webinvoices.eu',
+                ['kaloyan.mir4ev@gmail.com'],
+                headers={'Reply-To': email}
             )
-            emailMessage.send()
+            email_message.send()
             return redirect('thanks')
 
     context = {"form": form_class}
@@ -80,7 +74,11 @@ def contact(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    if request.user:
+        return redirect('list_invoices')
+    else:
+        return redirect('login')
+    #  return render(request, 'home.html')  # leave the front page for better times
 
 
 def thanks(request):
@@ -90,7 +88,7 @@ def thanks(request):
 class LoginView(generic.FormView):
     form_class = LoginForm
     template_name = 'login.html'
-    success_url = reverse_lazy('list')
+    success_url = reverse_lazy('list_invoices')
 
     def form_valid(self, form):
         login(self.request, form.get_user())
@@ -130,7 +128,7 @@ def registration(request):
 
                 user = authenticate(username=user.username, password=form.clean_password2())
                 login(request, user)
-                return redirect(reverse_lazy('company'))
+                return redirect(reverse_lazy('list_invoices'))
     return render(request, template_name='_registration.html', context={"form": form})
 
 
@@ -141,26 +139,17 @@ def companies(request):
 
 
 @login_required
-def company(request, pk=None):
-    if pk:
-        try:
-            instance = Company.objects.get(pk=pk, user=request.user)
-        except Company.DoesNotExist:
-            raise Http404
-    else:
-        instance = None
-
+def company(request):
     if request.method == "POST":
-        form = CompanyForm(request.POST, instance=instance)
+        form = CompanyForm(request.POST, instance=request.user.settings)
         if form.is_valid():
-            form.instance.user = request.user
             form.save()
-            return redirect("companies")
+            return redirect("company")
     else:
-        form = CompanyForm(instance=instance)
+        form = CompanyForm(instance=request.user.settings)
 
     return render(request, template_name="core/_company.html",
-                  context={"form": form, "pk": pk})
+                  context={"form": form})
 
 
 @login_required
@@ -183,57 +172,6 @@ def export_companies(request):
     response["Content-Disposition"] = 'attachment; filename=companies.csv'
     return response
 
-
-def get_google_oauth_flow():
-    flow = flow_from_clientsecrets(
-        settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
-        scope='https://www.googleapis.com/auth/drive',
-        redirect_uri='http://webinvoices-local.dev:8000/oauth2callback')
-    flow.params['access_type'] = 'offline'
-    return flow
-
-
-@login_required
-def google_oath_login(request):
-    flow = get_google_oauth_flow()
-    storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
-    credential = storage.get()
-    if credential is None or credential.invalid is True:
-        flow.params['state'] = xsrfutil.generate_token(settings.SECRET_KEY,
-                                                       request.user)
-        authorize_url = flow.step1_get_authorize_url()
-        return HttpResponseRedirect(authorize_url)
-    else:
-        request.user.settings.gdrive_sync = not request.user.settings.gdrive_sync
-        request.user.settings.save()
-        return HttpResponseRedirect("companies/")
-
-
-@login_required
-def google_oath_logout(request):
-    storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
-    storage.delete()
-    return HttpResponseRedirect("companies/")
-
-
-@login_required
-def google_auth_return(request):
-    if not xsrfutil.validate_token(settings.SECRET_KEY, bytearray(request.GET['state'], 'utf-8'), request.user):
-        return HttpResponseBadRequest()
-
-    flow = get_google_oauth_flow()
-
-    credential = flow.step2_exchange(request.GET)
-    storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
-    storage.put(credential)
-
-    request.user.settings.gdrive_sync = not request.user.settings.gdrive_sync
-    request.user.settings.save()
-    return HttpResponseRedirect("companies/")
-
-
-from password_reset.forms import PasswordResetForm, PasswordRecoveryForm
-from password_reset.views import Recover, RecoverDone, Reset, ResetDone
 
 class AppPasswordResetForm(SemanticUIFormMixin, PasswordResetForm):
     submit_button_label = _("Смени")

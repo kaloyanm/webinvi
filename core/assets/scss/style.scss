@@ -14,6 +14,17 @@ $gradient-end: #08a09f;
 $footer-bgr: #181b23!important;
 $menu-bgr: #131929;
 
+.frame-container {
+  max-width: 720px!important;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+  background: #fff;
+  padding: 40px;
+  box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .svg-icon {
   display: inline-block;
   width: 1em;
@@ -75,17 +86,13 @@ main {
   }
 }
 
-.body--invoice main {
+body main {
   background: #eee;
 }
 
 #sticky-settings {
   padding: 0;
   background: transparent;
-
-  //&.fixed {
-  //  top: 100px
-  //}
 }
 
 #add-item,
@@ -140,7 +147,8 @@ main {
   background: #fff;
   padding: 40px;
   box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.2), 0 1px 8px 0 rgba(0,0,0,.12);
-  margin-left: 450px!important;
+  margin-left: auto;
+  margin-right: auto;
 
   .error-msg {
     font-size: 90%;

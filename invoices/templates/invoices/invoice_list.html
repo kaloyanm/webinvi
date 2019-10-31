@@ -22,14 +22,14 @@
       <div class="column">
         <select class="ui search dropdown fluid" onchange="window.location.href=this.options[this.selectedIndex].value;">
             {% for company_pk, company_name, eik in companies %}
-            <option value="{% url 'list' company_pk %}" {% if company.pk == company_pk %}selected{% endif %}>{{ company_name }} - {{ eik }}</option>
+            <option value="{% url 'list_invoices' company_pk %}" {% if company.pk == company_pk %}selected{% endif %}>{{ company_name }} - {{ eik }}</option>
             {% endfor %}
         </select>
       </div>
       <div class="column">
         <select class="ui search dropdown fluid" onchange="window.location.href=this.options[this.selectedIndex].value;">
             {% for short_name, verbose in invoice_types %}
-            <option value="{% url 'list' company.pk %}?t={{short_name}}" {% if selected_type == short_name %}selected{% endif %}>{{ verbose }}</option>
+            <option value="{% url 'list_invoices' company.pk %}?t={{short_name}}" {% if selected_type == short_name %}selected{% endif %}>{{ verbose }}</option>
             {% endfor %}
         </select>
       </div>
@@ -73,12 +73,12 @@
           <th colspan="5">
           <div class="ui right floated pagination menu">
             {% if page.has_previous %}
-              <a href="{% url 'list' %}?page={{ page.previous_page_number }}&query={{ query }}&t={{selected_type}}" class="icon item">
+              <a href="{% url 'list_invoices' %}?page={{ page.previous_page_number }}&query={{ query }}&t={{selected_type}}" class="icon item">
                 &larr; {% trans 'По-нови' %}
               </a>
             {% endif %}
             {% if page.has_next %}
-              <a href="{% url 'list' %}?page={{ page.next_page_number }}&query={{ query }}&t={{selected_type}}" class="icon item">
+              <a href="{% url 'list_invoices' %}?page={{ page.next_page_number }}&query={{ query }}&t={{selected_type}}" class="icon item">
                 {% trans 'По-стари' %} &rarr;
               </a>
             {% endif %}

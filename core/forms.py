@@ -35,25 +35,18 @@ class CompanyForm(SemanticUIFormMixin, TranslateLabelsFormMixin, OffRequiredFiel
                   forms.ModelForm):
     translate_labels = {
         "name": _('Имe на компанията'),
-        "name_tr": _('Имe на компанията'),
         "eik": _('БУЛСТАТ'),
         "dds": _('Ин по ДДС'),
         "city": _('Град'),
-        "city_tr": _('Град'),
         "address": _('Адрес'),
-        "address_tr": _('Адрес'),
         "mol": _('МОЛ'),
-        "mol_tr": _('МОЛ'),
         "payment_type": _("Начин на плащане"),
-        "payment_type_tr": _("Начин на плащане"),
         "payment_iban": _("IBAN"),
         "payment_swift": _("SWIFT/BIC"),
         "payment_bank": _("Банка"),
-        "payment_bank_tr": _("Банка"),
     }
 
-    off_required_fields = ['payment_type', 'payment_type_tr', 'payment_iban', 'payment_swift', 'payment_bank', 'payment_bank_tr',
-                           'name_tr', 'city_tr', 'address_tr', 'mol_tr']
+    off_required_fields = ['payment_type', 'payment_iban', 'payment_swift', 'payment_bank']
 
     class Meta:
         model = Company

@@ -39,8 +39,7 @@
         <input type="text" :name="'form-'+index+'-measure{% if use_tr %}_tr{% endif %}'" v-model="row.measure{% if use_tr %}_tr{% endif %}">
       </td>
       <td>
-        <input type="number" step=any :disabled="selected_currency !== 'BGN'" :name="'form-'+index+'-unit_price'" v-model="row.unit_price" @keyup="unit_price_changed(index); calc_row(index); calc_total();">
-        <input type="hidden" :name="'form-'+index+'-unit_price'" v-model="row.unit_price_original" @keyup="unit_price_changed(index); calc_row(index); calc_total();">
+        <input type="text" :name="'form-'+index+'-unit_price'" v-model="row.unit_price_original" @keyup="unit_price_changed(index); calc_row(index); calc_total();">
       </td>
       <td>
         <input type="number" :name="'form-'+index+'-discount'" v-model="row.discount" @keyup="calc_row(index); calc_total();">

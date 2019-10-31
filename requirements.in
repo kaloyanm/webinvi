@@ -7,6 +7,7 @@ jsonpickle
 transliterate
 honcho
 
+
 # Django and django plugins
 Django==1.11.5
 django-bower

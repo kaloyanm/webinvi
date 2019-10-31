@@ -29,14 +29,14 @@
 
   {% else %}
 
-  <a class="item" id="invoices-btn" href="{% url 'list' %}">{% trans 'Фактури' %}</a>
-  <a class="item" id="companies-btn" href="{% url 'companies' %}">{% trans 'Фирми' %}</a>
+  <a class="item" id="invoices-btn" href="{% url 'list_invoices' %}">{% trans 'Фактури' %}</a>
+  <a class="item" id="companies-btn" href="{% url 'company' %}">{% trans 'Фирма' %}</a>
 
   <div class="ui dropdown item" role="button" aria-haspopup="true">
     {{ request.user.username }} <i class="dropdown icon"></i>
     <div class="menu">
       <a id="change-pass-btn" href="{% url 'password' %}" class="item">{% trans 'Смяна на паролата' %}</a>
-      <a id="import-invoicepro-btn" href="{% url 'import_invoicepro' %}" class="item">{% trans 'Импорт от InvoicePro' %}</a>
+      <a id="import-invoicepro-btn" href="#" class="item">{% trans 'Импорт от InvoicePro' %}</a>
     </div>
   </div>
 

@@ -11,15 +11,15 @@ def get_pdf_generator_url(pk, lang_code=settings.LANGUAGE_CODE):
     access_token = uuid.uuid4()
     cache.set(access_token, pk)
 
-    u = urlparse(settings.HOSTNAME)
-    if u.port and u.port != 80:
-        port = ':' + str(u.port)
+    if settings.PORT and settings.PORT != 80:
+        port = ':' + str(settings.PORT)
     else:
         port = ''
-    u = u._replace(scheme='http', netloc='localhost' + port)
+    u = urlparse(settings.HOSTNAME)
+    u = u._replace(scheme='http', netloc=settings.HOSTNAME + port)
 
     preview_path = reverse("printpreview", kwargs=dict(token=access_token, lang_code=lang_code))
     print_preview_url = "{}{}".format(urlunparse(u), preview_path)
     pdf_generator_url = "{}/?url={}".format(settings.PDF_SERVER, print_preview_url)
-    logger.debug(pdf_generator_url)
+    logger.info(pdf_generator_url)
     return pdf_generator_url

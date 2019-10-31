@@ -20,15 +20,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/#
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '21n1@2(k39!%e$yf4$j14rda--df%*7f_zn04^^w@3xke4l-^%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = os.environ.get('DEBUG', True)
+LOCAL = os.environ.get('LOCAL', False)
 
 HOSTNAME = os.environ.get('HOSTNAME', socket.gethostname())
+PORT = os.environ.get('PORT')
 ALLOWED_HOSTS = [
     '172.16.0.5', '176.126.245.87', 'vagrant', 'webinvoices.eu', 'webinvoices.foggly.net',
     'webinvoices-local.dev', 'localhost']
@@ -42,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
     'debug_toolbar',
@@ -59,7 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -95,10 +97,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'src.wsgi.application'
 
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
+# STATICFILES_FINDERS = [
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# ]
 
 
 # Database
@@ -136,12 +138,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Cache
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
-CACHES = {}
-CACHES['default'] = django_cache_url.config(default=REDIS_URL)
-CACHES['default']['TIMEOUT'] = 60
-CACHES['default'].setdefault('OPTIONS', {})
-CACHES['default']['OPTIONS']['PARSER_CLASS'] = 'redis.connection.HiredisParser'
-CACHES['default']['OPTIONS']['MAX_ENTRIES'] = 9999
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+}
+CACHES['operations'] = django_cache_url.config(default=REDIS_URL)
+CACHES['operations']['TIMEOUT'] = 60
+CACHES['operations'].setdefault('OPTIONS', {})
+CACHES['operations']['OPTIONS']['PARSER_CLASS'] = 'redis.connection.HiredisParser'
+CACHES['operations']['OPTIONS']['MAX_ENTRIES'] = 9999
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -155,7 +161,7 @@ LOGIN_URL = '/login/'
 # Email
 NO_REPLY_EMAIL = 'noreply@webinvoices.eu'
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'localhost')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'lo[calhost')
 EMAIL_PORT = os.environ.get('EMAIL_PORT', 1025)
 MAILGUN_ACCESS_KEY=os.environ.get('MAILGUN_ACCESS_KEY')
 MAILGUN_SERVER_NAME=os.environ.get('MAILGUN_SERVER_NAME')
@@ -239,8 +245,11 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
 
-# Session
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+STATICFILES_STORAGE = os.environ.get('STATICFILES_STORAGE',
+                                     'whitenoise.storage.CompressedManifestStaticFilesStorage')
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Business logic
 BASICAUTH = os.environ.get('BASICAUTH', True)
@@ -272,8 +281,5 @@ RAVEN_CONFIG = {
     # release based on the git info.
     'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
 }
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 INVOICES_PER_PAGE = 15

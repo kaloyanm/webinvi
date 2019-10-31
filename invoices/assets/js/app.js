@@ -12,9 +12,6 @@ var app = new Vue({
   el: "#invoice-container",
   data: {
     rows: [],
-    currencies: [],
-    selected_currency: window.USE_TR ? window.INVOICE_CURRENCY: 'BGN',
-    currency_rate: window.USE_TR ? window.INVOICE_CURRENCY_RATE: 1.0000,
     total_forms: 0,
     initial_forms: 0,
     total: 0,
@@ -27,14 +24,13 @@ var app = new Vue({
       var row = this.rows[row_idx];
       row.unit_price_original = row.unit_price;
     };
-    this.currencies = Object.keys(window.EXCHANGE_RATES);
     if (this.rows.length == 0) {
       this.add();
     }
 
-    this.update_unit_prices();
     this.total_forms = this.rows.length;
     this.initial_forms = this.rows.length;
+    this.calc_total(true);
   },
   methods: {
     add: function () {
@@ -91,28 +87,6 @@ var app = new Vue({
     unit_price_changed: function(index) {
       var row = this.rows[index];
       row.unit_price_original = row.unit_price;
-    },
-
-    update_unit_prices: function(){
-      var r = this.currency_rate;
-      for(var row_idx in this.rows) {
-        var row = this.rows[row_idx];
-        if(row.unit_price_original == null || row.unit_price_original == undefined) {
-          continue;
-        }
-        row.unit_price = row.unit_price_original / r;
-      }
-      this.calc_total(true);
-    },
-
-    currency_selected: function (selected_currency){
-      this.currency_rate = EXCHANGE_RATES[selected_currency];
-      this.update_unit_prices();
-      console.log(this.currency_rate);
-    },
-
-    rate_changed: function() {
-      this.update_unit_prices();
     }
   }
 });

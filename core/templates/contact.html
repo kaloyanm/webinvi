@@ -2,6 +2,7 @@
 {% load static i18n crispy_forms_tags %}
 
 {% block content %}
+<div class="frame-container">
   <div class="ui basic segment">
     <h2 class="left floated">{% block edit_title %}{% trans 'Контакти' %}{% endblock %}</h2>
   </div>
@@ -9,4 +10,5 @@
   <div class="ui basic segment" style="max-width: 500px">
     {% crispy form %}
   </div>
+</div>
 {% endblock %}

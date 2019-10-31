@@ -1,0 +1,43 @@
+{% load static i18n %}
+<div class="field">
+  {% if pk %}
+    <a href="{% url 'print' pk %}" target="_blank" class="ui small left floated button primary" role="button"><i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-libreoffice"></use></svg></i>{% trans 'Генерирай PDF' %}</a>
+
+    <button id="delete-button" class="ui small right floated button red icon" type="button" role="button" {% if pk and form.instance.deleted %}disabled{% endif %}>
+      <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
+    </button>
+  {% endif %}
+
+  {% if invoice_type == 'proforma' and pk %}
+  <div class="ui green right floated small buttons">
+    <button type="submit" onclick="document.forms.invoice_form.submit()" href="{% url 'list_invoices' %}"
+            class="ui button" role="button" {% if pk and from.instance.deleted %}disabled{% endif %}>
+      <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
+      {% trans 'Запази' %}
+    </button>
+    <div class="ui floating dropdown icon button">
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <div class="item"><a href="{% url 'convert_proforma' pk %}">{% trans 'Запази като фактура' %}</a></div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="ui green right floated small buttons">
+      <button type="submit" onclick="document.forms.invoice_form.submit()" href="{% url 'list_invoices' %}"
+              class="ui small right floated button green" role="button" {% if pk and form.instance.deleted %}disabled{% endif %}>
+        <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
+        {% trans 'Запази' %}
+      </button>
+      {% if pk and invoice_type == 'invoice' and not form.instance.deleted %}
+        <div class="ui floating dropdown icon button">
+          <i class="dropdown icon"></i>
+          <div class="menu">
+              <div class="item"><a href="{% url 'announce' pk 'credit' %}">{% trans 'Добави кредитно известие' %}</a></div>
+              <div class="item"><a href="{% url 'announce' pk 'debit' %}">{% trans 'Добави дебитно известие' %}</a></div>
+          </div>
+        </div>
+      {% endif %}
+  </div>
+  {% endif %}
+</div>

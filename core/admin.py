@@ -17,7 +17,7 @@ class InvoiceResource(resources.ModelResource):
 
     class Meta:
         model = Invoice
-        import_id_fields = ('invoice_type', 'number', 'company')
+        import_id_fields = ('invoice_type', 'number')
         fields = (
             'client_name',
             'client_city',
@@ -66,10 +66,3 @@ class InvoiceItemResource(resources.ModelResource):
             'measure',
             'discount',
         )
-
-
-class CompanyAdmin(ImportExportModelAdmin):
-    resources_class = CompanyResource
-
-# Register your models here.
-# admin.site.register(Company, CompanyAdmin)

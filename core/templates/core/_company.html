@@ -2,19 +2,24 @@
 {% load static i18n crispy_forms_tags crispy_forms_filters crispy_custom %}
 
 {% block content %}
-<div class="ui basic segment">
-  <h2 class="left floated">{% trans 'Фирмена регистрация' %}</h2>
-{{ form.errors }}
-</div>
-<div class="ui basic segment _pt0">
-{% include "_flash_messages.html" %}
+
+<div class="frame-container">
+  <div class="ui basic segment">
+    <h2 class="left floated">{% trans 'Фирмена регистрация' %}</h2>
+  </div>
+
+  {% if form.errors %}
+  <div class="ui basic segment">
+    {{ form.errors }}
+  </div>
+  {% endif %}
+
+  {% include "_flash_messages.html" %}
   <form method="post" class="ui form _m0">
     {% csrf_token %}
-
-    <div id="edit-company" class="_flex">
+    <div id="edit-company" class="ui basic segment _flex">
       {% include "_flash_messages.html" %}
       <div class="_flex-1 _mrs _ptxs">
-        <h3>{% trans 'Основен език' %}</h3>
         {{ form.name|as_crispy_field }}
         {{ form.city|as_crispy_field }}
         {{ form.address|as_crispy_field }}
@@ -30,27 +35,11 @@
         <div class="buttonHolder">
           <button type="submit" name="submit" class="btn btn-primary ui button green" id="submit-id-submit">
             <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-checkmark"></use></svg></i>
-            {% trans 'Запази' %}
+            {% trans 'Обнови' %}
           </button>
-          {% if form.instance.pk %}
-            <button type="button" class="btn ui button red" id="delete-button">
-                <i class="icon"><svg class="svg-icon"><use xlink:href="{% static 'core/symbol-defs.svg' %}#icon-bin"></use></svg></i>
-                {% trans 'Изтрий' %}</button>
-          {% endif %}
-        </div>
-      </div>
-      <div class="_flex-1">
-        <div class="_pxs _bg-state-muted">
-          <h3>{% trans 'Втори език (латиница)' %}</h3>
-          {{ form.name_tr|as_crispy_field }}
-          {{ form.city_tr|as_crispy_field }}
-          {{ form.address_tr|as_crispy_field }}
-          {{ form.mol_tr|as_crispy_field }}
-          {{ form.payment_bank_tr|as_crispy_field }}
         </div>
       </div>
     </div>
   </form>
 </div>
-{% if form.instance.pk %}{% include 'core/_delete_message.html' %}{% endif %}
 {% endblock %}
